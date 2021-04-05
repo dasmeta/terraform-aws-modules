@@ -4,10 +4,6 @@ resource "kubernetes_namespace" "namespace" {
       name = var.namespace
     }
 
-    # labels = {
-    #   mylabel = "label-value"
-    # }
-
     name = var.namespace
   }
 }

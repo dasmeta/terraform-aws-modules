@@ -1,3 +1,4 @@
+# aws iam?
 eksctl utils associate-iam-oidc-provider \
     --region eu-central-1 \
     --cluster stage-6 \
@@ -6,11 +7,13 @@ eksctl utils associate-iam-oidc-provider \
 
 curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 
+# aws iam policy
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
     --policy-document file://iam-policy.json \
     --profile pushmetrics
 
+# kubernetes service account
 eksctl create iamserviceaccount \
   --cluster=stage-6 \
   --namespace=kube-system \
