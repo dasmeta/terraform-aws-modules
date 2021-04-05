@@ -6,7 +6,7 @@ variable "cluster_name" {
 
 variable "namespace" {
   type        = string
-  default     = "kube-extra"
+  default     = "kube-system"
   description = "namespace load balancer controller should be deployed into"
 }
 
