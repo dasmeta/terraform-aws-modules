@@ -50,6 +50,7 @@ resource "helm_release" "aws-load-balancer-controller" {
     value = "aws-load-balancer-controller"
   }
 
+  # @todo check and remove
   set {
     name = "enableWaf"
     value = "false"
@@ -58,6 +59,11 @@ resource "helm_release" "aws-load-balancer-controller" {
   set {
     name = "enableWafv2"
     value = "false"
+  }
+
+  set {
+    name = "serviceAccount.annotations"
+    value = "eks.amazonaws.com/role-arn: arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/eksctl-stage-6-addon-iamserviceaccount-kube-Role1-JPD03OIHW48Z"
   }
 }
 
