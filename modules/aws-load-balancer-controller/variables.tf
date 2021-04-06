@@ -1,8 +1,3 @@
-variable "cluster_oidc_issuer" {
-  type = string
-  description = "Cluster identity oidc issuer. Needed for tls_cert generation and oidc provider connection."
-}
-
 variable "cluster_name" {
   type        = string
   default     = ""
