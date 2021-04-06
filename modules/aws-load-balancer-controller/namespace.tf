@@ -1,9 +1,11 @@
-# resource "kubernetes_namespace" "namespace" {
-#   metadata {
-#     annotations = {
-#       name = var.namespace
-#     }
+resource "kubernetes_namespace" "namespace" {
+  count = var.create_namespace ? 1 : 0
 
-#     name = var.namespace
-#   }
-# }
+  metadata {
+    annotations = {
+      name = var.namespace
+    }
+
+    name = var.namespace
+  }
+}
