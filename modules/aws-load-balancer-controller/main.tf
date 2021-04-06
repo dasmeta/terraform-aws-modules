@@ -1,3 +1,34 @@
+data "tls_certificate" "cluster" {
+  url = var.cluster_oidc_issuer
+  # url = module.eks-cluster-production.cluster.identity.0.oidc.0.issuer
+}
+
+resource "aws_iam_openid_connect_provider" "cluster" {
+  client_id_list = ["sts.amazonaws.com"]
+  thumbprint_list = concat([data.tls_certificate.cluster.certificates.0.sha1_fingerprint], var.oidc_thumbprint_list)
+  url = var.cluster_oidc_issuer
+}
+
+# data "local_file" "iam-policy-json" {
+#   filename = var.iam_policy_json
+# }
+
+resource "aws_iam_policy" "this" {
+  name        = "${var.cluster_name}-alb-management"
+  description = "Permissions that are required to manage AWS Application Load Balancers."
+  # path        = "."
+  # We use a heredoc for the policy JSON so that we can more easily diff and
+  # copy/paste from upstream.
+  # Source: `curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.0/docs/install/iam_policy.json`
+  # policy = data.local_file.iam-policy-json.content
+  # policy = file("${path.module}/iam-policy.json")
+
+  policy = file("${path.module}/iam-policy.json")
+
+}
+
+
+
 resource "aws_iam_role" "aws-load-balancer-role" {
   name = var.cluster_name
 
@@ -50,20 +81,21 @@ resource "helm_release" "aws-load-balancer-controller" {
     value = "aws-load-balancer-controller"
   }
 
-  # @todo check and remove
-  set {
-    name = "enableWaf"
-    value = "false"
-  }
+  # # @todo check and remove
+  # set {
+  #   name = "enableWaf"
+  #   value = "false"
+  # }
+
+  # set {
+  #   name = "enableWafv2"
+  #   value = "false"
+  # }
 
   set {
-    name = "enableWafv2"
-    value = "false"
-  }
-
-  set {
-    name = "serviceAccount.annotations"
-    value = "eks.amazonaws.com/role-arn: arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/eksctl-stage-6-addon-iamserviceaccount-kube-Role1-JPD03OIHW48Z"
+    name = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.aws-load-balancer-role.name}"
+    # value = "eks.amazonaws.com/role-arn=arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.aws-load-balancer-role.name}"
   }
 }
 
