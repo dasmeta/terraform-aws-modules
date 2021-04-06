@@ -21,12 +21,10 @@ variable "create_namespace" {
   description = "wether or no to create namespace"
 }
 
-variable "oidc_thumbprint_list" {
-  type    = list(string)
-  default = []
+variable "eks_oidc_root_ca_thumbprint" {
+  type = string
 }
 
-variable "iam_policy_json" {
+variable "oidc_provider_arn" {
   type = string
-  default = "iam-policy.json"
 }
