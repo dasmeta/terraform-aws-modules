@@ -51,10 +51,6 @@ resource "aws_iam_role" "aws-load-balancer-role" {
 POLICY
 }
 
-data "aws_caller_identity" "current" {}
-
-data "aws_region" "current" {}
-
 resource "aws_iam_role_policy_attachment" "AWSLoadBalancerControllerIAMPolicy" {
   policy_arn = aws_iam_policy.this.arn
   role       = aws_iam_role.aws-load-balancer-role.name
