@@ -1,7 +1,9 @@
-variable "cluster_oidc_issuer" {
-  type = string
-  description = "Cluster identity oidc issuer. Needed for tls_cert generation and oidc provider connection."
-}
+data "aws_caller_identity" "current" {}
+
+data "aws_region" "current" {}
+
+// s3 bucket configs for ALB
+data "aws_elb_service_account" "main" {}
 
 variable "cluster_name" {
   type        = string
@@ -27,4 +29,26 @@ variable "eks_oidc_root_ca_thumbprint" {
 
 variable "oidc_provider_arn" {
   type = string
+}
+
+variable "create_alb_log_bucket" {
+  type        = bool
+  default     = false
+  description = "wether or no to create alb s3 logs bucket"
+}
+
+variable "alb_log_bucket_name" {
+  type = string
+  default = "ingress-logs-bucket"
+}
+
+variable "alb_log_bucket_prefix" {
+  type = string
+  default = ""
+}
+
+variable "region" {
+  type = string
+  default = "eu-west-2"
+  description = "Default region"
 }
