@@ -8,6 +8,7 @@ Modules to quickly spin up fully functional eks setup with right subnets and alb
 - alb-ingress-controller with access logs and necessary permissions to handle k8s ingress resource
 - eks-metrics-to-cloudwatch-metrics
 - eks-logs-to-cloudwatch
+- aws-rds-postgres
 
 ## Comming soon
 - cert-manager to request certificates via AWS
