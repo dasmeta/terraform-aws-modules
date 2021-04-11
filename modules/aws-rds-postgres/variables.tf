@@ -22,3 +22,26 @@ variable "vpc_id" {
 variable "subnet_ids" {
   type = list(string)
 }
+
+variable "ip_ranges" {
+  type = list(string)
+  default = []
+}
+
+variable "storage" {
+  type        = number
+  default     = 20
+  description = "Storage voluem size - cannot be decreased after creation"
+}
+
+variable "backup_retention_period" {
+  type        = number
+  default     = 7
+  description = "Number of days backups will be kept"
+}
+
+variable "instance_class" {
+  type        = string
+  default     = "db.t2.micro"
+  description = "Underlaying ec2 instance class"
+}

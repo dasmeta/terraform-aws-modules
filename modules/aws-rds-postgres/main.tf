@@ -31,9 +31,9 @@ module "db" {
   engine_version       = "11.10"
   family               = "postgres11"
   major_engine_version = "11"
-  instance_class       = "db.t2.micro"
+  instance_class       = var.instance_class
 
-  allocated_storage = 20
+  allocated_storage = var.storage
 
   name     = var.database
   username = var.username
@@ -44,6 +44,6 @@ module "db" {
   maintenance_window = "Mon:00:00-Mon:03:00"
   backup_window      = "03:00-06:00"
 
-  backup_retention_period = 0
+  backup_retention_period = var.backup_retention_period
   deletion_protection = true
 }
