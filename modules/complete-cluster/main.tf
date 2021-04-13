@@ -3,7 +3,8 @@ locals {
 }
 
 module "vpc_this" {
-  source    = "../vpc" # change to the correct one
+  # source    = "../vpc" # change to the correct one
+  source = "git::https://github.com/dasmeta/terraform.git//modules/eks?ref=create-vpc-module"
 
   vpc_name            = var.vpc_name
   availability_zones  = var.availability_zones
@@ -13,7 +14,9 @@ module "vpc_this" {
 }
 
 module "eks-cluster" {
-  source = "../eks" # change to the correct one.
+  source = "git::https://github.com/dasmeta/terraform.git//modules/eks?ref=create-eks-module"
+  # source = "github.com/dasmeta/terraform/modules"
+  # source = "../eks" # change to the correct one.
 
   cluster_name  = var.cluster_name
   vpc_id        = module.vpc_this.vpc_id
@@ -23,7 +26,8 @@ module "eks-cluster" {
 
 module "cloudwatch-metrics" {
   # source = "git::https://github.com/dasmeta/terraform.git"
-  source = "../aws-cloudwatch-metrics" # change to the correct one.
+  source = "git::https://github.com/dasmeta/terraform.git//modules/aws-cloudwatch-metrics"
+  # source = "../aws-cloudwatch-metrics" # change to the correct one.
 
   eks_oidc_root_ca_thumbprint = local.eks_oidc_root_ca_thumbprint
   oidc_provider_arn = module.eks-cluster.oidc_provider_arn
@@ -32,7 +36,9 @@ module "cloudwatch-metrics" {
 
 module "alb-ingress-controller" {
   # source = "git::https://github.com/dasmeta/terraform.git"
-  source = "../aws-load-balancer-controller" # change to the correct one.
+  source = "git::https://github.com/dasmeta/terraform.git//modules/aws-load-balancer-controller"
+
+  # source = "../aws-load-balancer-controller" # change to the correct one.
 
   cluster_name = var.cluster_name
   eks_oidc_root_ca_thumbprint = local.eks_oidc_root_ca_thumbprint
