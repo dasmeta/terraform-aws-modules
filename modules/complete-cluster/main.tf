@@ -4,7 +4,7 @@ locals {
 
 module "vpc_this" {
   # source    = "../vpc" # change to the correct one
-  source = "git::https://github.com/dasmeta/terraform.git//modules/eks?ref=create-vpc-module"
+  source = "git::https://github.com/dasmeta/terraform.git//modules/vpc?ref=create-vpc-module"
 
   vpc_name            = var.vpc_name
   availability_zones  = var.availability_zones
