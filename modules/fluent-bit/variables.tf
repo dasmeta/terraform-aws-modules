@@ -2,9 +2,14 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
+variable "fluent_bit_name" {
+  type = string
+  default = "fluent-bit"
+}
+
 variable "cluster_name" {
   type        = string
-  default     = ""
+  # default     = ""
   description = "eks cluster name"
 }
 

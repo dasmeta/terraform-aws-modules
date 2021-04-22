@@ -55,3 +55,13 @@ variable "enable_dns_support" {
   default = true
   description = "Whether or not to enable dns support."
 }
+
+variable "public_subnet_tags" {
+  type = map
+  default = {}
+}
+
+variable "private_subnet_tags" {
+  type = map
+  default = {}
+}
