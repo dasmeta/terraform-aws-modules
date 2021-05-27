@@ -52,3 +52,17 @@ variable "region" {
   default = "eu-west-2"
   description = "Default region"
 }
+
+# Auth data
+
+variable "cluster_host" {
+  type = string
+}
+
+variable "cluster_certificate" {
+  type = string
+}
+
+variable "cluster_token" {
+  type = string
+}
