@@ -1,10 +1,10 @@
-provider "helm" {
-  alias = "eks"
-}
+# provider "helm" {
+#   alias = "eks"
+# }
 
-provider "helm" {
-  alias = "production"
-}
+# provider "helm" {
+#   alias = "production"
+# }
 
 # provider "helm" {
 #   alias = "staging"
@@ -17,3 +17,4 @@ provider "helm" {
 # provider "kubernetes" {
 #   alias = "eks_staging"
 # }
+

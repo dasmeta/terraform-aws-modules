@@ -10,6 +10,7 @@ module "db" {
   family                = var.family               # DB parameter group
   major_engine_version  = var.major_engine_version # DB option group
   instance_class        = var.instance_class
+  apply_immediately     = var.apply_immediately
 
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage

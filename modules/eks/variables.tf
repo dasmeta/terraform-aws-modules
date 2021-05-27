@@ -2,6 +2,10 @@ locals {
   eks_oidc_root_ca_thumbprint = replace(module.eks-cluster[0].oidc_provider_arn, "/.*id//", "")
 }
 
+# data "aws_eks_cluster_auth" "cluster" {
+#   name = module.eks-cluster[0].cluster_id
+# }
+
 # Required arguments
 variable "vpc_id" {
   type = string

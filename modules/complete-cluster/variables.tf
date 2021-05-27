@@ -111,3 +111,19 @@ variable "fluent_bit_name" {
   type = string
   default = ""
 }
+
+variable "log_group_name" {
+  type = string
+  default = ""
+}
+
+# METRICS-SERVER
+variable "enable_metrics_server" {
+  type = bool
+  default = false
+}
+
+variable "metrics_server_name" {
+  type = string
+  default = "metrics-server"
+}

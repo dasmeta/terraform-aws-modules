@@ -37,7 +37,8 @@ POLICY
 }
 
 locals {
-  fluent_name = var.fluent_bit_name != "" ? var.fluent_bit_name : "${var.cluster_name}-${var.cluster_name}"
+  fluent_name = var.fluent_bit_name != "" ? var.fluent_bit_name : "${var.cluster_name}-fluent-bit"
+  log_group_name = var.log_group_name != "" ? var.log_group_name : "fluent-bit-cloudwatch"
 }
 
 resource "aws_iam_role_policy_attachment" "CloudWatchAgentServerPolicy" {
@@ -53,7 +54,8 @@ resource "helm_release" "fluent-bit" {
   namespace  = var.namespace
 
   values = [
-    file("${path.module}/values.yaml")
+    # file("${path.module}/values.yaml")
+    templatefile("${path.module}/values.yaml", { log_group_name = local.log_group_name})
   ]
 
   set {

@@ -1,10 +1,10 @@
-provider "helm" {
-  alias = "eks"
-}
+# provider "helm" {
+#   alias = "eks"
+# }
 
-provider "helm" {
-  alias = "production"
-}
+# provider "helm" {
+#   alias = "production"
+# }
 
 # provider "helm" {
 #   alias = "staging"

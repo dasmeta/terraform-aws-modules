@@ -32,3 +32,22 @@ variable "eks_oidc_root_ca_thumbprint" {
 variable "oidc_provider_arn" {
   type = string
 }
+
+# Auth data
+
+variable "cluster_host" {
+  type = string
+}
+
+variable "cluster_certificate" {
+  type = string
+}
+
+variable "cluster_token" {
+  type = string
+}
+
+variable "log_group_name" {
+  type = string
+  default = ""
+}

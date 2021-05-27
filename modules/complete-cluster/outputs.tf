@@ -32,6 +32,10 @@ output "cluster_primary_security_group_id" {
   value = module.eks-cluster.cluster_primary_security_group_id
 }
 
+# output "cluster_name" {
+#   value = module.eks-cluster.cluster_name
+# }
+
 ### VPC
 output "vpc_cidr_block" {
   value = module.vpc.vpc_cidr_block

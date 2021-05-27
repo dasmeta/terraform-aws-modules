@@ -1,8 +1,25 @@
+## Writing kubernetes provider below is a must to avoid
+## "configmaps "aws-auth" already exists" error
+## See github issue: https://github.com/terraform-aws-modules/terraform-aws-eks/issues/852
+
+data "aws_eks_cluster" "cluster" {
+  name = module.eks-cluster[0].cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks-cluster[0].cluster_id
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  load_config_file       = false
+  # version                = "~> 1.9"
+}
+
 module "eks-cluster" {
   count = var.create_cluster ? 1 : 0
-  providers = {
-    helm = helm.eks
-  }
 
   source  = "terraform-aws-modules/eks/aws"
   version = "14.0.0"
@@ -23,6 +40,6 @@ module "eks-cluster" {
   write_kubeconfig   = var.write_kubeconfig
   config_output_path = var.kubeconfig_output_path
 
-  manage_aws_auth = var.manage_aws_auth
+  # manage_aws_auth = var.manage_aws_auth
   map_users       = var.map_users
 }

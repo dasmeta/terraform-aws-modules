@@ -32,7 +32,7 @@ variable "engine" {
 
 variable "engine_version" {
   type = string
-  default = "5.7.19"
+  default = "5.7.26"
 }
 
 variable "family" {
@@ -186,4 +186,9 @@ variable "db_parameter_group_tags" {
 variable "db_subnet_group_tags" {
   type = map
   default = {}
+}
+
+variable "apply_immediately" {
+  type = bool
+  default = false
 }
