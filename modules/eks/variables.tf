@@ -1,15 +1,10 @@
-output "oidc_provider_arn" {
-  value = module.eks-cluster[0].oidc_provider_arn
-}
-
 locals {
   eks_oidc_root_ca_thumbprint = replace(module.eks-cluster[0].oidc_provider_arn, "/.*id//", "")
 }
 
-output "eks_oidc_root_ca_thumbprint" {
-  value = local.eks_oidc_root_ca_thumbprint
-  description = "Grab eks_oidc_root_ca_thumbprint from oidc_provider_arn."
-}
+# data "aws_eks_cluster_auth" "cluster" {
+#   name = module.eks-cluster[0].cluster_id
+# }
 
 # Required arguments
 variable "vpc_id" {
@@ -74,12 +69,45 @@ variable "worker_groups" {
   description = "Worker groups."
 }
 
-variable "worker_group_defaults" {
+variable "workers_group_defaults" {
   type = object({
     root_volume_type = string
   })
   default = {
     root_volume_type = "gp2"
+    kubelet_extra_args = "--node-labels=cluster_name=production,type=gpu_optimised --register-with-taints app=vums:NoSchedule"
   }
   description = "Worker group defaults."
+}
+
+variable "worker_groups_launch_template" {
+  description = "A list of maps defining worker group configurations to be defined using AWS Launch Templates. See workers_group_defaults for valid keys."
+  type        = any
+  default     = []
+}
+
+variable "manage_aws_auth" {
+  type = bool
+  default = true
+}
+
+variable "map_users" {
+  type = list(object({
+    userarn  = string
+    username = string
+    groups   = list(string)
+  }))
+
+  default = [
+    {
+      userarn  = "arn:aws:iam::66666666666:user/user1"
+      username = "user1"
+      groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::66666666666:user/user2"
+      username = "user2"
+      groups   = ["system:masters"]
+    },
+  ]
 }

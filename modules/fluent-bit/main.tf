@@ -36,20 +36,26 @@ resource "aws_iam_role" "fluent-bit" {
 POLICY
 }
 
+locals {
+  fluent_name = var.fluent_bit_name != "" ? var.fluent_bit_name : "${var.cluster_name}-fluent-bit"
+  log_group_name = var.log_group_name != "" ? var.log_group_name : "fluent-bit-cloudwatch"
+}
+
 resource "aws_iam_role_policy_attachment" "CloudWatchAgentServerPolicy" {
   policy_arn = aws_iam_policy.this.arn
   role       = aws_iam_role.fluent-bit.name
 }
 
 resource "helm_release" "fluent-bit" {
-  name       = "fluent-bit"
+  name       = local.fluent_name
   repository = "https://fluent.github.io/helm-charts"
   chart      = "fluent-bit"
   version    = "0.15.4"
   namespace  = var.namespace
 
   values = [
-    file("${path.module}/values.yaml")
+    # file("${path.module}/values.yaml")
+    templatefile("${path.module}/values.yaml", { log_group_name = local.log_group_name})
   ]
 
   set {
