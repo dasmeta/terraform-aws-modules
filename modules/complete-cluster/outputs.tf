@@ -52,3 +52,15 @@ output "vpc_private_subnets" {
 output "default_security_group_id" {
   value = module.vpc.default_security_group_id
 }
+
+output "cluster_host" {
+  value = module.eks-cluster.host
+}
+
+output "cluster_certificate" {
+  value = module.eks-cluster.certificate
+}
+
+output "cluster_token" {
+  value = module.eks-cluster.token
+}
