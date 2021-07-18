@@ -1,5 +1,5 @@
 data "http" "ingress-policy" {
-  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.0/docs/install/iam_policy.json"
+  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json"
 
   request_headers = {
     Accept = "application/json"
@@ -12,7 +12,7 @@ resource "aws_iam_policy" "this" {
   # path        = "."
   # We use a heredoc for the policy JSON so that we can more easily diff and
   # copy/paste from upstream.
-  # Source: `curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.0/docs/install/iam_policy.json`
+  # Source: `curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.2.1/docs/install/iam_policy.json`
   # policy = data.local_file.iam-policy-json.content
   # policy = file("${path.module}/iam-policy.json")
 
