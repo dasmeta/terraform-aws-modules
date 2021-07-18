@@ -56,7 +56,8 @@ module "alb-ingress-controller" {
   eks_oidc_root_ca_thumbprint = local.eks_oidc_root_ca_thumbprint
   oidc_provider_arn = module.eks-cluster.oidc_provider_arn
   create_alb_log_bucket = true
-  alb_log_bucket_prefix = var.alb_log_bucket_prefix != "" ? var.alb_log_bucket_prefix : "${var.cluster_name}-ingress-controller-log-bucket"
+  alb_log_bucket_name = var.alb_log_bucket_name != "" ? var.alb_log_bucket_name : "${var.cluster_name}-ingress-controller-log-bucket"
+  alb_log_bucket_prefix = var.alb_log_bucket_prefix != "" ? var.alb_log_bucket_prefix : var.cluster_name
 
   cluster_host = module.eks-cluster.host
   cluster_certificate = module.eks-cluster.certificate

@@ -22,7 +22,7 @@ module "eks-cluster" {
   count = var.create_cluster ? 1 : 0
 
   source  = "terraform-aws-modules/eks/aws"
-  version = "14.0.0"
+  version = "17.1.0"
 
   # Required parameters
   cluster_name    = var.cluster_name
@@ -38,7 +38,7 @@ module "eks-cluster" {
   worker_groups_launch_template = var.worker_groups_launch_template
 
   write_kubeconfig   = var.write_kubeconfig
-  config_output_path = var.kubeconfig_output_path
+  # config_output_path = var.kubeconfig_output_path
 
   # manage_aws_auth = var.manage_aws_auth
   map_users       = var.map_users
