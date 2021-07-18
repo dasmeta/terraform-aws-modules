@@ -106,6 +106,11 @@ variable "alb_log_bucket_prefix" {
   default = ""
 }
 
+variable "alb_log_bucket_name" {
+  type = string
+  default = ""
+}
+
 # FLUENT-BIT
 variable "fluent_bit_name" {
   type = string
