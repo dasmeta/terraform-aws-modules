@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "mongodbatlas" {
-  public_key = var.mongodbatlas_public_key
-  private_key  = var.mongodbatlas_private_key
+  public_key = var.public_key
+  private_key  = var.private_key
 }
