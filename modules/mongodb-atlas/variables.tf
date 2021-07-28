@@ -17,3 +17,8 @@ variable project_name {
   type        = string
   description = "MongoDB Atlas Project Name"
 }
+
+variable users {
+  type        = list(string)
+  description = "MongoDB Atlas Project Name"
+}
