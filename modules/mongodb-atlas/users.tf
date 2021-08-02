@@ -1,49 +1,26 @@
 resource "random_password" "password" {
-  for_each = toset( var.users )
+  for_each = toset(var.users)
   
   length           = 16
   special          = true
-  override_special = "_%@"
+  override_special = "_$%"
 }
 
 resource "mongodbatlas_database_user" "test" {
   for_each = toset(var.users)
-
-  username           = each.key
-  password           = random_password.password[count.index]
-
-  project_id         = "<PROJECT-ID>"
+  
+  username           = each.value
+  password           = random_password.password[each.key].result
   auth_database_name = "admin"
+  project_id         = mongodbatlas_project.main.id
 
   roles {
     role_name     = "readWrite"
     database_name = "dbforApp"
   }
 
-  roles {
-    role_name     = "readAnyDatabase"
-    database_name = "admin"
-  }
-
-  labels {
-    key   = "My Key"
-    value = "My Value"
-  }
-
   scopes {
-    name   = "My cluster name"
-    type = "CLUSTER"
+    name   = "cluster"
+    type   = "CLUSTER"
   }
-
-  scopes {
-    name   = "My second cluster name"
-    type = "CLUSTER"
-  }
-}
-
-output users {
-  value       = ""
-  sensitive   = true
-  description = "description"
-  depends_on  = []
 }
