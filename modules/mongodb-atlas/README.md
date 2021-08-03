@@ -13,4 +13,5 @@ module "mongodb-atlas" {
   project_name = "your project name goes here"
 
   users = ["user1", "user2", "userN"]
+  ip_ranges = ["ip1", "ip2", "ip3", "ipN"]
 }

@@ -32,3 +32,8 @@ variable database_name {
   type        = string
   description = "MongoDB Atlas users database name"
 }
+
+variable ip_addresses {
+  type        = list(string)
+  description = "MongoDB Atlas IP Access List"
+}
