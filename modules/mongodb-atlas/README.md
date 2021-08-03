@@ -12,5 +12,5 @@ module "mongodb-atlas" {
 
   project_name = "your project name goes here"
 
-  # users = ["user1", "user2", "userN"]
+  users = ["user1", "user2", "userN"]
 }
