@@ -6,7 +6,7 @@ resource "random_password" "password" {
   override_special = "_$%"
 }
 
-resource "mongodbatlas_database_user" "test" {
+resource "mongodbatlas_database_user" "user" {
   for_each = toset(var.users)
   
   username           = each.value
@@ -15,8 +15,8 @@ resource "mongodbatlas_database_user" "test" {
   project_id         = mongodbatlas_project.main.id
 
   roles {
-    role_name     = "readWrite"
-    database_name = "dbforApp"
+    role_name     = var.role_name
+    database_name = var.database_name
   }
 
   scopes {

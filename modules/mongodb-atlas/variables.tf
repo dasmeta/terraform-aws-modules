@@ -22,3 +22,13 @@ variable users {
   type        = list(string)
   description = "MongoDB Atlas users list"
 }
+
+variable role_name {
+  type        = string
+  description = "MongoDB Atlas users role name"
+}
+
+variable database_name {
+  type        = string
+  description = "MongoDB Atlas users database name"
+}
