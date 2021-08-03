@@ -1,4 +1,4 @@
-resource "mongodbatlas_project_ip_access_list" "test" {
+resource "mongodbatlas_project_ip_access_list" "ip-access-list" {
   for_each = toset(var.ip_addresses)
 
   project_id = mongodbatlas_project.main.id
