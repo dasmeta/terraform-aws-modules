@@ -8,5 +8,4 @@ output "users" {
   value = {
     for k, p in mongodbatlas_database_user.user :  p.username => nonsensitive(random_password.password[k].result)
   }
-  sensitive = false
 }
