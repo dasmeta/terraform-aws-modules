@@ -39,6 +39,6 @@ variable database_name {
 
 variable ip_addresses {
   type        = list(string)
-  default     = [""]
+  default     = []
   description = "MongoDB Atlas IP Access List"
 }
