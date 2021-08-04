@@ -15,13 +15,13 @@ variable org_id {
 
 variable project_name {
   type        = string
-  default     = "Project"
+  default     = "project"
   description = "MongoDB Atlas Project Name"
 }
 
 variable users {
   type        = list(string)
-  default     = ["Alice"]
+  default     = ["alice"]
   description = "MongoDB Atlas users list"
 }
 
@@ -33,12 +33,12 @@ variable role_name {
 
 variable database_name {
   type        = string
-  default     = "Database"
+  default     = "database"
   description = "MongoDB Atlas users database name"
 }
 
 variable ip_addresses {
   type        = list(string)
-  default     = [""]
+  default     = []
   description = "MongoDB Atlas IP Access List"
 }
