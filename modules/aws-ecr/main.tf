@@ -9,3 +9,4 @@ variable "repos" {
   type = list
   default     = ["repo1", "repo2", "repo3"] # Please insert the repository names, then run the script.
 }
+  
