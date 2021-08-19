@@ -223,9 +223,3 @@ variable distribution {
   default     = {}
   description = "description"
 }
-
-variable bucket {
-  type        = map
-  default     = {}
-  description = "description"
-}
