@@ -3,7 +3,7 @@ config:
     [OUTPUT]
         Name cloudwatch_logs
         Match   *
-        region eu-west-2
+        region ${region}
         log_group_name ${log_group_name}
         log_stream_prefix from-fluent-bit-
         auto_create_group On
