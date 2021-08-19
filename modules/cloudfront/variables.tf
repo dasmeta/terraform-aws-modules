@@ -1,3 +1,4 @@
+//distribution variables
 variable "enabled" {
   type        = bool
   default     = true
@@ -195,4 +196,24 @@ variable "minimum_protocol_version" {
   type        = string
   default     = "TLSv1"
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
+}
+
+
+//s3 bucket variables
+
+variable "s3_version" {
+  type        = string
+  default     = "2.7.0"
+}
+
+variable "s3_bucket_name" {
+  type        = string
+  default     = "terraform-module-vik"
+  description = "S3 bucket name"
+}
+
+variable "s3_bucket_acl" {
+  type        = string
+  default     = "log-delivery-write"
+  description = "The canned ACL to apply."
 }
