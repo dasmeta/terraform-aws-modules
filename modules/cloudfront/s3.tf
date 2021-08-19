@@ -20,7 +20,7 @@ module "s3_bucket" {
 
 resource "aws_s3_bucket_object" "examplebucket_object" {
   key    = "1.jpeg"
-  bucket = "terraform-module-vik-2"
+  bucket = var.s3_bucket_name
   content = "important.txt"
 
   force_destroy = true
