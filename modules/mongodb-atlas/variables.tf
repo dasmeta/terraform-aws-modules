@@ -8,6 +8,11 @@ variable private_key {
   description = "MongoDB Atlas organisation private key"
 }
 
+variable aws_account_id {
+  type        = string
+  description = "AWS user ID"
+}
+
 variable org_id {
   type        = string
   description = "MongoDB Atlas Organisation ID"
@@ -41,4 +46,10 @@ variable ip_addresses {
   type        = list(string)
   default     = []
   description = "MongoDB Atlas IP Access List"
+}
+
+variable route_table_cidr_block {
+  type        = string
+  default     = "192.168.240.0/21"
+  description = "AWS VPC CIDR block or subnet."
 }
