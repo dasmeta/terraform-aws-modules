@@ -49,7 +49,7 @@ variable "alb_log_bucket_prefix" {
 
 variable "region" {
   type = string
-  default = "eu-west-2"
+  default = "eu-central-1"
   description = "Default region"
 }
 
@@ -66,3 +66,45 @@ variable "cluster_certificate" {
 variable "cluster_token" {
   type = string
 }
+
+## AWS load  balancer controller varibles
+variable "function_name" {
+  type    = string
+  default = ""
+}
+
+variable "bucket_name" {
+  type = string
+}
+
+variable "log_group_name" {
+  type = string
+}
+
+variable "memory_size" {
+  description = "Memory size for Lambda function"
+  type        = number
+  default     = null
+}
+
+variable "timeout" {
+  description = "Timeout for Lambda function"
+  type        = number
+  default     = null
+}
+
+variable "create_alarm" {
+  type    = bool
+  default = false
+}
+
+variable "alarm_actions" {
+  type    = list(string)
+  default = []
+}
+
+variable "ok_actions" {
+  type    = list(string)
+  default = []
+}
+
