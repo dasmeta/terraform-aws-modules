@@ -1,4 +1,4 @@
-resource "mongodbatlas_alert_configuration" "test" {
+resource "mongodbatlas_alert_configuration" "main" {
   project_id = mongodbatlas_project.main.id
   event_type = var.alert_event_type
   enabled    = true
