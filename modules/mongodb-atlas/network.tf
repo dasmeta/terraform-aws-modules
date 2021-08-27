@@ -6,19 +6,13 @@ resource "mongodbatlas_project_ip_access_list" "ip-access-list" {
   comment    = "ip address range items"
 }
 
-resource "aws_default_vpc" "default" {
-  tags = {
-    Name = "Default VPC"
-  }
-}
-
 resource "mongodbatlas_network_peering" "mongo_peer" {
   accepter_region_name   = "eu-central-1"
   project_id             = mongodbatlas_project.main.id
   container_id           = mongodbatlas_cluster.main.container_id
   provider_name          = "AWS"
   route_table_cidr_block = var.route_table_cidr_block
-  vpc_id                 = aws_default_vpc.default.id
+  vpc_id                 = var.vpc_id
   aws_account_id         = var.aws_account_id
 }
 

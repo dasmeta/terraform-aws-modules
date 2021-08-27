@@ -53,3 +53,8 @@ variable route_table_cidr_block {
   default     = "192.168.240.0/21"
   description = "AWS VPC CIDR block or subnet."
 }
+
+variable vpc_id {
+  type = string
+  default = "vpc-0cb8c765b4b58b790"
+}
