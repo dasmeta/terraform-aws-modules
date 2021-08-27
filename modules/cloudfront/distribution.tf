@@ -1,3 +1,6 @@
+//i need to move this module to aws folder, then this part should be correct
+# module distribution {
+#   source = ../aws/cloudfront-distribution
 
 locals {
   targets =  var.targets
@@ -145,4 +148,7 @@ resource "aws_cloudfront_distribution" "von-poll" {
         cloudfront_default_certificate = var.cloudfront_default_certificate
         minimum_protocol_version       = var.minimum_protocol_version
     }
-}
+ 
+ 
+  # vars = var.distribution
+# }
