@@ -7,10 +7,10 @@ resource "mongodbatlas_project_ip_access_list" "ip-access-list" {
 }
 
 resource "mongodbatlas_network_peering" "mongo_peer" {
-  accepter_region_name   = "eu-central-1"
+  accepter_region_name   = var.accepter_region_name
   project_id             = mongodbatlas_project.main.id
   container_id           = mongodbatlas_cluster.main.container_id
-  provider_name          = "AWS"
+  provider_name          = var.provider_name
   route_table_cidr_block = var.route_table_cidr_block
   vpc_id                 = var.vpc_id
   aws_account_id         = var.aws_account_id
