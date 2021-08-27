@@ -1,4 +1,6 @@
 //distribution variables
+
+variable "targets" {}
 variable "enabled" {
   type        = bool
   default     = true
@@ -76,6 +78,8 @@ variable "ordered_smooth_streaming_1" {
   description = "Indicates whether you want to distribute media files in Microsoft Smooth Streaming format using the origin that is associated with this cache behavior."
 }
 
+variable "default_target_origin_id" {}
+
 variable "ordered_viewer_protocol_policy_1" {
   type        = string
   default     = "redirect-to-https"
@@ -134,41 +138,52 @@ variable "connection_timeout_1" {
   description = "The number of seconds that CloudFront waits when trying to establish a connection to the origin."
 }
 
-variable "http_port" {
-  type        = number
-  default     = 80
-  description = "The HTTP port the custom origin listens on."
+variable "custom_origin_config" {
+  default = {
+    "http_port"                = 80
+    "https_port"               = 443
+    "origin_keepalive_timeout" = 5
+    "origin_protocol_policy"   = "http-only"
+    "origin_read_timeout"      = 30
+    "origin_ssl_protocols"     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+  }
 }
 
-variable "https_port" {
-  type        = number
-  default     = 443
-  description = "The HTTPS port the custom origin listens on."
-}
+# variable "http_port" {
+#   type        = number
+#   default     = 80
+#   description = "The HTTP port the custom origin listens on."
+# }
 
-variable "origin_keepalive_timeout" {
-  type        = number
-  default     = 5
-  description = "The Custom KeepAlive timeout, in seconds."
-}
+# variable "https_port" {
+#   type        = number
+#   default     = 443
+#   description = "The HTTPS port the custom origin listens on."
+# }
 
-variable "origin_protocol_policy" {
-  type        = string
-  default     = "http-only"
-  description = "The origin protocol policy to apply to your origin."
-}
+# variable "origin_keepalive_timeout" {
+#   type        = number
+#   default     = 5
+#   description = "The Custom KeepAlive timeout, in seconds."
+# }
 
-variable "origin_read_timeout" {
-  type        = number
-  default     = 30
-  description = "The Custom Read timeout, in seconds."
-}
+# variable "origin_protocol_policy" {
+#   type        = string
+#   default     = "http-only"
+#   description = "The origin protocol policy to apply to your origin."
+# }
 
-variable "origin_ssl_protocols" {
-  type        = list(string)
-  default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-  description = "The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS."
-}
+# variable "origin_read_timeout" {
+#   type        = number
+#   default     = 30
+#   description = "The Custom Read timeout, in seconds."
+# }
+
+# variable "origin_ssl_protocols" {
+#   type        = list(string)
+#   default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+#   description = "The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS."
+# }
 
 variable "connection_attempts_2" {
   type        = number
@@ -217,3 +232,4 @@ variable "s3_bucket_acl" {
   default     = "log-delivery-write"
   description = "The canned ACL to apply."
 }
+
