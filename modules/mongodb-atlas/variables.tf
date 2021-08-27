@@ -55,6 +55,19 @@ variable route_table_cidr_block {
 }
 
 variable vpc_id {
-  type = string
-  default = "vpc-0cb8c765b4b58b790"
+  type        = string
+  default     = "vpc-0cb8c765b4b58b790"
+  description = "Unique identifier of the peer VPC."
+}
+
+variable accepter_region_name {
+  type        = string
+  default     = "eu-central-1"
+  description = "Specifies the region where the peer VPC resides."
+}
+
+variable provider_name {
+  type        = string
+  default     = "AWS"
+  description = "Cloud provider to whom the peering connection is being made."
 }
