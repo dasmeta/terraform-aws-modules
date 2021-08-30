@@ -118,7 +118,8 @@ variable alert_mode {
   type        = string
   default     = "AVERAGE"
   description = "This must be set to AVERAGE. Atlas computes the current metric value as an average."
-  
+}
+
 variable route_table_cidr_block {
   type        = string
   default     = "192.168.240.0/21"
