@@ -67,3 +67,4 @@ resource "aws_cloudwatch_metric_alarm" "errors" {
   # alarm_actions = var.alarm_actions
   # ok_actions    = var.ok_actions
 }
+
