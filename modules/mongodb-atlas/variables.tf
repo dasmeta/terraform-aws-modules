@@ -8,6 +8,11 @@ variable private_key {
   description = "MongoDB Atlas organisation private key"
 }
 
+variable aws_account_id {
+  type        = string
+  description = "AWS user ID"
+}
+
 variable org_id {
   type        = string
   description = "MongoDB Atlas Organisation ID"
@@ -113,4 +118,27 @@ variable alert_mode {
   type        = string
   default     = "AVERAGE"
   description = "This must be set to AVERAGE. Atlas computes the current metric value as an average."
+  
+variable route_table_cidr_block {
+  type        = string
+  default     = "192.168.240.0/21"
+  description = "AWS VPC CIDR block or subnet."
+}
+
+variable vpc_id {
+  type        = string
+  default     = "vpc-0cb8c765b4b58b790"
+  description = "Unique identifier of the peer VPC."
+}
+
+variable accepter_region_name {
+  type        = string
+  default     = "eu-central-1"
+  description = "Specifies the region where the peer VPC resides."
+}
+
+variable provider_name {
+  type        = string
+  default     = "AWS"
+  description = "Cloud provider to whom the peering connection is being made."
 }

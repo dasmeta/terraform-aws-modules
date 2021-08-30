@@ -49,7 +49,7 @@ variable "alb_log_bucket_prefix" {
 
 variable "region" {
   type = string
-  default = "eu-west-2"
+  default = "eu-central-1"
   description = "Default region"
 }
 
