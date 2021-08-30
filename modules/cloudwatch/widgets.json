@@ -1,0 +1,28 @@
+{
+    "widgets": [
+        {
+            "height": 6,
+            "width": 12,
+            "y": 0,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "ContainerInsights", "pod_cpu_utilization", "PodName", "vums", "ClusterName", "production", "Namespace", "default" ],
+                    [ "...", "v", ".", ".", ".", "." ],
+                    [ "...", "d", ".", ".", ".", "." ],
+                    [ "...", "u", ".", ".", ".", "." ],
+                    [ "...", "f", ".", ".", ".", "." ]
+                ],
+                "region": "eu-west-2",
+                "title": "v + d + u + f (CPU)",
+                "period": 300,
+                "legend": {
+                    "position": "bottom"
+                }
+            }
+        }
+  ]
+}
