@@ -149,41 +149,41 @@ variable "custom_origin_config" {
   }
 }
 
-# variable "http_port" {
-#   type        = number
-#   default     = 80
-#   description = "The HTTP port the custom origin listens on."
-# }
+variable "http_port" {
+  type        = number
+  default     = 80
+  description = "The HTTP port the custom origin listens on."
+}
 
-# variable "https_port" {
-#   type        = number
-#   default     = 443
-#   description = "The HTTPS port the custom origin listens on."
-# }
+variable "https_port" {
+  type        = number
+  default     = 443
+  description = "The HTTPS port the custom origin listens on."
+}
 
-# variable "origin_keepalive_timeout" {
-#   type        = number
-#   default     = 5
-#   description = "The Custom KeepAlive timeout, in seconds."
-# }
+variable "origin_keepalive_timeout" {
+  type        = number
+  default     = 5
+  description = "The Custom KeepAlive timeout, in seconds."
+}
 
-# variable "origin_protocol_policy" {
-#   type        = string
-#   default     = "http-only"
-#   description = "The origin protocol policy to apply to your origin."
-# }
+variable "origin_protocol_policy" {
+  type        = string
+  default     = "http-only"
+  description = "The origin protocol policy to apply to your origin."
+}
 
-# variable "origin_read_timeout" {
-#   type        = number
-#   default     = 30
-#   description = "The Custom Read timeout, in seconds."
-# }
+variable "origin_read_timeout" {
+  type        = number
+  default     = 30
+  description = "The Custom Read timeout, in seconds."
+}
 
-# variable "origin_ssl_protocols" {
-#   type        = list(string)
-#   default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-#   description = "The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS."
-# }
+variable "origin_ssl_protocols" {
+  type        = list(string)
+  default     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+  description = "The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS."
+}
 
 variable "connection_attempts_2" {
   type        = number
@@ -233,6 +233,10 @@ variable "s3_bucket_acl" {
   description = "The canned ACL to apply."
 }
 
+variable "certificate_arn" {
+  default = "arn:aws:acm:eu-central-1:721658514311:certificate/c0642ec7-585c-43bd-9e6e-74c1a13b34b1"
+  type    = string
+}
 
 # //this part need to be corrected but not now 
 # variable distribution {
