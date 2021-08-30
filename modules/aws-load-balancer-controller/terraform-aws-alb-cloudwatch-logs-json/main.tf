@@ -2,9 +2,9 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-module "logs-to-cloudwatch" {
-source = "raymondbutcher/lambda-builder/aws"  
-version = "1.1.0"
+module "lambda" {
+  source  = "raymondbutcher/lambda-builder/aws"
+  version = "1.1.0"
 
   function_name = coalesce(var.function_name, "${var.bucket_name}-to-cloudwatch-logs")
   handler       = "lambda.handler"
@@ -64,6 +64,6 @@ resource "aws_cloudwatch_metric_alarm" "errors" {
   period              = 60 * 60
   evaluation_periods  = 1
 
-  alarm_actions = var.alarm_actions
-  ok_actions    = var.ok_actions
+  # alarm_actions = var.alarm_actions
+  # ok_actions    = var.ok_actions
 }
