@@ -213,6 +213,10 @@ variable "minimum_protocol_version" {
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
 }
 
+variable "domain" {
+  type        = string
+}
+
 
 //s3 bucket variables
 
@@ -233,6 +237,11 @@ variable "s3_bucket_acl" {
   description = "The canned ACL to apply."
 }
 
+variable "use_default_cert" {
+  type        = bool
+  default     = false
+  description = "Whether to use custom or default certificate."
+}
 variable "certificate_arn" {
   default = "arn:aws:acm:eu-central-1:721658514311:certificate/c0642ec7-585c-43bd-9e6e-74c1a13b34b1"
   type    = string

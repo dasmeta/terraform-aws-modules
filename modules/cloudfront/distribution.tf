@@ -7,18 +7,24 @@ locals {
 }
 
 locals {
-  use_default_cert = var.certificate_arn == ""
+  use_default_cert = var.use_default_cert
 }
 
 locals {
   viewer_certificates = [
     {
-      acm_certificate_arn            = local.use_default_cert ? null : var.certificate_arn
+      acm_certificate_arn            = local.use_default_cert ? null : module.ssl-cert.arn
       minimum_protocol_version       = local.use_default_cert ? null : "TLSv1.1_2016"
       ssl_support_method             = local.use_default_cert ? null : "sni-only"
       cloudfront_default_certificate = local.use_default_cert
     },
   ]
+}
+
+module "ssl-cert" {
+  source = "../aws-ssl-certificate"
+
+  domain      = var.domain
 }
 
 resource "aws_cloudfront_distribution" "von-poll" {
@@ -106,52 +112,52 @@ resource "aws_cloudfront_distribution" "von-poll" {
       }
     }
 
-    dynamic "origin" {
-      for_each = local.targets
+    # dynamic "origin" {
+    #   for_each = local.targets
 
-      content {
-        connection_attempts  = var.connection_attempts_1
-        connection_timeout   = var.connection_timeout_1
-        domain_name          = origin.value.target
-        origin_id            = origin.value.target
+    #   content {
+    #     connection_attempts  = var.connection_attempts_1
+    #     connection_timeout   = var.connection_timeout_1
+    #     domain_name          = origin.value.target
+    #     origin_id            = origin.value.target
 
-        # dynamic "custom_origin_config" {
-        #   for_each = local.targets
+    #     # dynamic "custom_origin_config" {
+    #     #   for_each = local.targets
 
-        #   content {
-        #     http_port                = custom_origin_config.value.type == "alb" ? var.custom_origin_config["http_port"] : null
-        #     https_port               = custom_origin_config.value.type == "alb" ? var.custom_origin_config["https_port"] : null
-        #     origin_keepalive_timeout = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_keepalive_timeout"] : null
-        #     origin_protocol_policy   = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_protocol_policy"] : null
-        #     origin_read_timeout      = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_read_timeout"] : null
-        #     origin_ssl_protocols     = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_ssl_protocols"] : null
-        #   }
-        # }
+    #     #   content {
+    #     #     http_port                = custom_origin_config.value.type == "alb" ? var.custom_origin_config["http_port"] : null
+    #     #     https_port               = custom_origin_config.value.type == "alb" ? var.custom_origin_config["https_port"] : null
+    #     #     origin_keepalive_timeout = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_keepalive_timeout"] : null
+    #     #     origin_protocol_policy   = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_protocol_policy"] : null
+    #     #     origin_read_timeout      = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_read_timeout"] : null
+    #     #     origin_ssl_protocols     = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_ssl_protocols"] : null
+    #     #   }
+    #     # }
 
-      }
+    #   }
+    # }
+
+    origin {
+        connection_attempts = var.connection_attempts_1
+        connection_timeout  = var.connection_timeout_1
+        domain_name         = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
+        origin_id           = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
+
+        custom_origin_config {
+            http_port                = var.http_port
+            https_port               = var.https_port
+            origin_keepalive_timeout = var.origin_keepalive_timeout
+            origin_protocol_policy   = var.origin_protocol_policy
+            origin_read_timeout      = var.origin_read_timeout
+            origin_ssl_protocols     = var.origin_ssl_protocols
+        }
     }
-
-    # origin {
-    #     connection_attempts = var.connection_attempts_1
-    #     connection_timeout  = var.connection_timeout_1
-    #     domain_name         = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
-    #     origin_id           = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
-
-    #     custom_origin_config {
-    #         http_port                = var.http_port
-    #         https_port               = var.https_port
-    #         origin_keepalive_timeout = var.origin_keepalive_timeout
-    #         origin_protocol_policy   = var.origin_protocol_policy
-    #         origin_read_timeout      = var.origin_read_timeout
-    #         origin_ssl_protocols     = var.origin_ssl_protocols
-    #     }
-    # }
-    # origin {
-    #     connection_attempts = var.connection_attempts_2
-    #     connection_timeout  = var.connection_timeout_2
-    #     domain_name         = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
-    #     origin_id           = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
-    # }
+    origin {
+        connection_attempts = var.connection_attempts_2
+        connection_timeout  = var.connection_timeout_2
+        domain_name         = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
+        origin_id           = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
+    }
 
     restrictions {
         geo_restriction {
@@ -159,20 +165,20 @@ resource "aws_cloudfront_distribution" "von-poll" {
         }
     }
 
-    viewer_certificate {
-        cloudfront_default_certificate = var.cloudfront_default_certificate
-        minimum_protocol_version       = var.minimum_protocol_version
-    }
+    # viewer_certificate {
+    #     cloudfront_default_certificate = var.cloudfront_default_certificate
+    #     minimum_protocol_version       = var.minimum_protocol_version
+    # }
 
-  #  dynamic "viewer_certificate" {
-  #   for_each = local.viewer_certificates
-  #   content {
-  #     acm_certificate_arn            = viewer_certificate.value.acm_certificate_arn
-  #     minimum_protocol_version       = viewer_certificate.value.minimum_protocol_version
-  #     ssl_support_method             = viewer_certificate.value.ssl_support_method
-  #     cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
-  #   }
-  # }
+   dynamic "viewer_certificate" {
+    for_each = local.viewer_certificates
+    content {
+      acm_certificate_arn            = viewer_certificate.value.acm_certificate_arn
+      minimum_protocol_version       = viewer_certificate.value.minimum_protocol_version
+      ssl_support_method             = viewer_certificate.value.ssl_support_method
+      cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
+    }
+  }
  
  
   # vars = var.distribution
