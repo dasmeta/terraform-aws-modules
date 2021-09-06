@@ -1,9 +1,9 @@
-//i need to move this module to aws folder, then this part should be correct
-# module distribution {
-#   source = ../aws/cloudfront-distribution
-
 locals {
   targets =  var.targets
+}
+
+locals {
+  origins =  var.origins
 }
 
 locals {
@@ -13,19 +13,19 @@ locals {
 locals {
   viewer_certificates = [
     {
-      acm_certificate_arn            = local.use_default_cert ? null : module.ssl-cert.arn
-      minimum_protocol_version       = local.use_default_cert ? null : "TLSv1.1_2016"
+      acm_certificate_arn            = local.use_default_cert ? null : var.acm_cert_arn
+      minimum_protocol_version       = local.use_default_cert ? null : "TLSv1.2_2021"
       ssl_support_method             = local.use_default_cert ? null : "sni-only"
       cloudfront_default_certificate = local.use_default_cert
     },
   ]
 }
 
-module "ssl-cert" {
-  source = "../aws-ssl-certificate"
-
-  domain      = var.domain
-}
+# module "ssl-cert" {
+#   source = "../aws-ssl-certificate"
+#   region = "us-east-1"
+#   domain = var.domain
+# }
 
 resource "aws_cloudfront_distribution" "von-poll" {
     enabled                        = var.enabled
@@ -61,30 +61,6 @@ resource "aws_cloudfront_distribution" "von-poll" {
         viewer_protocol_policy = var.ordered_viewer_protocol_policy_1
     }
 
-    # ordered_cache_behavior {
-    #     allowed_methods        = var.ordered_allowed_methods_1
-    #     cached_methods         = var.ordered_cached_methods_1
-    #     compress               = var.ordered_compress_1
-    #     default_ttl            = var.ordered_default_ttl_1
-    #     max_ttl                = var.ordered_max_ttl_1
-
-    #     forwarded_values {
-    #       query_string = false
-    #       headers      = ["Origin"]
-
-    #       cookies {
-    #         forward = "none"
-    #       }
-    #     }
-
-    #     min_ttl                = var.ordered_min_ttl_1
-    #     path_pattern           = "/static*"
-    #     smooth_streaming       = var.ordered_smooth_streaming_1
-    #     target_origin_id       = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
-    #     viewer_protocol_policy = var.ordered_viewer_protocol_policy_1
-    # }
-
-
     dynamic "ordered_cache_behavior" {
       for_each = local.targets
 
@@ -112,51 +88,28 @@ resource "aws_cloudfront_distribution" "von-poll" {
       }
     }
 
-    # dynamic "origin" {
-    #   for_each = local.targets
+    dynamic "origin" {
+      for_each = local.origins
 
-    #   content {
-    #     connection_attempts  = var.connection_attempts_1
-    #     connection_timeout   = var.connection_timeout_1
-    #     domain_name          = origin.value.target
-    #     origin_id            = origin.value.target
+      content {
+        connection_attempts  = var.connection_attempts_1
+        connection_timeout   = var.connection_timeout_1
+        domain_name          = origin.value.target
+        origin_id            = origin.value.target
 
-    #     # dynamic "custom_origin_config" {
-    #     #   for_each = local.targets
+        dynamic "custom_origin_config" {
+            for_each = origin.value.custom_origin_config
 
-    #     #   content {
-    #     #     http_port                = custom_origin_config.value.type == "alb" ? var.custom_origin_config["http_port"] : null
-    #     #     https_port               = custom_origin_config.value.type == "alb" ? var.custom_origin_config["https_port"] : null
-    #     #     origin_keepalive_timeout = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_keepalive_timeout"] : null
-    #     #     origin_protocol_policy   = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_protocol_policy"] : null
-    #     #     origin_read_timeout      = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_read_timeout"] : null
-    #     #     origin_ssl_protocols     = custom_origin_config.value.type == "alb" ? var.custom_origin_config["origin_ssl_protocols"] : null
-    #     #   }
-    #     # }
-
-    #   }
-    # }
-
-    origin {
-        connection_attempts = var.connection_attempts_1
-        connection_timeout  = var.connection_timeout_1
-        domain_name         = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
-        origin_id           = "k8s-vonpolldev-8288e5a5e3-873653782.eu-central-1.elb.amazonaws.com"
-
-        custom_origin_config {
-            http_port                = var.http_port
-            https_port               = var.https_port
-            origin_keepalive_timeout = var.origin_keepalive_timeout
-            origin_protocol_policy   = var.origin_protocol_policy
-            origin_read_timeout      = var.origin_read_timeout
-            origin_ssl_protocols     = var.origin_ssl_protocols
+            content {
+              http_port                = custom_origin_config.value.http_port
+              https_port               = custom_origin_config.value.https_port
+              origin_keepalive_timeout = custom_origin_config.value.origin_keepalive_timeout
+              origin_protocol_policy   = custom_origin_config.value.origin_protocol_policy
+              origin_read_timeout      = custom_origin_config.value.origin_read_timeout
+              origin_ssl_protocols     = custom_origin_config.value.origin_ssl_protocols
+            }
         }
-    }
-    origin {
-        connection_attempts = var.connection_attempts_2
-        connection_timeout  = var.connection_timeout_2
-        domain_name         = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
-        origin_id           = "my-vik-test-public-bucket.s3.eu-central-1.amazonaws.com"
+      }
     }
 
     restrictions {
@@ -179,7 +132,4 @@ resource "aws_cloudfront_distribution" "von-poll" {
       cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
     }
   }
- 
- 
-  # vars = var.distribution
 }

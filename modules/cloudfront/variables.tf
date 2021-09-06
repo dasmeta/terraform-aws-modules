@@ -1,6 +1,19 @@
 //distribution variables
 
-variable "targets" {}
+variable "targets" {
+  type        = list(map)
+  description = "Targets and patterns needed to create new behaviours."
+}
+
+variable "origins" {
+  type        = list(map)
+  description = "Targets, types and custom_origin_config block needed to create new origins."
+}
+
+variable "acm_cert_arn" {
+  type        = string
+  description = "ACM certificate arn."
+}
 variable "enabled" {
   type        = bool
   default     = true
@@ -213,9 +226,9 @@ variable "minimum_protocol_version" {
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
 }
 
-variable "domain" {
-  type        = string
-}
+# variable "domain" {
+#   type        = string
+# }
 
 
 //s3 bucket variables
@@ -242,10 +255,10 @@ variable "use_default_cert" {
   default     = false
   description = "Whether to use custom or default certificate."
 }
-variable "certificate_arn" {
-  default = "arn:aws:acm:eu-central-1:721658514311:certificate/c0642ec7-585c-43bd-9e6e-74c1a13b34b1"
-  type    = string
-}
+# variable "certificate_arn" {
+#   default = "arn:aws:acm:eu-central-1:721658514311:certificate/c0642ec7-585c-43bd-9e6e-74c1a13b34b1"
+#   type    = string
+# }
 
 # //this part need to be corrected but not now 
 # variable distribution {
