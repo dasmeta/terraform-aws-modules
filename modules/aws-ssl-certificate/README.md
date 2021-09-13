@@ -13,6 +13,7 @@ module ssl-certificate-auth {
     aws = aws.virginia
   }
 }
+```
 
 Example 2: create cert in different region (e.g. Cognito requirement).
 ```
@@ -32,3 +33,4 @@ module ssl-certificate-auth {
     aws = aws.virginia
   }
 }
+```
