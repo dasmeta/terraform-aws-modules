@@ -1,6 +1,9 @@
+locals {
+  full_domain = "${var.domain}.${var.zone}"
+}
 
 resource "aws_acm_certificate" "main" {
-  domain_name       = var.domain
+  domain_name       = local.full_domain
   validation_method = "DNS"
 
   tags = {
@@ -13,7 +16,7 @@ resource "aws_acm_certificate" "main" {
 }
 
 data "aws_route53_zone" "main" {
-  name         = var.domain
+  name         = var.zone
   private_zone = false
 }
 
