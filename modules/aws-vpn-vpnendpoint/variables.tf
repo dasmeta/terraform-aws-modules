@@ -1,68 +1,3 @@
-###################
-## VPC Varibables##
-###################
-variable "vpc_name" {
-  type = string
-  description = "VPC name."
-}
-
-variable "cidr" {
-  type = string
-  # default = "172.16.0.0/16"
-  description = "CIDR ip range."
-}
-
-variable "availability_zones" {
-  type = list(string)
-  description = "List of VPC availability zones, e.g. ['eu-west-1a', 'eu-west-1b', 'eu-west-1c']."
-}
-
-variable "private_subnets" {
-  type = list(string)
-  # default = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
-  description = "Private subnets of VPC."
-}
-
-variable "public_subnets" {
-  type = list(string)
-  # default = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
-  description = "Public subnets of VPC."
-}
-
-variable "enable_nat_gateway" {
-  type = bool
-  default = true
-  description = "Whether or not to enable NAT Gateway."
-}
-
-variable "single_nat_gateway" {
-  type = bool
-  default = true
-  description = "Whether or not to enable single NAT Gateway."
-}
-
-variable "enable_dns_hostnames" {
-  type = bool
-  default = true
-  description = "Whether or not to enable dns hostnames."
-}
-
-variable "enable_dns_support" {
-  type = bool
-  default = true
-  description = "Whether or not to enable dns support."
-}
-
-variable "public_subnet_tags" {
-  type = map
-  default = {}
-}
-
-variable "private_subnet_tags" {
-  type = map
-  default = {}
-}
-
 ##################################
 ## AWS VPC VPN Endpoint varibles##
 ##################################
@@ -93,10 +28,7 @@ variable "endpoint_name" {
   type        = string
 }
 
-variable "endpoint_subnets" {
-  description = "List of IDs of endpoint subnets for network association"
-  type        = list(string)
-}
+
 
 variable "authorization_ingress" {
   description = "Add authorization rules to grant clients access to the networks."
@@ -106,11 +38,6 @@ variable "additional_routes" {
   description = "A map where the key is a subnet ID of endpoint subnet for network association and value is a cidr to where traffic should be routed from that subnet. Useful in cases if you need to route beyond the VPC subnet, for instance peered VPC"
   type        = map(string)
   default     = {}
-}
-
-variable "endpoint_vpc_id" {
-  description = "VPC where the VPN will be connected."
-  type        = string
 }
 
 variable "cloudwatch_log_group_name_prefix" {
@@ -130,7 +57,22 @@ variable "tls_validity_period_hours" {
   type        = number
   default     = 47400
 }
-variable "peering_vps_ids" {
-  description = "AWS VPCs ID "
-  type = list(string)
+variable "vpn_route_table_ids" {
+  description = "Route table IDs of the requestor"
+  type        = list(string)
+  default     = []
+}
+variable "vpc_id" {
+  description = "VPC ID"
+  type        = string
+}
+variable "enable_saml" {
+  type = bool
+  default = false
+  description = "Whether or not to enable SAML Provider."
+}
+variable "endpoint_subnets" {
+  description = "List of IDs of endpoint subnets for network association"
+  type        = list(string)
+  #default = ["subnet-0803b8f53842cb628","subnet-0f9a1ebddcea11a5c","subnet-08c91e06b4546c5ca"]
 }
