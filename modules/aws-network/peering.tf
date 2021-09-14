@@ -1,5 +1,5 @@
 provider "aws" {
-  region     = "us-east-2"
+  region     = var.peering_region
 }
 module "vpc-peering" {
   source  = "../aws-vpc-peering"
