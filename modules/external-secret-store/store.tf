@@ -1,13 +1,7 @@
-resource "kubernetes_manifest" "test-configmap" {
-  manifest = {
-    "apiVersion" = "v1"
-    "kind"       = "ConfigMap"
-    "metadata" = {
-      "name"      = "test-config"
-      "namespace" = "default"
-    }
-    "data" = {
-      "foo" = "bar"
-    }
-  }
+resource "kubectl_manifest" "test" {
+    yaml_body = templatefile("${path.module}/secret-store.tmpl", {
+      name = var.name
+      region = var.region
+      controller = var.controller
+    })
 }

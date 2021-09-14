@@ -1,7 +1,22 @@
+variable name {
+  type        = string
+  description = "Secret store name"
+}
+
+variable controller {
+  type        = string
+  description = "Not sure what it is yet"
+}
+
 variable region {
   type        = string
   default     = "eu-east-1"
   description = "Region secrets will be pulled from."
+}
+
+variable aws_account_id {
+  type        = string
+  description = "AWS Account ID to read secrets from. Used to inject policy."
 }
 
 variable aws_access_key {
