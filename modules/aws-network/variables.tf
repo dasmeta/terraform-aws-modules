@@ -90,7 +90,11 @@ variable "peering_tags" {
   type        = map(string)
   default     = {}
 }
-
+variable "peering_region" {
+  type = string
+  description = "CIDR ip range."
+  default = "eu-central-1"
+}
 ####################
 ### VPN Endpoint ###
 ####################
