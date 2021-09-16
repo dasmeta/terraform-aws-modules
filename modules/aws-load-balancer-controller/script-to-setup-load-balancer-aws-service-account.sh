@@ -1,8 +1,7 @@
 # aws iam?
 eksctl utils associate-iam-oidc-provider \
-    --region eu-central-1 \
-    --cluster stage-6 \
-    --profile pushmetrics \
+    --region eu-central-2 \
+    --cluster stage-N \
     --approve
 
 curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
@@ -10,16 +9,14 @@ curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-lo
 # aws iam policy
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
-    --policy-document file://iam-policy.json \
-    --profile pushmetrics
+    --policy-document file://iam-policy.json
 
 # kubernetes service account
 eksctl create iamserviceaccount \
-  --cluster=stage-6 \
+  --cluster=stage-N \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
-  --attach-policy-arn=arn:aws:iam::133737826969:policy/AWSLoadBalancerControllerIAMPolicy \
-  --profile=pushmetrics \
+  --attach-policy-arn=arn:aws:iam::567854576:policy/AWSLoadBalancerControllerIAMPolicy \
   --override-existing-serviceaccounts \
   --approve
 
