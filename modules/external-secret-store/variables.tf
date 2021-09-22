@@ -1,30 +1,28 @@
 variable name {
   type        = string
-  description = "Secret store name"
+  description = "Secret store name."
 }
 
 variable controller {
   type        = string
-  description = "Not sure what it is yet"
+  default     = ""
+  description = "Not sure what is this for yet."
 }
 
-variable region {
+variable aws_access_key_id {
   type        = string
-  default     = "eu-east-1"
-  description = "Region secrets will be pulled from."
-}
-
-variable aws_account_id {
-  type        = string
-  description = "AWS Account ID to read secrets from. Used to inject policy."
-}
-
-variable aws_access_key {
-  type        = string
+  default     = ""
   description = "The key store will be using to pull secrets from AWS Secret Manager."
 }
 
 variable aws_access_secret {
   type        = string
+  default     = ""
   description = "The secret store will be using to pull secrets from AWS Secret Manager."
+}
+
+variable create_user {
+  type        = bool
+  default     = true
+  description = "Create IAM user to read credentials or aws_access_key_id / aws_access_secret combination should be used."
 }
