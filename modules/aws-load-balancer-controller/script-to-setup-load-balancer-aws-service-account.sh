@@ -15,10 +15,10 @@ aws iam create-policy \
 
 # kubernetes service account
 eksctl create iamserviceaccount \
-  --cluster=stage-6 \
+  --cluster=stage-N \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
-  --attach-policy-arn=arn:aws:iam::338758973598:policy/AWSLoadBalancerControllerIAMPolicy \
+  --attach-policy-arn=arn:aws:iam::3649756932465:policy/AWSLoadBalancerControllerIAMPolicy \
   --profile=aws-profile-name \
   --override-existing-serviceaccounts \
   --approve
