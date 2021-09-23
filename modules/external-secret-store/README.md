@@ -2,7 +2,7 @@
 
 ```
 module "secret-store" {
-  source = "../../../../dasmeta/terraform/modules/external-secret-store"
+  source = "dasmeta/terraform/modules/external-secret-store"
 
   name = "store-name"
 }
