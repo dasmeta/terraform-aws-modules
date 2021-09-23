@@ -1,14 +1,11 @@
 # How to use
 
 ```
-module secret-store {
-  source = "dasmeta/terraform/modules/external-secret-store"
+module "secret-store" {
+  source = "../../../../dasmeta/terraform/modules/external-secret-store"
 
-  name = "application-secret-store"
-  region = "eu-central-1"
-  controller = var.env
-  aws_account_id = var.aws_account_id
-  aws_access_key = var.aws_access_key
-  aws_access_secret = var.aws_access_secret
+  name = "store-name"
 }
 ```
+This is going to create AWS IAM User and restric access to Secret Manager keys starting with store-name (e.g. store-name-*).
+Any secret created in Secret Manager matching the prefix can be requested via that External Secret Store and be populated as a Secret.
