@@ -5,7 +5,7 @@ variable name {
 
 variable controller {
   type        = string
-  default     = ""
+  default     = "dev"
   description = "Not sure what is this for yet."
 }
 
@@ -19,6 +19,12 @@ variable aws_access_secret {
   type        = string
   default     = ""
   description = "The secret store will be using to pull secrets from AWS Secret Manager."
+}
+
+variable aws_role_arn {
+  type        = string
+  default     = ""
+  description = "Role ARN used to pull secrets from Secret Manager."
 }
 
 variable create_user {
