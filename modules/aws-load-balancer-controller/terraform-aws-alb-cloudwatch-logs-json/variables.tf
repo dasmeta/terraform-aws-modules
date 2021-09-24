@@ -23,10 +23,10 @@ variable "timeout" {
   default     = null
 }
 
-# variable "create_alarm" {
-#   type    = bool
-#   default = false
-# }
+variable "create_alarm" {
+  type    = bool
+  default = false
+}
 
 # variable "alarm_actions" {
 #   type    = list(string)
