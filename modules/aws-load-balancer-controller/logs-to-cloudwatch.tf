@@ -4,8 +4,8 @@ resource "aws_cloudwatch_log_group" "test" {
 }
 
 module "alb_logs_to_cloudwatch" {
-  source  = "terraform-aws-alb-cloudwatch-logs-json"
-  version = "1.0.0"
+  source  = "./terraform-aws-alb-cloudwatch-logs-json"
+  # version = "1.0.0"
 
   bucket_name    = aws_s3_bucket.ingress-logs-bucket.bucket
   log_group_name = aws_cloudwatch_log_group.test.name
@@ -25,7 +25,9 @@ resource "aws_lambda_permission" "bucket" {
 
 resource "aws_s3_bucket_notification" "logs" {
   bucket     = aws_s3_bucket.ingress-logs-bucket.bucket
-  depends_on = ["aws_lambda_permission.bucket"]
+  depends_on = [
+    aws_lambda_permission.bucket
+  ]
 
   lambda_function {
     lambda_function_arn = module.alb_logs_to_cloudwatch.function_arn
