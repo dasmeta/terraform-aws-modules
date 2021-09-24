@@ -10,9 +10,9 @@ module "alb_logs_to_cloudwatch" {
   bucket_name    = aws_s3_bucket.ingress-logs-bucket.bucket
   log_group_name = aws_cloudwatch_log_group.test.name
 
-  create_alarm  = false
-  alarm_actions = [aws_sns_topic.slack.arn]
-  ok_actions    = [aws_sns_topic.slack.arn]
+  # create_alarm  = false
+  # alarm_actions = [aws_sns_topic.slack.arn]
+  # ok_actions    = [aws_sns_topic.slack.arn]
 }
 
 resource "aws_lambda_permission" "bucket" {
