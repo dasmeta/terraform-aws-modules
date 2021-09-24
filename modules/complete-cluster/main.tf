@@ -91,3 +91,7 @@ module "metrics-server" {
   cluster_token = module.eks-cluster.token
   cluster_name = var.cluster_name
 }
+
+module external-secrets-prod {
+  source = "../external-secrets"
+}
