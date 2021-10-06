@@ -4,29 +4,26 @@ variable "create_user" {
   default     = true
 }
 
-variable "create_iam_user_login_profile" {
+variable "console" {
   description = "Whether to create IAM user login profile"
   type        = bool
   default     = true
 }
 
-variable "create_iam_access_key" {
+variable "api" {
   description = "Whether to create IAM access key"
   type        = bool
   default     = true
 }
 
-variable "user-name" {
+variable "username" {
   description = "Desired name for the IAM user"
   type        = string
 }
 
-variable "policy-arn" {
+variable "policy_attachment" {
   type      = list(string)
-  default   = [
-              "arn:aws:iam::aws:policy/ReadOnlyAccess", 
-              "arn:aws:iam::aws:policy/IAMUserChangePassword"
-            ]
+  default   = []
   description = "IAM user name"
 }
 
@@ -41,21 +38,8 @@ variable "create-new-policy" {
   default   = false
   description = "If value true will create new policy"
 }
-variable "policy-resource" {
+variable "policy" {
   description = "IAM policy resource"
-  type        = string
-  default     = "*"
+  type        = any
+  default     = null
 }
-
-variable "policy-action" {
-  type      = list(string)
-  default   = [
-              "s3:PutObject"
-               ]
-  description = "IAM user name"
-}
-variable "policy-name" {
-  type      = string
-  default   = "policy-name"
-  description = "Policy Name"
-} 
