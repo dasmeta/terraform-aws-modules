@@ -3,8 +3,7 @@ variable name {
   description = "Secret name"
 }
 
-variable value {
+variable secret_value {
   type        = string
   description = "Secret value"
-  sensitive = true
 }
