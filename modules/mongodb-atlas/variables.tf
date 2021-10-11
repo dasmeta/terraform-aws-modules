@@ -30,6 +30,11 @@ variable users {
   description = "MongoDB Atlas users list"
 }
 
+variable "cluster_name" {
+  type = string
+  default = "cluster"
+  description = "MongoDB cluster name to which the users will have access."
+}
 variable role_name {
   type        = string
   default     = "readWrite"

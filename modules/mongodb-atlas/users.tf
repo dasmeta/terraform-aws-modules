@@ -20,7 +20,7 @@ resource "mongodbatlas_database_user" "user" {
   }
 
   scopes {
-    name   = "cluster"
+    name   = var.cluster_name
     type   = "CLUSTER"
   }
 }
