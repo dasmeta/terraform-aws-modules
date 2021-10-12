@@ -4,7 +4,5 @@ variable name {
 }
 
 variable value {
-  type        = string
   description = "Secret value"
-  sensitive = true
 }
