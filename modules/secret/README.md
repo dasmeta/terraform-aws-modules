@@ -1,15 +1,22 @@
-# How to
+# How to use
 
-````
-module "mongodb-credentials" {
-    source = "../terraform-aws-modules/modules/secret"
+## Example usage 1 (when the secret is a value)
+module test-secret {
+  source  = "dasmeta/modules/aws//modules/cloudwatch"
 
-    mongodb_atlas_org_id = "some mongo atlas org id"
-    mongodb_atlas_public_key = "mongo atlas public key"
-    mongodb_atlas_private_key = "mongo atlas private key"
-    project_name = "your project name goes here"
-    ip_addresses = ["ip1", "ip2", "ip3", "ipN"]
-    aws_account_id = "your aws account id"
-    users = ["user1", "user2", "userN"]
-    mongodb_atlas_secret = "your secret"
+  name = "test-secret"
+  value = "test-secret-value"
+}
+
+``
+## Example usage 2 (when the secret is a key-value pair)
+module test-secret {
+  source  = "dasmeta/modules/aws//modules/cloudwatch"
+
+  name = "test-secret"
+  value = {
+    "key1": "value1"
+    "key2": "value2"
+    "key3": "value3"
+  }
 }
