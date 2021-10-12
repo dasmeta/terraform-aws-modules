@@ -20,4 +20,4 @@ module aws-cloudfront-security-headers {
 ## Step 2: Add a CloudFront Trigger to Run the Function
 Now that you have a Lambda function to update security headers, configure the CloudFront trigger to run your function to add the headers in any response that CloudFront receives from the origin for your distribution.
 
-![](https://github.com/dasmeta/terraform-aws-modules/blob/main/modules/aws-cloudfront-security-headers/cloudfront.gif)
+![Add a CloudFront Trigger to Run the Function](https://github.com/dasmeta/terraform-aws-modules/blob/main/modules/aws-cloudfront-security-headers/cloudfront.gif)
