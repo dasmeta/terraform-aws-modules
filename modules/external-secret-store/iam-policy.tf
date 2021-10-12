@@ -1,8 +1,12 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
+locals {
+  policy-name = replace(var.name, "/", "-")
+}
+
 resource "aws_iam_policy" "policy" {
-  name        = "external-secrets-access-policy-for-store-${var.name}"
+  name        = "external-secrets-access-policy-for-store-${local.policy-name}"
   path        = "/"
   description = "Policy gives external secrets store access to ${var.name}-* secrets"
 
