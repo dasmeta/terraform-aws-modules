@@ -10,7 +10,7 @@ Terraform module to create a Lambda@Edge function to add best practice security 
 
 ## Step 1: Create a Lambda@Edge using a module `aws-cloudfront-security-headers`
 
-````hcl
+```hcl
 
 module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
