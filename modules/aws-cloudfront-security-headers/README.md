@@ -2,8 +2,7 @@
 **CloudFront Functions event type: viewer response**
 Terraform module to create a Lambda@Edge function to add best practice security headers and support HSTS preload requirements.
 
-- ([Creating a Simple Lambda@Edge Function] ( https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-how-it-works-tutorial.html ))
-
+- [Creating a Simple Lambda@Edge Function](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-how-it-works-tutorial.html)
 # Usage
 
 **IMPORTANT:** Make sure that you’re in the US-East-1 (N. Virginia) Region (us-east-1). You must be in this Region to create Lambda@Edge functions.
