@@ -122,12 +122,10 @@ output "iam_access_key_secret" {
 ## Case 3
 
 case 3 creates an AWS IAM user with Programmatic access. 
-
+ - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
+ 
 At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
 
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
-
-  - AWS Management Console access: Used the for AWS Management Console
 
 ```terraform
 
