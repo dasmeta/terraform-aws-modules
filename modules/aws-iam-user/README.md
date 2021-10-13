@@ -18,12 +18,6 @@ This module outputs commands and PGP messages which can be decrypted either usin
 - `keybase_password_pgp_message`
 - `keybase_secret_key_pgp_message`
 
-module "modules_aws-secret" {
-  source  = "dasmeta/modules/aws//modules/aws-secret"
-  version = "0.9.3"
-  # insert the 2 required variables here
-}
-
 # Use Cases
 
 ## Case 1
