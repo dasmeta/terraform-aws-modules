@@ -1,3 +1,4 @@
+```
 # How to use
 
 ## Example usage 1 (when the secret is a value)
@@ -20,3 +21,4 @@ module test-secret {
     "key3": "value3"
   }
 }
+```
