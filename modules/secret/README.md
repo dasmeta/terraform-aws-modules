@@ -8,7 +8,7 @@ module test-secret {
   value = "test-secret-value"
 }
 
-``
+
 ## Example usage 2 (when the secret is a key-value pair)
 module test-secret {
   source  = "dasmeta/modules/aws//modules/cloudwatch"
