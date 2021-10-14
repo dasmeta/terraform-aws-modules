@@ -205,7 +205,9 @@ echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 
 ```
 -  Passphrase: `Hgv1231vv23j1hv23`
 
-case 5 creates an AWS IAM user with Programmatic access with local pgp_key, AWS Management Console access and policy attachment to the user. 
+### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
+
+AWS Management Console access and policy attachment to the user. 
   - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
   - AWS Management Console access: Used the for AWS Management Console
