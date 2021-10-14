@@ -1,5 +1,26 @@
 ## Minimum usage example 
 
+This example creates clodufront setup with a default origin only and uses S3 bucket. Also it has no custom certiifcate, as the `use_default_cert = true`.
+
+module "cf" {
+    source = "dasmeta/modules/aws//modules/cloudfront"
+
+    origins = [
+        {
+          target = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
+          type = "bucket"
+          custom_origin_config = []
+        }
+    ] 
+    use_default_cert = true
+    default_target_origin_id = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
+}
+
+
+## Another usage example 
+
+This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket".
+
 module "cloudfront" {
     source      = "dasmeta/modules/aws//modules/cloudfront"
 

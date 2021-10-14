@@ -1,15 +1,15 @@
 variable "targets" {
-  type        = list(map)
+  default = []
   description = "Targets and patterns needed to create new behaviours."
 }
 
 variable "origins" {
-  type        = list(map)
-  description = "Targets, types and custom_origin_config block needed to create new origins."
+  description = "Targets, types and custom_origin_config block are needed to create new origins."
 }
 
 variable "acm_cert_arn" {
   type        = string
+  default     = ""
   description = "ACM certificate arn."
 }
 variable "enabled" {
@@ -34,6 +34,12 @@ variable "retain_on_delete" {
   type        = bool
   default     = false
   description = "Disables the distribution instead of deleting it when destroying the resource through Terraform."
+}
+
+variable "default_root_object" {
+  type        = string
+  default     = "index.html"
+  description = "The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL."
 }
 
 variable "tags_name" {
@@ -95,7 +101,7 @@ variable "default_target_origin_id" {
 
 variable "default_viewer_protocol_policy" {
   type        = string
-  default     = "redirect-to-https"
+  default     = "allow-all"
   description = "Use this element to specify the protocol that users can use to access the files in the origin specified by TargetOriginId when a request matches the path pattern in PathPattern. One of allow-all, https-only, or redirect-to-https."
 }
 

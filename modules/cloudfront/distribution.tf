@@ -26,6 +26,7 @@ resource "aws_cloudfront_distribution" "main" {
     is_ipv6_enabled                = var.is_ipv6_enabled
     price_class                    = var.price_class
     retain_on_delete               = var.retain_on_delete
+    default_root_object            = var.default_root_object
 
     tags                           = {
      Name = var.tags_name
