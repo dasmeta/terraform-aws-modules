@@ -204,6 +204,8 @@ echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 
 
 ```
 -  Passphrase: `Hgv1231vv23j1hv23`
+- Copy the result key and insert it in the module as the `pgp_key`.
+
 
 ### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
 
@@ -219,7 +221,7 @@ At the `terraform apply` shows the parameters of the user ( User ARN, AWS Access
 module "aws-read-only" {
     source                  = "dasmeta/modules/aws//modules/aws-iam-user"
     username                = "test-user"
-    pgp_key                 = "keybase:devopsmher"
+    pgp_key                 = "your-pgp-key"
     policy_attachment       = [
                                   "arn:aws:iam::aws:policy/ReadOnlyAccess", 
                                   "arn:aws:iam::aws:policy/IAMUserChangePassword"
