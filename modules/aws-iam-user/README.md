@@ -204,7 +204,7 @@ echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 
 
 ```
 -  Passphrase: `Hgv1231vv23j1hv23`
-- Copy the result key and insert it in the module as the `pgp_key`.
+- Copy the result key and insert it in the module as the `pgp_key` in step 3.
 
 
 ### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
@@ -214,7 +214,7 @@ AWS Management Console access and policy attachment to the user.
 
   - AWS Management Console access: Used the for AWS Management Console
 
-At the `terraform apply` shows the parameters of the user ( User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
+At the `terraform apply` shows the ouputs which we will use in step 4(for example user password or access_key) of the user ( User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
 
 ```terraform
 
@@ -250,5 +250,28 @@ output "secret_access_key" {
 export GPG_TTY=$(tty) && echo "${module.aws-read-only.iam_access_key_encrypted_secret}" | base64 --decode | gpg --decrypt
 EOF
 }
+
+```
+
+### Step 4 : Decode each encoded data from step 3 outputs
+after successfull Step 3 there should be shell/console commands as output for the following ouputs `iam_user_login_profile_encrypted_password` and `secret_access_key` .
+
+You have to copy the `{COMMAND}` and run in shell/console. Here is the form of output: 
+
+```bash
+Outputs:
+
+iam_access_key_id = "XXXXXXXXXXXXXXXXXXXXX"
+iam_user_arn = "arn:aws:iam::::"
+iam_user_login_profile_encrypted_password = <<EOT
+
+{COMMAND}
+
+EOT
+secret_access_key = <<EOT
+
+{COMMAND}
+
+EOT
 
 ```
