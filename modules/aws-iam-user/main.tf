@@ -10,12 +10,18 @@ module "iam_user" {
 
 resource "aws_iam_policy_attachment" "user-attach" {
   for_each      = toset( var.policy_attachment )
-  name          = "user-attach"
+  name          = "attach-${var.username}"
   users         = [var.username]
   policy_arn    = each.key
   depends_on    = [
       module.iam_user
     ]
+
+  lifecycle {
+    ignore_changes = [
+      users,
+    ]
+  }
 }
 
 resource "aws_iam_user_policy" "iam_user_policy" {
