@@ -28,7 +28,7 @@ module "db" {
   create_db_parameter_group = false
 
   engine               = "postgres"
-  engine_version       = "11.10"
+  engine_version       = var.engine_version
   family               = "postgres11"
   major_engine_version = "11"
   instance_class       = var.instance_class

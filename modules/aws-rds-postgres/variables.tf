@@ -45,3 +45,9 @@ variable "instance_class" {
   default     = "db.t2.micro"
   description = "Underlaying ec2 instance class"
 }
+
+variable engine_version {
+  type        = string
+  default     = "11.12"
+  description = "Postgres engine version"
+}
