@@ -1,6 +1,3 @@
-provider "aws" {
-    region = "us-east-1"
-}
 data "aws_partition" "current" {}
 
 
@@ -60,8 +57,8 @@ data "archive_file" "this" {
   type        = "zip"
   output_path = "${path.module}/deploy.zip"
   source {
-    content = templatefile("${path.module}/src/index.js.tpl",{})
-    filename = "index.js"
+    content   = templatefile("${path.module}/src/index.js.tpl",{})
+    filename  = "index.js"
   }
 }
 
