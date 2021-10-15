@@ -71,7 +71,7 @@ resource "aws_lambda_function" "this" {
   filename         = data.archive_file.this.output_path
   source_code_hash = data.archive_file.this.output_base64sha256
   handler          = "index.handler"
-  runtime          = "nodejs14.x"
+  runtime          = var.runtime
   role             = aws_iam_role.execution_role.arn
   timeout          = var.timeout
   memory_size      = var.memory_size
