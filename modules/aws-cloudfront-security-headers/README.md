@@ -11,9 +11,20 @@ Terraform module to create a Lambda@Edge function to add best practice security 
 
 ```hcl
 
+provider "aws" {
+  alias  = "east"
+  region = "us-east-1"
+}
+
 module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
-    name                    = "CloudFront-Add-HSTS-Header"
+    version                 = "0.12.2"
+    name                    = "CloudFront-Add-HSTS-Header-mher"
+    
+    providers = {
+    aws = aws.east
+  }
+
 }
 
 ```
