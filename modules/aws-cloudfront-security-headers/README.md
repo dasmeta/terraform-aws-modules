@@ -19,7 +19,7 @@ provider "aws" {
 module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
     version                 = "0.12.2"
-    name                    = "CloudFront-Add-HSTS-Header-mher"
+    name                    = "CloudFront-Add-HSTS-Header"
     
     providers = {
     aws = aws.east
