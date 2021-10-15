@@ -7,11 +7,24 @@ variable "origins" {
   description = "Targets, types and custom_origin_config block are needed to create new origins."
 }
 
+variable "use_default_cert" {
+  type        = bool
+  default     = false
+  description = "Whether to use custom or default certificate."
+}
+
+variable "create_lambda_security_headers" {
+  type        = bool
+  default     = false
+  description = "Whether to create and attach a labda function to the distribution or not."
+} 
+
 variable "acm_cert_arn" {
   type        = string
   default     = ""
   description = "ACM certificate arn."
 }
+
 variable "enabled" {
   type        = bool
   default     = true
@@ -105,6 +118,11 @@ variable "default_viewer_protocol_policy" {
   description = "Use this element to specify the protocol that users can use to access the files in the origin specified by TargetOriginId when a request matches the path pattern in PathPattern. One of allow-all, https-only, or redirect-to-https."
 }
 
+variable "lambda_function_body" {
+  type        = bool
+  default     = false
+  description = "When set to true it exposes the request body to the lambda function. Valid values: true, false."
+} 
 variable "ordered_allowed_methods" {
   type        = list(string)
   default     = ["GET", "HEAD", "OPTIONS"]
@@ -220,10 +238,4 @@ variable "minimum_protocol_version" {
   type        = string
   default     = "TLSv1"
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
-}
-
-variable "use_default_cert" {
-  type        = bool
-  default     = false
-  description = "Whether to use custom or default certificate."
 }

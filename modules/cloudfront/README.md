@@ -19,7 +19,7 @@ module "cf" {
 
 ## Another usage example 
 
-This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket".
+This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket". Also if you want to create lambda function for security headers, set `create_lambda_security_headers = true`.
 
 module "cloudfront" {
     source      = "dasmeta/modules/aws//modules/cloudfront"
@@ -58,5 +58,6 @@ module "cloudfront" {
       }
     ]
     acm_cert_arn = "some arn"
+    create_lambda_security_headers = true
     default_target_origin_id = "some-default-elb.eu-central-1.elb.amazonaws.com"
 }
