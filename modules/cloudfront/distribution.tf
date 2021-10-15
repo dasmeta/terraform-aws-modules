@@ -147,5 +147,5 @@ module aws-cloudfront-security-headers {
     count = var.create_lambda_security_headers ? 1 : 0
     
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
-    name                    = "final-lambda-most"
+    name                    = var.lambda_function_name
 }
