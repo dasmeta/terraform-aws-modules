@@ -57,8 +57,8 @@ data "archive_file" "this" {
   type        = "zip"
   output_path = "${path.module}/deploy.zip"
   source {
-    content = templatefile("${path.module}/src/index.js.tpl",{})
-    filename = "index.js"
+    content   = templatefile("${path.module}/src/index.js.tpl",{})
+    filename  = "index.js"
   }
 }
 
