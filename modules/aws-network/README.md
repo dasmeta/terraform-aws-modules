@@ -21,7 +21,7 @@
 - Assign users or groups created on previous step
 
 ## Example
-
+```hcl
 module network {
     source      = "git::https://github.com/dasmeta/terraform.git//modules/newtwork?="
     
@@ -52,3 +52,4 @@ module network {
 
 
 }
+```
