@@ -2,9 +2,9 @@
 
 This example creates clodufront setup with a default origin only and uses S3 bucket. Also it has no custom certiifcate, as the `use_default_cert = true`.
 
+```
 module "cf" {
     source = "dasmeta/modules/aws//modules/cloudfront"
-
     origins = [
         {
           target = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
@@ -15,15 +15,15 @@ module "cf" {
     use_default_cert = true
     default_target_origin_id = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
 }
-
+```
 
 ## Another usage example 
 
-This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket".
+This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket". Also if you want to create lambda function for security headers, set `create_lambda_security_headers = true`.
 
+```
 module "cloudfront" {
     source      = "dasmeta/modules/aws//modules/cloudfront"
-
     origins = [
         {
           target = "some-elb.eu-central-1.elb.amazonaws.com"
@@ -58,5 +58,7 @@ module "cloudfront" {
       }
     ]
     acm_cert_arn = "some arn"
+    create_lambda_security_headers = true
     default_target_origin_id = "some-default-elb.eu-central-1.elb.amazonaws.com"
 }
+```

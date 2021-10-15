@@ -11,6 +11,10 @@ locals {
 }
 
 locals {
+  create_lambda_security_headers = var.create_lambda_security_headers
+}
+
+locals {
   viewer_certificates = [
     {
       acm_certificate_arn            = local.use_default_cert ? null : var.acm_cert_arn
@@ -54,6 +58,16 @@ resource "aws_cloudfront_distribution" "main" {
       smooth_streaming       = var.default_smooth_streaming
       target_origin_id       = var.default_target_origin_id
       viewer_protocol_policy = var.default_viewer_protocol_policy
+
+      dynamic "lambda_function_association" {
+        for_each = module.aws-cloudfront-security-headers
+
+        content {
+          event_type   = "viewer-response"
+          lambda_arn   = module.aws-cloudfront-security-headers[0].lambda_arn
+          include_body = var.lambda_function_body
+        }
+      }
     }
 
     dynamic "ordered_cache_behavior" {
@@ -123,4 +137,15 @@ resource "aws_cloudfront_distribution" "main" {
         cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
       }
     }
+
+    depends_on = [
+      module.aws-cloudfront-security-headers
+    ]
+}
+
+module aws-cloudfront-security-headers {
+    count = var.create_lambda_security_headers ? 1 : 0
+    
+    source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
+    name                    = var.lambda_function_name
 }
