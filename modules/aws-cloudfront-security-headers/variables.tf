@@ -27,3 +27,9 @@ variable "memory_size" {
   default     = 128
   description = "Memory to use for Lambda, defaults to 128mb"
 }
+
+variable "runtime" {
+  type        = string
+  default     = "nodejs12.x"
+  description = "Choose the language version to use to write your function. "
+}
