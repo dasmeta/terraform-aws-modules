@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "store-secret" {
   metadata {
-    name = "${var.name}-awssm-secret"
+    name = "${local.sanitized-name}-awssm-secret"
   }
 
   data = {
