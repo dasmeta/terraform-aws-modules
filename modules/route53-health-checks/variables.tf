@@ -29,7 +29,7 @@ variable "reference_name" {
 
 variable "resource_path" {
   type = string
-  default = "/"
+  default = ""
   description = "Path name coming after fqdn."
 }
 
