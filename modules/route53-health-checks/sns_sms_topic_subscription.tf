@@ -2,7 +2,7 @@
 resource "aws_sns_topic" "route53-healthcheck-sms" {
   provider                  = aws.virginia
 
-  name = "${replace(var.domen_name, ".", "-")}-sms"
+  name = "${replace(var.domen_name, "/[./]+/", "-")}-sms"
 
   delivery_policy = <<EOF
 {
