@@ -6,3 +6,8 @@ variable "slack_hook_url" {
 variable "domen_name" {
   type = string
 }
+
+variable "resource_path" {
+  type = string
+  description = "Path name coming after fqdn."
+}
