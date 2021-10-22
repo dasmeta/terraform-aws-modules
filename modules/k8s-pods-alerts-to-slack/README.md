@@ -1,6 +1,6 @@
 ```hcl
 
-module route53-health-check-to-slack {
+module k8s-pods-alerts-to-slack {
     source           = "dasmeta/modules/aws//modules/k8s-pods-alerts-to-slack"
     pod_name       = "pod-name"
     dimensions                = {
