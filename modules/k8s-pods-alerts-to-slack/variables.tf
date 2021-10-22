@@ -68,11 +68,11 @@ variable "dimensions" {
 
 variable "alarm_description_down" {
   type = string
-  default = "This metric monitors whether the service endpoint is down or not."
+  default = "This metric monitors pod restarts."
 }
 variable "alarm_description_up" {
   type = string
-  default = "This metric monitors whether the service endpoint is up"
+  default = "This metric monitors pod restarts."
 }
 variable "alarm_actions" {
   type = list(string)
