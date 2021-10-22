@@ -41,7 +41,7 @@ variable "alarm_region" {
 
 variable "failure_threshold" {
   type = string
-  default = "1"
+  default = "5"
   description = "The number of consecutive health checks that an endpoint must pass or fail."
 }
 
