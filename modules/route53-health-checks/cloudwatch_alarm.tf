@@ -2,7 +2,7 @@
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   provider                  = aws.virginia
 
-  alarm_name                = ":x: ${var.domen_name}"
+  alarm_name                = ":x: ${var.domen_name}${var.resource_path}"
   namespace                 = var.namespace
   metric_name               = var.metric_name
   comparison_operator       = var.comparison_operator
@@ -16,7 +16,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   }
   alarm_description         = var.alarm_description_down
   alarm_actions             = [
-    aws_sns_topic.route53-healthcheck.arn, // email
+    aws_sns_topic.route53-healthcheck_email.arn, // email
     aws_sns_topic.route53-healthcheck-sms.arn, // sms
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]
@@ -29,7 +29,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   provider                  = aws.virginia
 
-  alarm_name                = ":white_check_mark: ${var.domen_name}"
+  alarm_name                = ":white_check_mark: ${var.domen_name}${var.resource_path}"
   namespace                 = var.namespace
   metric_name               = var.metric_name
   comparison_operator       = var.comparison_operator
@@ -43,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   }
   alarm_description         = var.alarm_description_up
   ok_actions                = [
-    aws_sns_topic.route53-healthcheck.arn, // email
+    aws_sns_topic.route53-healthcheck_email.arn, // email
     aws_sns_topic.route53-healthcheck-sms.arn, // sms
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]

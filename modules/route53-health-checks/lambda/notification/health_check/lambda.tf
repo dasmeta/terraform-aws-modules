@@ -8,7 +8,7 @@ data "archive_file" "this" {
 resource "aws_lambda_function" "health_check_slack_notification_lambda" {
   provider = "aws.virginia"
 
-  function_name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-health-check-to-slack"
+  function_name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack"
   filename = "${path.module}/deploy.zip"
   source_code_hash = data.archive_file.this.output_base64sha256
   handler = "index.handler"
