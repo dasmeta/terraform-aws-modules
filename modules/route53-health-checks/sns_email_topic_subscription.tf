@@ -26,17 +26,12 @@ EOF
 
 }
 
-resource "null_resource" "email-list_health-check" {
-  triggers = {
-    email_list = join(" ", var.sns_subscription_email_address_list)
-  }
+# Subscribe sns to email
+resource "aws_sns_topic_subscription" "email" {
+  provider                  = aws.virginia
 
-  # Create subscriptions to existing sns topic on alarm creation
-  provisioner "local-exec" {
-    command = "sh ${path.module}/sns_subscription.sh"
-    environment = {
-      sns_arn = aws_sns_topic.route53-healthcheck_email.arn
-      sns_emails = join(" ", var.sns_subscription_email_address_list)
-    }
-  }
+  count     = length(var.sns_subscription_email_address_list)
+  topic_arn = aws_sns_topic.route53-healthcheck-sms.arn
+  protocol  = "email"
+  endpoint  = element(var.sns_subscription_email_address_list, count.index)
 }
