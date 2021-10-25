@@ -1,4 +1,5 @@
-variable "pod_name" {
+### Healthcheck related vaiables
+variable "domen_name" {
   type = string
   description = "Domain name or ip address of checking service."
 }
@@ -6,6 +7,48 @@ variable "pod_name" {
 variable "slack_hook_url" {
   type = string
   description = "This is slack webhook url path without domain"
+}
+
+variable "port" {
+  type = number
+  default = 443
+  description = "Port number of checking service."
+}
+
+variable "type" {
+  type = string
+  default = "HTTPS"
+  description = "Type of health check."
+}
+
+variable "reference_name" {
+  type = string
+  default = ""
+  description = "Reference name of health check."
+}
+
+variable "resource_path" {
+  type = string
+  default = ""
+  description = "Path name coming after fqdn."
+}
+
+variable "alarm_region" {
+  type = string
+  default = "eu-central-1"
+  description = "Region from where the alarms must be monitored. All regions are taken if the value is omited."
+}
+
+variable "failure_threshold" {
+  type = string
+  default = "5"
+  description = "The number of consecutive health checks that an endpoint must pass or fail."
+}
+
+variable "request_interval" {
+  type = string
+  default = "30"
+  description = "The number of seconds between the time that Amazon Route 53 gets a response from your endpoint and the time that it sends the next health-check request."
 }
 
 variable "tags" {
@@ -16,19 +59,19 @@ variable "tags" {
 
 variable "namespace" {
   type = string
-  default = "ContainerInsights"
+  default = "AWS/Route53"
   description = "Alarm emitter."
 }
 
 variable "metric_name" {
   type = string
-  default = "pod_number_of_container_restarts"
+  default = "HealthCheckStatus"
   description = "Name of the metric."
 }
 
 variable "comparison_operator" {
   type = string
-  default = "GreaterThanOrEqualToThreshold"
+  default = "LessThanThreshold"
   description = "Comparison operator."
 }
 
@@ -46,7 +89,7 @@ variable "period" {
 
 variable "statistic" {
   type = string
-  default = "Maximum"
+  default = "Minimum"
   description = "Statistic."
 }
 
@@ -58,11 +101,10 @@ variable "threshold" {
 
 variable "unit" {
   type = string
-  default = "Count"
+  default = "None"
 }
 
 variable "dimensions" {
-  type = map(any)
   default = {}
 }
 

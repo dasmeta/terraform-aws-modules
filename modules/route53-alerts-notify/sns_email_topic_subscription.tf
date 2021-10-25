@@ -1,5 +1,5 @@
 # Create sns topic for email notifications (should share same region with provider)
-resource "aws_sns_topic" "route53-healthcheck_email" {
+resource "aws_sns_topic" "this-email" {
   provider                  = aws.virginia
 
   name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-email"
@@ -31,7 +31,7 @@ resource "aws_sns_topic_subscription" "email" {
   provider                  = aws.virginia
 
   count     = length(var.sns_subscription_email_address_list)
-  topic_arn = aws_sns_topic.route53-healthcheck-sms.arn
+  topic_arn = aws_sns_topic.this-email.arn
   protocol  = "email"
   endpoint  = element(var.sns_subscription_email_address_list, count.index)
 }
