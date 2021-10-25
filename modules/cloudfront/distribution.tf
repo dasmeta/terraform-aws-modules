@@ -1,20 +1,9 @@
 locals {
   targets =  var.targets
-}
-
-locals {
   origins =  var.origins
-}
-
-locals {
   use_default_cert = var.use_default_cert
-}
-
-locals {
   create_lambda_security_headers = var.create_lambda_security_headers
-}
 
-locals {
   viewer_certificates = [
     {
       acm_certificate_arn            = local.use_default_cert ? null : var.acm_cert_arn
