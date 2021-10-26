@@ -1,6 +1,5 @@
 data "aws_partition" "current" {}
 
-
 resource "aws_iam_role" "execution_role" {
   name               = "${var.name}-execution-role"
   assume_role_policy = <<-EOF
@@ -74,7 +73,12 @@ resource "aws_lambda_function" "this" {
   memory_size      = var.memory_size
   publish          = true
   tags             = var.tags
+
   depends_on = [
     data.archive_file.this
   ]
+
+  providers = {
+    aws = aws.virginia
+  }
 }
