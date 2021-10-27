@@ -15,6 +15,7 @@ locals {
 }
 
 resource "aws_cloudfront_distribution" "main" {
+    aliases                        = var.domain_names
     enabled                        = var.enabled
     is_ipv6_enabled                = var.is_ipv6_enabled
     price_class                    = var.price_class
@@ -126,15 +127,15 @@ resource "aws_cloudfront_distribution" "main" {
         cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
       }
     }
-
-    depends_on = [
-      module.aws-cloudfront-security-headers
-    ]
 }
 
 module aws-cloudfront-security-headers {
   count = var.create_lambda_security_headers ? 1 : 0
-  
+
   source = "../aws-cloudfront-security-headers"
-  name   = var.lambda_function_name
+  name   = var.lambda_function_name # TODO: get/generate this value dynamically based on distribution id failed as of dpendencies circle, try another way
+
+  providers = {
+    aws = aws.virginia
+  }
 }

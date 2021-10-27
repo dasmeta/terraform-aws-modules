@@ -77,8 +77,4 @@ resource "aws_lambda_function" "this" {
   depends_on = [
     data.archive_file.this
   ]
-
-  providers = {
-    aws = aws.virginia
-  }
 }
