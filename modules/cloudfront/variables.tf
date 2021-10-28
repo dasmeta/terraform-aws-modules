@@ -1,11 +1,14 @@
 variable "domain_names" {
   description = "The list of domain names (aliases) for which cloudfront will used for"
+  type        = list(string)
 }
 variable "default_target_origin_id" {
   description = "The value of ID for the origin that you want CloudFront to route requests to when a request matches the path pattern either for a cache behavior or for the default cache behavior."
+  type        = string
 }
 variable "origins" {
   description = "Targets, types and custom_origin_config block are needed to create new origins."
+  type        = list
 }
 
 variable "create_lambda_security_headers" {
@@ -15,8 +18,9 @@ variable "create_lambda_security_headers" {
 }
 
 variable "targets" {
-  default = []
+  default     = []
   description = "Targets and patterns needed to create new behaviours."
+  type        = list
 }
 
 variable "use_default_cert" {
