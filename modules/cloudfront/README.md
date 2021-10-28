@@ -21,6 +21,11 @@ module "cf" {
 ## example to create cloudfront and enable security headers lambda and set custom certificate
 
 ```
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+
 data "aws_s3_bucket" "selected" {
   bucket = "devops.dasmeta.com"
 
@@ -47,7 +52,6 @@ module test-cloudfront {
   acm_cert_arn = data.aws_acm_certificate.issued.arn
   create_lambda_security_headers = true
   default_target_origin_id = data.aws_s3_bucket.selected.bucket_regional_domain_name
-  lambda_function_name = "cloudfront-secure-headers-lambda"
   domain_names = ["devops.dasmeta.com"]
 }
 ```
@@ -94,7 +98,6 @@ module "cloudfront" {
     ]
     acm_cert_arn = "some arn"
     create_lambda_security_headers = true
-    lambda_function_name = "cloudfront-secure-headers-lambda"
     default_target_origin_id = "some-default-elb.eu-central-1.elb.amazonaws.com"
     domain_names = ["example.com"]
 }

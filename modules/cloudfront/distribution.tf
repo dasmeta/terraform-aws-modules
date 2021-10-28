@@ -133,7 +133,7 @@ module aws-cloudfront-security-headers {
   count = var.create_lambda_security_headers ? 1 : 0
 
   source = "../aws-cloudfront-security-headers"
-  name   = var.lambda_function_name # TODO: get/generate this value dynamically based on distribution id failed as of dpendencies circle, try another way
+  name   = "${substr(replace(join("-", var.domain_names), ".", "-"), 0, 32)}-security-headers"
 
   providers = {
     aws = aws.virginia

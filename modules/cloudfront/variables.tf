@@ -14,12 +14,6 @@ variable "create_lambda_security_headers" {
   description = "Whether to create and attach a labda function to the distribution or not."
 }
 
-variable "lambda_function_name" {
-  type        = string
-  description = "The name of the lambda function you want to create. You have to set non empty value if 'create_lambda_security_headers' is true"
-  default = ""
-}
-
 variable "targets" {
   default = []
   description = "Targets and patterns needed to create new behaviours."
