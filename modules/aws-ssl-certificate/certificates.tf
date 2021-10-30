@@ -1,5 +1,5 @@
 locals {
-  full_domain = "${var.domain}.${var.zone}"
+  full_domain = "${var.domain}${var.domain != "" ? "." : ""}${var.zone}"
 }
 
 resource "aws_acm_certificate" "main" {

@@ -1,10 +1,26 @@
-variable "targets" {
-  default = []
-  description = "Targets and patterns needed to create new behaviours."
+variable "domain_names" {
+  description = "The list of domain names (aliases) for which cloudfront will used for"
+  type        = list(string)
 }
-
+variable "default_target_origin_id" {
+  description = "The value of ID for the origin that you want CloudFront to route requests to when a request matches the path pattern either for a cache behavior or for the default cache behavior."
+  type        = string
+}
 variable "origins" {
   description = "Targets, types and custom_origin_config block are needed to create new origins."
+  type        = list
+}
+
+variable "create_lambda_security_headers" {
+  type        = bool
+  default     = false
+  description = "Whether to create and attach a labda function to the distribution or not."
+}
+
+variable "targets" {
+  default     = []
+  description = "Targets and patterns needed to create new behaviours."
+  type        = list
 }
 
 variable "use_default_cert" {
@@ -12,12 +28,6 @@ variable "use_default_cert" {
   default     = false
   description = "Whether to use custom or default certificate."
 }
-
-variable "create_lambda_security_headers" {
-  type        = bool
-  default     = false
-  description = "Whether to create and attach a labda function to the distribution or not."
-} 
 
 variable "acm_cert_arn" {
   type        = string
@@ -51,7 +61,7 @@ variable "retain_on_delete" {
 
 variable "default_root_object" {
   type        = string
-  default     = "index.html"
+  default     = ""
   description = "The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL."
 }
 
@@ -106,10 +116,6 @@ variable "default_smooth_streaming" {
   type        = bool
   default     = false
   description = "Indicates whether you want to distribute media files in Microsoft Smooth Streaming format using the origin that is associated with this cache behavior."
-}
-
-variable "default_target_origin_id" {
-  description = "The value of ID for the origin that you want CloudFront to route requests to when a request matches the path pattern either for a cache behavior or for the default cache behavior."
 }
 
 variable "default_viewer_protocol_policy" {
@@ -238,9 +244,4 @@ variable "minimum_protocol_version" {
   type        = string
   default     = "TLSv1"
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
-}
-
-variable "lambda_function_name" {
-  type        = string
-  description = "The name of the lambda function you want to create."
 }

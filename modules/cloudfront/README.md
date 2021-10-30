@@ -14,6 +14,45 @@ module "cf" {
     ] 
     use_default_cert = true
     default_target_origin_id = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
+    domain_names = ["example.com"]
+}
+```
+
+## example to create cloudfront and enable security headers lambda and set custom certificate
+
+```
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+
+data "aws_s3_bucket" "selected" {
+  bucket = "devops.dasmeta.com"
+
+  provider = aws.virginia
+}
+
+data "aws_acm_certificate" "issued" {
+  domain   = "devops.dasmeta.com"
+  statuses = ["ISSUED"]
+
+  provider = aws.virginia
+}
+
+module test-cloudfront {
+  source = "dasmeta/modules/aws//modules/cloudfront"
+  origins = [
+      {
+        target = data.aws_s3_bucket.selected.bucket_regional_domain_name
+        type = "bucket"
+        custom_origin_config = []
+      }
+  ]
+
+  acm_cert_arn = data.aws_acm_certificate.issued.arn
+  create_lambda_security_headers = true
+  default_target_origin_id = data.aws_s3_bucket.selected.bucket_regional_domain_name
+  domain_names = ["devops.dasmeta.com"]
 }
 ```
 
@@ -60,5 +99,6 @@ module "cloudfront" {
     acm_cert_arn = "some arn"
     create_lambda_security_headers = true
     default_target_origin_id = "some-default-elb.eu-central-1.elb.amazonaws.com"
+    domain_names = ["example.com"]
 }
 ```

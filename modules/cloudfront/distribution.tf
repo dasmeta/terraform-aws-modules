@@ -7,7 +7,7 @@ locals {
   viewer_certificates = [
     {
       acm_certificate_arn            = local.use_default_cert ? null : var.acm_cert_arn
-      minimum_protocol_version       = local.use_default_cert ? null : "TLSv1.2021"
+      minimum_protocol_version       = local.use_default_cert ? null : "TLSv1.2_2021"
       ssl_support_method             = local.use_default_cert ? null : "sni-only"
       cloudfront_default_certificate = local.use_default_cert
     },
@@ -15,6 +15,7 @@ locals {
 }
 
 resource "aws_cloudfront_distribution" "main" {
+    aliases                        = var.domain_names
     enabled                        = var.enabled
     is_ipv6_enabled                = var.is_ipv6_enabled
     price_class                    = var.price_class
@@ -126,15 +127,4 @@ resource "aws_cloudfront_distribution" "main" {
         cloudfront_default_certificate = viewer_certificate.value.cloudfront_default_certificate
       }
     }
-
-    depends_on = [
-      module.aws-cloudfront-security-headers
-    ]
-}
-
-module aws-cloudfront-security-headers {
-    count = var.create_lambda_security_headers ? 1 : 0
-    
-    source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
-    name                    = var.lambda_function_name
 }
