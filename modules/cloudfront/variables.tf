@@ -61,7 +61,7 @@ variable "retain_on_delete" {
 
 variable "default_root_object" {
   type        = string
-  default     = "index.html"
+  default     = ""
   description = "The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL."
 }
 
