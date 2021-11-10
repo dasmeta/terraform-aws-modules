@@ -3,5 +3,5 @@ variable cluster {
     host        = string
     certificate = string
     token       = string
-})
+  })
 }

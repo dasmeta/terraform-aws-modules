@@ -100,5 +100,4 @@ module external-secrets-prod {
     certificate = module.eks-cluster.certificate
     token       = module.eks-cluster.token
   }
-
 }
