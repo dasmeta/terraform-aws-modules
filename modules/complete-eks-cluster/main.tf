@@ -94,4 +94,11 @@ module "metrics-server" {
 
 module external-secrets-prod {
   source = "../external-secrets"
+
+  cluster = {
+    host        = module.eks-cluster.host
+    certificate = module.eks-cluster.certificate
+    token       = module.eks-cluster.token
+  }
+
 }
