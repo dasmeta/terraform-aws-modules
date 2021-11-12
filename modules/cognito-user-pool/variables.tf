@@ -92,6 +92,14 @@ variable "invite_message_template" {
   description = "email_message is a message template for email messages. Must contain {username} and {####} placeholders, for username and temporary password, respectively. email_subject is a subject line for email messages. sms_message is a message template for SMS messages. Must contain {username} and {####} placeholders, for username and temporary password, respectively."
 }
 
+variable "challenge_required_on_new_device" {
+  default = false
+}
+
+variable "device_only_remembered_on_user_prompt" {
+  default = true
+}
+
 variable "kms_key_id" {
   type        = string
   default     = ""
@@ -106,13 +114,19 @@ variable "custom_email_sender" {
 }
 
 variable "schema" {
-  default     = {
-    "attribute_data_type"      = "String"
-    "developer_only_attribute" = false
-    "mutable"                  = true
-    "name"                     = "email"
-    "required"                 = true
-  } 
+  default     = [
+    {
+      "attribute_data_type"      = "String"
+      "developer_only_attribute" = false
+      "mutable"                  = true
+      "name"                     = "email"
+      "required"                 = true
+      string_attribute_constraints = {
+        max_length = ""
+        min_length = ""
+      }
+    },
+  ]
 }
 
 variable "software_token_mfa_configuration_enabled" {

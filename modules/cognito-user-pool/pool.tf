@@ -40,6 +40,11 @@ resource "aws_cognito_user_pool" "pool" {
       }
   }
 
+  device_configuration {
+    challenge_required_on_new_device      = var.challenge_required_on_new_device
+    device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
+  }
+
   lambda_config {
     kms_key_id = var.kms_key_id
 
@@ -58,6 +63,11 @@ resource "aws_cognito_user_pool" "pool" {
       mutable                  = schema.value.mutable
       name                     = schema.value.name
       required                 = schema.value.required
+
+      string_attribute_constraints {
+          max_length = schema.value.string_attribute_constraints.max_length
+          min_length = schema.value.string_attribute_constraints.min_length
+      }
     }
   }
 
