@@ -27,3 +27,33 @@ variable "user_pool_client" {
   default     = "user1"
   description = "A user pool client name."
 }
+
+variable client_id {
+  type        = string
+  description = "The client ID for the Amazon Cognito Identity User Pool."
+}
+
+variable provider_name {
+  type        = string
+  description = "The provider name for an Amazon Cognito Identity User Pool."
+}
+variable "server_side_token_check" {
+  type        = bool
+  description = "Whether server-side token validation is enabled for the identity provider’s token or not."
+}
+
+variable "unauthenticated_role" {
+  type        = string
+  default     = "Unauthenticated_role"
+  description = "Name of the unauthenticated role."
+}
+
+variable "authenticated_role" {
+  type        = string
+  default     = "Authenticated_role"
+  description = "Name of the authenticated role."
+}
+
+variable "auth_inline_policy" {}
+
+variable "unauth_inline_policy" {}
