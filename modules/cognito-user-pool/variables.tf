@@ -1,12 +1,18 @@
-variable name {
+variable "name" {
   type        = string
   default     = "Pool name"
   description = "Name of the pool that will be created"
 }
 
-variable clients {
+variable "clients" {
   type        = list(string)
   description = "List of client names"
+}
+
+variable "generate_secret" {
+  type        = bool
+  default     = false
+  description = "Should an application secret be generated."
 }
 
 variable "alias_attributes" {
