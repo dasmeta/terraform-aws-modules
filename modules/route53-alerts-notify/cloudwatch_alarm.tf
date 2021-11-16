@@ -1,8 +1,6 @@
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
-  provider                  = aws.virginia
-
-  alarm_name                = ":x: ${var.domen_name}"
+  alarm_name                = ":x: ${var.domen_name}${var.resource_path}"
   namespace                 = var.namespace
   metric_name               = var.metric_name
   comparison_operator       = var.comparison_operator
@@ -27,9 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   ]
 }
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
-  provider                  = aws.virginia
-
-  alarm_name                = ":white_check_mark: ${var.domen_name}"
+  alarm_name                = ":white_check_mark: ${var.domen_name}${var.resource_path}"
   namespace                 = var.namespace
   metric_name               = var.metric_name
   comparison_operator       = var.comparison_operator
