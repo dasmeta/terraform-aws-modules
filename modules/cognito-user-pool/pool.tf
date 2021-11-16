@@ -45,12 +45,16 @@ resource "aws_cognito_user_pool" "pool" {
     device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
   }
 
-  lambda_config {
-    kms_key_id = var.kms_key_id
+  dynamic "lambda_config" {
+    for_each = (var.lambda_config.kms_key_id != "" && var.lambda_config.custom_email_sender.lambda_arn != "" && var.lambda_config.custom_email_sender.lambda_version != "") ? [1]:[]
 
-    custom_email_sender {
-      lambda_arn = var.custom_email_sender.lambda_arn
-      lambda_version = var.custom_email_sender.lambda_version
+    content {
+      kms_key_id = var.lambda_config.kms_key_id
+
+      custom_email_sender {
+        lambda_arn =  var.lambda_config.custom_email_sender.lambda_arn
+        lambda_version = var.lambda_config.custom_email_sender.lambda_version
+      }
     }
   }
 

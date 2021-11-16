@@ -100,17 +100,15 @@ variable "device_only_remembered_on_user_prompt" {
   default = true
 }
 
-variable "kms_key_id" {
-  type        = string
-  default     = ""
-}
-variable "custom_email_sender" {
-  type        = map
-  default     = {
-    lambda_arn = ""
-    lambda_version = "V1_0"
+variable "lambda_config" {
+  default = {
+    kms_key_id = ""
+
+    custom_email_sender = {
+        lambda_arn = ""
+        lambda_version = ""
+    }
   }
-  description = "lambda_arn is the Lambda Amazon Resource Name of the Lambda function that Amazon Cognito triggers to send email notifications to users."
 }
 
 variable "schema" {
@@ -140,3 +138,15 @@ variable "username_case_sensitive" {
   default     = false
   description = "Whether username case sensitivity will be applied for all users in the user pool through Cognito APIs."
 }
+
+# variable "domain" {
+  
+# }
+
+# variable "cert_arn" {
+  
+# }
+
+# variable "r53_zone" {
+  
+# }
