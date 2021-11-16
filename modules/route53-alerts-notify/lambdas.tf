@@ -1,8 +1,5 @@
 module "slack_notification_lambda_health_checks" {
-  providers = {
-    aws = aws
-    aws.virginia = aws.virginia
-  }
+
 
   source = "./lambda"
   slack_hook_url = var.slack_hook_url

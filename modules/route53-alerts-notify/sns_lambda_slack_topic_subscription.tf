@@ -1,10 +1,7 @@
 data "aws_caller_identity" "current" {
-  provider = aws.virginia
 }
 
 resource "aws_sns_topic" "this" {
-  provider = aws.virginia
-
   display_name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack"
   name         = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack"
   policy       = jsonencode(
@@ -50,7 +47,7 @@ data "aws_sns_topic" "aws_sns_topic_slack_health_check" {
   depends_on = [
     module.slack_notification_lambda_health_checks,aws_sns_topic.this,
   ]
-  provider                  = aws.virginia
+  
 }
 
 data "aws_lambda_function" "health_check_slack_notification_lambda" {
@@ -58,12 +55,10 @@ data "aws_lambda_function" "health_check_slack_notification_lambda" {
   depends_on = [
     module.slack_notification_lambda_health_checks,aws_sns_topic.this,
   ]
-  provider                  = aws.virginia
+  
 }
 
 resource "aws_sns_topic_subscription" "lambda" {
-  provider                  = aws.virginia
-
   topic_arn = data.aws_sns_topic.aws_sns_topic_slack_health_check.arn
   protocol  = "lambda"
   endpoint  = data.aws_lambda_function.health_check_slack_notification_lambda.arn

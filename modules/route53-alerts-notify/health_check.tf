@@ -1,7 +1,5 @@
 # Create a healthcheck
 resource "aws_route53_health_check" "healthcheck" {
-  provider                = aws.virginia
-
   fqdn                    = var.domen_name
   port                    = var.port
   type                    = var.type
