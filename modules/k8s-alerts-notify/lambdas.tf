@@ -1,5 +1,10 @@
-module "slack_notification_lambda_health_checks" {
-  source         = "./lambda/notification/health_check"
-  slack_hook_url = var.slack_hook_url
-  pod_name       = var.pod_name
+module "notify_slack" {
+  source  = "terraform-aws-modules/notify-slack/aws"
+  version = "4.18.0"
+
+  sns_topic_name       = "${replace(var.pod_name, ".", "-")}-slack"
+  slack_webhook_url    = var.slack_hook_url
+  slack_channel        = var.slack_channel
+  slack_username       = var.slack_username
+  lambda_function_name = "${replace(var.pod_name, ".", "-")}-slack"
 }

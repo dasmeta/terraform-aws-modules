@@ -1,5 +1,5 @@
 # Create sns topic for sms notifications
-resource "aws_sns_topic" "route53-healthcheck-sms" {
+resource "aws_sns_topic" "k8s-alerts-notify-sms" {
   name = "${replace(var.pod_name, ".", "-")}-sms"
 
   delivery_policy = <<EOF
@@ -27,7 +27,7 @@ EOF
 # Subscribe sns to sms
 resource "aws_sns_topic_subscription" "sms" {
   count     = length(var.sns_subscription_phone_number_list)
-  topic_arn = aws_sns_topic.route53-healthcheck-sms.arn
+  topic_arn = aws_sns_topic.k8s-alerts-notify-sms.arn
   protocol  = "sms"
   endpoint  = element(var.sns_subscription_phone_number_list, count.index)
 }

@@ -1,5 +1,5 @@
 # Create sns topic for email notifications (should share same region with provider)
-resource "aws_sns_topic" "route53-healthcheck_email" {
+resource "aws_sns_topic" "k8s-alerts-notify-email" {
   name = "${replace(var.pod_name, ".", "-")}-email"
 
   delivery_policy = <<EOF
@@ -27,7 +27,7 @@ EOF
 # Subscribe sns to email
 resource "aws_sns_topic_subscription" "email" {
   count     = length(var.sns_subscription_email_address_list)
-  topic_arn = aws_sns_topic.route53-healthcheck-sms.arn
+  topic_arn = aws_sns_topic.k8s-alerts-notify-email.arn
   protocol  = "email"
   endpoint  = element(var.sns_subscription_email_address_list, count.index)
 }
