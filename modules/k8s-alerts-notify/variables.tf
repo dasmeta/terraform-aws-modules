@@ -1,86 +1,86 @@
 variable "pod_name" {
-  type = string
+  type        = string
   description = "Domain name or ip address of checking service."
 }
 
 variable "slack_hook_url" {
-  type = string
+  type        = string
   description = "This is slack webhook url path without domain"
 }
 
 variable "tags" {
   # type = object
-  default = {}
+  default     = {}
   description = "Tags object."
 }
 
 variable "namespace" {
-  type = string
-  default = "ContainerInsights"
+  type        = string
+  default     = "ContainerInsights"
   description = "Alarm emitter."
 }
 
 variable "metric_name" {
-  type = string
-  default = "pod_number_of_container_restarts"
+  type        = string
+  default     = "pod_number_of_container_restarts"
   description = "Name of the metric."
 }
 
 variable "comparison_operator" {
-  type = string
-  default = "GreaterThanOrEqualToThreshold"
+  type        = string
+  default     = "GreaterThanOrEqualToThreshold"
   description = "Comparison operator."
 }
 
 variable "evaluation_periods" {
-  type = string
-  default = "1"
+  type        = string
+  default     = "1"
   description = "Evaluation periods."
 }
 
 variable "period" {
-  type = string
-  default = "60"
+  type        = string
+  default     = "60"
   description = "Period."
 }
 
 variable "statistic" {
-  type = string
-  default = "Maximum"
+  type        = string
+  default     = "Maximum"
   description = "Statistic."
 }
 
 variable "threshold" {
-  type = string
-  default = "1"
+  type        = string
+  default     = "1"
   description = "Threshold."
 }
 
 variable "unit" {
-  type = string
+  type    = string
   default = "Count"
 }
 
 variable "dimensions" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 
 variable "alarm_description_down" {
-  type = string
+  type    = string
   default = "This metric monitors pod restarts."
 }
 variable "alarm_description_up" {
-  type = string
+  type    = string
   default = "This metric monitors pod restarts."
 }
 variable "alarm_actions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "insufficient_data_actions" {
-  type = string
+  type    = string
   default = "breaching"
 }
 
@@ -91,8 +91,8 @@ variable "depends" {
 
 ### SNS Topic related variables
 variable "topic_name" {
-  type = string
-  default = "topic"
+  type        = string
+  default     = "topic"
   description = "SNS topic name."
 }
 
@@ -109,6 +109,6 @@ variable "sns_subscription_phone_number_list" {
 }
 
 variable "sms_message_body" {
-  type = string
+  type    = string
   default = "sms_message_body"
 }

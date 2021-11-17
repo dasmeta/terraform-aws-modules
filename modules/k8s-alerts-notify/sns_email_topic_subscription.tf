@@ -1,7 +1,5 @@
 # Create sns topic for email notifications (should share same region with provider)
 resource "aws_sns_topic" "route53-healthcheck_email" {
-  provider                  = aws.virginia
-
   name = "${replace(var.pod_name, ".", "-")}-email"
 
   delivery_policy = <<EOF
@@ -28,8 +26,6 @@ EOF
 
 # Subscribe sns to email
 resource "aws_sns_topic_subscription" "email" {
-  provider                  = aws.virginia
-
   count     = length(var.sns_subscription_email_address_list)
   topic_arn = aws_sns_topic.route53-healthcheck-sms.arn
   protocol  = "email"
