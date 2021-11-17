@@ -1,14 +1,9 @@
-locals {
-  full_domain = "${var.domain}${var.domain != "" ? "." : ""}${var.zone}"
-}
-
 resource "aws_acm_certificate" "main" {
-  domain_name       = local.full_domain
-  validation_method = "DNS"
+  domain_name               = var.domain
+  subject_alternative_names = var.alternative_domains
+  validation_method         = "DNS"
 
-  tags = {
-    Environment = "prod"
-  }
+  tags = var.tags
 
   lifecycle {
     create_before_destroy = true

@@ -1,9 +1,21 @@
-variable zone {
+variable "domain" {
   type        = string
-  description = "Zone ssl certificate will be created in (e.g. mydomain.com). Should not start or end with dot."
+  description = "Domain name ssl certificate will be created for."
 }
 
-variable domain {
+variable "alternative_domains" {
+  type       = list(string)
+  escription = "Subdomain or Wildcard name ssl certificate will be created."
+}
+variable "zone" {
   type        = string
-  description = "Domain name ssl certificate will be created for (e.g. auth). This will be combined with zone."
+  description = "This variable use route53.Can equal to domain name"
+}
+
+variable "tags" {
+  type = object({ key = string, value = string })
+  default = {
+    key   = "Environment"
+    value = "prod"
+  }
 }
