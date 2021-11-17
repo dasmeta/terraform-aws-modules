@@ -6,7 +6,6 @@ data "archive_file" "this" {
 
 # Define lambda function to request slack endpoint
 resource "aws_lambda_function" "health_check_slack_notification_lambda" {
-  provider = "aws.virginia"
 
   function_name = "${replace(var.pod_name, ".", "-")}-to-slack"
   filename = "${path.module}/deploy.zip"
