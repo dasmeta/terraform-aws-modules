@@ -4,11 +4,6 @@ variable "domen_name" {
   description = "Domain name or ip address of checking service."
 }
 
-variable "slack_hook_url" {
-  type = string
-  description = "This is slack webhook url path without domain"
-}
-
 variable "port" {
   type = number
   default = 443
@@ -153,4 +148,20 @@ variable "sns_subscription_phone_number_list" {
 variable "sms_message_body" {
   type = string
   default = "sms_message_body"
+}
+
+### Slack variables
+variable "slack_hook_url" {
+  type        = string
+  description = "This is slack webhook url path without domain"
+}
+
+variable "slack_channel" {
+  type        = string
+  description = "Slack Channel"
+}
+
+variable "slack_username" {
+  type        = string
+  description = "Slack User Name"
 }
