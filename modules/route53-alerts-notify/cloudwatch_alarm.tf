@@ -1,3 +1,14 @@
+### SNS slack lambda notification about health checks ###
+
+data "aws_sns_topic" "aws_sns_topic_slack_health_check" {
+  
+  name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack" 
+  depends_on = [
+    module.notify_slack
+  ]
+  
+}
+
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_name                = ":x: ${var.domen_name}${var.resource_path}"

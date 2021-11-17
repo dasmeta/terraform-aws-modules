@@ -1,8 +1,10 @@
-module "slack_notification_lambda_health_checks" {
+module "notify_slack" {
+  source  = "terraform-aws-modules/notify-slack/aws"
+  version = "4.18.0"
 
-
-  source = "./lambda"
-  slack_hook_url = var.slack_hook_url
-  domen_name = var.domen_name
-  resource_path = var.resource_path
+  sns_topic_name       = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack"
+  slack_webhook_url    = var.slack_hook_url
+  slack_channel        = var.slack_channel
+  slack_username       = var.slack_username
+  lambda_function_name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-slack"
 }
