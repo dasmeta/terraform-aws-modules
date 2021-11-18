@@ -6,6 +6,7 @@ variable "name" {
 
 variable "clients" {
   type        = list(string)
+  default     = []
   description = "List of client names"
 }
 
@@ -99,11 +100,15 @@ variable "invite_message_template" {
 }
 
 variable "challenge_required_on_new_device" {
-  default = false
+  type        = bool
+  default     = null
+  description = "Whether a challenge is required on a new device. Only applicable to a new device."
 }
 
 variable "device_only_remembered_on_user_prompt" {
-  default = true
+  type        = bool
+  default     = null
+  description = "Whether a device is only remembered on user prompt."
 }
 
 variable "lambda_config" {
@@ -145,14 +150,144 @@ variable "username_case_sensitive" {
   description = "Whether username case sensitivity will be applied for all users in the user pool through Cognito APIs."
 }
 
-# variable "domain" {
-  
-# }
+variable "user_group" {
+  type        = string
+  default     = ""
+  description = "The name of the user group."
+}
 
-# variable "cert_arn" {
-  
-# }
+variable "precedence" {
+  type        = number
+  default     = 0
+  description = "The precedence of the user group."
+}
 
-# variable "r53_zone" {
-  
-# }
+variable "role_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of the IAM role to be associated with the user group."
+}
+
+variable "domain" {
+  type        = string
+  default     = ""
+  description = "The domain string."
+}
+
+variable "cert_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of an ISSUED ACM certificate in us-east-1 for a custom domain."
+}
+
+variable "zone_id" {
+  type        = string
+  default     = ""
+  description = "R53 zone."
+}
+
+variable "access_token_validity" {
+  type        = number
+  default     = 120
+  description = "Time limit, between 5 minutes and 1 day, after which the access token is no longer valid and cannot be used. This value will be overridden if you have entered a value in token_validity_units."
+}
+
+variable "allowed_oauth_flows_user_pool_client" {
+  type        = bool
+  default     = false
+  description = "Whether the client is allowed to follow the OAuth protocol when interacting with Cognito user pools."
+}
+
+variable "enable_token_revocation" {
+  type        = bool
+  default     = true
+  description = "Enables or disables token revocation."
+}
+
+variable "explicit_auth_flows" {
+  type        = list(string)
+  default     = [
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_PASSWORD_AUTH",
+    "ALLOW_USER_SRP_AUTH",
+  ]
+  description = "List of authentication flows."
+}
+
+variable "id_token_validity" {
+  type        = number
+  default     = 120
+  description = "Time limit, between 5 minutes and 1 day, after which the ID token is no longer valid and cannot be used. This value will be overridden if you have entered a value in token_validity_units."
+}
+
+variable "prevent_user_existence_errors" {
+  type        = string
+  default     = "LEGACY"
+  description = "Choose which errors and responses are returned by Cognito APIs during authentication, account confirmation, and password recovery when the user does not exist in the user pool."
+}
+
+variable "read_attributes" {
+  type        = list(string)
+  default     = [
+    "address",
+    "birthdate",
+    "email",
+    "email_verified",
+    "family_name",
+    "gender",
+    "given_name",
+    "locale",
+    "middle_name",
+    "name",
+    "nickname",
+    "phone_number",
+    "phone_number_verified",
+    "picture",
+    "preferred_username",
+    "profile",
+    "updated_at",
+    "website",
+    "zoneinfo",
+  ]
+  description = "List of user pool attributes the application client can read from."
+}
+
+variable "refresh_token_validity" {
+  type        = number
+  default     = 7
+  description = "Time limit in days refresh tokens are valid for."
+}
+
+variable "write_attributes" {
+  type        = list(string)
+  default     = [
+    "address",
+    "birthdate",
+    "email",
+    "family_name",
+    "gender",
+    "given_name",
+    "locale",
+    "middle_name",
+    "name",
+    "nickname",
+    "phone_number",
+    "picture",
+    "preferred_username",
+    "profile",
+    "updated_at",
+    "website",
+    "zoneinfo",
+  ]
+  description = "List of user pool attributes the application client can write to."
+}
+
+variable "token_validity_units" {
+  type        = map
+  default     = {
+    access_token  = "minutes"
+    id_token      = "minutes"
+    refresh_token = "days"
+  }
+  description = "access_token is time unit in for the value in access_token_validity. id_token is time unit in for the value in id_token_validity. refresh_token is time unit in for the value in refresh_token_validity."
+}
