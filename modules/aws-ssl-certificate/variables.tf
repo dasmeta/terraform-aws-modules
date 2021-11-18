@@ -5,11 +5,11 @@ variable "domain" {
 
 variable "alternative_domains" {
   type       = list(string)
-  escription = "Subdomain or Wildcard name ssl certificate will be created."
+  escription = "Subdomain or Wildcard name ssl certificate will be create."
 }
 variable "zone" {
   type        = string
-  description = "This variable use route53.Can equal to domain name"
+  description = "This variable use route53.Can equal to domain name."
 }
 
 variable "tags" {

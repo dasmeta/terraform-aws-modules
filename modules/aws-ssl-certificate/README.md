@@ -6,8 +6,10 @@ module ssl-certificate-auth {
   # source = "git::https://github.com/dasmeta/terraform.git//modules/aws-ssl-certificate?ref=aws-ssl-certificates"
   source = "../../../../dasmeta/terraform/modules/aws-ssl-certificate"
 
+  domain = "mydomain.com"
+  alternative_domains = "subdomain.mydomain.com"
   zone = "mydomain.com"
-  domain = "auth"
+  tags = ["Environment","prod"]
 
   providers {
     aws = aws.virginia
@@ -26,8 +28,10 @@ module ssl-certificate-auth {
   # source = "git::https://github.com/dasmeta/terraform.git//modules/aws-ssl-certificate?ref=aws-ssl-certificates"
   source = "../../../../dasmeta/terraform/modules/aws-ssl-certificate"
 
+  domain = "mydomain.com"
+  alternative_domains = "subdomain.mydomain.com"
   zone = "mydomain.com"
-  domain = "auth"
+  tags = ["Environment","prod"]
 
   providers {
     aws = aws.virginia
