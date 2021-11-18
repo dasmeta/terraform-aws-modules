@@ -1,6 +1,6 @@
 # Create sns topic for sms notifications
 resource "aws_sns_topic" "this-sms" {
-  name = "${replace(var.domen_name, ".", "-")}-sms"
+  name = "${replace(var.domain_name, ".", "-")}-sms"
 
   delivery_policy = <<EOF
 {
