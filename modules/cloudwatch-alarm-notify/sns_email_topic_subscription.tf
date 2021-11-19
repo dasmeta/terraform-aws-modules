@@ -1,6 +1,6 @@
 # Create sns topic for email notifications (should share same region with provider)
 resource "aws_sns_topic" "k8s-alerts-notify-email" {
-  name = "${replace(var.pod_name, ".", "-")}-email"
+  name = "${replace(var.alarm_name, ".", "-")}-email"
 
   delivery_policy = <<EOF
 {

@@ -1,6 +1,6 @@
 # Create sns topic for sms notifications
 resource "aws_sns_topic" "k8s-alerts-notify-sms" {
-  name = "${replace(var.pod_name, ".", "-")}-sms"
+  name = "${replace(var.alarm_name, ".", "-")}-sms"
 
   delivery_policy = <<EOF
 {
