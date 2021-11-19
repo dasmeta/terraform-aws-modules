@@ -1,4 +1,4 @@
-variable "pod_name" {
+variable "alarm_name" {
   type        = string
   description = "Domain name or ip address of checking service."
 }

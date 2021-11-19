@@ -2,7 +2,7 @@
 
 data "aws_sns_topic" "k8s-alerts-notify-slack" {
 
-  name = "${replace(var.pod_name, ".", "-")}-slack"
+  name = "${replace(var.alarm_name, ".", "-")}-slack"
   depends_on = [
     module.notify_slack
   ]
@@ -10,7 +10,7 @@ data "aws_sns_topic" "k8s-alerts-notify-slack" {
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
-  alarm_name          = ":x: ${var.pod_name}"
+  alarm_name          = ":x: ${var.alarm_name}"
   namespace           = var.namespace
   metric_name         = var.metric_name
   comparison_operator = var.comparison_operator
@@ -29,11 +29,11 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   insufficient_data_actions = []
   treat_missing_data        = var.insufficient_data_actions #"breaching"
   tags = {
-    Name = "${var.pod_name}-alerts"
+    Name = "${var.alarm_name}-alerts"
   }
 }
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
-  alarm_name          = ":white_check_mark: ${var.pod_name}"
+  alarm_name          = ":white_check_mark: ${var.alarm_name}"
   namespace           = var.namespace
   metric_name         = var.metric_name
   comparison_operator = var.comparison_operator
@@ -52,6 +52,6 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   insufficient_data_actions = []
   treat_missing_data        = var.insufficient_data_actions #"breaching"
   tags = {
-    Name = "${var.pod_name}-alerts"
+    Name = "${var.alarm_name}-alerts"
   }
 }

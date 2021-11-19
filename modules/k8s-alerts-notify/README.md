@@ -2,7 +2,7 @@
 
 module k8s-pods-alerts-to-slack {
     source           = "dasmeta/modules/aws//modules/k8s-pods-alerts-to-slack"
-    pod_name       = "pod-name"
+    alarm_name       = "pod-name"
     dimensions                = {
         "ClusterName" = "cluster-name"
         "Namespace"   = "default"
