@@ -2,7 +2,7 @@
 
 data "aws_sns_topic" "aws_sns_topic_slack_health_check" {
   
-  name = "${replace("${var.domain_name}${var.resource_path}", "/[./]+/", "-")}-slack" 
+  name = "${replace("${var.domain_name}${var.resource_path}", "/[./]+/", "-")}-slack"
   depends_on = [
     module.notify_slack
   ]
