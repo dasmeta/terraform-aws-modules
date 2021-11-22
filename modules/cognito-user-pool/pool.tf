@@ -82,4 +82,10 @@ resource "aws_cognito_user_pool" "pool" {
   username_configuration {
       case_sensitive = var.username_case_sensitive
   }
+
+  lifecycle {
+    ignore_changes = [
+      estimated_number_of_users
+    ]
+  }
 }

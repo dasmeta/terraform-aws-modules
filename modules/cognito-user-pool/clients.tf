@@ -14,7 +14,11 @@ resource "aws_cognito_user_pool_client" "client" {
   read_attributes = var.read_attributes
   refresh_token_validity = var.refresh_token_validity
   write_attributes = var.write_attributes
-
+  callback_urls = var.callback_urls
+  logout_urls = var.logout_urls
+  allowed_oauth_flows = var.allowed_oauth_flows
+  allowed_oauth_scopes = var.allowed_oauth_scopes
+  supported_identity_providers = var.supported_identity_providers
   token_validity_units {
     access_token = var.token_validity_units.access_token
     id_token = var.token_validity_units.id_token

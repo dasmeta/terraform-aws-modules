@@ -291,3 +291,33 @@ variable "token_validity_units" {
   }
   description = "access_token is time unit in for the value in access_token_validity. id_token is time unit in for the value in id_token_validity. refresh_token is time unit in for the value in refresh_token_validity."
 }
+
+variable "callback_urls" {
+  type        = list(string)
+  default     = []
+  description = "List of allowed callback URLs for the identity providers."
+}
+
+variable "logout_urls" {
+  type        = list(string)
+  default     = []
+  description = "List of allowed logout URLs for the identity providers."
+}
+
+variable "allowed_oauth_flows" {
+  type        = list(string)
+  default     = []
+  description = "List of allowed OAuth flows (code, implicit, client_credentials)."
+}
+
+variable "allowed_oauth_scopes" {
+  type        = list(string)
+  default     = []
+  description = "List of allowed OAuth scopes (phone, email, openid, profile, and aws.cognito.signin.user.admin)."
+}
+
+variable "supported_identity_providers" {
+  type        = list(string)
+  default     = []
+  description = "List of provider names for the identity providers that are supported on this client."
+}
