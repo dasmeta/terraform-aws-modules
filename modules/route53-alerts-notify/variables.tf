@@ -1,5 +1,5 @@
 ### Healthcheck related vaiables
-variable "domen_name" {
+variable "domain_name" {
   type = string
   description = "Domain name or ip address of checking service."
 }
