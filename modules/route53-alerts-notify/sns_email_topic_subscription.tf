@@ -1,6 +1,6 @@
 # Create sns topic for email notifications (should share same region with provider)
 resource "aws_sns_topic" "this-email" {
-  name = "${replace("${var.domen_name}${var.resource_path}", "/[./]+/", "-")}-email"
+  name = "${replace("${var.domain_name}${var.resource_path}", "/[./]+/", "-")}-email"
 
   delivery_policy = <<EOF
 {

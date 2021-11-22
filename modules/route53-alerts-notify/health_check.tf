@@ -1,6 +1,6 @@
 # Create a healthcheck
 resource "aws_route53_health_check" "healthcheck" {
-  fqdn                    = var.domen_name
+  fqdn                    = var.domain_name
   port                    = var.port
   type                    = var.type
   resource_path           = var.resource_path
