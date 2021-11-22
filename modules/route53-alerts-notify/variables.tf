@@ -116,7 +116,7 @@ variable "alarm_actions" {
   default = []
 }
 
-variable "insufficient_data_actions" {
+variable "treat_missing_data" {
   type = string
   default = "breaching"
 }
