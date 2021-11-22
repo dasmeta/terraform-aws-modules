@@ -30,7 +30,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]
   insufficient_data_actions = []
-  treat_missing_data        = var.insufficient_data_actions #"breaching"
+  treat_missing_data        = var.treat_missing_data #"breaching"
   depends_on                = [
     aws_route53_health_check.healthcheck
   ]
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]
   insufficient_data_actions = []
-  treat_missing_data        = var.insufficient_data_actions #"breaching"
+  treat_missing_data        = var.treat_missing_data #"breaching"
   depends_on                = [
     aws_route53_health_check.healthcheck
   ]

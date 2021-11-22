@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
     data.aws_sns_topic.k8s-alerts-notify-slack.arn // slack
   ]
   insufficient_data_actions = []
-  treat_missing_data        = var.insufficient_data_actions #"breaching"
+  treat_missing_data        = var.treat_missing_data #"breaching"
   tags = {
     Name = "${var.alarm_name}-alerts"
   }
@@ -50,7 +50,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
     data.aws_sns_topic.k8s-alerts-notify-slack.arn // slack
   ]
   insufficient_data_actions = []
-  treat_missing_data        = var.insufficient_data_actions #"breaching"
+  treat_missing_data        = var.treat_missing_data #"breaching"
   tags = {
     Name = "${var.alarm_name}-alerts"
   }
