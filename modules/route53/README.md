@@ -6,7 +6,7 @@ Example 1. You can create only zone
 
 module "route53" {
 
-    source = "/Users/juliaaghamyan/Desktop/test_route53/route53"
+    source = "dasmeta/modules/aws//modules/route53"
     zone = "test1.devops.dasmeta.com"
     ttl = "30"
 }
@@ -17,7 +17,7 @@ Note. Your recordid must be unique
 
 module "route53" {
 
-    source = "/Users/juliaaghamyan/Desktop/test_route53/route53"
+    source = "/dasmeta/modules/aws//modules/route53"
     zone = "test.example.com"
     type_record = [
         {
@@ -34,7 +34,7 @@ Example 2. Create zone and more record and more record value
 
 module "route53" {
 
-    source = "/Users/juliaaghamyan/Desktop/test_route53/route53"
+    source = "/dasmeta/modules/aws//modules/route53"
     zone = "test.example.com"
     type_record = [
         {
