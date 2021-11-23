@@ -1,27 +1,23 @@
 # How To
 
-Example 1:  Create Wildcard cerificate  
+
+Example 1:  Create cerificate or subdomian certificate or wildcard certificate (You can use in Cloudfront)  
+
+```
 # Domain "The main domain"
 # Alternative_domains "Subdomain or other main domain or wildcard domain"
 # Zone "The main zone and equal to main domain"
 # Alternative_zone "When you create alternative_domains, you must specify a zone of the same name, if you create wildcard can you use main domain."
-```
+
 module "ssl-certificate-auth" {
-# source = "git::https://github.com/dasmeta/terraform.git//modules/aws-ssl-certificate?ref=aws-ssl-certificates"
-  source = "../../../../dasmeta/terraform/modules/aws-ssl-certificate"
+  source = ".dasmeta/modules/aws//modules/cloudfront"
 
-  domain              = "devops.dasmeta.com"
-  alternative_domains = ["*.devops.dasmeta.com", "test9.devops.dasmeta.com"]
-  zone                = "devops.dasmeta.com"
-  alternative_zone   = ["devops.dasmeta.com","test9.devops.dasmeta.com"]
-  tags = { 
-    name   = "Environment"
-    value = "prod"
-  }
+  domain              = "example.com"
+  alternative_domains = ["sub.example.com", "example1.org", "*.example2.com"]
+  zone                = "example.com"
+  alternative_zone   = ["sub.example.com", "example1.org", "example2.com"]
+  tags = var.tags
 
-  providers {
-    aws = aws.virginia
-  }
 }
 ```
 
@@ -33,17 +29,13 @@ provider "aws" {
 }
 
 module ssl-certificate-auth {
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/aws-ssl-certificate?ref=aws-ssl-certificates"
-  source = "../../../../dasmeta/terraform/modules/aws-ssl-certificate"
+  source = "dasmeta/modules/aws//modules/cloudfront"
 
-  domain              = "devops.dasmeta.com"
-  alternative_domains = ["*.devops.dasmeta.com", "test9.devops.dasmeta.com"]
-  zone                = "devops.dasmeta.com"
-  alternative_zone   = ["devops.dasmeta.com","test9.devops.dasmeta.com"]
-  tags = { 
-    name   = "Environment"
-    value = "prod"
-  }
+  domain              = "example.com"
+  alternative_domains = ["sub.example.com", "example1.org", "*.example2.com"]
+  zone                = "example.com"
+  alternative_zone   = ["sub.example.com", "example1.org", "example2.com"]
+  tags = var.tags
 
   providers {
     aws = aws.virginia
