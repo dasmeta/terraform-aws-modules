@@ -27,6 +27,10 @@ module "identity" {
         provider_name           = "cognito-idp.us-east-1.amazonaws.com/us-east-1_AAbbCC11"
     }
   ]
+
+  supported_login_providers = {
+    "accounts.google.com" = "123456789012.apps.googleusercontent.com"
+  }
 }
 ```
 
@@ -51,6 +55,7 @@ module "identity" {
         provider_name           = "cognito-idp.us-east-1.amazonaws.com/us-east-1_AAbbCC113"
     }
   ]
+
   supported_login_providers = {
     "accounts.google.com" = "123456789012.apps.googleusercontent.com"
     "graph.facebook.com"  = "7346241598935552"
