@@ -16,7 +16,10 @@ module "ssl-certificate-auth" {
   alternative_domains = ["sub.example.com", "example1.org", "*.example2.com"]
   zone                = "example.com"
   alternative_zone   = ["sub.example.com", "example1.org", "example2.com"]
-  tags = var.tags
+  tags = {
+      name = "test"
+      value   = "test ssl"
+  }
 
 }
 ```
