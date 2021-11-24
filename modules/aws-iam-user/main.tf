@@ -1,4 +1,3 @@
-
 module "iam_user" {
     source  = "terraform-aws-modules/iam/aws//modules/iam-user"
     version = "4.6.0"
