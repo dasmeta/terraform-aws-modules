@@ -9,9 +9,13 @@ resource "aws_cognito_user_pool" "pool" {
   sms_authentication_message = var.sms_authentication_message
   sms_verification_message = var.sms_verification_message
   
-  sms_configuration {
-    external_id = var.sms_configuration.external_id
-    sns_caller_arn = var.sms_configuration.sns_caller_arn
+  dynamic "sms_configuration" {
+    for_each = (var.sms_configuration.external_id != "" && var.sms_configuration.sns_caller_arn != "") ? [1] : []
+
+    content {
+      external_id = var.sms_configuration.external_id
+      sns_caller_arn = var.sms_configuration.sns_caller_arn
+    }
   }
 
   verification_message_template {
@@ -75,12 +79,20 @@ resource "aws_cognito_user_pool" "pool" {
     }
   }
 
-  software_token_mfa_configuration {
-      enabled = var.software_token_mfa_configuration_enabled
+  dynamic "software_token_mfa_configuration" {
+    for_each = (var.software_token_mfa_configuration == true || var.software_token_mfa_configuration == false) ? [1] : []
+
+    content {
+      enabled = var.software_token_mfa_configuration
+    }
   }
 
-  username_configuration {
-      case_sensitive = var.username_case_sensitive
+  dynamic "username_configuration" {
+    for_each = (var.case_sensitive == true || var.case_sensitive == false) ? [1] : []
+
+    content {
+      case_sensitive = var.case_sensitive
+    }
   }
 
   lifecycle {

@@ -138,15 +138,15 @@ variable "schema" {
   ]
 }
 
-variable "software_token_mfa_configuration_enabled" {
+variable "software_token_mfa_configuration" {
   type        = bool
   default     = true
   description = "Whether to enable software token Multi-Factor (MFA) tokens, such as Time-based One-Time Password (TOTP)."
 }
 
-variable "username_case_sensitive" {
+variable "case_sensitive" {
   type        = bool
-  default     = false
+  default     = null
   description = "Whether username case sensitivity will be applied for all users in the user pool through Cognito APIs."
 }
 
