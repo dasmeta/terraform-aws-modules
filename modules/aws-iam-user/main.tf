@@ -1,3 +1,4 @@
+
 module "iam_user" {
     source  = "terraform-aws-modules/iam/aws//modules/iam-user"
     version = "4.6.0"
@@ -8,20 +9,13 @@ module "iam_user" {
     pgp_key                       = var.pgp_key
 }
 
-resource "aws_iam_policy_attachment" "user-attach" {
-  for_each      = toset( var.policy_attachment )
-  name          = "attach-${var.username}"
-  users         = [var.username]
-  policy_arn    = each.key
+resource "aws_iam_user_policy_attachment" "test-attach" {
+  for_each   = toset( var.policy_attachment )
+  user       = var.username
+  policy_arn = each.value
   depends_on    = [
       module.iam_user
     ]
-
-  lifecycle {
-    ignore_changes = [
-      users,
-    ]
-  }
 }
 
 resource "aws_iam_user_policy" "iam_user_policy" {
