@@ -12,6 +12,9 @@ module "cdn" {
   origin = {
     alb = {
       domain_name = "alb dns"
+      custom_origin_config = {
+        origin_ssl_protocols   = ["TLSv1.2"]
+      }
     }
   }
 
