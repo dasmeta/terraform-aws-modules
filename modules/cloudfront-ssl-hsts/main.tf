@@ -56,10 +56,10 @@ resource "aws_cloudfront_distribution" "this" {
         for_each = length(lookup(origin.value, "custom_origin_config", "")) == 0 ? [] : [lookup(origin.value, "custom_origin_config", "")]
 
         content {
-          http_port                = custom_origin_config.value.http_port
-          https_port               = custom_origin_config.value.https_port
-          origin_protocol_policy   = custom_origin_config.value.origin_protocol_policy
-          origin_ssl_protocols     = custom_origin_config.value.origin_ssl_protocols
+          http_port                = lookup(custom_origin_config.value, "http_port", 80)
+          https_port               = lookup(custom_origin_config.value, "https_port", 443)
+          origin_protocol_policy   = lookup(custom_origin_config.value, "origin_protocol_policy", "match-viewer")
+          origin_ssl_protocols     = lookup(custom_origin_config.value, "origin_ssl_protocols", ["TLSv1.2"])
           origin_keepalive_timeout = lookup(custom_origin_config.value, "origin_keepalive_timeout", null)
           origin_read_timeout      = lookup(custom_origin_config.value, "origin_read_timeout", null)
         }
