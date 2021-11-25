@@ -2,6 +2,7 @@ variable "zone" {
   type        = string
   description = "Zone name will create Route53"
 }
+
 variable "records" {
     type    = list(object({
       id    = string, 
