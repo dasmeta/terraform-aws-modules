@@ -2,14 +2,19 @@ variable "zone" {
   type        = string
   description = "Zone name will create Route53"
 }
-variable "type_record" {
-    type  = list(object({ recordid = string, recordname = string, recordtype = string, recordvalue = set(string) }))
-    description = "Added record type and record"
-    default = []
+variable "records" {
+    type    = list(object({
+      id    = string, 
+      name  = string,
+      type  = string,
+      value = set(string) 
+    }))
+    description = "Added record id,name,type and value. Id must be unique."
+    default     = []
 }
 
 variable "ttl" {
   type        = string
-  default = "30"
+  default     = "30"
   description = "TTL Time"
 }
