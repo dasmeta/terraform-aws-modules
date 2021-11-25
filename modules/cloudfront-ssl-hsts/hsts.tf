@@ -3,4 +3,3 @@ module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
     name                    = "${substr(replace(var.aliases[0], ".", "-"), 0, 32)}-security-headers"  
   }
-  
