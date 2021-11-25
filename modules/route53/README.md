@@ -36,18 +36,18 @@ module "route53" {
 
     source = "dasmeta/modules/aws//modules/route53"
     zone = "test.example.com"
-    type_record = [
+    records = [
         {
-            recordid    = "1"
-            recordname  = "test.example.com"
-            recordtype  = "A"
-            recordvalue = ["192.168.0.2"]
+            id    = "1"
+            name  = "test.example.com"
+            type  = "A"
+            value = ["192.168.0.2"]
         },
         {
-            recordid    = "2"
-            recordname  = "test.example.com"
-            recordtype  = "MX"
-            recordvalue = ["1 mail1","2 mail2"]
+            id    = "2"
+            name  = "test.example.com"
+            type  = "MX"
+            value = ["1 mail1","2 mail2"]
         }
     ]
     ttl = "30"
