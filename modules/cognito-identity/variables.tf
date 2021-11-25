@@ -40,6 +40,7 @@ variable "cognito_identity_providers" {
     {
       "client_id"     = null
       "provider_name" = null
+      "server_side_token_check" = false
     },
   ]
   description = "An array of Amazon Cognito Identity user pools and their client IDs."
