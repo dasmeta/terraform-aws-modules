@@ -150,7 +150,7 @@ resource "aws_cloudfront_distribution" "this" {
 
         content {
           event_type   = var.create_hsts ? "viewer-response" : l.key
-          lambda_arn   = var.create_hsts ? module.aws-cloudfront-security-headers[0].lambda_arn :l.value.lambda_arn
+          lambda_arn   = var.create_hsts ? module.aws-cloudfront-security-headers[0].lambda_arn : l.value.lambda_arn
           include_body = var.create_hsts ? false : lookup(l.value, "include_body", null)
         }
       }
@@ -262,7 +262,7 @@ resource "aws_cloudfront_distribution" "this" {
       }
     }
   }
-  depends_on = [module.aws-cloudfront-security-headers,module.ssl-certificate-auth]
+  depends_on = [module.aws-cloudfront-security-headers, module.ssl-certificate-auth]
 }
 
 resource "aws_cloudfront_monitoring_subscription" "this" {
