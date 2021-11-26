@@ -8,7 +8,15 @@ module "cdn" {
   zone    = ["devops.dasmeta.com"]
   aliases = ["cdn.devops.dasmeta.com"]
   comment             = "My CloudFront"
-  
+  create_origin_access_identity = true
+  origin_access_identities = {
+    s3_bucket_one = "My awesome CloudFront can access"
+  }
+
+  logging_config = {
+    bucket = "logs-my-cdn.s3.amazonaws.com"
+  }
+
   origin = {
     alb = {
       domain_name = "alb dns"
