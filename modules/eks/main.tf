@@ -22,7 +22,7 @@ module "eks-cluster" {
   count = var.create_cluster ? 1 : 0
 
   source  = "terraform-aws-modules/eks/aws"
-  version = "17.1.0"
+  version = "17.24.0"
 
   # Required parameters
   cluster_name    = var.cluster_name
