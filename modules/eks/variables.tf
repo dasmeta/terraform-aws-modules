@@ -72,9 +72,11 @@ variable "worker_groups" {
 variable "workers_group_defaults" {
   type = object({
     root_volume_type = string
+    root_volume_size = number
   })
   default = {
     root_volume_type = "gp2"
+    root_volume_size = 50
     kubelet_extra_args = "--node-labels=cluster_name=production,type=gpu_optimised --register-with-taints app=vums:NoSchedule"
   }
   description = "Worker group defaults."
