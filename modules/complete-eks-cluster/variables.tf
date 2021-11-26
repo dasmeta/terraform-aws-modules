@@ -52,11 +52,13 @@ variable "worker_groups" {
   type = list(object({
     instance_type = string
     asg_max_size  = number
+    root_volume_size = number
   }))
   default = [
     {
       instance_type = "t3.xlarge"
       asg_max_size  = 5
+      root_volume_size = 50
     }
   ]
   description = "Worker groups."
@@ -71,9 +73,11 @@ variable "worker_groups_launch_template" {
 variable "workers_group_defaults" {
   type = object({
     root_volume_type = string
+    root_volume_size = number
   })
   default = {
     root_volume_type = "gp2"
+    root_volume_size = 50
   }
   description = "Worker group defaults."
 }
