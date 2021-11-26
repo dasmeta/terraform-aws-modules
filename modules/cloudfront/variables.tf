@@ -72,7 +72,7 @@ variable "tags_name" {
 
 variable "wait_for_deployment" {
   type        = bool
-  default     = true
+  default     = false
   description = "If enabled, the resource will wait for the distribution status to change from InProgress to Deployed."
 }
 
