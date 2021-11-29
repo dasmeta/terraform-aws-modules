@@ -89,8 +89,14 @@ variable "worker_groups_launch_template" {
 }
 
 variable "manage_aws_auth" {
-  type = bool
+  type    = bool
   default = true
+}
+
+variable "cluster_endpoint_public_access" {
+  description = "When you create EKS, API server endpoint access default is public. When you use private this variable value should be equal false"
+  type        = bool
+  default     = true
 }
 
 variable "map_users" {
