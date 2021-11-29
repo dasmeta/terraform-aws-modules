@@ -32,7 +32,7 @@ module "eks-cluster" {
 
   enable_irsa                     = var.enable_irsa
   cluster_endpoint_private_access = true
-  cluster_endpoint_public_access = var.cluster_endpoint_public_access
+  cluster_endpoint_public_access  = var.cluster_endpoint_public_access
 
   worker_groups = var.worker_groups
   workers_group_defaults = var.workers_group_defaults
