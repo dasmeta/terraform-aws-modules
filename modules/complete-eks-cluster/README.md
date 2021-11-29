@@ -64,9 +64,17 @@ module "prod_complete_cluster" {
     {
       instance_type = "t3.xlarge"
       asg_max_size  = 5
+      root_volume_size  = 50
       kubelet_extra_args = join(" ", [
-        "--node-labels=cluster_name=${var.env},type=general"
+        "--node-labels=cluster_name=${local.cluster_name},type=general"
       ])
+    }
+  ]
+  worker_groups = [
+    {
+      instance_type = "t3.xlarge"
+      asg_max_size  = 3
+      root_volume_size  = 50
     }
   ]
 
