@@ -113,7 +113,7 @@ variable "viewer_certificate" {
   description = "The SSL configuration for this distribution"
   type        = any
   default = {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = false
     minimum_protocol_version       = "TLSv1.2_2021"
   }
 }

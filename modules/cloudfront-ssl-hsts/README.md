@@ -1,3 +1,5 @@
+
+# example with ALB default and 2 more cache behaviors:
 ```hcl
 provider "aws" {
   region = "us-east-1"
@@ -5,6 +7,8 @@ provider "aws" {
 
 module "cdn" {
   source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
+  version = "0.19.5"
+
   zone    = ["devops.dasmeta.com"]
   aliases = ["cdn.devops.dasmeta.com"]
   comment             = "My CloudFront"
@@ -41,5 +45,39 @@ module "cdn" {
     }
   ]
 
+}
+```
+
+# sample with S3 default cache behavior
+ ```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "cdn" {
+  source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
+  version = "0.19.5"
+
+  zone    = ["devops.dasmeta.com"]
+  aliases = ["cdn.devops.dasmeta.com"]
+  comment = "My CloudFront"
+
+  origin = {
+    s3 = {
+      domain_name = "S3 website URL" # you need to enable S3 website to have this
+      custom_origin_config = {
+        origin_protocol_policy = "http-only"
+        origin_ssl_protocols   = [
+          "TLSv1",
+          "TLSv1.1",
+          "TLSv1.2"
+        ]
+      }
+    }
+  }
+
+  default_cache_behavior = {
+    target_origin_id = "s3"
+  }
 }
 ```
