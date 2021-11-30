@@ -12,8 +12,9 @@ Those include:
 ```
 locals {
   vpc_name = "your-vpc-name-goes-here",
-  cidr = "172.16.0.0/16",
+  cidr     = "172.16.0.0/16",
   availability_zones = data.aws_availability_zones.available.names
+
   private_subnets = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
   public_subnets = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
 
@@ -34,11 +35,11 @@ locals {
   alb_log_bucket_name = "your-log-bucket-name-goes-here"
 
   fluent_bit_name = "fluent-bit"
-  log_group_name = "fluent-bit-cloudwatch-env"
+  log_group_name  = "fluent-bit-cloudwatch-env"
 }
 
 module "prod_complete_cluster" {
-  source = "dasmeta/modules/aws//complete-eks-cluster"
+  source  = "dasmeta/modules/aws//complete-eks-cluster"
 
   version = "0.6.2"
 
@@ -59,17 +60,18 @@ module "prod_complete_cluster" {
 
   map_users             = [
     {
-      userarn = "arn:aws:iam::4567856788:user/cluster.user.name"
+      userarn  = "arn:aws:iam::4567856788:user/cluster.user.name"
       username = "cluster.user.name"
-      groups = ["system:masters"]
+      groups   = ["system:masters"]
     },
   ]
 
   worker_groups_launch_template = [
     {
+      name = "nodes"
       instance_type = "t3.xlarge"
       asg_max_size  = 5
-      root_volume_size  = 50
+      root_volume_size   = 50
       kubelet_extra_args = join(" ", [
         "--node-labels=cluster_name=${local.cluster_name},type=general"
       ])
@@ -77,8 +79,9 @@ module "prod_complete_cluster" {
   ]
   worker_groups = [
     {
-      instance_type = "t3.xlarge"
-      asg_max_size  = 3
+      name              = "nodes"
+      instance_type     = "t3.xlarge"
+      asg_max_size      = 3
       root_volume_size  = 50
     }
   ]
@@ -88,11 +91,11 @@ module "prod_complete_cluster" {
 
   ### FLUENT-BIT
   fluent_bit_name = local.fluent_bit_name
-  log_group_name = local.log_group_name
+  log_group_name  = local.log_group_name
 
   # Should be refactored to install from cluster: for prod it has done from metrics-server.tf
   ### METRICS-SERVER
   # enable_metrics_server = false
-  metrics_server_name = "metrics-server"
+  metrics_server_name     = "metrics-server"
 }
 ```

@@ -49,11 +49,7 @@ variable "manage_aws_auth" {
 }
 
 variable "worker_groups" {
-  type = list(object({
-    instance_type = string
-    asg_max_size  = number
-    root_volume_size = number
-  }))
+  type = any
   default = [
     {
       instance_type = "t3.xlarge"
@@ -71,14 +67,12 @@ variable "worker_groups_launch_template" {
 }
 
 variable "workers_group_defaults" {
-  type = object({
-    root_volume_type = string
-    root_volume_size = number
-  })
+  type = any
+
   default = {
     root_volume_type = "gp2"
     root_volume_size = 50
-  }
+    }
   description = "Worker group defaults."
 }
 
