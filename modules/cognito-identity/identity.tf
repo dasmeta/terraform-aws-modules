@@ -9,7 +9,7 @@ resource "aws_cognito_identity_pool" "identity" {
         content {
             client_id               = cognito_identity_providers.value.client_id
             provider_name           = cognito_identity_providers.value.provider_name
-            server_side_token_check = false
+            server_side_token_check = cognito_identity_providers.value.server_side_token_check
         }
     }
 

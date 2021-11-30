@@ -1,13 +1,3 @@
-### SNS slack lambda notification ###
-
-data "aws_sns_topic" "k8s-alerts-notify-slack" {
-
-  name = "${replace(var.alarm_name, ".", "-")}-slack"
-  depends_on = [
-    module.notify_slack
-  ]
-}
-
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_name          = ":x: ${var.alarm_name}"
@@ -22,9 +12,9 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   dimensions          = var.dimensions
   alarm_description   = var.alarm_description_down
   alarm_actions = [
-    aws_sns_topic.k8s-alerts-notify-email.arn,     // email
-    aws_sns_topic.k8s-alerts-notify-sms.arn,       // sms
-    data.aws_sns_topic.k8s-alerts-notify-slack.arn // slack
+    aws_sns_topic.k8s-alerts-notify-email.arn, // email
+    aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
+    module.notify_slack.this_slack_topic_arn   // slack
   ]
   insufficient_data_actions = []
   treat_missing_data        = var.treat_missing_data #"breaching"
@@ -45,9 +35,9 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   dimensions          = var.dimensions
   alarm_description   = var.alarm_description_up
   ok_actions = [
-    aws_sns_topic.k8s-alerts-notify-email.arn,     // email
-    aws_sns_topic.k8s-alerts-notify-sms.arn,       // sms
-    data.aws_sns_topic.k8s-alerts-notify-slack.arn // slack
+    aws_sns_topic.k8s-alerts-notify-email.arn, // email
+    aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
+    module.notify_slack.this_slack_topic_arn   // slack
   ]
   insufficient_data_actions = []
   treat_missing_data        = var.treat_missing_data #"breaching"

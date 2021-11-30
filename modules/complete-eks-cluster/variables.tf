@@ -130,3 +130,7 @@ variable "metrics_server_name" {
   type = string
   default = "metrics-server"
 }
+variable "cluster_endpoint_public_access" {
+  type        = bool
+  default     = true
+}
