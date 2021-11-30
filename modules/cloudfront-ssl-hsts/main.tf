@@ -133,12 +133,12 @@ resource "aws_cloudfront_distribution" "this" {
         for_each = lookup(i.value, "use_forwarded_values", true) ? [true] : []
 
         content {
-          query_string            = var.create_hsts ? true : lookup(i.value, "query_string", false)
+          query_string            = lookup(i.value, "query_string", true)
           query_string_cache_keys = lookup(i.value, "query_string_cache_keys", [])
-          headers                 = var.create_hsts ? ["*"] : lookup(i.value, "headers", [])
+          headers                 = lookup(i.value, "headers", ["*"])
 
           cookies {
-            forward           = var.create_hsts ? "all" : lookup(i.value, "cookies_forward", "none")
+            forward           = lookup(i.value, "cookies_forward", "all")
             whitelisted_names = lookup(i.value, "cookies_whitelisted_names", null)
           }
         }
@@ -197,12 +197,12 @@ resource "aws_cloudfront_distribution" "this" {
         for_each = lookup(i.value, "use_forwarded_values", true) ? [true] : []
 
         content {
-          query_string            = var.create_hsts ? true : lookup(i.value, "query_string", false)
+          query_string            = lookup(i.value, "query_string", true)
           query_string_cache_keys = lookup(i.value, "query_string_cache_keys", [])
-          headers                 = var.create_hsts ? ["*"] : lookup(i.value, "headers", [])
+          headers                 = lookup(i.value, "headers", ["*"])
 
           cookies {
-            forward           = var.create_hsts ? "all" : lookup(i.value, "cookies_forward", "none")
+            forward           = lookup(i.value, "cookies_forward", "all")
             whitelisted_names = lookup(i.value, "cookies_whitelisted_names", null)
           }
         }
