@@ -67,17 +67,15 @@ module "cdn" {
       domain_name = "S3 website URL" # you need to enable S3 website to have this
       custom_origin_config = {
         origin_protocol_policy = "http-only"
-        origin_ssl_protocols   = [
-          "TLSv1",
-          "TLSv1.1",
-          "TLSv1.2"
-        ]
       }
     }
   }
 
   default_cache_behavior = {
     target_origin_id = "s3"
+    forwarded_values = {
+      headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it 
+    }
   }
 }
 ```
