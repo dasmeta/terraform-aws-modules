@@ -66,3 +66,9 @@ variable "cluster_certificate" {
 variable "cluster_token" {
   type = string
 }
+
+variable "tags" {
+  description = "A mapping of tags to assign to the object."
+  type        = any
+  default     = null
+}

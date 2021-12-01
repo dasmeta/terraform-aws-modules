@@ -51,7 +51,7 @@ resource "helm_release" "fluent-bit" {
   name       = local.fluent_name
   repository = "https://fluent.github.io/helm-charts"
   chart      = "fluent-bit"
-  version    = "0.15.4"
+  version    = "0.19.7"
   namespace  = var.namespace
 
   values = [
