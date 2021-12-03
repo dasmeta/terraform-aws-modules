@@ -4,16 +4,13 @@ exports.handler = (event, context, callback) => {
     const response = event.Records[0].cf.response;
     const headers = response.headers;
 
-    delete response.headers.server; // this will unset origin server set "server" header value and instead will put "CloudFront"
 
-    //Set new headers Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-    headers['strict-transport-security'] = [{key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubdomains; preload'}];
-//  headers['content-security-policy'] = [{key: 'Content-Security-Policy', value: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"}]; 
-//  headers['x-content-type-options'] = [{key: 'X-Content-Type-Options', value: 'nosniff'}]; 
-//  headers['x-frame-options'] = [{key: 'X-Frame-Options', value: 'DENY'}]; 
-//  headers['x-xss-protection'] = [{key: 'X-XSS-Protection', value: '1; mode=block'}]; 
-//  headers['referrer-policy'] = [{key: 'Referrer-Policy', value: 'same-origin'}]; 
-    
+    %{ for key, value in custom_headers }
+    %{ if value.value != "" }
+    headers["${key}"] = [{key: "${value.key}", value: "${value.value}"}];
+    %{ endif }
+    %{ endfor ~}
+
     //Return modified response
     callback(null, response);
 };
