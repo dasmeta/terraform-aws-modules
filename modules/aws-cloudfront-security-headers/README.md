@@ -34,7 +34,7 @@ provider "aws" {
 
 module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
-    version                 = "0.19.6"
+    version                 = "0.19.8"
     name                    = "CloudFront-Add-HSTS-Header"
 
     providers = {
@@ -66,7 +66,7 @@ provider "aws" {
 
 module aws-cloudfront-security-headers {
     source                  = "dasmeta/modules/aws//modules/aws-cloudfront-security-headers"
-    version                 = "0.19.6"
+    version                 = "0.19.8"
 
     name                    = "CloudFront-Add-HSTS-Header"
 
