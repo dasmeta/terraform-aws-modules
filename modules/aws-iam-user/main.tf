@@ -10,7 +10,7 @@ module "iam_user" {
 
 resource "aws_iam_user_policy_attachment" "user-attach" {
   for_each      = toset( var.policy_attachment )
-  users         = var.username
+  user          = var.username
   policy_arn    = each.value
   depends_on    = [
       module.iam_user
