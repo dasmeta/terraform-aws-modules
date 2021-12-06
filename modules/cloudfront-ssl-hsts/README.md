@@ -73,9 +73,8 @@ module "cdn" {
 
   default_cache_behavior = {
     target_origin_id = "s3"
-    forwarded_values = {
-      headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it 
-    }
+    use_forwarded_values = true
+    headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it
   }
 }
 ```
