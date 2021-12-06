@@ -10,28 +10,26 @@ Those include:
 
 # How to run
 ```
+data "aws_availability_zones" "available" {}
+
 locals {
-  vpc_name = "your-vpc-name-goes-here",
-  cidr     = "172.16.0.0/16",
-  availability_zones = data.aws_availability_zones.available.names
-
-  private_subnets = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
-  public_subnets = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
-
-# When you create EKS, API server endpoint access default is public. When you use private this variable value should be equal false.
-  cluster_endpoint_public_access = true
-  
-  public_subnet_tags = {
-    "kubernetes.io/cluster/production"  = "shared"
-    "kubernetes.io/role/elb"            = "1"
-  }
-
-  private_subnet_tags = {
-    "kubernetes.io/cluster/production"  = "shared"
-    "kubernetes.io/role/internal-elb"   = "1"
-  }
-
-  cluster_name = "your-cluster-name-goes-here"
+    vpc_name = "dasmeta-prod-1"
+    cidr     = "172.16.0.0/16"
+    availability_zones = data.aws_availability_zones.available.names
+    private_subnets = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
+    public_subnets  = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
+    
+    # When you create EKS, API server endpoint access default is public. When you use private this variable value should be equal false.
+    cluster_endpoint_public_access = true
+    public_subnet_tags = {
+        "kubernetes.io/cluster/production"  = "shared"
+        "kubernetes.io/role/elb"            = "1"
+    }
+    private_subnet_tags = {
+        "kubernetes.io/cluster/production"  = "shared"
+        "kubernetes.io/role/internal-elb"   = "1"
+    }
+   cluster_name = "your-cluster-name-goes-here"
   alb_log_bucket_name = "your-log-bucket-name-goes-here"
 
   fluent_bit_name = "fluent-bit"
@@ -39,9 +37,7 @@ locals {
 }
 
 module "prod_complete_cluster" {
-  source  = "dasmeta/modules/aws//complete-eks-cluster"
-
-  version = "0.6.2"
+  source  = "dasmeta/modules/aws//modules/complete-eks-cluste"
 
   ### VPC
   vpc_name              = local.vpc_name
@@ -60,11 +56,31 @@ module "prod_complete_cluster" {
 
   map_users             = [
     {
-      userarn  = "arn:aws:iam::4567856788:user/cluster.user.name"
-      username = "cluster.user.name"
+      userarn  = "arn:aws:iam::4567856788:user/user.name"
+      username = "user.name"
       groups   = ["system:masters"]
-    },
+    }
   ]
+  
+  # You can create node use node_group when you create node in specific subnet zone.(Note. This Case Ec2 Instance havn't specific name).
+  # Other case you can use worker_group variable. 
+
+  node_groups = {
+    example =  {
+      name  = "nodegroup"
+      name-prefix     = "nodegroup"
+      additional_tags = { 
+          "Name"      = "node"
+          "ExtraTag"  = "ExtraTag"  
+      }
+
+      instance_type   = "t3.xlarge"
+      max_capacity    = 1
+      disk_size       = 50
+      create_launch_template = false
+      subnet = ["subnet_id"]
+    }
+  }
 
   worker_groups_launch_template = [
     {
@@ -77,6 +93,7 @@ module "prod_complete_cluster" {
       ])
     }
   ]
+
   worker_groups = [
     {
       name              = "nodes"

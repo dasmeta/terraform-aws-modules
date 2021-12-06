@@ -66,6 +66,12 @@ variable "worker_groups_launch_template" {
   default     = []
 }
 
+variable "node_groups" {
+  description = "Map of map of node groups to create. See `node_groups` module's documentation for more details"
+  type        = any
+  default     = {}
+}
+
 variable "workers_group_defaults" {
   type = any
 

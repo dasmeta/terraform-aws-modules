@@ -34,9 +34,14 @@ module "eks-cluster" {
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
 
+  node_groups = var.node_groups
   worker_groups = var.worker_groups
   workers_group_defaults = var.workers_group_defaults
   worker_groups_launch_template = var.worker_groups_launch_template
+
+  tags = {
+    Name = "TagName"
+  }
 
   write_kubeconfig   = var.write_kubeconfig
   # config_output_path = var.kubeconfig_output_path

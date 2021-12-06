@@ -4,7 +4,6 @@ locals {
 
 module "vpc" {
   source    = "../vpc" # change to the correct one
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/vpc?ref=create-vpc-module"
 
   vpc_name            = var.vpc_name
   availability_zones  = var.availability_zones
@@ -16,8 +15,6 @@ module "vpc" {
 }
 
 module "eks-cluster" {
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/eks?ref=create-eks-module"
-  # source = "github.com/dasmeta/terraform/modules"
   source = "../eks" # change to the correct one.
 
   cluster_name  = var.cluster_name
@@ -27,6 +24,7 @@ module "eks-cluster" {
 
   manage_aws_auth = var.manage_aws_auth
   map_users = var.map_users
+  node_groups = var.node_groups
   worker_groups = var.worker_groups
   worker_groups_launch_template = var.worker_groups_launch_template
   workers_group_defaults = var.workers_group_defaults
@@ -34,8 +32,6 @@ module "eks-cluster" {
 }
 
 module "cloudwatch-metrics" {
-  # source = "git::https://github.com/dasmeta/terraform.git"
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/aws-cloudwatch-metrics"
   source = "../aws-cloudwatch-metrics" # change to the correct one.
 
   eks_oidc_root_ca_thumbprint = local.eks_oidc_root_ca_thumbprint
@@ -48,9 +44,6 @@ module "cloudwatch-metrics" {
 }
 
 module "alb-ingress-controller" {
-  # source = "git::https://github.com/dasmeta/terraform.git"
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/aws-load-balancer-controller"
-
   source = "../aws-load-balancer-controller" # change to the correct one.
 
   cluster_name = var.cluster_name
@@ -66,9 +59,7 @@ module "alb-ingress-controller" {
 }
 
 module "fluent-bit" {
-  # source = "git::https://github.com/dasmeta/terraform.git"
   source = "../fluent-bit"
-  # source = "git::https://github.com/dasmeta/terraform.git//modules/fluent-bit"
 
   fluent_bit_name             = var.fluent_bit_name != "" ? var.fluent_bit_name : "${var.cluster_name}-fluent-bit"
   log_group_name              = var.log_group_name != "" ? var.log_group_name : "fluent-bit-cloudwatch-${var.cluster_name}"
