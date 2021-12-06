@@ -33,3 +33,9 @@ variable "runtime" {
   default     = "nodejs12.x"
   description = "Choose the language version to use to write your function. "
 }
+
+variable "override_custom_headers" {
+  type = any
+  default = {}
+  description = "Allows to override-default/disable-default/have-additional security headers"
+}
