@@ -1,7 +1,10 @@
 # Terraform AWS Client VPN Endpoint 
 
+Before you start create vpn you should be create vpc peering.If you use many vpc in vpn.
+Module source "dasmeta/modules/aws//modules/aws_multi_vpc_peering"
+
 ## How to create Application for VPN in AWS Single Sign-On
-- Create private certificate.
+- Create private certificate in AWS Certificate Manager. 
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
 - Select Add a custom SAML 2.0 application
@@ -17,22 +20,17 @@
     - NameID -> ${user:email} -> basic
     - FirstName -> ${user:name} -> basic
     - LastName -> ${user:familyName} -> basic
-- Select tab "Assigned users"
+- Select tab "Assigned users", if you haven't user you should be create in SSO.
 - Assign users or groups created on previous step
+- You add AWS Account in AWS SSO, and add create Permission sets.
+- Go to IAM Service -> "Identity Providers" and create "Add provider" choose configure provider "SAML", add provider name and upload SSO SAML metadata file.
+- Copy saml arn and use in module.
 
 ## Example
 
 module network {
-    source      = "git::https://github.com/dasmeta/terraform.git//modules/?"
+    source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
     
-    #VPC Peering
-    create_vpc_peering = false
-    main_vpc_id        = "vpc-1234567889"
-    peering_vpc_id     = "vpc-1234456789"
-    peering_tags                = {
-        Name        = "Peering Main to Slave"#
-        Environment = "Hello"
-    }
     # VPN Endpoint
     enable_saml                   = false
     vpc_id                        = "vpc-123456789"
@@ -49,6 +47,4 @@ module network {
     availability_zones              = ["us-east-2a", "us-east-2b", "us-east-2c"]
     private_subnets                 = ["172.254.1.0/24", "172.254.2.0/24", "172.254.3.0/24"]
     public_subnets                  = ["172.254.4.0/24", "172.254.5.0/24", "172.254.6.0/24"]
-
-
 }
