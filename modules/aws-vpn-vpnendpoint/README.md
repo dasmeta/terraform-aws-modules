@@ -1,10 +1,7 @@
 # Terraform AWS Client VPN Endpoint 
 
-Before you start create vpn you should be create vpc peering.If you use many vpc in vpn.
-Module source "dasmeta/modules/aws//modules/aws_multi_vpc_peering"
-
 ## How to create Application for VPN in AWS Single Sign-On
-- Create private certificate in AWS Certificate Manager. 
+- Create private certificate in AWS Certificate Manager. Copy arn and use in module
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
 - Select Add a custom SAML 2.0 application
@@ -14,7 +11,7 @@ Module source "dasmeta/modules/aws//modules/aws_multi_vpc_peering"
 - Application ACS URL: http://127.0.0.1:35001
 - Application SAML audience: urn:amazon:webservices:clientvpn
 - Save changes
-- Download AWS SSO SAML metadata file (file for vpn secret)
+- Download AWS SSO SAML metadata file.
 - Select tab "Attribute mappings":
     - Subject -> ${user:subject} -> emailAddress
     - NameID -> ${user:email} -> basic
@@ -26,25 +23,41 @@ Module source "dasmeta/modules/aws//modules/aws_multi_vpc_peering"
 - Go to IAM Service -> "Identity Providers" and create "Add provider" choose configure provider "SAML", add provider name and upload SSO SAML metadata file.
 - Copy saml arn and use in module.
 
+
 ## Example
 
 module network {
     source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
     
     # VPN Endpoint
+    region                        = "us-east-1"
     enable_saml                   = false
-    vpc_id                        = "vpc-123456789"
+    
+    # If you connect many vpc in vpn you should create vpc peering
+    create_peering                = true
+    peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
+
+    # VPN vpc Id
+    vpc_id                        = "vpc-041abee1cf26e79dc"
     endpoint_name                 = "module_vpn"
-    endpoint_client_cidr_block    = "10.100.0.0/16"
+    endpoint_client_cidr_block    = "30.0.0.0/16"
     saml_provider_arn             = "" # SAML Provider ARN
     certificate_arn               = "" # Certificate ARN
-    authorization_ingress         = ["192.168.0.0/16","172.31.0.0/16","10.254.0.0/16"] # VPCs CIDRs
-    endpoint_subnets              = ["subnet-111111111111111111","subnet-222222222222","subnet-3333333333333"]
-    # VPC Create
-    create_vpc                      = true
-    vpc_name                        = "VPN-vpc"
-    cidr                            = "172.254.0.0/16"
-    availability_zones              = ["us-east-2a", "us-east-2b", "us-east-2c"]
-    private_subnets                 = ["172.254.1.0/24", "172.254.2.0/24", "172.254.3.0/24"]
-    public_subnets                  = ["172.254.4.0/24", "172.254.5.0/24", "172.254.6.0/24"]
+    authorization_ingress         = ["10.0.0.0/16","20.0.0.0/16","40.0.0.0/16"] # VPCs CIDRs
+    
+    endpoint_subnets              = ["subnet-073672353a64692db0148"]
+    
+    #Add routes in VPN route table 
+    additional_routes             = {
+                                        first = {
+                                                    cidr      = "20.0.0.0/16"
+                                                    subnet_id = "subnet-073672353a64692db014"
+                                                }
+                                        second = {
+                                                    cidr      = "40.0.0.0/16"
+                                                    subnet_id = "subnet-073672353a64692db014"
+                                                }
+                                    }
 }
+
+

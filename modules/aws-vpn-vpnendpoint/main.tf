@@ -2,6 +2,13 @@ data "aws_vpc" "my-vpn" {
   id = var.vpc_id
 }
 
+module "vpc_multi_peering" {
+    source         = "../aws_multi_vpc_peering/"
+    main_vpc       = var.vpc_id
+    peering_vpc_id = var.peering_vpc_ids
+    region         = var.region 
+}
+
 resource "aws_cloudwatch_log_group" "my-vpn" {
   name              = "${var.cloudwatch_log_group_name_prefix}${var.endpoint_name}"
   retention_in_days = var.cloudwatch_log_group_retention_in_days
@@ -58,10 +65,17 @@ resource "aws_ec2_client_vpn_authorization_rule" "my-vpn_sso_to_dns" {
   description            = "Authorization for ${var.endpoint_name} to DNS"
   
  } 
+
 resource "aws_ec2_client_vpn_route" "my-vpn_sso" {
   for_each               = var.additional_routes
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my-vpn_sso.id
-  destination_cidr_block = each.value
-  target_vpc_subnet_id   = aws_ec2_client_vpn_network_association.my-vpn_sso[each.key].subnet_id
-  description            = "From ${each.key} to ${each.value}"
+  destination_cidr_block = each.value.cidr
+  target_vpc_subnet_id   = each.value.subnet_id
+  description            = "From ${each.value.subnet_id} to ${each.value.cidr}"
+}
+
+resource "null_resource" "client_vpn_download" {
+  provisioner "local-exec" {
+    command = "aws ec2 export-client-vpn-client-configuration  --client-vpn-endpoint-id cvpn-endpoint-09396d3669de0239f --output text > ${var.openvpn_file_download}"
+    }
 }

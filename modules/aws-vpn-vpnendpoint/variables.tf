@@ -36,7 +36,7 @@ variable "authorization_ingress" {
 }
 variable "additional_routes" {
   description = "A map where the key is a subnet ID of endpoint subnet for network association and value is a cidr to where traffic should be routed from that subnet. Useful in cases if you need to route beyond the VPC subnet, for instance peered VPC"
-  type        = map(string)
+  type        = any
   default     = {}
 }
 
@@ -75,4 +75,21 @@ variable "endpoint_subnets" {
   description = "List of IDs of endpoint subnets for network association"
   type        = list(string)
   #default = ["subnet-0803b8f53842cb628","subnet-0f9a1ebddcea11a5c","subnet-08c91e06b4546c5ca"]
+}
+variable "create_peering" {
+  type = bool
+  default = false
+  description = "Can create peering true : false"
+}
+variable "peering_vpc_ids" {
+  type = list(string)
+  default = []
+}
+variable "region" {
+  type = string
+  default = "us-east-1"
+}
+variable "openvpn_file_download" {
+  type = string
+  default = ""
 }
