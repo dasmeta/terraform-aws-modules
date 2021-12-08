@@ -22,6 +22,8 @@
 - You add AWS Account in AWS SSO, and add create Permission sets.
 - Go to IAM Service -> "Identity Providers" and create "Add provider" choose configure provider "SAML", add provider name and upload SSO SAML metadata file.
 - Copy saml arn and use in module.
+- When module completely create you can download aws client vpn. https://aws.amazon.com/vpn/client-vpn-download/
+- Add vpn profile and add ovpn file.
 
 
 ## Example
@@ -59,7 +61,5 @@ module network {
                                                 }
                                     }
     # Vpn file location and name file extension .ovpn
-    vpn_file_download        = "/Users/juliaaghamyan/Documents/vpn.ovpn"
+    vpn_file_download        = "/Users/devops/Documents/vpn.ovpn"
 }
-
-
