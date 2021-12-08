@@ -76,6 +76,6 @@ resource "aws_ec2_client_vpn_route" "my-vpn_sso" {
 
 resource "null_resource" "client_vpn_download" {
   provisioner "local-exec" {
-    command = "aws ec2 export-client-vpn-client-configuration  --client-vpn-endpoint-id cvpn-endpoint-09396d3669de0239f --output text > ${var.openvpn_file_download}"
+    command = "aws ec2 export-client-vpn-client-configuration  --client-vpn-endpoint-id ${ aws_ec2_client_vpn_endpoint.my-vpn_sso.id } --output text > ${ var.vpn_file_download }"
     }
 }

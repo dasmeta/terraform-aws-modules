@@ -47,7 +47,7 @@ module network {
     
     endpoint_subnets              = ["subnet-073672353a64692db0148"]
     
-    #Add routes in VPN route table 
+    # Add routes in VPN route table 
     additional_routes             = {
                                         first = {
                                                     cidr      = "20.0.0.0/16"
@@ -58,6 +58,8 @@ module network {
                                                     subnet_id = "subnet-073672353a64692db014"
                                                 }
                                     }
+    # Vpn file location and name file extension .ovpn
+    vpn_file_download        = "/Users/juliaaghamyan/Documents/vpn.ovpn"
 }
 
 

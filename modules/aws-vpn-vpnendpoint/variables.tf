@@ -89,7 +89,7 @@ variable "region" {
   type = string
   default = "us-east-1"
 }
-variable "openvpn_file_download" {
+variable "vpn_file_download" {
   type = string
   default = ""
 }
