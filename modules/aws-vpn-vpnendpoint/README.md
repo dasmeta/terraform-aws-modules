@@ -1,7 +1,7 @@
 # Terraform AWS Client VPN Endpoint 
 
 ## How to create Application for VPN in AWS Single Sign-On
-- Create private certificate.
+- Create private certificate in AWS Certificate Manager. Copy arn and use in module
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
 - Select Add a custom SAML 2.0 application
@@ -11,44 +11,55 @@
 - Application ACS URL: http://127.0.0.1:35001
 - Application SAML audience: urn:amazon:webservices:clientvpn
 - Save changes
-- Download AWS SSO SAML metadata file (file for vpn secret)
+- Download AWS SSO SAML metadata file.
 - Select tab "Attribute mappings":
     - Subject -> ${user:subject} -> emailAddress
     - NameID -> ${user:email} -> basic
     - FirstName -> ${user:name} -> basic
     - LastName -> ${user:familyName} -> basic
-- Select tab "Assigned users"
+- Select tab "Assigned users", if you haven't user you should be create in SSO.
 - Assign users or groups created on previous step
+- You add AWS Account in AWS SSO, and add create Permission sets.
+- Go to IAM Service -> "Identity Providers" and create "Add provider" choose configure provider "SAML", add provider name and upload SSO SAML metadata file.
+- Copy saml arn and use in module.
+- When module completely create you can download aws client vpn. https://aws.amazon.com/vpn/client-vpn-download/
+- Add vpn profile and add ovpn file.
+
 
 ## Example
 
 module network {
-    source      = "git::https://github.com/dasmeta/terraform.git//modules/?"
+    source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
     
-    #VPC Peering
-    create_vpc_peering = false
-    main_vpc_id        = "vpc-1234567889"
-    peering_vpc_id     = "vpc-1234456789"
-    peering_tags                = {
-        Name        = "Peering Main to Slave"#
-        Environment = "Hello"
-    }
     # VPN Endpoint
+    region                        = "us-east-1"
     enable_saml                   = false
-    vpc_id                        = "vpc-123456789"
+    
+    # If you connect many vpc in vpn you should create vpc peering
+    create_peering                = true
+    peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
+
+    # VPN vpc Id
+    vpc_id                        = "vpc-041abee1cf26e79dc"
     endpoint_name                 = "module_vpn"
-    endpoint_client_cidr_block    = "10.100.0.0/16"
+    endpoint_client_cidr_block    = "30.0.0.0/16"
     saml_provider_arn             = "" # SAML Provider ARN
     certificate_arn               = "" # Certificate ARN
-    authorization_ingress         = ["192.168.0.0/16","172.31.0.0/16","10.254.0.0/16"] # VPCs CIDRs
-    endpoint_subnets              = ["subnet-111111111111111111","subnet-222222222222","subnet-3333333333333"]
-    # VPC Create
-    create_vpc                      = true
-    vpc_name                        = "VPN-vpc"
-    cidr                            = "172.254.0.0/16"
-    availability_zones              = ["us-east-2a", "us-east-2b", "us-east-2c"]
-    private_subnets                 = ["172.254.1.0/24", "172.254.2.0/24", "172.254.3.0/24"]
-    public_subnets                  = ["172.254.4.0/24", "172.254.5.0/24", "172.254.6.0/24"]
-
-
+    authorization_ingress         = ["10.0.0.0/16","20.0.0.0/16","40.0.0.0/16"] # VPCs CIDRs
+    
+    endpoint_subnets              = ["subnet-073672353a64692db0148"]
+    
+    # Add routes in VPN route table 
+    additional_routes             = {
+                                        first = {
+                                                    cidr      = "20.0.0.0/16"
+                                                    subnet_id = "subnet-073672353a64692db014"
+                                                }
+                                        second = {
+                                                    cidr      = "40.0.0.0/16"
+                                                    subnet_id = "subnet-073672353a64692db014"
+                                                }
+                                    }
+    # Vpn file location and name file extension .ovpn
+    vpn_file_download        = "/Users/devops/Documents/vpn.ovpn"
 }
