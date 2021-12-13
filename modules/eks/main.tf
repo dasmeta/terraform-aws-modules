@@ -17,7 +17,7 @@ data "aws_iam_user" "user_arn" {
 
 locals {
   map_users = flatten([
-    for index,username in var.users : {
+    for username in var.users : {
         userarn     = data.aws_iam_user.user_arn[username].arn
         username    = username
         groups       = ["system:masters"]     
