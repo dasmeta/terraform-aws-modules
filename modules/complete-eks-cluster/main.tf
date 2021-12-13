@@ -23,7 +23,7 @@ module "eks-cluster" {
   # depends_on    = [module.vpc]
 
   manage_aws_auth = var.manage_aws_auth
-  map_users = var.map_users
+  users = var.users
   node_groups = var.node_groups
   worker_groups = var.worker_groups
   worker_groups_launch_template = var.worker_groups_launch_template

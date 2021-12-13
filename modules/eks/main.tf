@@ -10,6 +10,22 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks-cluster[0].cluster_id
 }
 
+data "aws_iam_user" "user_arn" {
+  for_each = toset(var.users)
+  user_name = each.value
+}
+
+locals {
+  map_users = flatten([
+    for index,username in var.users : {
+        userarn     = data.aws_iam_user.user_arn[username].arn
+        username    = username
+        groups       = ["system:masters"]     
+    }
+  ])
+}
+
+
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
@@ -39,13 +55,10 @@ module "eks-cluster" {
   workers_group_defaults = var.workers_group_defaults
   worker_groups_launch_template = var.worker_groups_launch_template
 
-  tags = {
-    Name = "TagName"
-  }
-
   write_kubeconfig   = var.write_kubeconfig
   # config_output_path = var.kubeconfig_output_path
 
   # manage_aws_auth = var.manage_aws_auth
-  map_users       = var.map_users
+
+  map_users = local.map_users
 }

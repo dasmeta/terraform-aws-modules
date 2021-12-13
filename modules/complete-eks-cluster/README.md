@@ -54,13 +54,8 @@ module "prod_complete_cluster" {
   cluster_name          = local.cluster_name
   manage_aws_auth       = true
 
-  map_users             = [
-    {
-      userarn  = "arn:aws:iam::4567856788:user/user.name"
-      username = "user.name"
-      groups   = ["system:masters"]
-    }
-  ]
+  # IAM users username
+  users = ["devops1","devops2","devops3"]
   
   # You can create node use node_group when you create node in specific subnet zone.(Note. This Case Ec2 Instance havn't specific name).
   # Other case you can use worker_group variable. 
