@@ -101,5 +101,5 @@ variable "cluster_endpoint_public_access" {
 }
 
 variable "users" {
-  type = list(string)
+  type = any
 }

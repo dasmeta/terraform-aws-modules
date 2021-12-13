@@ -11,16 +11,16 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 data "aws_iam_user" "user_arn" {
-  for_each = toset(var.users)
-  user_name = each.value
+  for_each = { for vm in var.users:  vm.username => vm}
+  user_name = "${each.value.username}"
 }
 
 locals {
   map_users = flatten([
-    for username in var.users : {
-        userarn     = data.aws_iam_user.user_arn[username].arn
-        username    = username
-        groups       = ["system:masters"]     
+    for user in var.users : {
+        userarn     = data.aws_iam_user.user_arn[user.username].arn
+        username    = user.username
+        groups      = lookup(user, "group", ["system:masters"])
     }
   ])
 }

@@ -83,7 +83,7 @@ variable "workers_group_defaults" {
 }
 
 variable "users" {
-  type = list(string)
+  type = any
 }
 
 # ALB-INGRESS-CONTROLLER

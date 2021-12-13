@@ -54,8 +54,20 @@ module "prod_complete_cluster" {
   cluster_name          = local.cluster_name
   manage_aws_auth       = true
 
-  # IAM users username
-  users = ["devops1","devops2","devops3"]
+  # IAM users username and group. By default value is ["system:masters"] 
+  user = [
+          {
+            username = "devops1"
+            group    = ["system:masters"]   
+          },
+          {
+            username = "devops2"
+            group    = ["system:kube-scheduler"]   
+          },
+          {
+            username = "devops3"
+          }
+  ]
   
   # You can create node use node_group when you create node in specific subnet zone.(Note. This Case Ec2 Instance havn't specific name).
   # Other case you can use worker_group variable. 
