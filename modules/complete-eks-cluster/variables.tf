@@ -82,29 +82,11 @@ variable "workers_group_defaults" {
   description = "Worker group defaults."
 }
 
-variable "map_users" {
-  type = list(object({
-    userarn  = string
-    username = string
-    groups   = list(string)
-  }))
-
-  default = [
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user1"
-      username = "user1"
-      groups   = ["system:masters"]
-    },
-    {
-      userarn  = "arn:aws:iam::66666666666:user/user2"
-      username = "user2"
-      groups   = ["system:masters"]
-    },
-  ]
+variable "users" {
+  type = any
 }
 
 # ALB-INGRESS-CONTROLLER
-
 variable "alb_log_bucket_prefix" {
   type = string
   default = ""

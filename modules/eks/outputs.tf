@@ -47,3 +47,6 @@ output "certificate" {
 output "token" {
   value = data.aws_eks_cluster_auth.cluster.token
 }
+output "map_users_data" {
+  value = local.map_users
+}

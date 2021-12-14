@@ -32,6 +32,9 @@ output "cluster_primary_security_group_id" {
   value = module.eks-cluster.cluster_primary_security_group_id
 }
 
+output "map_user_data" {
+  value = module.eks-cluster.map_users_data
+}
 # output "cluster_name" {
 #   value = module.eks-cluster.cluster_name
 # }
