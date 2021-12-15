@@ -2,9 +2,6 @@ locals {
   alert_variables_object = lookup(var.alert_variables, var.alert_type_name, "default")
   default_alert_variables_object = lookup(var.default_alerts_variables,var.alert_type_name,"default")
 }
-output "testobject" {
-  value = local.alert_variables_object
-}
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
