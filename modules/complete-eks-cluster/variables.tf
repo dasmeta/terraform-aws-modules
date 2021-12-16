@@ -54,7 +54,6 @@ variable "worker_groups" {
     {
       instance_type = "t3.xlarge"
       asg_max_size  = 5
-      root_volume_size = 50
     }
   ]
   description = "Worker groups."
@@ -121,4 +120,10 @@ variable "metrics_server_name" {
 variable "cluster_endpoint_public_access" {
   type        = bool
   default     = true
+}
+
+variable "write_kubeconfig" {
+  type = bool
+  default = false
+  description = "Whether or not to create kubernetes config file."
 }
