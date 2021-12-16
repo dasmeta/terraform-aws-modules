@@ -14,10 +14,7 @@ module "aws_cloudwatch_log_metric_filter" {
     filter_pattern   = "ERROR"
     create_log_group = true
     log_group_name   = "/aws/example/"
-    metric_transformation_name      = "metric-transformation-name"
-    metric_transformation_namespace = "metric-transformation-namespace"
-    metric_transformation_value     = "1"
-    metric_transformation_unit      = "None"
+    metric_name      = "metric-transformation-name"
 }
 
 
@@ -30,8 +27,22 @@ module "aws_cloudwatch_log_metric_filter" {
     filter_pattern   = "ERROR"
     create_log_group = false
     log_group_name   = "/aws/cognito/userpools/"
-    metric_transformation_name      = "metric-transformation-name"
-    metric_transformation_namespace = "metric-transformation-namespace"
-    metric_transformation_value     = "1"
-    metric_transformation_unit      = "None"
+    metric_name      = "metric-transformation-name"
 }
+
+## Example 3. Create Log group and metric filter override default values.
+
+module "aws_cloudwatch_log_metric_filter" {
+    source = "dasmeta/modules/aws//modules/cloudwatch-log-group-metric-filter/"
+
+    name             = "example"
+    filter_pattern   = "ERROR"
+    create_log_group = true
+    log_group_name   = "/aws/example/"
+    metric_name      = "metric-transformation-name"
+    metric_namespace = "metric-transformation-namespace"
+    metric_value     = "1"
+    metric_unit      = "None"
+}
+
+
