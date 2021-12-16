@@ -1,23 +1,71 @@
 locals {
-  alert_variables_object = lookup(var.alert_variables, var.alert_type_name, "default")
-  default_alert_variables_object = lookup(var.default_alerts_variables,var.alert_type_name,"default")
+  default = {     
+      k8s_alerts = {
+          comparison_operator    = "GreaterThanOrEqualToThreshold"
+          evaluation_periods     = "1"
+          period                 = "300"
+          namespace              = "ContainerInsights"
+          unit                   = "Percent"
+          metric_name            = "pod_cpu_utilization"
+          statistic              = "Average"
+          threshold              = "25"
+          treat_missing_data     = "notBreaching"
+          dimensions             = {
+            "ClusterName" = "prod-6"
+            "PodName"     = "mongodb-replicaset-prod-0"
+            "Namespace"   = "default"
+          }
+          insufficient_data_actions = []
+      },
+      alb_alerts = {
+          comparison_operator    = "GreaterThanOrEqualToThreshold"
+          evaluation_periods     = "1"
+          period                 = "60"
+          namespace              = "AWS/ApplicationELB"
+          unit                   = "Count"
+          metric_name            = "HTTPCode_ELB_5XX_Count"
+          statistic              = "Sum"
+          threshold              = "20"
+          treat_missing_data     = "notBreaching"
+          insufficient_data_actions = []
+          dimensions             = {
+            LoadBalancer = "app/faf95412-default-mainingre-8687/cd94bc3e3dc4979f"
+          }
+      }
+      other = {
+          comparison_operator    = "GreaterThanOrEqualToThreshold"
+          evaluation_periods     = "1"
+          period                 = "300"
+          namespace              = "ContainerInsights"
+          unit                   = "Percent"
+          metric_name            = "pod_cpu_utilization"
+          statistic              = "Average"
+          threshold              = "25"
+          treat_missing_data     = "notBreaching"
+          insufficient_data_actions = []
+          dimensions             = {}
+      }
+  }
+  alarm_description_up   = "This metric monitors ${var.alarm_name} when threshold > ${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
+  alarm_description_down = "This metric monitors ${var.alarm_name} when threshold < ${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
+  default_alert_variables_object = lookup(local.default,var.alert_type_name,{})
 }
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_name          = ":x: ${var.alarm_name}"
-  namespace           = lookup(local.alert_variables_object,"namespace",lookup(local.default_alert_variables_object,"namespace","ContainerInsights"))
-  metric_name         = lookup(local.alert_variables_object,"metric_name",lookup(local.default_alert_variables_object,"metric_name","pod_number_of_container_restarts"))
-  comparison_operator = lookup(local.alert_variables_object,"comparison_operator",lookup(local.default_alert_variables_object,"comparison_operator","GreaterThanOrEqualToThreshold"))
-  evaluation_periods  = lookup(local.alert_variables_object,"evaluation_periods",lookup(local.default_alert_variables_object,"evaluation_periods","1"))
-  period              = lookup(local.alert_variables_object,"period",lookup(local.default_alert_variables_object,"period","60"))
-  statistic           = lookup(local.alert_variables_object,"statistic",lookup(local.default_alert_variables_object,"statistic","Average"))
-  threshold           = lookup(local.alert_variables_object,"threshold",lookup(local.default_alert_variables_object,"threshold","1"))
-  unit                = lookup(local.alert_variables_object,"unit",lookup(local.default_alert_variables_object,"unit","Count"))
-  dimensions          = lookup(local.alert_variables_object,"dimensions",lookup(local.default_alert_variables_object,"dimensions",{}))
-  treat_missing_data        = lookup(local.alert_variables_object,"treat_missing_data",lookup(local.default_alert_variables_object,"treat_missing_data","breaching")) #"breaching"
-  insufficient_data_actions = lookup(local.alert_variables_object,"insufficient_data_actions",lookup(local.default_alert_variables_object,"insufficient_data_actions",[]))
-  alarm_description         = lookup(local.alert_variables_object,"alarm_description_down",lookup(local.default_alert_variables_object,"alarm_description_down","This metric monitors pod restarts."))
+  namespace           = "${ var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object,"namespace","default_namespace")}"
+  metric_name         = "${ var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object,"metric_name","default_metric_name")}"
+  comparison_operator = "${ var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object,"comparison_operator","default_comparison_operator")}"
+  evaluation_periods  = "${ var.evaluation_periods != "" ? var.evaluation_periods : lookup(local.default_alert_variables_object,"evaluation_periods","default_evaluation_periods")}"
+  period              = "${ var.period != "" ? var.period : lookup(local.default_alert_variables_object,"period","default_period")}"
+  statistic           = "${ var.statistic != "" ? var.statistic : lookup(local.default_alert_variables_object,"statistic","default_statistic")}"
+  threshold           = "${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
+  unit                = "${ var.unit != "" ? var.unit : lookup(local.default_alert_variables_object,"unit","default_unit")}"
+  dimensions          = "${ var.dimensions != {} ? var.dimensions : lookup(local.default_alert_variables_object,"dimensions","default_dimensions")}"
+  treat_missing_data        = "${ var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object,"treat_missing_data","default_treat_missing_data")}" #"breaching"
+  insufficient_data_actions = "${ var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object,"insufficient_data_actions","default_insufficient_data_actions")}"
+  alarm_description         = local.alarm_description_down
   alarm_actions             = [
     aws_sns_topic.k8s-alerts-notify-email.arn, // email
     aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
@@ -32,18 +80,18 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
 
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   alarm_name          = ":white_check_mark: ${var.alarm_name}"
-  namespace           = lookup(local.alert_variables_object,"namespace",lookup(local.default_alert_variables_object,"namespace","ContainerInsights"))
-  metric_name         = lookup(local.alert_variables_object,"metric_name",lookup(local.default_alert_variables_object,"metric_name","pod_number_of_container_restarts"))
-  comparison_operator = lookup(local.alert_variables_object,"comparison_operator",lookup(local.default_alert_variables_object,"comparison_operator","GreaterThanOrEqualToThreshold"))
-  evaluation_periods  = lookup(local.alert_variables_object,"evaluation_periods",lookup(local.default_alert_variables_object,"evaluation_periods","1"))
-  period              = lookup(local.alert_variables_object,"period",lookup(local.default_alert_variables_object,"period","60"))
-  statistic           = lookup(local.alert_variables_object,"statistic",lookup(local.default_alert_variables_object,"statistic","Average"))
-  threshold           = lookup(local.alert_variables_object,"threshold",lookup(local.default_alert_variables_object,"threshold","1"))
-  unit                = lookup(local.alert_variables_object,"unit",lookup(local.default_alert_variables_object,"unit","Count"))
-  dimensions          = lookup(local.alert_variables_object,"dimensions",lookup(local.default_alert_variables_object,"dimensions",{}))
-  treat_missing_data        = lookup(local.alert_variables_object,"treat_missing_data",lookup(local.default_alert_variables_object,"treat_missing_data","breaching")) #"breaching"
-  insufficient_data_actions = lookup(local.alert_variables_object,"insufficient_data_actions",lookup(local.default_alert_variables_object,"insufficient_data_actions",[]))
-  alarm_description         = lookup(local.alert_variables_object,"alarm_description_up",lookup(local.default_alert_variables_object,"alarm_description_up","This metric monitors pod restarts."))
+  namespace           = "${ var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object,"namespace","default_namespace")}"
+  metric_name         = "${ var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object,"metric_name","default_metric_name")}"
+  comparison_operator = "${ var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object,"comparison_operator","default_comparison_operator")}"
+  evaluation_periods  = "${ var.evaluation_periods != "" ? var.evaluation_periods : lookup(local.default_alert_variables_object,"evaluation_periods","default_evaluation_periods")}"
+  period              = "${ var.period != "" ? var.period : lookup(local.default_alert_variables_object,"period","default_period")}"
+  statistic           = "${ var.statistic != "" ? var.statistic : lookup(local.default_alert_variables_object,"statistic","default_statistic")}"
+  threshold           = "${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
+  unit                = "${ var.unit != "" ? var.unit : lookup(local.default_alert_variables_object,"unit","default_unit")}"
+  dimensions          = "${ var.dimensions != {} ? var.dimensions : lookup(local.default_alert_variables_object,"dimensions","default_dimensions")}"
+  treat_missing_data        = "${ var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object,"treat_missing_data","default_treat_missing_data")}" #"breaching"
+  insufficient_data_actions = "${ var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object,"insufficient_data_actions","default_insufficient_data_actions")}"
+  alarm_description         = local.alarm_description_up
   ok_actions = [
     aws_sns_topic.k8s-alerts-notify-email.arn, // email
     aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
