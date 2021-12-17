@@ -10,11 +10,6 @@ locals {
           statistic              = "Average"
           threshold              = "25"
           treat_missing_data     = "notBreaching"
-          dimensions             = {
-            "ClusterName" = "prod-6"
-            "PodName"     = "mongodb-replicaset-prod-0"
-            "Namespace"   = "default"
-          }
           insufficient_data_actions = []
       },
       alb_alerts = {
@@ -28,9 +23,6 @@ locals {
           threshold              = "20"
           treat_missing_data     = "notBreaching"
           insufficient_data_actions = []
-          dimensions             = {
-            LoadBalancer = "app/faf95412-default-mainingre-8687/cd94bc3e3dc4979f"
-          }
       }
       other = {
           comparison_operator    = "GreaterThanOrEqualToThreshold"
@@ -43,7 +35,6 @@ locals {
           threshold              = "25"
           treat_missing_data     = "notBreaching"
           insufficient_data_actions = []
-          dimensions             = {}
       }
   }
   alarm_description_up   = "This metric monitors ${var.alarm_name} when threshold > ${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
@@ -62,7 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   statistic           = "${ var.statistic != "" ? var.statistic : lookup(local.default_alert_variables_object,"statistic","default_statistic")}"
   threshold           = "${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
   unit                = "${ var.unit != "" ? var.unit : lookup(local.default_alert_variables_object,"unit","default_unit")}"
-  dimensions          = "${ var.dimensions != {} ? var.dimensions : lookup(local.default_alert_variables_object,"dimensions","default_dimensions")}"
+  dimensions          = var.dimensions
   treat_missing_data        = "${ var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object,"treat_missing_data","default_treat_missing_data")}" #"breaching"
   insufficient_data_actions = "${ var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object,"insufficient_data_actions","default_insufficient_data_actions")}"
   alarm_description         = local.alarm_description_down
@@ -88,7 +79,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   statistic           = "${ var.statistic != "" ? var.statistic : lookup(local.default_alert_variables_object,"statistic","default_statistic")}"
   threshold           = "${ var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object,"threshold","default_threshold")}"
   unit                = "${ var.unit != "" ? var.unit : lookup(local.default_alert_variables_object,"unit","default_unit")}"
-  dimensions          = "${ var.dimensions != {} ? var.dimensions : lookup(local.default_alert_variables_object,"dimensions","default_dimensions")}"
+  dimensions          = var.dimensions
   treat_missing_data        = "${ var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object,"treat_missing_data","default_treat_missing_data")}" #"breaching"
   insufficient_data_actions = "${ var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object,"insufficient_data_actions","default_insufficient_data_actions")}"
   alarm_description         = local.alarm_description_up

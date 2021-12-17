@@ -10,6 +10,11 @@ module "cloudwatchalarm" {
     # Type  k8s_alerts, alb_alerts
     alert_type_name  = "k8s_alerts"
 
+    dimensions = {
+        "ClusterName" = ""
+        "PodName"     = ""
+        "Namespace"   = ""
+    }
     # Slack information
     slack_hook_url = ""
     slack_channel  = ""
