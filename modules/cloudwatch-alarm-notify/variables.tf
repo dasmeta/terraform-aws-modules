@@ -86,12 +86,6 @@ variable "alarm_description" {
 }
 
 ### SNS Topic related variables
-variable "topic_name" {
-  type        = string
-  default     = "topic"
-  description = "SNS topic name."
-}
-
 variable "sns_subscription_email_address_list" {
   type        = list(string)
   default     = []
@@ -112,18 +106,18 @@ variable "sms_message_body" {
 ### Slack variables
 variable "slack_hook_url" {
   type        = string
-  description = "This is slack webhook url path without domain"
   default     = ""
+  description = "This is slack webhook url path without domain"
 }
 
 variable "slack_channel" {
   type        = string
-  description = "Slack Channel"
   default     = ""
+  description = "Slack Channel"
 }
 
 variable "slack_username" {
   type        = string
-  description = "Slack User Name"
   default     = ""
+  description = "Slack User Name"
 }
