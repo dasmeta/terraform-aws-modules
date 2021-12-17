@@ -8,52 +8,56 @@ variable "tags" {
   default     = {}
   description = "Tags object."
 }
+variable "alert_type_name" {
+  type = string
+  default = "other"
+  description = "Alert_Type"
+}
 
 variable "namespace" {
   type        = string
-  default     = "ContainerInsights"
+  default     = ""
   description = "Alarm emitter."
 }
 
 variable "metric_name" {
   type        = string
-  default     = "pod_number_of_container_restarts"
+  default     = ""
   description = "Name of the metric."
 }
-
 variable "comparison_operator" {
   type        = string
-  default     = "GreaterThanOrEqualToThreshold"
+  default     = ""
   description = "Comparison operator."
 }
 
 variable "evaluation_periods" {
   type        = string
-  default     = "1"
+  default     = ""
   description = "Evaluation periods."
 }
 
 variable "period" {
   type        = string
-  default     = "60"
+  default     = ""
   description = "Period."
 }
 
 variable "statistic" {
   type        = string
-  default     = "Maximum"
+  default     = ""
   description = "Statistic."
 }
 
 variable "threshold" {
   type        = string
-  default     = "1"
+  default     = ""
   description = "Threshold."
 }
 
 variable "unit" {
   type    = string
-  default = "Count"
+  default = ""
 }
 
 variable "dimensions" {
@@ -61,36 +65,27 @@ variable "dimensions" {
   default = {}
 }
 
-variable "alarm_description_down" {
-  type    = string
-  default = "This metric monitors pod restarts."
-}
-variable "alarm_description_up" {
-  type    = string
-  default = "This metric monitors pod restarts."
-}
 variable "alarm_actions" {
   type    = list(string)
   default = []
 }
 
-variable "treat_missing_data" {
-  type    = string
-  default = "breaching"
-}
-
-variable "depends" {
+variable "insufficient_data_actions" {
+  type    = list(any)
   default = []
 }
 
-
-### SNS Topic related variables
-variable "topic_name" {
-  type        = string
-  default     = "topic"
-  description = "SNS topic name."
+variable "treat_missing_data" {
+  type    = string
+  default = ""
 }
 
+variable "alarm_description" {
+  type    = string
+  default = ""
+}
+
+### SNS Topic related variables
 variable "sns_subscription_email_address_list" {
   type        = list(string)
   default     = []
@@ -111,15 +106,18 @@ variable "sms_message_body" {
 ### Slack variables
 variable "slack_hook_url" {
   type        = string
+  default     = ""
   description = "This is slack webhook url path without domain"
 }
 
 variable "slack_channel" {
   type        = string
+  default     = ""
   description = "Slack Channel"
 }
 
 variable "slack_username" {
   type        = string
+  default     = ""
   description = "Slack User Name"
 }
