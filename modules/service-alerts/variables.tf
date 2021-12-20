@@ -12,7 +12,7 @@ variable "memory_threshold" {
 
 variable "error_threshold" {
     type        = string
-    default     = "50"
+    default     = "10"
     description = "Error threshold"
 }
 
@@ -21,16 +21,17 @@ variable "network_threshold" {
     default     = "50"
     description = "Network_threshold"
 }
-variable "dimensions" {
-    type  = map(any)
-    default = {} 
-    description = ""
-}
+
 variable "service_name" {
     type = string
-    default = "Service"
     description = "Service Name"
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluser Name"  
+}
+
 variable "namespace" {
   type = string
   description = "Service Namespace"
@@ -82,8 +83,4 @@ variable "slack_username" {
   type        = string
   default     = ""
   description = "Slack User Name"
-}
-variable "cluster_name" {
-  type        = string
-  description = "Cluser Name"  
 }
