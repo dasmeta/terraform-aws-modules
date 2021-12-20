@@ -16,5 +16,5 @@ module "cloudwatchalarm" {
 
     create_dashboard = true
 
-    sns_subscription_email_address_list = ["julia@dasmeta.com"]
+    sns_subscription_email_address_list = ["devops@domain.com"]
 }
