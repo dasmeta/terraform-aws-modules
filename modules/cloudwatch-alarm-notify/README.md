@@ -21,7 +21,7 @@ module "cloudwatchalarm" {
     slack_username = ""
 
     #Opsgenie integration url
-    opsgenie_endpoint = ""
+    opsgenie_endpoint = [""]
 }
 ```
 # Example 2
@@ -42,7 +42,7 @@ module "cloudwatchalarm" {
     slack_username   = ""
 
     #Opsgenie integration url
-    opsgenie_endpoint = ""
+    opsgenie_endpoint = [""]
 }
 ```
 # Example 3
@@ -73,6 +73,6 @@ module "cloudwatchalarm" {
     slack_username   = ""
 
     #Opsgenie integration url
-    opsgenie_endpoint = ""
+    opsgenie_endpoint = [""]
 }
 ```
