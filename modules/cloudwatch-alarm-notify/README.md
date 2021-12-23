@@ -3,7 +3,7 @@ Module use examples.
 # Example 1
 
 In this case, you can create alarm default parameters using only alert type.
-
+```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
@@ -23,11 +23,11 @@ module "cloudwatchalarm" {
     #Opsgenie integration url
     opsgenie_endpoint = ""
 }
-
+```
 # Example 2
 
 In this case, you can create alarm to override default parameters.
-
+```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
@@ -44,11 +44,11 @@ module "cloudwatchalarm" {
     #Opsgenie integration url
     opsgenie_endpoint = ""
 }
-
+```
 # Example 3
 
 This case you can create alarm not implemented case.
-
+```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
@@ -75,3 +75,4 @@ module "cloudwatchalarm" {
     #Opsgenie integration url
     opsgenie_endpoint = ""
 }
+```

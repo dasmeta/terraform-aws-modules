@@ -28,5 +28,5 @@ resource "aws_sns_topic_subscription" "opsgenie" {
   count     = length(var.opsgenie_endpoint)
   topic_arn = aws_sns_topic.k8s-alerts-notify-opsgenie.arn
   protocol  = "https"
-  endpoint  = var.opsgenie_endpoint
+  endpoint  = element(var.opsgenie_endpoint, count.index)
 }
