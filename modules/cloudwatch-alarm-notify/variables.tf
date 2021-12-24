@@ -121,3 +121,10 @@ variable "slack_username" {
   default     = ""
   description = "Slack User Name"
 }
+
+### Opsgenie variables
+variable "opsgenie_endpoint" {
+  type       = list(string)
+  default    = []
+  description = "Opsigenie platform integration url"
+}

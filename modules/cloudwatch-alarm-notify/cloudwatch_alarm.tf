@@ -60,6 +60,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_actions             = [
     aws_sns_topic.k8s-alerts-notify-email.arn, // email
     aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
+    aws_sns_topic.k8s-alerts-notify-opsgenie.arn, // Opsgenie
     module.notify_slack.this_slack_topic_arn   // slack
   ]
   
@@ -86,6 +87,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   ok_actions = [
     aws_sns_topic.k8s-alerts-notify-email.arn, // email
     aws_sns_topic.k8s-alerts-notify-sms.arn,   // sms
+    aws_sns_topic.k8s-alerts-notify-opsgenie.arn, // Opsgenie
     module.notify_slack.this_slack_topic_arn   // slack
   ]
 
