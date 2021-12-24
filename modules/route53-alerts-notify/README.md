@@ -15,10 +15,12 @@ module "healthcheck" {
   resource_path                       = "/"
   type                                = "HTTPS"
   port                                = "443"
+  measure_latency                     = true
+  regions                             = ["us-east-1","eu-west-1","ap-northeast-1"]
   slack_hook_url                      = "{SLACK_WEBHOOK_PATH_VALUE}"
   slack_username                      = "{SLACK_USERNAME_VALUE}"
   slack_channel                       = "{SLACK_CHANNEL_NAME_VALUE}"
-  sns_subscription_email_address_list = ["info@devops.dasmeta.com"]
+  sns_subscription_email_address_list = ["info@example.com"]
   sns_subscription_phone_number_list  = ["+0000000000"]
   tags = {
     Name = "{HEALTH_CHECK_NAME_VALUE}"

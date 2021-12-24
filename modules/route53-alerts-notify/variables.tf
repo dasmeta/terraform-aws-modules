@@ -34,6 +34,18 @@ variable "alarm_region" {
   description = "Region from where the alarms must be monitored. All regions are taken if the value is omited."
 }
 
+variable "measure_latency" {
+  type = bool
+  default = false
+  description = "(Optional) A Boolean value that indicates whether you want Route 53 to measure the latency between health checkers in multiple AWS regions and your endpoint and to display CloudWatch latency graphs in the Route 53 console."
+}
+
+variable "regions" {
+  type = list(string)
+  default = null
+  description = "(Optional) A list of AWS regions that you want Amazon Route 53 health checkers to check the specified endpoint from."
+}
+
 variable "failure_threshold" {
   type = string
   default = "5"
