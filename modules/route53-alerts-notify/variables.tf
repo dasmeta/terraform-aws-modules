@@ -42,7 +42,7 @@ variable "measure_latency" {
 
 variable "regions" {
   type = list(string)
-  default = null
+  default = ["us-east-1","eu-west-1","ap-northeast-1"]
   description = "(Optional) A list of AWS regions that you want Amazon Route 53 health checkers to check the specified endpoint from."
 }
 
