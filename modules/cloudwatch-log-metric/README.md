@@ -8,7 +8,7 @@ Note.
 ## Example 1. Create Log group and metric filter.
 ```
 module "aws_cloudwatch_log_metric_filter" {
-    source = "dasmeta/modules/aws//modules/cloudwatch-log-group-metric-filter/"
+    source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
 
     name             = "example"
     filter_pattern   = "ERROR"
@@ -21,7 +21,7 @@ module "aws_cloudwatch_log_metric_filter" {
 ## Example 2. Add metric filter existing in the log group
 ```
 module "aws_cloudwatch_log_metric_filter" {
-    source = "dasmeta/modules/aws//modules/cloudwatch-log-group-metric-filter/"
+    source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
 
     name             = "example"
     filter_pattern   = "ERROR"
@@ -33,7 +33,7 @@ module "aws_cloudwatch_log_metric_filter" {
 ## Example 3. Create Log group and metric filter override default values.
 ```
 module "aws_cloudwatch_log_metric_filter" {
-    source = "dasmeta/modules/aws//modules/cloudwatch-log-group-metric-filter/"
+    source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
 
     name             = "example"
     filter_pattern   = "ERROR"
