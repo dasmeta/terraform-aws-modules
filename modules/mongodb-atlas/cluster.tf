@@ -11,7 +11,7 @@ resource "mongodbatlas_cluster" "main" {
       read_only_nodes = 0
     }
   }
-  provider_backup_enabled      = true
+  cloud_backup                 = true
   auto_scaling_disk_gb_enabled = true
   mongo_db_major_version       = "4.2"
 

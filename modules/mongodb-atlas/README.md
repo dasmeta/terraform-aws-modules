@@ -14,6 +14,19 @@ module "mongodb-atlas" {
 
   users = ["user1", "user2", "userN"]
   ip_ranges = ["ip1", "ip2", "ip3", "ipN"]
+
+  access_users = [
+      {
+            username     = "julia@dasmeta.com"
+            roles         = ["ORG_OWNER" , "ORG_BILLING_ADMIN" ]
+            project_roles = ["GROUP_DATA_ACCESS_READ_WRITE"]
+      },
+      {
+            username     = "test@gmail.com"
+            roles         = ["ORG_OWNER" , "ORG_BILLING_ADMIN" ]
+            project_roles = ["GROUP_DATA_ACCESS_READ_WRITE"]
+      }
+  ]
 }
 
 ## Issues
