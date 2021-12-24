@@ -1,5 +1,5 @@
 # Module Use Case
-
+```
 module "cloudwatchalarm" {
     source  = "../../terraform-aws-modules/modules/service-alerts"
 
@@ -18,3 +18,4 @@ module "cloudwatchalarm" {
 
     sns_subscription_email_address_list = ["devops@domain.com"]
 }
+```
