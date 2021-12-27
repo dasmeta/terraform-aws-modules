@@ -17,7 +17,7 @@ module "mongodb-atlas" {
 
   access_users = [
       {
-            username     = "julia@dasmeta.com"
+            username     = "test1@dasmeta.com"
             roles         = ["ORG_OWNER" , "ORG_BILLING_ADMIN" ]
             project_roles = ["GROUP_DATA_ACCESS_READ_WRITE"]
       },
