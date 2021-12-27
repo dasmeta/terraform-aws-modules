@@ -143,3 +143,13 @@ variable provider_name {
   default     = "AWS"
   description = "Cloud provider to whom the peering connection is being made."
 }
+
+variable "access_users" {
+  type = list(object({
+      username = string, 
+      roles    = list(string),
+      project_roles = set(string) 
+    }))
+  default = []
+  description = "Access Users" 
+}

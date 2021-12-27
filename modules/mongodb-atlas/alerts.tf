@@ -12,7 +12,7 @@ resource "mongodbatlas_alert_configuration" "main" {
     roles         = var.alert_roles
   }
 
-  metric_threshold = {
+  metric_threshold_config {
     metric_name = var.alert_metric_name
     operator    = var.alert_operator
     threshold   = var.alert_threshold
