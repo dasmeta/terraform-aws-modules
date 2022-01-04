@@ -1,6 +1,5 @@
-
 resource "mongodbatlas_org_invitation" "org_invitation" {
-  for_each = { for user in var.access_users : user.username => user}
+  for_each = var.org_invitation_enabled ? { for user in var.access_users : user.username => user} : {}
   username    = each.value.username
   org_id      = var.org_id
   roles       = each.value.roles
