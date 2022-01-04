@@ -144,7 +144,7 @@ variable provider_name {
   description = "Cloud provider to whom the peering connection is being made."
 }
 
-variable "access_users" {
+variable access_users {
   type = list(object({
       username = string, 
       roles    = list(string),
@@ -152,4 +152,10 @@ variable "access_users" {
     }))
   default = []
   description = "Access Users" 
+}
+
+variable org_invitation_enabled {
+  type        = bool
+  default     = true
+  description = "Allows to controll wheather the invitation for organization will be created"
 }
