@@ -1,6 +1,6 @@
 locals {
 
-  domains_union = concat([var.zone], var.alternative_zone)
+  domains_union = concat([var.zone], var.alternative_zones)
   all_zones = { for index, zone in toset(local.domains_union) :
     zone => zone
   }
