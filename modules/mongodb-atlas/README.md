@@ -4,7 +4,7 @@
 3. run
 ```
 module "mongodb-atlas" {
-  source = "git::https://github.com/dasmeta/terraform.git//modules/mongodb-atlas?ref=0.6.0"
+  source = "dasmeta/modules/aws//modules/mongodb-atlas"
 
   org_id = "some mongo atlas or id"
   public_key = "mongo atlas public key"
@@ -13,11 +13,11 @@ module "mongodb-atlas" {
   project_name = "your project name goes here"
 
   users = ["user1", "user2", "userN"]
-  ip_ranges = ["ip1", "ip2", "ip3", "ipN"]
+  ip_addresses = ["ip1", "ip2", "ip3", "ipN"]
 
   access_users = [
       {
-            username     = "julia@dasmeta.com"
+            username     = "test1@dasmeta.com"
             roles         = ["ORG_OWNER" , "ORG_BILLING_ADMIN" ]
             project_roles = ["GROUP_DATA_ACCESS_READ_WRITE"]
       },
