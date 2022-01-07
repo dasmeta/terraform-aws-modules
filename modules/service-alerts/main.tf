@@ -1,7 +1,7 @@
 locals {
     dimensions = {
         "ClusterName" = var.cluster_name
-        "Service"     = var.service_name
+        "PodName"     = var.pod_name
         "Namespace"   = var.namespace
     }
 
@@ -11,8 +11,8 @@ locals {
     metric_memory    = module.cloudwatchalarm_memory.metric_name
     namespace_memory = module.cloudwatchalarm_memory.namespace
 
-    metric_error    = module.cloudwatchalarm_error.metric_name
-    namespace_error = module.cloudwatchalarm_error.namespace
+    metric_error    = var.error_filter ? module.cloudwatchalarm_error.metric_name : ""
+    namespace_error = var.error_filter ? module.cloudwatchalarm_error.namespace : ""
 
     metric_network_tx    = module.cloudwatchalarm_network_tx.metric_name
     namespace_network_tx = module.cloudwatchalarm_network_tx.namespace
@@ -25,7 +25,7 @@ locals {
 // CPU ALARM 
 module "cloudwatchalarm_cpu" {
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.service_name}_cpu_utilization"
+    alarm_name       = "${var.pod_name}_cpu_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -52,7 +52,7 @@ module "cloudwatchalarm_cpu" {
 // MEMORY ALARM 
 module "cloudwatchalarm_memory" {
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.service_name}_memory_utilization"
+    alarm_name       = "${var.pod_name}_memory_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -78,9 +78,10 @@ module "cloudwatchalarm_memory" {
 
 // Log Filter 
 module "cloudwatch_log_metric_filter" {
+    count = var.error_filter ? 1 : 0
     source = "../cloudwatch-log-metric"
 
-    name             = var.service_name
+    name             = var.pod_name
     filter_pattern   = "Error"
     create_log_group = false
     log_group_name   = var.log_group_name
@@ -89,12 +90,13 @@ module "cloudwatch_log_metric_filter" {
 
 // Error Metric
 module "cloudwatchalarm_error" {
+    count = var.error_filter ? 1 : 0
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.service_name}_error_utilization"
+    alarm_name       = "${var.pod_name}_error_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
-    period                 = "300"
+    period                 = "60"
     namespace              = "LogGroupFilter"
     unit                   = "Percent"
     metric_name            = "errorfilter"
@@ -114,10 +116,10 @@ module "cloudwatchalarm_error" {
     sms_message_body                    = var.sms_message_body
 }
 
-// Network Meric
+// Network Metric
 module "cloudwatchalarm_network_tx" {
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.service_name}_network_tx_utilization"
+    alarm_name       = "${var.pod_name}_network_tx_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -143,7 +145,7 @@ module "cloudwatchalarm_network_tx" {
 
 module "cloudwatchalarm_network_rx" {
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.service_name}_network_rx_utilization"
+    alarm_name       = "${var.pod_name}_network_rx_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -166,9 +168,37 @@ module "cloudwatchalarm_network_rx" {
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
 }
+
+// Pod Restarts 
+module "cloudwatchalarm_restart_count" {
+    source           = "../cloudwatch-alarm-notify"
+    alarm_name       = "${var.pod_name}_restart_count"
+
+    comparison_operator    = "GreaterThanThreshold"
+    evaluation_periods     = "1"
+    period                 = "60"
+    namespace              = "ContainerInsights"
+    unit                   = "Count"
+    metric_name            = "pod_number_of_container_restarts"
+    statistic              = "Average"
+    threshold              = var.restart_count
+    treat_missing_data     = "notBreaching"
+    dimensions             = local.dimensions
+
+    # Slack information
+    slack_hook_url   = var.slack_hook_url
+    slack_channel    = var.slack_channel
+    slack_username   = var.slack_username
+
+    # SNS Topic 
+    sns_subscription_email_address_list = var.sns_subscription_email_address_list
+    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+    sms_message_body                    = var.sms_message_body
+}
+
 resource "aws_cloudwatch_dashboard" "all_metric_include" {
   count = var.create_dashboard ? 1 : 0
-  dashboard_name = "${var.service_name}-dashboard"
+  dashboard_name = "${var.pod_name}-dashboard"
 
   dashboard_body = <<EOF
 {
@@ -181,12 +211,12 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
       "height": 6,
       "properties": {
         "metrics": [
-          ["ContainerInsights", "pod_cpu_utilization", "ClusterName", "${var.cluster_name}", "Service", "${var.service_name}", "Namespace", "${var.namespace}"]
+          ["ContainerInsights", "pod_cpu_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
         ],
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.service_name} Service CPU Utilization"
+        "title": "${var.pod_name} Pod CPU Utilization"
         }
     },
     {
@@ -197,15 +227,74 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
       "height": 6,
       "properties": {
         "metrics": [
-            ["ContainerInsights", "pod_memory_utilization", "ClusterName", "${var.cluster_name}", "Service", "${var.service_name}", "Namespace", "${var.namespace}"]
+            ["ContainerInsights", "pod_memory_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
         ],
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.service_name} Service Memory Utilization"
+        "title": "${var.pod_name} Pod Memory Utilization"
         }
     },
     {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+            ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "us-east-1",
+        "title": "${var.pod_name} Pod Netowrk TX Utilization"
+        }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+            ["ContainerInsights", "pod_number_of_container_restarts", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "us-east-1",
+        "title": "${var.pod_name} Pod Container restarts"
+        }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "metrics": [
+            ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "us-east-1",
+        "title": "${var.pod_name} Pod Netowrk RX Utilization"
+        }
+    }
+  ]
+}
+EOF
+}
+resource "aws_cloudwatch_dashboard" "error_metric_include" {
+  count = var.create_dashboard && var.error_filter ? 1 : 0
+  dashboard_name = "${var.pod_name}-dashboard"
+
+  dashboard_body = <<EOF
+  {
+    "widgets": [
+      {
       "type": "metric",
       "x": 0,
       "y": 0,
@@ -218,42 +307,11 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "period": 300,
         "stat": "Sum",
         "region": "us-east-1",
-        "title": "${var.service_name} PodService Error Count"
+        "title": "${var.pod_name} Pod Error Count"
         }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "Service","${var.service_name}", "Namespace","${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.service_name} Service Netowrk TX Utilization"
-        }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "Service","${var.service_name}", "Namespace","${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.service_name} Service Netowrk RX Utilization"
-        }
-    }
-  ]
+      }
+    ]
+  }
+  EOF
 }
-EOF
-}
+

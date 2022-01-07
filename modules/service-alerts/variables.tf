@@ -10,6 +10,12 @@ variable "memory_threshold" {
     description = "Memory trashold"
 }
 
+variable "restart_count" {
+  type    = string 
+  default = "10"
+  description = "Restart Count"
+}
+
 variable "error_threshold" {
     type        = string
     default     = "10"
@@ -22,7 +28,7 @@ variable "network_threshold" {
     description = "Network_threshold"
 }
 
-variable "service_name" {
+variable "pod_name" {
     type = string
     description = "Service Name"
 }
@@ -43,8 +49,15 @@ variable "create_dashboard" {
   description = "If you create dashboard input yes otherwise no"  
 }
 
+variable "error_filter" {
+  type = bool
+  default =  true
+  description = "Create error log or no"
+}
+
 variable "log_group_name" {
     type = string
+    default = ""
     description = "Metric filter create in log group."
 }
 
