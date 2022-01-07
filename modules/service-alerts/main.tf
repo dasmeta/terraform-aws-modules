@@ -96,7 +96,7 @@ module "cloudwatchalarm_error" {
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
-    period                 = "60"
+    period                 = "3600"
     namespace              = "LogGroupFilter"
     unit                   = "Percent"
     metric_name            = "errorfilter"
@@ -216,7 +216,7 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod CPU Utilization"
+        "title": "${var.pod_name} CPU_Utilization"
         }
     },
     {
@@ -232,7 +232,7 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod Memory Utilization"
+        "title": "${var.pod_name} Memory_Utilization"
         }
     },
     {
@@ -248,7 +248,7 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod Netowrk TX Utilization"
+        "title": "${var.pod_name} NetowrkTX_Utilization"
         }
     },
     {
@@ -261,10 +261,10 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "metrics": [
             ["ContainerInsights", "pod_number_of_container_restarts", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
         ],
-        "period": 300,
+        "period": 60,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod Container restarts"
+        "title": "${var.pod_name} Restarts"
         }
     },
     {
@@ -280,7 +280,7 @@ resource "aws_cloudwatch_dashboard" "all_metric_include" {
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod Netowrk RX Utilization"
+        "title": "${var.pod_name} Pod NetowrkRX_Utilization"
         }
     }
   ]
@@ -304,10 +304,10 @@ resource "aws_cloudwatch_dashboard" "error_metric_include" {
         "metrics": [
             ["LogGroupFilter", "errorfilter"]
         ],
-        "period": 300,
+        "period": 3600,
         "stat": "Sum",
         "region": "us-east-1",
-        "title": "${var.pod_name} Pod Error Count"
+        "title": "${var.pod_name} Error_Count"
         }
       }
     ]

@@ -7,7 +7,7 @@ module "cloudwatchalarm" {
     pod_name     = "eks-service-name"
     namespace    = "eks-service-namespace"
 
-    cpu_threshold.    = "50"
+    cpu_threshold     = "50"
     memory_threshold  = "50"
     network_threshold = "1000"
     restart_count     = "5"  
