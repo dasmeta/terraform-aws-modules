@@ -70,7 +70,7 @@ variable "enable_restart_threshold" {
 
 variable "restart_threshold" {
   type    = string 
-  default = "10"
+  default = "1"
   description = "Restart Count"
 }
 
