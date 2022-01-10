@@ -82,7 +82,7 @@ variable "restart_period" {
 
 variable "restart_statistic" {
   type = string
-  default =  "Average"
+  default =  "Maximum"
   description = "Restart Statistic"
 }
 

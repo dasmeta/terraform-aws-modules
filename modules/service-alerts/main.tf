@@ -144,10 +144,6 @@ error_dashboard   = var.enable_error_filter ? "${var.enable_restart_count ? loca
 
 }
 
-output "dashboard" {
-  value = local.dashboard_body1
-}
-
 resource "aws_cloudwatch_dashboard" "error_metric_include2" {
   count = var.create_dashboard ? 1 : 0
   dashboard_name = "${var.pod_name}-dashboard"
