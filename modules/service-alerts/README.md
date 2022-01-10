@@ -28,7 +28,7 @@ module "cloudwatchalarm" {
     cpu_threshold = "50"
     memory_threshold = "50"
     network_threshold = "1000"
-    restart_count   = "10"
+    restart_threshold   = "10"
 
     error_threshold = "10"
     log_group_name  = "/aws/example/"
@@ -38,7 +38,7 @@ module "cloudwatchalarm" {
     enable_cpu_threshold = false
     enable_memory_threshold  = false
     enable_network_threshold = false
-    enable_restart_count     = false
+    enable_restart_threshold = false
 
     create_dashboard = true
 
@@ -72,7 +72,7 @@ module "cloudwatchalarm" {
     network_period    = "300"
     network_statistic = "Average"
 
-    restart_count   = "1"
+    restart_threshold   = "1"
     restart_unit    = "Count"
     restart_period  = "60"
     restart_statistic = "Maximum"
@@ -89,7 +89,7 @@ module "cloudwatchalarm" {
     enable_cpu_threshold = false
     enable_memory_threshold  = false
     enable_network_threshold = false
-    enable_restart_count     = false
+    enable_restart_threshold = false
 
     create_dashboard = true
     dashboard_region = "us-east-1"

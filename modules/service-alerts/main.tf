@@ -123,10 +123,10 @@ add_comma_network = "${local.comma} ${local.network}"
 network_dashboard = var.enable_network_threshold ? "${var.enable_memory_threshold ? local.add_comma_network : "${var.enable_cpu_threshold ? local.add_comma_network : local.network}" }" : local.null
 
 add_comma_restart =  "${local.comma} ${local.restart}"
-restart_dashboard = var.enable_restart_count ? "${var.enable_network_threshold ? local.add_comma_restart : var.enable_memory_threshold ? local.add_comma_restart : var.enable_cpu_threshold ? local.add_comma_restart : local.restart}" : local.null
+restart_dashboard = var.enable_restart_threshold ? "${var.enable_network_threshold ? local.add_comma_restart : var.enable_memory_threshold ? local.add_comma_restart : var.enable_cpu_threshold ? local.add_comma_restart : local.restart}" : local.null
 
 add_comma_error   = "${local.comma} ${local.error}"
-error_dashboard   = var.enable_error_filter ? "${var.enable_restart_count ? local.add_comma_error : var.enable_network_threshold ? local.add_comma_error : var.enable_memory_threshold ? local.add_comma_error : var.enable_cpu_threshold ? local.add_comma_error : local.error}" : local.null
+error_dashboard   = var.enable_error_filter ? "${var.enable_restart_threshold ? local.add_comma_error : var.enable_network_threshold ? local.add_comma_error : var.enable_memory_threshold ? local.add_comma_error : var.enable_cpu_threshold ? local.add_comma_error : local.error}" : local.null
 
 
 
@@ -305,7 +305,7 @@ module "cloudwatchalarm_network_rx" {
 
 // Pod Restarts 
 module "cloudwatchalarm_restart_count" {
-    count            = var.enable_restart_count ? 1 : 0
+    count            = var.enable_restart_threshold ? 1 : 0
     source           = "../cloudwatch-alarm-notify"
     alarm_name       = "${var.pod_name}_restart_count"
 
@@ -316,7 +316,7 @@ module "cloudwatchalarm_restart_count" {
     unit                   = var.restart_unit
     metric_name            = "pod_number_of_container_restarts"
     statistic              = var.restart_statistic
-    threshold              = var.restart_count
+    threshold              = var.restart_threshold
     treat_missing_data     = "notBreaching"
     dimensions             = local.dimensions
 

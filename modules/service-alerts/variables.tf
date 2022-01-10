@@ -62,13 +62,13 @@ variable "memory_statistic" {
 }
 
 # RESTART
-variable "enable_restart_count" {
+variable "enable_restart_threshold" {
   type = bool
   default =  true
   description = "Enable restart threshold or no"
 }
 
-variable "restart_count" {
+variable "restart_threshold" {
   type    = string 
   default = "10"
   description = "Restart Count"
@@ -145,13 +145,13 @@ variable "enable_network_threshold" {
 
 variable "network_threshold" {
     type        = string
-    default     = "50"
+    default     = "5000"
     description = "Networ Threshold"
 }
 
 variable "network_unit" {
   type = string
-  default =  "Percent"
+  default =  "Bytes/Second"
   description = "Network Unit"
 } 
 
