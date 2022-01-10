@@ -317,7 +317,7 @@ module "cloudwatchalarm_restart_count" {
     metric_name            = "pod_number_of_container_restarts"
     statistic              = var.restart_statistic
     threshold              = var.restart_threshold
-    treat_missing_data     = "notBreaching"
+    treat_missing_data     = "breaching"
     dimensions             = local.dimensions
 
     # Slack information
