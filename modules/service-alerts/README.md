@@ -3,7 +3,7 @@
 ## Case 1
 ```
 module "cloudwatchalarm" {
-    source  = "../../terraform-aws-modules/modules/service-alerts"
+    source  = "dasmeta/modules/aws//modules/service-alerts"
 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
@@ -19,7 +19,7 @@ module "cloudwatchalarm" {
 ## Case 2
 ```
 module "cloudwatchalarm" {
-    source  = "../../terraform-aws-modules/modules/service-alerts"
+    source  = "dasmeta/modules/aws//modules/service-alerts"
 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
@@ -49,7 +49,7 @@ module "cloudwatchalarm" {
 ## Case 3
 ```
 module "cloudwatchalarm" {
-    source  = "../../terraform-aws-modules/modules/service-alerts"
+    source  = "dasmeta/modules/aws//modules/service-alerts"
 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
