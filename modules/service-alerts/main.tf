@@ -5,313 +5,491 @@ locals {
         "Namespace"   = var.namespace
     }
 
-    metric_cpu    = module.cloudwatchalarm_cpu.metric_name
-    namespace_cpu = module.cloudwatchalarm_cpu.namespace
+null = ""
 
-    metric_memory    = module.cloudwatchalarm_memory.metric_name
-    namespace_memory = module.cloudwatchalarm_memory.namespace
+cpu = <<EOF
+      {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+            ["ContainerInsights", "pod_cpu_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
+          ],
+          "period": ${var.cpu_period},
+          "stat": "${var.cpu_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} CPU_Utilization"
+          }
+      }
+EOF 
 
-    metric_error    = var.error_filter ? module.cloudwatchalarm_error.metric_name : ""
-    namespace_error = var.error_filter ? module.cloudwatchalarm_error.namespace : ""
-
-    metric_network_tx    = module.cloudwatchalarm_network_tx.metric_name
-    namespace_network_tx = module.cloudwatchalarm_network_tx.namespace
-
-    metric_network_rx    = module.cloudwatchalarm_network_rx.metric_name
-    namespace_network_rx = module.cloudwatchalarm_network_rx.namespace
-
-}
-
-// CPU ALARM 
-module "cloudwatchalarm_cpu" {
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_cpu_utilization"
-
-    comparison_operator    = "GreaterThanOrEqualToThreshold"
-    evaluation_periods     = "1"
-    period                 = "300"
-    namespace              = "ContainerInsights"
-    unit                   = "Percent"
-    metric_name            = "pod_cpu_utilization"
-    statistic              = "Average"
-    threshold              = var.cpu_threshold
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-// MEMORY ALARM 
-module "cloudwatchalarm_memory" {
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_memory_utilization"
-
-    comparison_operator    = "GreaterThanOrEqualToThreshold"
-    evaluation_periods     = "1"
-    period                 = "300"
-    namespace              = "ContainerInsights"
-    unit                   = "Percent"
-    metric_name            = "pod_memory_utilization"
-    statistic              = "Average"
-    threshold              = var.memory_threshold
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-// Log Filter 
-module "cloudwatch_log_metric_filter" {
-    count = var.error_filter ? 1 : 0
-    source = "../cloudwatch-log-metric"
-
-    name             = var.pod_name
-    filter_pattern   = "Error"
-    create_log_group = false
-    log_group_name   = var.log_group_name
-    metric_name      = "errorfilter"
-}
-
-// Error Metric
-module "cloudwatchalarm_error" {
-    count = var.error_filter ? 1 : 0
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_error_utilization"
-
-    comparison_operator    = "GreaterThanOrEqualToThreshold"
-    evaluation_periods     = "1"
-    period                 = "3600"
-    namespace              = "LogGroupFilter"
-    unit                   = "Percent"
-    metric_name            = "errorfilter"
-    statistic              = "Sum"
-    threshold              = var.error_threshold
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-// Network Metric
-module "cloudwatchalarm_network_tx" {
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_network_tx_utilization"
-
-    comparison_operator    = "GreaterThanOrEqualToThreshold"
-    evaluation_periods     = "1"
-    period                 = "300"
-    namespace              = "ContainerInsights"
-    unit                   = "Percent"
-    metric_name            = "pod_network_tx_bytes"
-    statistic              = "Average"
-    threshold              = var.network_threshold
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-module "cloudwatchalarm_network_rx" {
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_network_rx_utilization"
-
-    comparison_operator    = "GreaterThanOrEqualToThreshold"
-    evaluation_periods     = "1"
-    period                 = "300"
-    namespace              = "ContainerInsights"
-    unit                   = "Percent"
-    metric_name            = "pod_network_rx_bytes"
-    statistic              = "Average"
-    threshold              = var.network_threshold
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-    
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-// Pod Restarts 
-module "cloudwatchalarm_restart_count" {
-    source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_restart_count"
-
-    comparison_operator    = "GreaterThanThreshold"
-    evaluation_periods     = "1"
-    period                 = "60"
-    namespace              = "ContainerInsights"
-    unit                   = "Count"
-    metric_name            = "pod_number_of_container_restarts"
-    statistic              = "Average"
-    threshold              = var.restart_count
-    treat_missing_data     = "notBreaching"
-    dimensions             = local.dimensions
-
-    # Slack information
-    slack_hook_url   = var.slack_hook_url
-    slack_channel    = var.slack_channel
-    slack_username   = var.slack_username
-
-    # SNS Topic 
-    sns_subscription_email_address_list = var.sns_subscription_email_address_list
-    sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
-    sms_message_body                    = var.sms_message_body
-}
-
-resource "aws_cloudwatch_dashboard" "all_metric_include" {
-  count = var.create_dashboard ? 1 : 0
-  dashboard_name = "${var.pod_name}-dashboard"
-
-  dashboard_body = <<EOF
-{
-  "widgets": [
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-          ["ContainerInsights", "pod_cpu_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.pod_name} CPU_Utilization"
-        }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_memory_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.pod_name} Memory_Utilization"
-        }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.pod_name} NetowrkTX_Utilization"
-        }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_number_of_container_restarts", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
-        ],
-        "period": 60,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.pod_name} Restarts"
-        }
-    },
-    {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
-        ],
-        "period": 300,
-        "stat": "Average",
-        "region": "us-east-1",
-        "title": "${var.pod_name} Pod NetowrkRX_Utilization"
-        }
-    }
-  ]
-}
+memory = <<EOF
+      {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+              ["ContainerInsights", "pod_memory_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
+          ],
+          "period": ${var.memory_period},
+          "stat": "${var.memory_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} Memory_Utilization"
+          }
+      }
 EOF
-}
-resource "aws_cloudwatch_dashboard" "error_metric_include" {
-  count = var.create_dashboard && var.error_filter ? 1 : 0
-  dashboard_name = "${var.pod_name}-dashboard"
+network = <<EOF
+    {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+              ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+          ],
+          "period": ${var.network_period},
+          "stat": "${var.network_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} NetowrkTX_Utilization"
+          }
+      },
+      {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+              ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+          ],
+          "period": ${var.network_period},
+          "stat": "${var.network_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} NetowrkRX_Utilization"
+          }
+      }
+EOF
+restart  = <<EOF
+      {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+              ["ContainerInsights", "pod_number_of_container_restarts", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+          ],
+          "period": ${var.restart_period},
+          "stat": "${var.restart_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} Restarts"
+          }
+      }
+  EOF
+error=<<EOF
+      {
+        "type": "metric",
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 6,
+        "properties": {
+          "metrics": [
+              ["LogGroupFilter", "errorfilter"]
+          ],
+          "period": ${var.error_period},
+          "stat": "${var.error_statistic}",
+          "region": "${var.dashboard_region}",
+          "title": "${var.pod_name} Error_Count"
+          }
+      }
+  EOF
 
-  dashboard_body = <<EOF
+point = ","
+cpu_dashboard = var.enable_cpu_threshold ? local.cpu : local.null
+
+add_point_memory = "${local.point} ${local.memory}"
+memory_dashboard = var.enable_memory_threshold ? "${var.enable_cpu_threshold ? local.add_point_memory : local.memory}" : local.null
+
+add_point_network = "${local.point} ${local.network}"
+network_dashboard = var.enable_network_threshold ? "${var.enable_memory_threshold ? local.add_point_network : "${var.enable_cpu_threshold ? local.add_point_network : local.network}" }" : local.null
+
+add_point_restart =  "${local.point} ${local.restart}"
+restart_dashboard = var.enable_restart_count ? "${var.enable_network_threshold ? local.add_point_restart : var.enable_memory_threshold ? local.add_point_restart : var.enable_cpu_threshold ? local.add_point_restart : local.restart}" : local.null
+
+add_point_error   = "${local.point} ${local.error}"
+error_dashboard   = var.enable_error_filter ? "${var.enable_restart_count ? local.add_point_error : var.enable_network_threshold ? local.add_point_error : var.enable_memory_threshold ? local.add_point_error : var.enable_cpu_threshold ? local.add_point_error : local.error}" : local.null
+
+
+
+  dashboard_body1 = <<EOF
   {
     "widgets": [
-      {
-      "type": "metric",
-      "x": 0,
-      "y": 0,
-      "width": 12,
-      "height": 6,
-      "properties": {
-        "metrics": [
-            ["LogGroupFilter", "errorfilter"]
-        ],
-        "period": 3600,
-        "stat": "Sum",
-        "region": "us-east-1",
-        "title": "${var.pod_name} Error_Count"
-        }
-      }
+      ${ local.cpu_dashboard}
+      ${ local.memory_dashboard}
+      ${ local.network_dashboard}
+      ${ local.restart_dashboard}
+      ${ local.error_dashboard}
     ]
   }
   EOF
+
 }
 
+output "dashboard" {
+  value = local.dashboard_body1
+}
+
+resource "aws_cloudwatch_dashboard" "error_metric_include2" {
+  count = var.create_dashboard ? 1 : 0
+  dashboard_name = "${var.pod_name}-dashboard"
+
+  dashboard_body=local.dashboard_body1
+}
+
+
+# // CPU ALARM 
+# module "cloudwatchalarm_cpu" {
+#     count            = var.enable_cpu_threshold ? 1 : 0 
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_cpu_utilization"
+
+#     comparison_operator    = "GreaterThanOrEqualToThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.cpu_period
+#     namespace              = "ContainerInsights"
+#     unit                   = var.cpu_unit
+#     metric_name            = "pod_cpu_utilization"
+#     statistic              = var.cpu_statistic
+#     threshold              = var.cpu_threshold
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# // MEMORY ALARM 
+# module "cloudwatchalarm_memory" {
+#     count            = var.enable_memory_threshold ? 1 : 0
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_memory_utilization"
+
+#     comparison_operator    = "GreaterThanOrEqualToThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.memory_period
+#     namespace              = "ContainerInsights"
+#     unit                   = var.memory_unit
+#     metric_name            = "pod_memory_utilization"
+#     statistic              = var.memory_statistic
+#     threshold              = var.memory_threshold
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# // Log Filter 
+# module "cloudwatch_log_metric_filter" {
+#     count = var.enable_error_filter ? 1 : 0
+#     source = "../cloudwatch-log-metric"
+
+#     name             = var.pod_name
+#     filter_pattern   = var.error_filter_pattern
+#     create_log_group = false
+#     log_group_name   = var.log_group_name
+#     metric_name      = "errorfilter"
+# }
+
+# // Error Metric
+# module "cloudwatchalarm_error" {
+#     count = var.enable_error_filter ? 1 : 0
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_error_utilization"
+
+#     comparison_operator    = "GreaterThanOrEqualToThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.error_period
+#     namespace              = "LogGroupFilter"
+#     unit                   = var.error_unit
+#     metric_name            = "errorfilter"
+#     statistic              = var.error_statistic
+#     threshold              = var.error_threshold
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# // Network Metric
+# module "cloudwatchalarm_network_tx" {
+#     count            = var.enable_network_threshold ? 1 : 0 
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_network_tx_utilization"
+
+#     comparison_operator    = "GreaterThanOrEqualToThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.network_period
+#     namespace              = "ContainerInsights"
+#     unit                   = var.network_unit
+#     metric_name            = "pod_network_tx_bytes"
+#     statistic              = var.network_statistic
+#     threshold              = var.network_threshold
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# module "cloudwatchalarm_network_rx" {
+#     count            = var.enable_network_threshold ? 1 : 0 
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_network_rx_utilization"
+
+#     comparison_operator    = "GreaterThanOrEqualToThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.network_period
+#     namespace              = "ContainerInsights"
+#     unit                   = var.network_unit
+#     metric_name            = "pod_network_rx_bytes"
+#     statistic              = var.network_statistic
+#     threshold              = var.network_threshold
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+    
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# // Pod Restarts 
+# module "cloudwatchalarm_restart_count" {
+#     count            = var.enable_restart_count ? 1 : 0
+#     source           = "../cloudwatch-alarm-notify"
+#     alarm_name       = "${var.pod_name}_restart_count"
+
+#     comparison_operator    = "GreaterThanThreshold"
+#     evaluation_periods     = "1"
+#     period                 = var.restart_period
+#     namespace              = "ContainerInsights"
+#     unit                   = var.restart_unit
+#     metric_name            = "pod_number_of_container_restarts"
+#     statistic              = var.restart_statistic
+#     threshold              = var.restart_count
+#     treat_missing_data     = "notBreaching"
+#     dimensions             = local.dimensions
+
+#     # Slack information
+#     slack_hook_url   = var.slack_hook_url
+#     slack_channel    = var.slack_channel
+#     slack_username   = var.slack_username
+
+#     # SNS Topic 
+#     sns_subscription_email_address_list = var.sns_subscription_email_address_list
+#     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
+#     sms_message_body                    = var.sms_message_body
+# }
+
+# resource "aws_cloudwatch_dashboard" "error_metric_include" {
+#   count = var.create_dashboard && var.enable_error_filter ? 1 : 0
+#   dashboard_name = "${var.pod_name}-dashboard"
+
+#   dashboard_body=<<EOF
+#   {
+#     "widgets": [
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#               ["LogGroupFilter", "errorfilter"]
+#           ],
+#           "period": ${var.error_period},
+#           "stat": "${var.error_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} Error_Count"
+#           }
+#       }
+#     ]
+#   }
+#   EOF
+# }
+
+# resource "aws_cloudwatch_dashboard" "cpu_metric_include" {
+#   count = var.create_dashboard && var.enable_cpu_threshold ? 1 : 0
+#   dashboard_name = "${var.pod_name}-dashboard"
+
+#   dashboard_body = <<EOF
+#   {
+#     "widgets": [
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#             ["ContainerInsights", "pod_cpu_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
+#           ],
+#           "period": ${var.cpu_period},
+#           "stat": "${var.cpu_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} CPU_Utilization"
+#           }
+#       }
+#     ]
+#   }
+#   EOF
+# }
+
+
+# resource "aws_cloudwatch_dashboard" "memory_metric_include" {
+#   count = var.create_dashboard && var.enable_memory_threshold ? 1 : 0
+#   dashboard_name = "${var.pod_name}-dashboard"
+
+#   dashboard_body = <<EOF
+#   {
+#     "widgets": [
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#               ["ContainerInsights", "pod_memory_utilization", "ClusterName", "${var.cluster_name}", "PodName", "${var.pod_name}", "Namespace", "${var.namespace}"]
+#           ],
+#           "period": ${var.memory_period},
+#           "stat": "${var.memory_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} Memory_Utilization"
+#           }
+#       }
+#     ]
+#   }
+#   EOF
+# }
+
+# resource "aws_cloudwatch_dashboard" "network_metric_include" {
+#   count = var.create_dashboard && var.enable_network_threshold ? 1 : 0
+#   dashboard_name = "${var.pod_name}-dashboard"
+
+#   dashboard_body = <<EOF
+#   {
+#     "widgets": [
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#               ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+#           ],
+#           "period": ${var.network_period},
+#           "stat": "${var.network_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} NetowrkTX_Utilization"
+#           }
+#       },
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#               ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+#           ],
+#           "period": ${var.network_period},
+#           "stat": "${var.network_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} NetowrkRX_Utilization"
+#           }
+#     }
+#     ]
+#   }
+#   EOF
+# }
+
+# resource "aws_cloudwatch_dashboard" "restart_metric_include" {
+#   count = var.create_dashboard && var.enable_restart_count ? 1 : 0
+#   dashboard_name = "${var.pod_name}-dashboard"
+
+#   dashboard_body = <<EOF
+#   {
+#     "widgets": [
+#       {
+#         "type": "metric",
+#         "x": 0,
+#         "y": 0,
+#         "width": 12,
+#         "height": 6,
+#         "properties": {
+#           "metrics": [
+#               ["ContainerInsights", "pod_number_of_container_restarts", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
+#           ],
+#           "period": ${var.restart_period},
+#           "stat": "${var.restart_statistic}",
+#           "region": "${var.dashboard_region}",
+#           "title": "${var.pod_name} Restarts"
+#           }
+#       }
+#     ]
+#   }
+#   EOF
+# }
