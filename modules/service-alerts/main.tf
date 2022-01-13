@@ -178,6 +178,9 @@ module "cloudwatchalarm_cpu" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // MEMORY ALARM 
@@ -206,6 +209,9 @@ module "cloudwatchalarm_memory" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // Log Filter 
@@ -218,6 +224,9 @@ module "cloudwatch_log_metric_filter" {
     create_log_group = false
     log_group_name   = var.log_group_name
     metric_name      = "errorfilter"
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // Error Metric
@@ -246,6 +255,9 @@ module "cloudwatchalarm_error" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // Network Metric
@@ -274,6 +286,9 @@ module "cloudwatchalarm_network_tx" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 module "cloudwatchalarm_network_rx" {
@@ -301,6 +316,9 @@ module "cloudwatchalarm_network_rx" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // Pod Restarts 
@@ -329,4 +347,7 @@ module "cloudwatchalarm_restart_count" {
     sns_subscription_email_address_list = var.sns_subscription_email_address_list
     sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
     sms_message_body                    = var.sms_message_body
+    
+    ### Opsgenie endpoints
+    opsgenie_endpoint = var.opsgenie_endpoints    
 }
