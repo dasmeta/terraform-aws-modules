@@ -224,9 +224,6 @@ module "cloudwatch_log_metric_filter" {
     create_log_group = false
     log_group_name   = var.log_group_name
     metric_name      = "errorfilter"
-
-    ### Opsgenie endpoints
-    opsgenie_endpoint = var.opsgenie_endpoints
 }
 
 // Error Metric
