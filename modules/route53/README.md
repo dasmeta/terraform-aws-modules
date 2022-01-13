@@ -3,18 +3,18 @@ You can use module use when you create zones and add records in creating a zone.
 Module output zone id and zone arn.
 
 Example 1. You can create only zone 
-
+```terraform
 module "route53" {
 
     source = "dasmeta/modules/aws//modules/route53"
     zone = "test1.example.com"
     ttl = "30"
 }
-
+```
 
 Example 2. Create zone and add one record. 
 Note. Your recordid must be unique
-
+```terraform
 module "route53" {
 
     source  = "dasmeta/modules/aws//modules/route53"
@@ -29,9 +29,9 @@ module "route53" {
     ]
     ttl = "30"
 }
-
+```
 Example 3. Create zone and more record and more record value
-
+```terraform
 module "route53" {
 
     source = "dasmeta/modules/aws//modules/route53"
@@ -52,3 +52,4 @@ module "route53" {
     ]
     ttl = "30"
 }
+```
