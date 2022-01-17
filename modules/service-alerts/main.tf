@@ -50,28 +50,13 @@ network = <<EOF
         "height": 6,
         "properties": {
           "metrics": [
-              ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
-          ],
-          "period": ${var.network_period},
-          "stat": "${var.network_statistic}",
-          "region": "${var.dashboard_region}",
-          "title": "${var.pod_name} NetowrkTX_Utilization"
-          }
-      },
-      {
-        "type": "metric",
-        "x": 0,
-        "y": 0,
-        "width": 12,
-        "height": 6,
-        "properties": {
-          "metrics": [
+              ["ContainerInsights", "pod_network_tx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"],
               ["ContainerInsights", "pod_network_rx_bytes", "ClusterName", "${var.cluster_name}", "PodName","${var.pod_name}", "Namespace","${var.namespace}"]
           ],
           "period": ${var.network_period},
           "stat": "${var.network_statistic}",
           "region": "${var.dashboard_region}",
-          "title": "${var.pod_name} NetowrkRX_Utilization"
+          "title": "${var.pod_name} Netowrk_Utilization"
           }
       }
 EOF
@@ -146,7 +131,7 @@ error_dashboard   = var.enable_error_filter ? "${var.enable_restart_threshold ? 
 
 resource "aws_cloudwatch_dashboard" "error_metric_include2" {
   count = var.create_dashboard ? 1 : 0
-  dashboard_name = "${var.pod_name}-dashboard"
+  dashboard_name = "${var.env}-${var.pod_name}-dashboard"
 
   dashboard_body=local.dashboard_body1
 }
@@ -156,7 +141,7 @@ resource "aws_cloudwatch_dashboard" "error_metric_include2" {
 module "cloudwatchalarm_cpu" {
     count            = var.enable_cpu_threshold ? 1 : 0 
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_cpu_utilization"
+    alarm_name       = "${var.env}_${var.pod_name}_cpu_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -187,7 +172,7 @@ module "cloudwatchalarm_cpu" {
 module "cloudwatchalarm_memory" {
     count            = var.enable_memory_threshold ? 1 : 0
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_memory_utilization"
+    alarm_name       = "${var.env}_${var.pod_name}_memory_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -219,7 +204,7 @@ module "cloudwatch_log_metric_filter" {
     count = var.enable_error_filter ? 1 : 0
     source = "../cloudwatch-log-metric"
 
-    name             = var.pod_name
+    name             = "${var.env}_${var.pod_name}"
     filter_pattern   = var.error_filter_pattern
     create_log_group = false
     log_group_name   = var.log_group_name
@@ -230,7 +215,7 @@ module "cloudwatch_log_metric_filter" {
 module "cloudwatchalarm_error" {
     count = var.enable_error_filter ? 1 : 0
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_error_utilization"
+    alarm_name       = "${var.env}_${var.pod_name}_error_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -261,7 +246,7 @@ module "cloudwatchalarm_error" {
 module "cloudwatchalarm_network_tx" {
     count            = var.enable_network_threshold ? 1 : 0 
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_network_tx_utilization"
+    alarm_name       = "${var.env}_${var.pod_name}_network_tx_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -291,7 +276,7 @@ module "cloudwatchalarm_network_tx" {
 module "cloudwatchalarm_network_rx" {
     count            = var.enable_network_threshold ? 1 : 0 
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_network_rx_utilization"
+    alarm_name       = "${var.env}_${var.pod_name}_network_rx_utilization"
 
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -322,7 +307,7 @@ module "cloudwatchalarm_network_rx" {
 module "cloudwatchalarm_restart_count" {
     count            = var.enable_restart_threshold ? 1 : 0
     source           = "../cloudwatch-alarm-notify"
-    alarm_name       = "${var.pod_name}_restart_count"
+    alarm_name       = "${var.env}_${var.pod_name}_restart_count"
 
     comparison_operator    = "GreaterThanThreshold"
     evaluation_periods     = "1"
