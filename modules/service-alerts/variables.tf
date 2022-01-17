@@ -1,3 +1,9 @@
+variable "env" {
+  type = string
+  default = ""
+  description = "Environment Name"
+}
+
 # CPU
 variable "enable_cpu_threshold" {
   type = bool

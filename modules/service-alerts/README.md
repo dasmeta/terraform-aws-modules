@@ -5,6 +5,7 @@
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
 
+    env = "stage-pod" 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
     namespace    = "eks-pod-namespace"
@@ -21,6 +22,7 @@ module "cloudwatchalarm" {
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
 
+    env = "stage-pod" 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
     namespace    = "eks-pod-namespace"
@@ -51,6 +53,7 @@ module "cloudwatchalarm" {
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
 
+    env = "stage-pod" 
     cluster_name = "eks-cluster-name"
     pod_name     = "eks-pod-name"
     namespace    = "eks-pod-namespace"
