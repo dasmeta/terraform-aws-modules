@@ -7,7 +7,7 @@ data "aws_vpc" "main" {
 }
 
 module "rds" {
-    source  = "../../terraform-aws-modules/modules/rds"
+    source  = "dasmeta/modules/aws//modules/rds"
     allocated_storage    = 20
     storage_type         = "gp2"
     engine               = "mysql"
@@ -43,7 +43,7 @@ module "rds" {
 Case 2. Create RDS
 ```
 module "rds" {
-    source  = "../../terraform-aws-modules/modules/rds"
+    source  = "dasmeta/modules/aws//modules/rds"
     allocated_storage    = 20
     storage_type         = "gp2"
     engine               = "mysql"
