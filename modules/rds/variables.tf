@@ -1,4 +1,4 @@
-variable "name" {
+variable "identifier" {
   type = string
 }
 
@@ -14,15 +14,38 @@ variable "security_group_description" {
 
 variable "tags" {
   type = map
+  default = {}
+}
+
+variable "vpc_security_group_ids" {
+  type    = list(string)
+  default = []
 }
 
 variable "vpc_id" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "ingress_with_cidr_blocks" {
-  # type = list(map(any))
-  type = any
+#   type = list(map(any))
+  type     = list(map(string))
+  default  = []
+}
+
+variable "egress_with_cidr_blocks" {
+  type     = list(map(string))
+  default  = []
+}
+
+variable "storage_type" {
+  type = string
+  default = "gp2" 
+}
+
+variable "parameter_group_name" {
+  type = string
+  default = "default.mysql5.7" 
 }
 
 variable "engine" {
@@ -119,22 +142,22 @@ variable "skip_final_snapshot" {
 
 variable "deletion_protection" {
   type = bool
-  default = true
+  default = false
 }
 
 variable "create_monitoring_role" {
   type = bool
-  default = true
+  default = false
 }
 
 variable "monitoring_interval" {
   type = number
-  default = 60
+  default = 0
 }
 
 variable "monitoring_role_name" {
   type = string
-  default = "RDSMonitoringRole"
+  default = null
 }
 
 variable "parameters" {
@@ -191,4 +214,34 @@ variable "db_subnet_group_tags" {
 variable "apply_immediately" {
   type = bool
   default = false
+}
+
+variable "db_subnet_group_use_name_prefix" {
+  type = bool
+  default = false
+}
+
+variable "create_security_group" {
+  type = bool
+  default = false
+}
+
+variable "create_db_parameter_group" {
+  type = bool
+  default = false
+}
+
+variable "create_db_option_group" {
+  type = bool
+  default = false
+}
+
+variable "create_db_subnet_group" {
+  type = bool
+  default = true
+}
+
+variable "db_subnet_group_name" {
+  type = bool
+  default = true
 }
