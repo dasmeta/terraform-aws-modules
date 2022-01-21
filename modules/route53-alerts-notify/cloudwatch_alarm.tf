@@ -27,6 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_actions             = [
     aws_sns_topic.this-email.arn, // email
     aws_sns_topic.this-sms.arn, // sms
+    aws_sns_topic.this-opspenie.arn, // Opsgenie
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]
   insufficient_data_actions = []
@@ -52,6 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   ok_actions                = [
     aws_sns_topic.this-email.arn, // email
     aws_sns_topic.this-sms.arn, // sms
+    aws_sns_topic.this-opspenie.arn, // Opsgenie
     data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
   ]
   insufficient_data_actions = []
