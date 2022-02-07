@@ -11,7 +11,7 @@ variable "username" {
 }
 
 variable "password" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -24,7 +24,7 @@ variable "subnet_ids" {
 }
 
 variable "ip_ranges" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
@@ -46,8 +46,13 @@ variable "instance_class" {
   description = "Underlaying ec2 instance class"
 }
 
-variable engine_version {
+variable "engine_version" {
   type        = string
   default     = "11.12"
   description = "Postgres engine version"
+}
+variable "monitoring_role_name" {
+  type        = string
+  default     = "MyRDSMonitoringRole"
+  description = "IAM Role name"
 }
