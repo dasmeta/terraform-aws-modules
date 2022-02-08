@@ -56,3 +56,29 @@ variable "monitoring_role_name" {
   default     = "MyRDSMonitoringRole"
   description = "IAM Role name"
 }
+variable "create_security_group" {
+  type        = bool
+  default     = true
+  description = "Create Security group"
+}
+variable "security_group_ids" {
+  type        = list(string)
+  default     = [""]
+  description = "Security group name"
+}
+variable "publicly_accessible" {
+  description = "Bool to control if instance is publicly accessible"
+  type        = bool
+  default     = false
+}
+variable "db_subnet_group_name" {
+  description = "Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. If unspecified, will be created in the default VPC"
+  type        = string
+  default     = null
+}
+variable "create_db_subnet_group" {
+  type    = bool
+  default = true
+}
+
+

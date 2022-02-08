@@ -2,6 +2,9 @@ resource "random_password" "password" {
   length  = 16
   special = false
 }
+locals {
+  vpc_security_group_ids = var.create_security_group ? [aws_security_group.sg[0].id] : var.security_group_ids
+}
 
 module "db" {
   source  = "terraform-aws-modules/rds/aws"
@@ -9,7 +12,9 @@ module "db" {
 
   iam_database_authentication_enabled = true
 
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = local.vpc_security_group_ids
+  db_subnet_group_name   = var.db_subnet_group_name
+  create_db_subnet_group = var.create_db_subnet_group
 
   monitoring_interval    = "30"
   monitoring_role_name   = var.monitoring_role_name
@@ -22,8 +27,8 @@ module "db" {
 
   subnet_ids = var.subnet_ids
 
-  identifier = var.name
-
+  identifier                = var.name
+  publicly_accessible       = var.publicly_accessible
   create_db_option_group    = false
   create_db_parameter_group = false
 
