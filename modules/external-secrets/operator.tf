@@ -2,13 +2,13 @@ module "release" {
   source  = "terraform-module/release/helm"
   version = "2.6.9"
 
-  namespace  = "kube-system"
-  repository =  "https://charts.external-secrets.io"
+  namespace  = var.namespace
+  repository = "https://charts.external-secrets.io"
 
   app = {
-    name          = "external-secrets"
-    version       = "0.3.5"
-    chart         = "external-secrets"
+    name    = "external-secrets"
+    version = "0.3.5"
+    chart   = "external-secrets"
     # force_update  = true
     # wait          = true
     recreate_pods = false

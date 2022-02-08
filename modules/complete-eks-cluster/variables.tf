@@ -128,6 +128,12 @@ variable "write_kubeconfig" {
   description = "Whether or not to create kubernetes config file."
 }
 
+variable "external_secrets_namespace" {
+  type        = string
+  description = "The namespace of external-secret operator"
+  default     = "kube-system"
+}
+
 variable "cluster_enabled_log_types" {
   description = "A list of the desired control plane logs to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
   type        = list(string)

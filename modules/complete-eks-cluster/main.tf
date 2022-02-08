@@ -89,6 +89,7 @@ module "metrics-server" {
 module "external-secrets-prod" {
   source = "../external-secrets"
 
+  namespace = var.external_secrets_namespace
   cluster = {
     host        = module.eks-cluster.host
     certificate = module.eks-cluster.certificate
