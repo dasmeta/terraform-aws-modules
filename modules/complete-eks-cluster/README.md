@@ -18,6 +18,7 @@ locals {
     availability_zones = data.aws_availability_zones.available.names
     private_subnets = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
     public_subnets  = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
+    cluster_enabled_log_types = ["audit"]
     
     # When you create EKS, API server endpoint access default is public. When you use private this variable value should be equal false.
     cluster_endpoint_public_access = true
@@ -47,9 +48,9 @@ module "prod_complete_cluster" {
   public_subnets        = local.public_subnets
   public_subnet_tags    = local.public_subnet_tags
   private_subnet_tags   = local.private_subnet_tags
-
+  cluster_enabled_log_types = local.cluster_enabled_log_types
   cluster_endpoint_public_access = local.cluster_endpoint_public_access
-
+  
   ### EKS
   cluster_name          = local.cluster_name
   manage_aws_auth       = true

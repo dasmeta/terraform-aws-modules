@@ -11,16 +11,16 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 data "aws_iam_user" "user_arn" {
-  for_each = { for user in var.users:  user.username => user}
-  user_name = "${each.value.username}"
+  for_each  = { for user in var.users : user.username => user }
+  user_name = each.value.username
 }
 
 locals {
   map_users = flatten([
     for user in var.users : {
-        userarn     = data.aws_iam_user.user_arn[user.username].arn
-        username    = user.username
-        groups      = lookup(user, "group", ["system:masters"])
+      userarn  = data.aws_iam_user.user_arn[user.username].arn
+      username = user.username
+      groups   = lookup(user, "group", ["system:masters"])
     }
   ])
 }
@@ -44,18 +44,19 @@ module "eks-cluster" {
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
   vpc_id          = var.vpc_id
-  subnets         = var.subnets
+  subnets         = var.subnets // subnet_ids
 
   enable_irsa                     = var.enable_irsa
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
+  cluster_enabled_log_types       = var.cluster_enabled_log_types
 
-  node_groups = var.node_groups
-  worker_groups = var.worker_groups
-  workers_group_defaults = var.workers_group_defaults
+  node_groups                   = var.node_groups            //eks_managed_node_groups
+  worker_groups                 = var.worker_groups          //self_managed_node_groups
+  workers_group_defaults        = var.workers_group_defaults //self_managed_node_group_defaults
   worker_groups_launch_template = var.worker_groups_launch_template
 
-  write_kubeconfig   = var.write_kubeconfig
+  write_kubeconfig = var.write_kubeconfig
   # config_output_path = var.kubeconfig_output_path
 
   # manage_aws_auth = var.manage_aws_auth

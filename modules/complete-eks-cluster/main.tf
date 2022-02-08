@@ -30,6 +30,7 @@ module "eks-cluster" {
   worker_groups_launch_template  = var.worker_groups_launch_template
   workers_group_defaults         = var.workers_group_defaults
   cluster_endpoint_public_access = var.cluster_endpoint_public_access
+  cluster_enabled_log_types      = var.cluster_enabled_log_types
 }
 
 module "cloudwatch-metrics" {

@@ -1,6 +1,6 @@
 resource "random_password" "password" {
-  length           = 16
-  special          = false
+  length  = 16
+  special = false
 }
 
 module "db" {
@@ -11,8 +11,8 @@ module "db" {
 
   vpc_security_group_ids = [aws_security_group.sg.id]
 
-  monitoring_interval = "30"
-  monitoring_role_name = "MyRDSMonitoringRole"
+  monitoring_interval    = "30"
+  monitoring_role_name   = var.monitoring_role_name
   create_monitoring_role = true
 
   tags = {
@@ -35,15 +35,15 @@ module "db" {
 
   allocated_storage = var.storage
 
-  name     = var.database
-  username = var.username
+  name                   = var.database
+  username               = var.username
   create_random_password = false
-  password = var.password == "" ? random_password.password.result : var.password
-  port     = 5432
+  password               = var.password == "" ? random_password.password.result : var.password
+  port                   = 5432
 
   maintenance_window = "Mon:00:00-Mon:03:00"
   backup_window      = "03:00-06:00"
 
   backup_retention_period = var.backup_retention_period
-  deletion_protection = true
+  deletion_protection     = true
 }

@@ -8,48 +8,48 @@ locals {
 
 # Required arguments
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "VPC id where to spin up the cluster."
 }
 
 variable "subnets" {
-  type = list(string)
+  type        = list(string)
   description = "VPC subnets. Most probably those are the private ones."
 }
 
 variable "cluster_name" {
-  type = string
+  type        = string
   description = "Creating cluster name."
 }
 
 variable "cluster_version" {
-  type = string
-  default = "1.18"
+  type        = string
+  default     = "1.18"
   description = "Cluster version."
 }
 
 # Optional arguments
 variable "create_cluster" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to create cluster."
 }
 
 variable "write_kubeconfig" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to create kubernetes config file."
 }
 
 variable "kubeconfig_output_path" {
-  type = string
-  default = "./"
+  type        = string
+  default     = "./"
   description = "Where to put kubeconfig file."
 }
 
 variable "enable_irsa" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to enable OpenID connect protocol."
   # Needed to attach iam roles to service accounts. Example usage is ingress controller setup.
   # https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html
@@ -69,10 +69,10 @@ variable "worker_groups" {
 variable "workers_group_defaults" {
   type = any
   default = {
-    root_volume_type = "gp2"
-    root_volume_size = 50
+    root_volume_type   = "gp2"
+    root_volume_size   = 50
     kubelet_extra_args = "--node-labels=cluster_name=production,type=gpu_optimised --register-with-taints app=vums:NoSchedule"
-    }
+  }
 
   description = "Worker group defaults."
 }
@@ -102,4 +102,10 @@ variable "cluster_endpoint_public_access" {
 
 variable "users" {
   type = any
+}
+
+variable "cluster_enabled_log_types" {
+  description = "A list of the desired control plane logs to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
+  type        = list(string)
+  default     = ["audit"]
 }

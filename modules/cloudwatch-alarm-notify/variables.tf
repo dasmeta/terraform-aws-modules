@@ -9,8 +9,8 @@ variable "tags" {
   description = "Tags object."
 }
 variable "alert_type_name" {
-  type = string
-  default = "other"
+  type        = string
+  default     = "other"
   description = "Alert_Type"
 }
 
@@ -124,7 +124,13 @@ variable "slack_username" {
 
 ### Opsgenie variables
 variable "opsgenie_endpoint" {
-  type       = list(string)
-  default    = []
+  type        = list(string)
+  default     = []
   description = "Opsigenie platform integration url"
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  description = "Specifies the number of days you want to retain log events in log group for Lambda."
+  type        = number
+  default     = 0
 }
