@@ -141,7 +141,7 @@ variable "cluster_enabled_log_types" {
 }
 
 variable "cluster_version" {
-  description = "Allows to set/change kubernetes cluster version, the value of default can be set to the latest eks supported one after upgrading all existing setups, kubernetes version needs to be updated  at leas once a year. Please check here for available versions https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
+  description = "Allows to set/change kubernetes cluster version, kubernetes version needs to be updated at leas once a year. Please check here for available versions https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
   type        = string
-  default     = "1.18"
+  default     = "1.21"
 }
