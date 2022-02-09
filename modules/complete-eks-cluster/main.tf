@@ -31,6 +31,7 @@ module "eks-cluster" {
   workers_group_defaults         = var.workers_group_defaults
   cluster_endpoint_public_access = var.cluster_endpoint_public_access
   cluster_enabled_log_types      = var.cluster_enabled_log_types
+  cluster_version                = var.cluster_version
 }
 
 module "cloudwatch-metrics" {
