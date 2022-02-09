@@ -1,8 +1,8 @@
-output "zone_id"  {
-  value       = aws_route53_zone.main.zone_id
-  description = "Return created zone id."
+output "zone_id" {
+  value       = var.create_zone ? module.zone[0].zone_id : data.aws_route53_zone.main[0].zone_id
+  description = "Returns zone id."
 }
 output "arn" {
-    value       = aws_route53_zone.main.arn
-    description = "Return created zone arn."
+  value       = var.create_zone ? module.zone[0].arn : data.aws_route53_zone.main[0].arn
+  description = "Returns zone arn."
 }
