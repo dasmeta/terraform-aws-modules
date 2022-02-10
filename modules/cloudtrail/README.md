@@ -12,7 +12,7 @@ module "cloudtrail" {
 # Example 2
 ```
 module "cloudtrail" {
-  source         = "../../terraform-aws-modules/modules/cloudtrail/"
+  source         = "dasmeta/modules/aws//modules/cloudtrail/"
   name           = "test-cloudtrail"
   s3_bucket_name = "tftesttrail1234"
   sns_topic_name = ""
