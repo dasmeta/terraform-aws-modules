@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  s3_bucket_name = "${var.name}-cloud-trial-bucket"
+  s3_bucket_name = "${var.name}-cloud-trail-bucket"
   s3_key_prefix  = "cloudtrial"
 }
 resource "aws_cloudtrail" "cloudtrail" {
