@@ -258,110 +258,108 @@ variable "enable_auditing" {
 }
 
 variable "audit_filter" {
-  default     = <<-EOT
+  default = {
+    "$or" : [
+      {
+        "users" : []
+      },
+      {
+        "$and" : [
           {
-            "$or": [
+            "$or" : [
               {
-                "users": []
-              },
-              {
-                "$and": [
-                  {
-                    "$or": [
+                "users" : {
+                  "$elemMatch" : {
+                    "$or" : [
                       {
-                        "users": {
-                          "$elemMatch": {
-                            "$or": [
-                              {
-                                "db": "admin"
-                              },
-                              {
-                                "db": "$external"
-                              }
-                            ]
-                          }
-                        }
+                        "db" : "admin"
                       },
                       {
-                        "roles": {
-                          "$elemMatch": {
-                            "$or": [
-                              {
-                                "db": "admin"
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "$or": [
-                      {
-                        "atype": "authCheck",
-                        "param.command": {
-                          "$in": [
-                            "aggregate",
-                            "count",
-                            "distinct",
-                            "group",
-                            "mapReduce",
-                            "geoNear",
-                            "geoSearch",
-                            "eval",
-                            "find",
-                            "getLastError",
-                            "getMore",
-                            "getPrevError",
-                            "parallelCollectionScan",
-                            "delete",
-                            "findAndModify",
-                            "insert",
-                            "update",
-                            "resetError"
-                          ]
-                        }
-                      },
-                      {
-                        "atype": {
-                          "$in": [
-                            "authenticate",
-                            "createCollection",
-                            "createDatabase",
-                            "createIndex",
-                            "renameCollection",
-                            "dropCollection",
-                            "dropDatabase",
-                            "dropIndex",
-                            "createUser",
-                            "dropUser",
-                            "dropAllUsersFromDatabase",
-                            "updateUser",
-                            "grantRolesToUser",
-                            "revokeRolesFromUser",
-                            "createRole",
-                            "updateRole",
-                            "dropRole",
-                            "dropAllRolesFromDatabase",
-                            "grantRolesToRole",
-                            "revokeRolesFromRole",
-                            "grantPrivilegesToRole",
-                            "revokePrivilegesFromRole",
-                            "enableSharding",
-                            "shardCollection",
-                            "addShard",
-                            "removeShard",
-                            "shutdown",
-                            "applicationMessage"
-                          ]
-                        }
+                        "db" : "$external"
                       }
                     ]
                   }
-                ]
+                }
+              },
+              {
+                "roles" : {
+                  "$elemMatch" : {
+                    "$or" : [
+                      {
+                        "db" : "admin"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "$or" : [
+              {
+                "atype" : "authCheck",
+                "param.command" : {
+                  "$in" : [
+                    "aggregate",
+                    "count",
+                    "distinct",
+                    "group",
+                    "mapReduce",
+                    "geoNear",
+                    "geoSearch",
+                    "eval",
+                    "find",
+                    "getLastError",
+                    "getMore",
+                    "getPrevError",
+                    "parallelCollectionScan",
+                    "delete",
+                    "findAndModify",
+                    "insert",
+                    "update",
+                    "resetError"
+                  ]
+                }
+              },
+              {
+                "atype" : {
+                  "$in" : [
+                    "authenticate",
+                    "createCollection",
+                    "createDatabase",
+                    "createIndex",
+                    "renameCollection",
+                    "dropCollection",
+                    "dropDatabase",
+                    "dropIndex",
+                    "createUser",
+                    "dropUser",
+                    "dropAllUsersFromDatabase",
+                    "updateUser",
+                    "grantRolesToUser",
+                    "revokeRolesFromUser",
+                    "createRole",
+                    "updateRole",
+                    "dropRole",
+                    "dropAllRolesFromDatabase",
+                    "grantRolesToRole",
+                    "revokeRolesFromRole",
+                    "grantPrivilegesToRole",
+                    "revokePrivilegesFromRole",
+                    "enableSharding",
+                    "shardCollection",
+                    "addShard",
+                    "removeShard",
+                    "shutdown",
+                    "applicationMessage"
+                  ]
+                }
               }
             ]
           }
-EOT
+        ]
+      }
+    ]
+  }
   description = "JSON-formatted audit filter. All filters are chosen by default."
 }
