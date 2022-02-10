@@ -1,10 +1,11 @@
 resource "mongodbatlas_project" "main" {
-  name   = var.project_name
-  org_id = var.org_id
+  name                         = var.project_name
+  org_id                       = var.org_id
+  with_default_alerts_settings = var.with_default_alerts_settings
 
   # teams {
-  #   team_id    = "5e0fa8c99ccf641c722fe645"
-  #   role_names = ["GROUP_OWNER"]
+  #   role_names = var.team_roles
+  #   team_id    = var.team_id
   # }
 
   # teams {

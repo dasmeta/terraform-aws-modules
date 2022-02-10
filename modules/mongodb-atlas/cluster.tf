@@ -11,7 +11,7 @@ resource "mongodbatlas_cluster" "main" {
       read_only_nodes = 0
     }
   }
-  cloud_backup                 = true
+  cloud_backup                 = var.cloud_backup
   auto_scaling_disk_gb_enabled = true
   mongo_db_major_version       = "4.2"
 
@@ -19,4 +19,5 @@ resource "mongodbatlas_cluster" "main" {
   provider_name               = "AWS"
   disk_size_gb                = 100
   provider_instance_size_name = "M10"
+  # provider_backup_enabled     = var.provider_backup_enabled
 }
