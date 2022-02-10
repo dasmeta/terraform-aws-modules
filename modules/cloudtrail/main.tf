@@ -1,9 +1,13 @@
 data "aws_caller_identity" "current" {}
 
+locals {
+  s3_bucket_name = "${var.name}-cloud-trial-bucket"
+  s3_key_prefix  = "cloudtrial"
+}
 resource "aws_cloudtrail" "cloudtrail" {
   name                          = var.name
   s3_bucket_name                = aws_s3_bucket.s3.id
-  s3_key_prefix                 = var.s3_key_prefix
+  s3_key_prefix                 = local.s3_key_prefix
   include_global_service_events = var.include_global_service_events
   enable_log_file_validation    = var.enable_log_file_validation
   is_organization_trail         = var.is_organization_trail
@@ -31,7 +35,7 @@ resource "aws_cloudtrail" "cloudtrail" {
 }
 
 resource "aws_s3_bucket" "s3" {
-  bucket        = var.s3_bucket_name
+  bucket        = local.s3_bucket_name
   force_destroy = true
 
   policy = <<POLICY
@@ -45,7 +49,7 @@ resource "aws_s3_bucket" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::${var.s3_bucket_name}"
+            "Resource": "arn:aws:s3:::${local.s3_bucket_name}"
         },
         {
             "Sid": "AWSCloudTrailWrite",
@@ -54,7 +58,7 @@ resource "aws_s3_bucket" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::${var.s3_bucket_name}/${var.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+            "Resource": "arn:aws:s3:::${local.s3_bucket_name}/${local.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"

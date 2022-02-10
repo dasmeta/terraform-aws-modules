@@ -4,8 +4,7 @@ Module use examples.
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
-  name           = "test-cloudtrail"
-  s3_bucket_name = "tftesttrail1234"
+  name           = "cloudtrail"
 }
 ```
 
@@ -13,8 +12,7 @@ module "cloudtrail" {
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
-  name           = "test-cloudtrail"
-  s3_bucket_name = "tftesttrail1234"
+  name           = "cloudtrail"
   sns_topic_name = ""
   event_selector = [{
     read_write_type           = "All"

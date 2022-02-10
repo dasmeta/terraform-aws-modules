@@ -28,11 +28,6 @@ variable "enable_logging" {
   description = "Enable logging for the trail"
 }
 
-variable "s3_bucket_name" {
-  type        = string
-  description = "S3 bucket name for CloudTrail logs"
-}
-
 variable "cloud_watch_logs_role_arn" {
   type        = string
   description = "Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group"
@@ -70,10 +65,4 @@ variable "sns_topic_name" {
   type        = string
   description = "Specifies the name of the Amazon SNS topic defined for notification of log file delivery"
   default     = null
-}
-
-variable "s3_key_prefix" {
-  type        = string
-  description = "Prefix for S3 bucket used by Cloudtrail to store logs"
-  default     = "prefix"
 }
