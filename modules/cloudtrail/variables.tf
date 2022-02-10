@@ -1,7 +1,6 @@
 variable "name" {
   type        = string
   description = "Name CloudTrail"
-  default     = "audit-logs"
 }
 
 variable "enable_log_file_validation" {

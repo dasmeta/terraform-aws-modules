@@ -4,7 +4,7 @@ Module use examples.
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
-  name           = "cloudtrail"
+  name           = "audit-logs"
 }
 ```
 
