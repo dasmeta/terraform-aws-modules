@@ -25,24 +25,24 @@ variable "project_name" {
 }
 
 variable "users" {
-  type        = list(string)
-  default     = ["alice"]
-  description = "MongoDB Atlas users list"
-}
-
-variable "roles" {
-  default = {
-    role_name     = "readWrite"
-    database_name = "admin"
-  }
-  description = "role_name is MongoDB Atlas users role name, and database_name is MongoDB Atlas users database name"
-}
-
-variable "scopes" {
-  default = {
-    name = "cluster"
-  }
-  description = "Array of clusters and Atlas Data Lakes that this user has access to."
+  default = [
+    {
+      username = "alice",
+      roles = [
+        {
+          database_name = "development"
+          role_name     = "readWrite"
+        },
+      ]
+      scopes = [
+        {
+          name = "cluster"
+          type = "CLUSTER"
+        },
+      ]
+    }
+  ]
+  description = "MongoDB Atlas users list, roles and scopes."
 }
 
 variable "ip_addresses" {
@@ -246,11 +246,6 @@ variable "create_alert_configuration" {
   description = "Whether to create mongodbatlas_alert_configuration or not."
 }
 
-# variable "provider_backup_enabled" {
-#   type        = string
-#   description = "(optional) describe your variable"
-# }
-
 variable "enable_auditing" {
   type        = bool
   default     = false
@@ -362,4 +357,10 @@ variable "audit_filter" {
     ]
   }
   description = "JSON-formatted audit filter. All filters are chosen by default."
+}
+
+variable "schedule_restore_window_days" {
+  type        = number
+  default     = 1
+  description = "Number of days back in time you can restore to with point-in-time accuracy."
 }

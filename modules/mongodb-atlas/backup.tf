@@ -6,7 +6,7 @@ resource "mongodbatlas_cloud_backup_schedule" "backup" {
 
   reference_hour_of_day    = 11
   reference_minute_of_hour = 10
-  restore_window_days      = 1
+  restore_window_days      = var.schedule_restore_window_days
 
   dynamic "policy_item_hourly" {
     for_each = var.policy_item_hourly.retention_unit != "" ? [1] : []
