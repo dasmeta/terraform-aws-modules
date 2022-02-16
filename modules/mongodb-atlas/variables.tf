@@ -163,18 +163,6 @@ variable "org_invitation_enabled" {
   description = "Allows to controll wheather the invitation for organization will be created"
 }
 
-variable "team_roles" {
-  type        = list(string)
-  default     = null
-  description = "Project roles assigned to the team."
-}
-
-variable "team_id" {
-  type        = string
-  default     = null
-  description = "The unique identifier of the team which will be associated with the project."
-}
-
 variable "policy_item_hourly" {
   default = {
     frequency_interval = 6
@@ -230,14 +218,6 @@ variable "with_default_alerts_settings" {
   type        = bool
   default     = true
   description = "It allows users to disable the creation of the default alert settings."
-}
-
-variable "teams" {
-  default = {
-    team_id    = null
-    role_names = null
-  }
-  description = "team_id - The unique identifier of the team you want to associate with the project. role_names - Each string in the array represents a project role you want to assign to the team. Every user associated with the team inherits these roles."
 }
 
 variable "create_alert_configuration" {
@@ -363,4 +343,13 @@ variable "schedule_restore_window_days" {
   type        = number
   default     = 1
   description = "Number of days back in time you can restore to with point-in-time accuracy."
+}
+
+variable "teams" {
+  type = list(object({
+    team_id    = string
+    role_names = list(string)
+  }))
+  default = [
+  ]
 }
