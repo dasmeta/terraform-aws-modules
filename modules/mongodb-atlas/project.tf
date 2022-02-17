@@ -7,8 +7,8 @@ resource "mongodbatlas_project" "main" {
     for_each = { for team in var.teams : team.team_id => team }
 
     content {
-      team_id    = each.value.team_id
-      role_names = each.value.role_names
+      team_id    = teams.value.team_id
+      role_names = teams.value.role_names
     }
   }
 }
