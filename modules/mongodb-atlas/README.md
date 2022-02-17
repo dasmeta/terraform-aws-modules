@@ -12,7 +12,30 @@ module "mongodb-atlas" {
 
   project_name = "your project name goes here"
 
-  users = ["user1", "user2", "userN"]
+  users = [
+        {
+          username = "user1"
+          roles = {
+            database_name = "admin"
+            role_name     = "readWriteAnyDatabase"
+          }
+          scopes = {
+            name = "test-development"
+            type = "CLUSTER"
+          }
+        },
+        {
+          username = "user2"
+          roles = {
+            database_name = "database"
+            role_name     = "readWrite"
+          }
+          scopes = {
+            name = "cluster"
+            type = "CLUSTER"
+          }
+        }
+      ]
   ip_addresses = ["ip1", "ip2", "ip3", "ipN"]
 
   access_users = [
@@ -38,6 +61,7 @@ mongodbatlas_cloud_provider_snapshot_backup_policy resource requires access thro
    (to do so you can also add your current IP address as a source one).
 
 ## Tips
-1. To turn some policy_items off in mongodbatlas_cloud_backup_schedule, you need to pass "" to retention_unit. For example, if var.policy_item_hourly.retention_unit = "" then policy_item_hourly is not created.
-2. mongodbatlas_cloud_provider_snapshot_backup_policy resource is deprecated but if there is a need to use it, make use_cloud_provider_snapshot_backup_policy true.
-3. There is a problem in MongoDB provider with invitations for users. You can make them by this module, but it'll be better to delete mongodbatlas_org_invitation and mongodbatlas_project_invitation resources from the state.
+1. You need to pass "" to `retention_unit` to turn some `policy_items` off in `mongodbatlas_cloud_backup_schedule`. For example, if var.policy_item_hourly.retention_unit = "" then `policy_item_hourly` is not created.
+2. `mongodbatlas_cloud_provider_snapshot_backup_policy` resource is deprecated but if there is a need to use it, make `use_cloud_provider_snapshot_backup_policy` true.
+3. There is a problem in MongoDB provider with invitations for users. You can make them by this module, but it'll be better to delete `mongodbatlas_org_invitation` and `mongodbatlas_project_invitation` resources from the state.
+4. You need to pass the role and scope blocks for each user to create them. Just pass a list of objects to the `users` variable.

@@ -3,8 +3,12 @@ resource "mongodbatlas_project" "main" {
   org_id                       = var.org_id
   with_default_alerts_settings = var.with_default_alerts_settings
 
-  teams {
-    role_names = var.team_roles
-    team_id    = var.team_id
+  dynamic "teams" {
+    for_each = { for team in var.teams : team.team_id => team }
+
+    content {
+      team_id    = teams.value.team_id
+      role_names = teams.value.role_names
+    }
   }
 }
