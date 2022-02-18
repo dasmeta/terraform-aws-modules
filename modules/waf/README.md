@@ -12,7 +12,7 @@ module "waf_alb" {
 }
 ```
 
-### Example 2 Simple example create waf for cloudfront. This example nor set roles and doesn't have cloudfront association.
+### Example 2 Simple example create waf for cloudfront. This example not set roles and doesn't have cloudfront association. You should use the web_acl_id property on the cloudfront_distribution instead. 
 
 ```
 module "waf_cloudfront" {
