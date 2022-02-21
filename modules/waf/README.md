@@ -16,7 +16,7 @@ module "waf_alb" {
 
 ```
 module "waf_cloudfront" {
-  source = "dasmeta/modules/aws//modules/"
+  source = "dasmeta/modules/aws//modules/waf/"
   name   = "test_cloudfront"
 
   scope                  = "CLOUDFRONT"
@@ -32,7 +32,7 @@ module "waf_cloudfront" {
 
 ```
 module "waf_alb" {
-  source = "dasmeta/modules/aws//modules/"
+  source = "dasmeta/modules/aws//modules/waf/"
   name   = "test"
 
   create_alb_association = true
@@ -49,7 +49,7 @@ module "waf_alb" {
 
 ```
 module "waf_alb" {
-  source = "dasmeta/modules/aws//modules/"
+  source = "dasmeta/modules/aws//modules/waf/"
   name   = "test"
 
   create_alb_association = true
@@ -66,7 +66,7 @@ module "waf_alb" {
 
 ```
 module "waf_alb" {
-  source = "dasmeta/modules/aws//modules/"
+  source = "dasmeta/modules/aws//modules/waf/"
   name   = "test"
 
   rules = [
