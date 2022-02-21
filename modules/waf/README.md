@@ -3,7 +3,7 @@
 
 ```
 module "waf_alb" {
-  source                 = "dasmeta/modules/aws//modules/"
+  source                 = "dasmeta/modules/aws//modules/waf/"
   name                   = "test"
 
   visibility_config = {
