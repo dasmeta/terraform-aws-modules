@@ -6,7 +6,6 @@ variable "alb_name" {
 variable "hostname" {
   type        = string
   description = "Hostname"
-  default     = "test.timify.io"
 }
 
 variable "annotations" {
