@@ -18,7 +18,7 @@ module "ingress" {
   source   = "dasmeta/modules/aws//modules/ingress"
 
   alb_name = "test"
-  hostname = "test3.devops.dasmeta.com"
+  hostname = "test.devops.dasmeta.com"
   annotations = {
        "alb.ingress.kubernetes.io/load-balancer-name" = "test-ingress"
        "alb.ingress.kubernetes.io/scheme"             = "internet-facing"
