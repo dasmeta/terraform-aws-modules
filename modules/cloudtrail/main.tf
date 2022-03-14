@@ -37,7 +37,10 @@ resource "aws_cloudtrail" "cloudtrail" {
 resource "aws_s3_bucket" "s3" {
   bucket        = local.s3_bucket_name
   force_destroy = true
+}
 
+resource "aws_s3_bucket_policy" "s3" {
+  bucket = aws_s3_bucket.s3.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
