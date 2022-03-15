@@ -22,10 +22,20 @@ module "cdn" {
   }
 
   origin = {
-    alb = {
-      domain_name = "alb dns"
+    something = {
+      domain_name = "something.example.com"
       custom_origin_config = {
-        origin_ssl_protocols   = ["TLSv1.2"]
+        http_port              = 80
+        https_port             = 443
+        origin_protocol_policy = "match-viewer"
+        origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+      }
+    }
+
+    s3_one = {
+      domain_name = "my-s3-bycket.s3.amazonaws.com"
+      s3_origin_config = {
+        origin_access_identity = "s3_bucket_one"
       }
     }
   }
