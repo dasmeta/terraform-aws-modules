@@ -14,7 +14,7 @@ module "cloudwatch" {
   dashboard_name = "cloudwatch dashboard name"
   widgets = "some json file"
 }
-
+```
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
