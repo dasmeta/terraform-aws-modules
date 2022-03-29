@@ -62,4 +62,5 @@ module "eks-cluster" {
   # manage_aws_auth = var.manage_aws_auth
 
   map_users = local.map_users
+  map_roles = var.map_roles
 }
