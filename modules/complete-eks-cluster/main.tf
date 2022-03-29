@@ -32,6 +32,7 @@ module "eks-cluster" {
   cluster_endpoint_public_access = var.cluster_endpoint_public_access
   cluster_enabled_log_types      = var.cluster_enabled_log_types
   cluster_version                = var.cluster_version
+  map_roles                      = var.map_roles
 }
 
 module "cloudwatch-metrics" {
