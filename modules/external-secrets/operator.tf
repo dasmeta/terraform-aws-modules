@@ -1,13 +1,13 @@
 module "release" {
   source  = "terraform-module/release/helm"
-  version = "2.6.9"
+  version = "2.7.0"
 
   namespace  = var.namespace
   repository = "https://charts.external-secrets.io"
 
   app = {
     name    = "external-secrets"
-    version = "0.3.5"
+    version = "0.4.4"
     chart   = "external-secrets"
     # force_update  = true
     # wait          = true
