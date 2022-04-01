@@ -32,7 +32,7 @@ variable "endpoint_name" {
 
 variable "authorization_ingress" {
   description = "Add authorization rules to grant clients access to the networks."
-  type = list(string)
+  type        = list(string)
 }
 variable "additional_routes" {
   description = "A map where the key is a subnet ID of endpoint subnet for network association and value is a cidr to where traffic should be routed from that subnet. Useful in cases if you need to route beyond the VPC subnet, for instance peered VPC"
@@ -67,8 +67,8 @@ variable "vpc_id" {
   type        = string
 }
 variable "enable_saml" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Whether or not to enable SAML Provider."
 }
 variable "endpoint_subnets" {
@@ -77,19 +77,23 @@ variable "endpoint_subnets" {
   #default = ["subnet-0803b8f53842cb628","subnet-0f9a1ebddcea11a5c","subnet-08c91e06b4546c5ca"]
 }
 variable "create_peering" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Can create peering true : false"
 }
 variable "peering_vpc_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 variable "region" {
-  type = string
+  type    = string
   default = "us-east-1"
 }
 variable "vpn_file_download" {
-  type = string
+  type    = string
   default = ""
+}
+variable "split_tunnel" {
+  type    = bool
+  default = true
 }
