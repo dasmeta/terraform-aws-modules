@@ -21,3 +21,33 @@ module "ecr" {
      repos = ["repo1", "repo2", "repo3"]
 }
 ```
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.32.2 |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_repos"></a> [repos](#input\_repos) | 0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes. | `list` | <pre>[<br>  "repo1",<br>  "repo2",<br>  "repo3"<br>]</pre> | no |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->

@@ -65,3 +65,91 @@ mongodbatlas_cloud_provider_snapshot_backup_policy resource requires access thro
 2. `mongodbatlas_cloud_provider_snapshot_backup_policy` resource is deprecated but if there is a need to use it, make `use_cloud_provider_snapshot_backup_policy` true.
 3. There is a problem in MongoDB provider with invitations for users. You can make them by this module, but it'll be better to delete `mongodbatlas_org_invitation` and `mongodbatlas_project_invitation` resources from the state.
 4. You need to pass the role and scope blocks for each user to create them. Just pass a list of objects to the `users` variable.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 0.15.0 |
+| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | 1.2.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | 1.2.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_vpc_peering_connection_accepter.aws_peer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection_accepter) | resource |
+| [mongodbatlas_alert_configuration.main](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/alert_configuration) | resource |
+| [mongodbatlas_auditing.audit](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/auditing) | resource |
+| [mongodbatlas_cloud_backup_schedule.backup](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/cloud_backup_schedule) | resource |
+| [mongodbatlas_cloud_provider_snapshot_backup_policy.backup](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/cloud_provider_snapshot_backup_policy) | resource |
+| [mongodbatlas_cluster.main](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/cluster) | resource |
+| [mongodbatlas_database_user.user](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/database_user) | resource |
+| [mongodbatlas_network_peering.mongo_peer](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/network_peering) | resource |
+| [mongodbatlas_org_invitation.org_invitation](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/org_invitation) | resource |
+| [mongodbatlas_project.main](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/project) | resource |
+| [mongodbatlas_project_invitation.project_invitation](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/project_invitation) | resource |
+| [mongodbatlas_project_ip_access_list.ip-access-list](https://registry.terraform.io/providers/mongodb/mongodbatlas/1.2.0/docs/resources/project_ip_access_list) | resource |
+| [random_password.password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_accepter_region_name"></a> [accepter\_region\_name](#input\_accepter\_region\_name) | Specifies the region where the peer VPC resides. | `string` | `"eu-central-1"` | no |
+| <a name="input_access_users"></a> [access\_users](#input\_access\_users) | Access Users | <pre>list(object({<br>    username      = string,<br>    roles         = list(string),<br>    project_roles = set(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_alert_delay_min"></a> [alert\_delay\_min](#input\_alert\_delay\_min) | Number of minutes to wait after an alert condition is detected before sending out the first notification. | `number` | `0` | no |
+| <a name="input_alert_email_enabled"></a> [alert\_email\_enabled](#input\_alert\_email\_enabled) | Flag indicating if email notifications should be sent. | `bool` | `true` | no |
+| <a name="input_alert_event_type"></a> [alert\_event\_type](#input\_alert\_event\_type) | The type of event that will trigger an alert. | `string` | `"OUTSIDE_METRIC_THRESHOLD"` | no |
+| <a name="input_alert_interval_min"></a> [alert\_interval\_min](#input\_alert\_interval\_min) | Number of minutes to wait between successive notifications for unacknowledged alerts that are not resolved. | `number` | `5` | no |
+| <a name="input_alert_metric_name"></a> [alert\_metric\_name](#input\_alert\_metric\_name) | Name of the metric to check. | `string` | `"NORMALIZED_SYSTEM_CPU_USER"` | no |
+| <a name="input_alert_mode"></a> [alert\_mode](#input\_alert\_mode) | This must be set to AVERAGE. Atlas computes the current metric value as an average. | `string` | `"AVERAGE"` | no |
+| <a name="input_alert_operator"></a> [alert\_operator](#input\_alert\_operator) | Operator to apply when checking the current metric value against the threshold value. | `string` | `"GREATER_THAN"` | no |
+| <a name="input_alert_roles"></a> [alert\_roles](#input\_alert\_roles) | The following roles grant privileges within a project. | `list(string)` | <pre>[<br>  "GROUP_CLUSTER_MANAGER",<br>  "GROUP_OWNER"<br>]</pre> | no |
+| <a name="input_alert_sms_enabled"></a> [alert\_sms\_enabled](#input\_alert\_sms\_enabled) | Flag indicating if text message notifications should be sent. | `bool` | `false` | no |
+| <a name="input_alert_threshold"></a> [alert\_threshold](#input\_alert\_threshold) | Threshold value outside of which an alert will be triggered. | `number` | `99` | no |
+| <a name="input_alert_type_name"></a> [alert\_type\_name](#input\_alert\_type\_name) | The type of alert notification. | `string` | `"GROUP"` | no |
+| <a name="input_alert_units"></a> [alert\_units](#input\_alert\_units) | The units for the threshold value. Depends on the type of metric. | `string` | `"RAW"` | no |
+| <a name="input_audit_filter"></a> [audit\_filter](#input\_audit\_filter) | JSON-formatted audit filter. All filters are chosen by default. | `map` | <pre>{<br>  "$or": [<br>    {<br>      "users": []<br>    },<br>    {<br>      "$and": [<br>        {<br>          "$or": [<br>            {<br>              "users": {<br>                "$elemMatch": {<br>                  "$or": [<br>                    {<br>                      "db": "admin"<br>                    },<br>                    {<br>                      "db": "$external"<br>                    }<br>                  ]<br>                }<br>              }<br>            },<br>            {<br>              "roles": {<br>                "$elemMatch": {<br>                  "$or": [<br>                    {<br>                      "db": "admin"<br>                    }<br>                  ]<br>                }<br>              }<br>            }<br>          ]<br>        },<br>        {<br>          "$or": [<br>            {<br>              "atype": "authCheck",<br>              "param.command": {<br>                "$in": [<br>                  "aggregate",<br>                  "count",<br>                  "distinct",<br>                  "group",<br>                  "mapReduce",<br>                  "geoNear",<br>                  "geoSearch",<br>                  "eval",<br>                  "find",<br>                  "getLastError",<br>                  "getMore",<br>                  "getPrevError",<br>                  "parallelCollectionScan",<br>                  "delete",<br>                  "findAndModify",<br>                  "insert",<br>                  "update",<br>                  "resetError"<br>                ]<br>              }<br>            },<br>            {<br>              "atype": {<br>                "$in": [<br>                  "authenticate",<br>                  "createCollection",<br>                  "createDatabase",<br>                  "createIndex",<br>                  "renameCollection",<br>                  "dropCollection",<br>                  "dropDatabase",<br>                  "dropIndex",<br>                  "createUser",<br>                  "dropUser",<br>                  "dropAllUsersFromDatabase",<br>                  "updateUser",<br>                  "grantRolesToUser",<br>                  "revokeRolesFromUser",<br>                  "createRole",<br>                  "updateRole",<br>                  "dropRole",<br>                  "dropAllRolesFromDatabase",<br>                  "grantRolesToRole",<br>                  "revokeRolesFromRole",<br>                  "grantPrivilegesToRole",<br>                  "revokePrivilegesFromRole",<br>                  "enableSharding",<br>                  "shardCollection",<br>                  "addShard",<br>                  "removeShard",<br>                  "shutdown",<br>                  "applicationMessage"<br>                ]<br>              }<br>            }<br>          ]<br>        }<br>      ]<br>    }<br>  ]<br>}</pre> | no |
+| <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | AWS user ID | `string` | n/a | yes |
+| <a name="input_cloud_backup"></a> [cloud\_backup](#input\_cloud\_backup) | Enable Cloud Backup. | `bool` | `true` | no |
+| <a name="input_create_alert_configuration"></a> [create\_alert\_configuration](#input\_create\_alert\_configuration) | Whether to create mongodbatlas\_alert\_configuration or not. | `bool` | `true` | no |
+| <a name="input_enable_auditing"></a> [enable\_auditing](#input\_enable\_auditing) | Whether to create mongodbatlas\_auditing or not. | `bool` | `false` | no |
+| <a name="input_ip_addresses"></a> [ip\_addresses](#input\_ip\_addresses) | MongoDB Atlas IP Access List | `list(string)` | `[]` | no |
+| <a name="input_org_id"></a> [org\_id](#input\_org\_id) | MongoDB Atlas Organisation ID | `string` | n/a | yes |
+| <a name="input_org_invitation_enabled"></a> [org\_invitation\_enabled](#input\_org\_invitation\_enabled) | Allows to controll wheather the invitation for organization will be created | `bool` | `false` | no |
+| <a name="input_policy_item_daily"></a> [policy\_item\_daily](#input\_policy\_item\_daily) | n/a | `map` | <pre>{<br>  "frequency_interval": 1,<br>  "retention_unit": "days",<br>  "retention_value": 7<br>}</pre> | no |
+| <a name="input_policy_item_hourly"></a> [policy\_item\_hourly](#input\_policy\_item\_hourly) | frequency\_interval - Desired frequency of the new backup policy item specified by frequency\_type. retention\_unit - Scope of the backup policy item: days, weeks, or months. retention\_value - Value to associate with retention\_unit. | `map` | <pre>{<br>  "frequency_interval": 6,<br>  "retention_unit": "days",<br>  "retention_value": 2<br>}</pre> | no |
+| <a name="input_policy_item_monthly"></a> [policy\_item\_monthly](#input\_policy\_item\_monthly) | n/a | `map` | <pre>{<br>  "frequency_interval": 40,<br>  "retention_unit": "months",<br>  "retention_value": 12<br>}</pre> | no |
+| <a name="input_policy_item_weekly"></a> [policy\_item\_weekly](#input\_policy\_item\_weekly) | n/a | `map` | <pre>{<br>  "frequency_interval": 6,<br>  "retention_unit": "weeks",<br>  "retention_value": 4<br>}</pre> | no |
+| <a name="input_private_key"></a> [private\_key](#input\_private\_key) | MongoDB Atlas organisation private key | `string` | n/a | yes |
+| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | MongoDB Atlas Project Name | `string` | `"project"` | no |
+| <a name="input_provider_name"></a> [provider\_name](#input\_provider\_name) | Cloud provider to whom the peering connection is being made. | `string` | `"AWS"` | no |
+| <a name="input_public_key"></a> [public\_key](#input\_public\_key) | MongoDB Atlas organisation public key | `string` | n/a | yes |
+| <a name="input_route_table_cidr_block"></a> [route\_table\_cidr\_block](#input\_route\_table\_cidr\_block) | AWS VPC CIDR block or subnet. | `string` | `"192.168.240.0/21"` | no |
+| <a name="input_schedule_restore_window_days"></a> [schedule\_restore\_window\_days](#input\_schedule\_restore\_window\_days) | Number of days back in time you can restore to with point-in-time accuracy. | `number` | `1` | no |
+| <a name="input_teams"></a> [teams](#input\_teams) | n/a | <pre>list(object({<br>    team_id    = string<br>    role_names = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_use_cloud_backup_schedule"></a> [use\_cloud\_backup\_schedule](#input\_use\_cloud\_backup\_schedule) | As use\_cloud\_provider\_snapshot\_backup\_policy is deprecated, this resource should be used, but it can't be used with the other one, so only one of these must be true. | `bool` | `true` | no |
+| <a name="input_use_cloud_provider_snapshot_backup_policy"></a> [use\_cloud\_provider\_snapshot\_backup\_policy](#input\_use\_cloud\_provider\_snapshot\_backup\_policy) | mongodbatlas\_cloud\_provider\_snapshot\_backup\_policy is deprecated, but make use\_cloud\_provider\_snapshot\_backup\_policy true to use this resource. | `bool` | `false` | no |
+| <a name="input_users"></a> [users](#input\_users) | MongoDB Atlas users list, roles and scopes. | `list` | <pre>[<br>  {<br>    "roles": [<br>      {<br>        "database_name": "development",<br>        "role_name": "readWrite"<br>      }<br>    ],<br>    "scopes": [<br>      {<br>        "name": "cluster",<br>        "type": "CLUSTER"<br>      }<br>    ],<br>    "username": "alice"<br>  }<br>]</pre> | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Unique identifier of the peer VPC. | `string` | `"vpc-0cb8c765b4b58b790"` | no |
+| <a name="input_with_default_alerts_settings"></a> [with\_default\_alerts\_settings](#input\_with\_default\_alerts\_settings) | It allows users to disable the creation of the default alert settings. | `bool` | `true` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_cluster_connection_string"></a> [cluster\_connection\_string](#output\_cluster\_connection\_string) | Mongodb connecton string |
+<!-- END_TF_DOCS -->
