@@ -73,9 +73,3 @@ resource "aws_ec2_client_vpn_route" "my-vpn_sso" {
   target_vpc_subnet_id   = each.value.subnet_id
   description            = "From ${each.value.subnet_id} to ${each.value.cidr}"
 }
-
-# resource "null_resource" "client_vpn_download" {
-#   provisioner "local-exec" {
-#     command = "aws ec2 export-client-vpn-client-configuration  --client-vpn-endpoint-id ${ aws_ec2_client_vpn_endpoint.my-vpn_sso.id } --output text > ${ var.vpn_file_download }"
-#     }
-# }

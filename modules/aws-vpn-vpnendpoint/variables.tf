@@ -74,7 +74,6 @@ variable "enable_saml" {
 variable "endpoint_subnets" {
   description = "List of IDs of endpoint subnets for network association"
   type        = list(string)
-  #default = ["subnet-0803b8f53842cb628","subnet-0f9a1ebddcea11a5c","subnet-08c91e06b4546c5ca"]
 }
 variable "create_peering" {
   type        = bool
