@@ -22,9 +22,9 @@ variable "username" {
 }
 
 variable "policy_attachment" {
-  type      = list(string)
-  default   = []
-  description = "IAM user name"
+  type        = list(string)
+  default     = []
+  description = "The list of ARN-s of the policy you want to apply"
 }
 
 variable "pgp_key" {
@@ -34,8 +34,8 @@ variable "pgp_key" {
 }
 
 variable "create-new-policy" {
-  type      = bool
-  default   = false
+  type        = bool
+  default     = false
   description = "If value true will create new policy"
 }
 variable "policy" {
