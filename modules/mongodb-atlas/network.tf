@@ -6,18 +6,22 @@ resource "mongodbatlas_project_ip_access_list" "ip-access-list" {
   comment    = "ip address range items"
 }
 
-resource "mongodbatlas_network_peering" "mongo_peer" {
-  accepter_region_name   = var.accepter_region_name
+resource "mongodbatlas_network_peering" "mongo_peers" {
+  for_each = { for peer in var.network_peering : "${peer.provider_name}-${peer.accepter_region_name}-${peer.vpc_id}" => peer }
+
+  accepter_region_name   = each.value.accepter_region_name
   project_id             = mongodbatlas_project.main.id
   container_id           = mongodbatlas_cluster.main.container_id
-  provider_name          = var.provider_name
-  route_table_cidr_block = var.route_table_cidr_block
-  vpc_id                 = var.vpc_id
-  aws_account_id         = var.aws_account_id
+  provider_name          = each.value.provider_name
+  route_table_cidr_block = each.value.route_table_cidr_block
+  vpc_id                 = each.value.vpc_id
+  aws_account_id         = each.value.aws_account_id
 }
 
-resource "aws_vpc_peering_connection_accepter" "aws_peer" {
-  vpc_peering_connection_id = mongodbatlas_network_peering.mongo_peer.connection_id
+resource "aws_vpc_peering_connection_accepter" "aws_peers" {
+  for_each = { for peer in var.network_peering : "${peer.provider_name}-${peer.accepter_region_name}-${peer.vpc_id}" => peer }
+
+  vpc_peering_connection_id = mongodbatlas_network_peering.mongo_peers[each.key].connection_id
   auto_accept               = true
 
   tags = {
