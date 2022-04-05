@@ -1,18 +1,3 @@
-variable "public_key" {
-  type        = string
-  description = "MongoDB Atlas organisation public key"
-}
-
-variable "private_key" {
-  type        = string
-  description = "MongoDB Atlas organisation private key"
-}
-
-variable "aws_account_id" {
-  type        = string
-  description = "AWS user ID"
-}
-
 variable "org_id" {
   type        = string
   description = "MongoDB Atlas Organisation ID"
@@ -49,6 +34,21 @@ variable "ip_addresses" {
   type        = list(string)
   default     = []
   description = "MongoDB Atlas IP Access List"
+}
+
+variable "network_peering" {
+  type = list(object({
+    accepter_region_name   = string
+    provider_name          = string
+    route_table_cidr_block = string
+    vpc_id                 = string
+    aws_account_id         = string
+  }))
+
+  default = []
+
+  description = "Network peering configs"
+
 }
 
 variable "alert_event_type" {
@@ -123,24 +123,6 @@ variable "alert_mode" {
   description = "This must be set to AVERAGE. Atlas computes the current metric value as an average."
 }
 
-variable "route_table_cidr_block" {
-  type        = string
-  default     = "192.168.240.0/21"
-  description = "AWS VPC CIDR block or subnet."
-}
-
-variable "vpc_id" {
-  type        = string
-  default     = "vpc-0cb8c765b4b58b790"
-  description = "Unique identifier of the peer VPC."
-}
-
-variable "accepter_region_name" {
-  type        = string
-  default     = "eu-central-1"
-  description = "Specifies the region where the peer VPC resides."
-}
-
 variable "provider_name" {
   type        = string
   default     = "AWS"
@@ -204,7 +186,7 @@ variable "use_cloud_provider_snapshot_backup_policy" {
 
 variable "use_cloud_backup_schedule" {
   type        = bool
-  default     = true
+  default     = false
   description = "As use_cloud_provider_snapshot_backup_policy is deprecated, this resource should be used, but it can't be used with the other one, so only one of these must be true."
 }
 
@@ -352,4 +334,41 @@ variable "teams" {
   }))
   default = [
   ]
+}
+
+variable "cluster_configs" {
+  type = object({
+    cluster_type = string,
+    replication_specs = object({
+      num_shards      = number
+      region_name     = string
+      electable_nodes = number
+      priority        = number
+      read_only_nodes = number
+    })
+    auto_scaling_disk_gb_enabled = bool
+    mongo_db_major_version       = string
+    provider_name                = string
+    disk_size_gb                 = number
+    provider_instance_size_name  = string
+  })
+
+  default = {
+    cluster_type = "REPLICASET"
+    replication_specs = {
+      num_shards      = 1
+      region_name     = "EU_CENTRAL_1"
+      electable_nodes = 3
+      priority        = 7
+      read_only_nodes = 0
+    }
+
+    auto_scaling_disk_gb_enabled = true
+    mongo_db_major_version       = "4.2"
+    provider_name                = "AWS"
+    disk_size_gb                 = 100
+    provider_instance_size_name  = "M10"
+  }
+
+  description = "Mongo atlas cluster configurations"
 }
