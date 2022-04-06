@@ -1,9 +1,8 @@
 resource "random_password" "password" {
   for_each = { for user in var.users : user.username => user }
 
-  length           = 16
-  special          = true
-  override_special = "_$%"
+  length  = 16
+  special = false
 }
 
 resource "mongodbatlas_database_user" "user" {
