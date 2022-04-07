@@ -8,10 +8,14 @@ module "ingress" {
 
   alb_name = "test"
   hostname = "test3.devops.dasmeta.com"
+
+  annotations = {
+    "alb.ingress.kubernetes.io/certificate-arn"    = "arn:aws:acm:us-east-1:5********68:certificate/a55ee6eb****1706"
+  }
 }
 ```
 
-# Example 2. Create ingress set annotations
+# Example 2. Create ingress override annotations
 
 ```
 module "ingress" {
@@ -38,3 +42,43 @@ module "ingress" {
   ]
 }
 ```
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 0.15.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [kubernetes_ingress.product_ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | Ingress name | `string` | n/a | yes |
+| <a name="input_annotations"></a> [annotations](#input\_annotations) | n/a | `any` | `{}` | no |
+| <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname | `string` | n/a | yes |
+| <a name="input_path"></a> [path](#input\_path) | n/a | `any` | <pre>[<br>  {<br>    "path": "/alb-terraform-created",<br>    "service_name": "nginx",<br>    "service_port": "80"<br>  }<br>]</pre> | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_alb_name"></a> [alb\_name](#output\_alb\_name) | The name of alb generated after apply |
+| <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The ingress group name |
+<!-- END_TF_DOCS -->

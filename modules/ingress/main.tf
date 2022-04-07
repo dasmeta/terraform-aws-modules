@@ -1,12 +1,15 @@
 locals {
+  group_name = "${var.alb_name}-group"
   default_annotations = {
-    "alb.ingress.kubernetes.io/load-balancer-name" = "${var.alb_name}"
+    "alb.ingress.kubernetes.io/load-balancer-name" = var.alb_name
     "alb.ingress.kubernetes.io/scheme"             = "internet-facing"
     "alb.ingress.kubernetes.io/backend-protocol"   = "HTTP"
-    "alb.ingress.kubernetes.io/group.name"         = "${var.alb_name}-group"
+    "alb.ingress.kubernetes.io/listen-ports"       = "[{\"HTTPS\":443}, {\"HTTPS\":80}]"
+    "alb.ingress.kubernetes.io/group.name"         = local.group_name
     "kubernetes.io/ingress.class"                  = "alb"
+
   }
-  annotations = var.annotations == {} ? local.default_annotations : var.annotations
+  annotations = merge(local.default_annotations, var.annotations)
 }
 
 
