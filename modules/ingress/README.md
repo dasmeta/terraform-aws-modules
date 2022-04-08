@@ -2,7 +2,7 @@
 
 # Example 1. Minimal parameter set and create ingress on default annotations
 
-```
+```terraform
 module "ingress" {
   source   = "dasmeta/modules/aws//modules/ingress"
 
@@ -15,9 +15,25 @@ module "ingress" {
 }
 ```
 
-# Example 2. Create ingress override annotations
+# Example 2. create ingress for apiVersion: extensions/v1beta1
 
+```terraform
+module "ingress" {
+  source   = "dasmeta/modules/aws//modules/ingress"
+
+  alb_name = "test"
+  hostname = "test3.devops.dasmeta.com"
+  api_version = extensions/v1beta1
+
+  annotations = {
+    "alb.ingress.kubernetes.io/certificate-arn"    = "arn:aws:acm:us-east-1:5********68:certificate/a55ee6eb****1706"
+  }
+}
 ```
+
+# Example 3. Create ingress override annotations
+
+```terraform
 module "ingress" {
   source   = "dasmeta/modules/aws//modules/ingress"
 
@@ -64,7 +80,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [kubernetes_ingress.product_ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress) | resource |
+| [kubernetes_ingress.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress) | resource |
+| [kubernetes_ingress_v1.this_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) | resource |
 
 ## Inputs
 
@@ -72,6 +89,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | Ingress name | `string` | n/a | yes |
 | <a name="input_annotations"></a> [annotations](#input\_annotations) | n/a | `any` | `{}` | no |
+| <a name="input_api_version"></a> [api\_version](#input\_api\_version) | The api version of ingress, can be networking/v1 and extensions/v1beta1 for now | `string` | `"networking/v1"` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname | `string` | n/a | yes |
 | <a name="input_path"></a> [path](#input\_path) | n/a | `any` | <pre>[<br>  {<br>    "path": "/alb-terraform-created",<br>    "service_name": "nginx",<br>    "service_port": "80"<br>  }<br>]</pre> | no |
 
