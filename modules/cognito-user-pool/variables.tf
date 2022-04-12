@@ -18,13 +18,13 @@ variable "generate_secret" {
 
 variable "alias_attributes" {
   type        = list(string)
-  default     = [ "email", "phone_number" ]
+  default     = ["email", "phone_number"]
   description = "Attributes supported as an alias for this user pool."
 }
 
 variable "auto_verified_attributes" {
   type        = list(string)
-  default     = [ "email", "phone_number" ]
+  default     = ["email", "phone_number"]
   description = "Attributes to be auto-verified."
 }
 
@@ -59,8 +59,8 @@ variable "sms_verification_message" {
 }
 
 variable "verification_message_template" {
-  type        = map
-  default     = {
+  type = map(any)
+  default = {
     "email_message_by_link" = "Please click the link below to verify your email address. {##Verify Email##} "
     "email_subject_by_link" = "Your verification link. {##Verify Email##}"
   }
@@ -68,16 +68,16 @@ variable "verification_message_template" {
 }
 
 variable "sms_configuration" {
-  type        = map
-  default     = {
+  type = map(any)
+  default = {
     external_id    = ""
     sns_caller_arn = ""
   }
-  description = "external_id is external ID used in IAM role trust relationships. sns_caller_arn is ARN of the Amazon SNS caller."  
+  description = "external_id is external ID used in IAM role trust relationships. sns_caller_arn is ARN of the Amazon SNS caller."
 }
 
 variable "recovery_mechanism" {
-  default     = [
+  default = [
     {
       "name"     = "verified_email"
       "priority" = 2
@@ -91,7 +91,7 @@ variable "recovery_mechanism" {
 }
 
 variable "invite_message_template" {
-  default     = {
+  default = {
     email_message = "Your username is {username} and temporary password is {####}. "
     email_subject = "Your temporary password"
     sms_message   = "Your username is {username} and temporary password is {####}. "
@@ -116,14 +116,14 @@ variable "lambda_config" {
     kms_key_id = ""
 
     custom_email_sender = {
-        lambda_arn = ""
-        lambda_version = ""
+      lambda_arn     = ""
+      lambda_version = ""
     }
   }
 }
 
 variable "schema" {
-  default     = [
+  default = [
     {
       "attribute_data_type"      = "String"
       "developer_only_attribute" = false
@@ -205,8 +205,8 @@ variable "enable_token_revocation" {
 }
 
 variable "explicit_auth_flows" {
-  type        = list(string)
-  default     = [
+  type = list(string)
+  default = [
     "ALLOW_REFRESH_TOKEN_AUTH",
     "ALLOW_USER_PASSWORD_AUTH",
     "ALLOW_USER_SRP_AUTH",
@@ -227,8 +227,8 @@ variable "prevent_user_existence_errors" {
 }
 
 variable "read_attributes" {
-  type        = list(string)
-  default     = [
+  type = list(string)
+  default = [
     "address",
     "birthdate",
     "email",
@@ -259,8 +259,8 @@ variable "refresh_token_validity" {
 }
 
 variable "write_attributes" {
-  type        = list(string)
-  default     = [
+  type = list(string)
+  default = [
     "address",
     "birthdate",
     "email",
@@ -283,8 +283,8 @@ variable "write_attributes" {
 }
 
 variable "token_validity_units" {
-  type        = map
-  default     = {
+  type = map(any)
+  default = {
     access_token  = "minutes"
     id_token      = "minutes"
     refresh_token = "days"
@@ -320,4 +320,10 @@ variable "supported_identity_providers" {
   type        = list(string)
   default     = []
   description = "List of provider names for the identity providers that are supported on this client."
+}
+
+variable "create_route53_record" {
+  type        = bool
+  default     = true
+  description = "Create Route53 Record"
 }
