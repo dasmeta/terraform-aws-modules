@@ -35,19 +35,14 @@ variable "hostname" {
   default = "goldilocks.example.com"
 }
 
-variable "userpoolarn" {
-  type    = string
-  default = "Goldilock use Cognito User pool for Auth. Set Cognito UserPool ARN"
+variable "auth" {
+  type = object({
+    userPoolARN      = string,
+    userPoolClientID = string,
+    userPoolDomain   = string
+  })
 }
-variable "userpoolclientid" {
-  type    = string
-  default = "Goldilock use Cognito User pool for Auth. Set Cognito UserPool Client ID"
-}
-variable "userpooldomain" {
-  type        = string
-  default     = ""
-  description = "Goldilock use Cognito User pool for Auth. Set Cognito UserPool Domain name"
-}
+
 variable "alb_subnet" {
   type        = string
   default     = ""

@@ -1,9 +1,5 @@
 locals {
-  auth = jsonencode({ "userPoolARN" = "${var.userpoolarn}", "userPoolClientID" = "${var.userpoolclientid}", "userPoolDomain" = "${var.userpooldomain}" })
-}
-
-data "aws_route53_zone" "domain-zone" {
-  name = var.zone_name
+  auth = jsonencode({ "userPoolARN" = "${var.auth.userPoolARN}", "userPoolClientID" = "${var.auth.userPoolClientID}", "userPoolDomain" = "${var.auth.userPoolDomain}" })
 }
 
 resource "helm_release" "vpa" {
@@ -52,10 +48,6 @@ resource "helm_release" "goldilocks_deploy" {
   namespace  = "goldilocks"
 
   set {
-    name  = "installVPA"
-    value = "true"
-  }
-  set {
     name  = "dashboard.service.type"
     value = "NodePort"
   }
@@ -66,7 +58,7 @@ resource "helm_release" "goldilocks_deploy" {
 
 module "ingress" {
   count  = var.create_dashboard_ingress ? 1 : 0
-  source = "/Users/juliaaghamyan/Desktop/dasmeta/terraform-aws-modules/modules/ingress"
+  source = "dasmeta/modules/aws//modules/goldilocks/ingress"
 
   alb_name    = var.alb_name
   hostname    = var.hostname
