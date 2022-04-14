@@ -14,20 +14,19 @@ variable "annotations" {
 }
 
 variable "path" {
-  type = any
-  default = [
-    {
-      service_name = "nginx"
-      service_port = "80"
-    }
-  ]
+  type = list(object({
+    service_name = string
+    service_port = string
+    path         = string
+  }))
+  default = []
 }
 variable "default_backend" {
-  type = any
-  default = {
-    service_name = "nginx"
-    service_port = "80"
-  }
+  type = object({
+    service_name = string
+    service_port = string
+  })
+  default = {}
 }
 # TODO: check if there is way to get this data as kubernetes data
 variable "api_version" {

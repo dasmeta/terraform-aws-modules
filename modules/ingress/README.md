@@ -90,8 +90,10 @@ No modules.
 | <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | Ingress name | `string` | n/a | yes |
 | <a name="input_annotations"></a> [annotations](#input\_annotations) | n/a | `any` | `{}` | no |
 | <a name="input_api_version"></a> [api\_version](#input\_api\_version) | The api version of ingress, can be networking/v1 and extensions/v1beta1 for now | `string` | `"networking/v1"` | no |
+| <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br>    service_name = string<br>    service_port = string<br>  })</pre> | `{}` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname | `string` | n/a | yes |
-| <a name="input_path"></a> [path](#input\_path) | n/a | `any` | <pre>[<br>  {<br>    "path": "/alb-terraform-created",<br>    "service_name": "nginx",<br>    "service_port": "80"<br>  }<br>]</pre> | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | `"default"` | no |
+| <a name="input_path"></a> [path](#input\_path) | n/a | <pre>list(object({<br>    service_name = string<br>    service_port = string<br>    path         = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
