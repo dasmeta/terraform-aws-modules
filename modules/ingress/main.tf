@@ -19,9 +19,18 @@ resource "kubernetes_ingress_v1" "this_v1" {
   metadata {
     name        = var.alb_name
     annotations = local.annotations
+    namespace   = var.namespace
   }
 
   spec {
+    default_backend {
+      service {
+        name = var.default_backend.service_name
+        port {
+          number = var.default_backend.service_port
+        }
+      }
+    }
     rule {
       host = var.hostname
       http {
@@ -53,9 +62,18 @@ resource "kubernetes_ingress" "this" {
   metadata {
     name        = var.alb_name
     annotations = local.annotations
+    namespace   = var.namespace
   }
 
   spec {
+    default_backend {
+      service {
+        name = var.default_backend.service_name
+        port {
+          number = var.default_backend.service_port
+        }
+      }
+    }
     rule {
       host = var.hostname
       http {
