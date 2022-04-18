@@ -66,13 +66,9 @@ resource "kubernetes_ingress" "this" {
   }
 
   spec {
-    default_backend {
-      service {
-        name = var.default_backend.service_name
-        port {
-          number = var.default_backend.service_port
-        }
-      }
+    backend {
+      service_name = var.default_backend.service_name
+      service_port = var.default_backend.service_port
     }
     rule {
       host = var.hostname

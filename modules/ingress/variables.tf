@@ -26,7 +26,6 @@ variable "default_backend" {
     service_name = string
     service_port = string
   })
-  default = {}
 }
 # TODO: check if there is way to get this data as kubernetes data
 variable "api_version" {
