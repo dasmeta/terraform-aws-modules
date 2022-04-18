@@ -3,13 +3,15 @@
 using aws SNS to create cronjobs
 
 ## Case1
-
+```terraform
 module my_cronjob {
+    
     source = "dasmeta/modules/aws//modules/sns-cronjob"
 
     name = "test-cron"
     ....
 }
+```
 
 ## Requirements
 
