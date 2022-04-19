@@ -1,4 +1,4 @@
-## Description 
+## Description
 
 This module creates cronjob based aws SNS and Cloudwatch services. It will send POST requests with input data as body "Message" json field value to specified endpoint.
 
