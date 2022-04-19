@@ -1,4 +1,4 @@
-## Description
+## Description 
 
 This module creates cronjob based aws SNS and Cloudwatch services. It will send POST requests with input data as body "Message" json field value to specified endpoint.
 
@@ -65,3 +65,49 @@ module my_cronjob {
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the SNS platform application. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the SNS platform application. |
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.5.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.5.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_cloudwatch_event_rule.event_scheduler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
+| [aws_cloudwatch_event_target.event_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_iam_role.failure_logger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.success_logger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
+| [aws_sns_topic_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint to send POST request data to, the contents will vary with the protocol. | `string` | n/a | yes |
+| <a name="input_input"></a> [input](#input\_input) | The data, input to set into POST request body Message field. | `any` | `{}` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name (e.g. app or cluster). | `string` | n/a | yes |
+| <a name="input_schedule"></a> [schedule](#input\_schedule) | the aws cloudwatch event rule schedule expression that specifies when the scheduler runs. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html | `any` | `"cron(* * * * ? *)"` | no |
+| <a name="input_success_sample_percentage"></a> [success\_sample\_percentage](#input\_success\_sample\_percentage) | Percentage of success to sample | `string` | `100` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_topic_arn"></a> [topic\_arn](#output\_topic\_arn) | The ARN of the SNS platform application. |
+| <a name="output_topic_id"></a> [topic\_id](#output\_topic\_id) | The ID of the SNS platform application. |
+<!-- END_TF_DOCS -->
