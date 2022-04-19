@@ -4,7 +4,7 @@ output "oidc_provider_arn" {
 }
 
 output "eks_oidc_root_ca_thumbprint" {
-  value = local.eks_oidc_root_ca_thumbprint
+  value       = local.eks_oidc_root_ca_thumbprint
   description = "Grab eks_oidc_root_ca_thumbprint from oidc_provider_arn."
 }
 
@@ -49,7 +49,7 @@ output "vpc_id" {
 }
 
 output "vpc_private_subnets" {
-  value = module.vpc.vpc_private_subnets 
+  value = module.vpc.vpc_private_subnets
 }
 
 output "default_security_group_id" {

@@ -1,6 +1,6 @@
 variable "create_vpc_peering" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Whether or not to create a VPC Peering."
 }
 variable "peer_vpc_id" {

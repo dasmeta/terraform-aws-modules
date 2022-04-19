@@ -6,7 +6,7 @@ variable "domain" {
 variable "alternative_domains" {
   type        = list(string)
   description = "Subdomain or other domain or wildcard certificate name will be create."
-  default = []
+  default     = []
 }
 
 variable "zone" {
@@ -17,7 +17,7 @@ variable "zone" {
 variable "alternative_zones" {
   type        = list(string)
   description = "This variable use route53. Must equal to alternative_domains. (Note. When you use wildcard must be equal to main zone)"
-  default = []
+  default     = []
 }
 
 variable "tags" {

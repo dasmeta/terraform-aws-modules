@@ -1,4 +1,4 @@
-variable setup {
+variable "setup" {
   type        = string
   default     = "standalone"
   description = "Which mongodb setup to consider: standalone (default), replicaset."

@@ -1,9 +1,9 @@
 resource "aws_mq_broker" "mq" {
-  broker_name         = var.broker_name
+  broker_name = var.broker_name
 
-  engine_type         = var.engine_type
-  engine_version      = var.engine_version
-  storage_type        = var.storage_type
+  engine_type    = var.engine_type
+  engine_version = var.engine_version
+  storage_type   = var.storage_type
 
   # the most cheap type is mq.m5.large on multi az deployment mode, mq.t3.micro is available on SINGLE_INSTANCE deployment mode.
   host_instance_type  = var.host_instance_type

@@ -17,8 +17,8 @@ variable "allow_unauthenticated_identities" {
 }
 
 variable "roles" {
-  type        = map
-  default     = {
+  type = map(any)
+  default = {
     "authenticated"   = ""
     "unauthenticated" = ""
   }
@@ -26,8 +26,8 @@ variable "roles" {
 }
 
 variable "role_mapping" {
-  type        = map
-  default     = {
+  type = map(any)
+  default = {
     "ambiguous_role_resolution" = ""
     "identity_provider"         = ""
     "type"                      = ""
@@ -36,10 +36,10 @@ variable "role_mapping" {
 }
 
 variable "cognito_identity_providers" {
-  default     = [
+  default = [
     {
-      "client_id"     = null
-      "provider_name" = null
+      "client_id"               = null
+      "provider_name"           = null
       "server_side_token_check" = false
     },
   ]
@@ -47,13 +47,13 @@ variable "cognito_identity_providers" {
 }
 
 variable "supported_login_providers" {
-  type        = map 
-  default     = {
-      "accounts.google.com" = null
-      "graph.facebook.com"  = null
-      "www.amazon.com"      = null
-      "api.twitter.com"     = null
-      "www.digits.com"      = null
+  type = map(any)
+  default = {
+    "accounts.google.com" = null
+    "graph.facebook.com"  = null
+    "www.amazon.com"      = null
+    "api.twitter.com"     = null
+    "www.digits.com"      = null
   }
   description = "Key-Value pairs mapping provider names to provider app IDs."
 }

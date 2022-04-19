@@ -49,14 +49,14 @@ variable "iam_user_name" {
 }
 
 variable "versioning" {
-    type = map(string)
-    default = {}
-    description = "The versioning configuration for the created bucket."
+  type        = map(string)
+  default     = {}
+  description = "The versioning configuration for the created bucket."
 }
 
 variable "website" {
-    type = map(string)
-    default = {}
-    description = "The website configuration for the created bucket."
+  type        = map(string)
+  default     = {}
+  description = "The website configuration for the created bucket."
 }
 

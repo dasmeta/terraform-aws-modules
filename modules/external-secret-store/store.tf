@@ -1,7 +1,7 @@
 resource "kubectl_manifest" "main" {
   yaml_body = templatefile("${path.module}/secret-store.tmpl", {
-    name = local.sanitized-name
-    region = data.aws_region.current.name
+    name       = local.sanitized-name
+    region     = data.aws_region.current.name
     controller = var.controller
   })
 

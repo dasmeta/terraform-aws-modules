@@ -1,7 +1,7 @@
-resource helm_release "mongodb" {
+resource "helm_release" "mongodb" {
   name = "mongodb"
 
-  chart = "mongodb"
+  chart      = "mongodb"
   repository = "https://charts.bitnami.com/bitnami"
 
   values = [

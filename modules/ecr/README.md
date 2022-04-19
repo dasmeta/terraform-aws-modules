@@ -45,7 +45,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_repos"></a> [repos](#input\_repos) | 0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes. | `list` | <pre>[<br>  "repo1",<br>  "repo2",<br>  "repo3"<br>]</pre> | no |
+| <a name="input_repos"></a> [repos](#input\_repos) | 0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes. | `list(any)` | <pre>[<br>  "repo1",<br>  "repo2",<br>  "repo3"<br>]</pre> | no |
 
 ## Outputs
 

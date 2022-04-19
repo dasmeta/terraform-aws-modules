@@ -3,33 +3,33 @@ variable "broker_name" {
 }
 
 variable "engine_type" {
-  type = string
+  type    = string
   default = "RabbitMQ"
 }
 
 variable "engine_version" {
-  type = string
+  type    = string
   default = "3.8.11"
 }
 
 variable "storage_type" {
-  type = string
+  type    = string
   default = "ebs"
 }
 
 variable "host_instance_type" {
-  type = string
+  type    = string
   default = "mq.m5.large"
-# the most cheap type is mq.m5.large on multi az deployment mode, mq.t3.micro is available on SINGLE_INSTANCE deployment mode.
+  # the most cheap type is mq.m5.large on multi az deployment mode, mq.t3.micro is available on SINGLE_INSTANCE deployment mode.
 }
 
 variable "deployment_mode" {
-  type = string
+  type    = string
   default = "CLUSTER_MULTI_AZ"
 }
 
 variable "publicly_accessible" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -42,7 +42,7 @@ variable "security_groups" {
 }
 
 variable "auto_minor_version_upgrade" {
-  type = bool
+  type    = bool
   default = true
 }
 
@@ -52,17 +52,17 @@ variable "auto_minor_version_upgrade" {
 # }
 
 variable "mw_day_of_week" {
-  type = string
+  type    = string
   default = "SUNDAY"
 }
 
 variable "mw_time_of_day" {
-  type = string
+  type    = string
   default = "03:00"
 }
 
 variable "mw_time_zone" {
-  type = string
+  type    = string
   default = "UTC"
 }
 
@@ -76,7 +76,7 @@ variable "password" {
 }
 
 variable "tags" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
 

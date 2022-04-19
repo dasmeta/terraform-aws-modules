@@ -38,18 +38,18 @@ variable "create_alb_log_bucket" {
 }
 
 variable "alb_log_bucket_name" {
-  type = string
+  type    = string
   default = "ingress-logs-bucket"
 }
 
 variable "alb_log_bucket_prefix" {
-  type = string
+  type    = string
   default = ""
 }
 
 variable "region" {
-  type = string
-  default = "eu-central-1"
+  type        = string
+  default     = "eu-central-1"
   description = "Default region"
 }
 
