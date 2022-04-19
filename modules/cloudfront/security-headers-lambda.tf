@@ -1,4 +1,4 @@
-module aws-cloudfront-security-headers {
+module "aws-cloudfront-security-headers" {
   count = var.create_lambda_security_headers ? 1 : 0
 
   source = "../aws-cloudfront-security-headers"

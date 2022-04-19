@@ -1,8 +1,8 @@
-variable name {
+variable "name" {
   type        = string
   description = "Secret name"
 }
 
-variable value {
+variable "value" {
   description = "Secret value"
 }

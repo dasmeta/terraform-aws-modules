@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_log_metric_filter" "metric_filter" {  
+resource "aws_cloudwatch_log_metric_filter" "metric_filter" {
   name           = var.name
   pattern        = var.filter_pattern
   log_group_name = var.log_group_name

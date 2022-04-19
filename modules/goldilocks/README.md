@@ -42,7 +42,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/goldilocks/ingress | n/a |
+| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/ingress | n/a |
 
 ## Resources
 

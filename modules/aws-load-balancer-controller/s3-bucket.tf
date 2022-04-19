@@ -25,5 +25,5 @@ resource "aws_s3_bucket" "ingress-logs-bucket" {
 }
 POLICY
 
-  tags = merge({ Name  = "${var.alb_log_bucket_name}/${var.alb_log_bucket_prefix} ingress logs bucket" }, var.tags)
+  tags = merge({ Name = "${var.alb_log_bucket_name}/${var.alb_log_bucket_prefix} ingress logs bucket" }, var.tags)
 }

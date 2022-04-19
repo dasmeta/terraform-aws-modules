@@ -28,7 +28,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_release"></a> [release](#module\_release) | terraform-module/release/helm | 2.6.9 |
+| <a name="module_release"></a> [release](#module\_release) | terraform-module/release/helm | 2.7.0 |
 
 ## Resources
 

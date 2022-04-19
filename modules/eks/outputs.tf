@@ -20,7 +20,7 @@ output "worker_iam_role_name" {
 }
 
 output "eks_oidc_root_ca_thumbprint" {
-  value = local.eks_oidc_root_ca_thumbprint
+  value       = local.eks_oidc_root_ca_thumbprint
   description = "Grab eks_oidc_root_ca_thumbprint from oidc_provider_arn."
 }
 

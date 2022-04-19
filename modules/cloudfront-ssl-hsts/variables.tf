@@ -161,7 +161,7 @@ variable "realtime_metrics_subscription_status" {
 }
 
 variable "override_custom_headers" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Allows to override-default/disable-default/have-additional security headers"
 }

@@ -3,6 +3,6 @@ output "endpoint" {
 }
 
 output "password" {
-  value = module.db.this_db_master_password
+  value     = module.db.this_db_master_password
   sensitive = true
 }

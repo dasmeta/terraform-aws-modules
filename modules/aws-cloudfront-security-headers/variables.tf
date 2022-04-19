@@ -7,7 +7,7 @@ variable "tags" {
 variable "name" {
   type        = string
   description = "Name to use for resource names created by this module"
-  default = "CloudFront-Add-HSTS-Header"
+  default     = "CloudFront-Add-HSTS-Header"
 }
 
 variable "description" {
@@ -35,7 +35,7 @@ variable "runtime" {
 }
 
 variable "override_custom_headers" {
-  type = any
-  default = {}
+  type        = any
+  default     = {}
   description = "Allows to override-default/disable-default/have-additional security headers"
 }

@@ -8,7 +8,7 @@ variable "default_target_origin_id" {
 }
 variable "origins" {
   description = "Targets, types and custom_origin_config block are needed to create new origins."
-  type        = list
+  type        = list(any)
 }
 
 variable "create_lambda_security_headers" {
@@ -20,7 +20,7 @@ variable "create_lambda_security_headers" {
 variable "targets" {
   default     = []
   description = "Targets and patterns needed to create new behaviours."
-  type        = list
+  type        = list(any)
 }
 
 variable "use_default_cert" {
@@ -66,8 +66,8 @@ variable "default_root_object" {
 }
 
 variable "tags_name" {
-  type        = string
-  default     = "terraform testing"
+  type    = string
+  default = "terraform testing"
 }
 
 variable "wait_for_deployment" {
@@ -128,45 +128,45 @@ variable "lambda_function_body" {
   type        = bool
   default     = false
   description = "When set to true it exposes the request body to the lambda function. Valid values: true, false."
-} 
+}
 variable "ordered_allowed_methods" {
-  type        = list(string)
-  default     = ["GET", "HEAD", "OPTIONS"]
+  type    = list(string)
+  default = ["GET", "HEAD", "OPTIONS"]
 }
 
 variable "ordered_cached_methods" {
-  type        = list(string)
-  default     = ["GET", "HEAD"]
+  type    = list(string)
+  default = ["GET", "HEAD"]
 }
 
 variable "ordered_compress" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "ordered_default_ttl" {
-  type        = number
-  default     = 0
+  type    = number
+  default = 0
 }
 
 variable "ordered_max_ttl" {
-  type        = number
-  default     = 0
+  type    = number
+  default = 0
 }
 
 variable "ordered_min_ttl" {
-  type        = number
-  default     = 0
+  type    = number
+  default = 0
 }
 
 variable "ordered_smooth_streaming" {
-  type        = bool
-  default     = false
+  type    = bool
+  default = false
 }
 
 variable "ordered_viewer_protocol_policy" {
-  type        = string
-  default     = "redirect-to-https"
+  type    = string
+  default = "redirect-to-https"
 }
 
 variable "connection_attempts" {

@@ -54,17 +54,17 @@ resource "helm_release" "aws-cloudwatch-metrics" {
   ]
 
   set {
-    name = "clusterName"
+    name  = "clusterName"
     value = var.cluster_name
   }
 
   set {
-    name = "serviceAccount.name"
+    name  = "serviceAccount.name"
     value = "aws-cloudwatch-metrics"
   }
 
   set {
-    name = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.aws-cloudwatch-metrics-role.name}"
   }
 }

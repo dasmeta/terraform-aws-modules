@@ -3,16 +3,16 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 variable "region" {
-  type = string
+  type    = string
   default = "eu-central-1"
 }
 variable "fluent_bit_name" {
-  type = string
+  type    = string
   default = "fluent-bit"
 }
 
 variable "cluster_name" {
-  type        = string
+  type = string
   # default     = ""
   description = "eks cluster name"
 }
@@ -52,6 +52,6 @@ variable "cluster_token" {
 }
 
 variable "log_group_name" {
-  type = string
+  type    = string
   default = ""
 }

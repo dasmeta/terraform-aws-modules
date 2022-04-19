@@ -149,4 +149,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cluster_connection_string"></a> [cluster\_connection\_string](#output\_cluster\_connection\_string) | Mongodb connecton string |
+| <a name="output_users"></a> [users](#output\_users) | n/a |
 <!-- END_TF_DOCS -->

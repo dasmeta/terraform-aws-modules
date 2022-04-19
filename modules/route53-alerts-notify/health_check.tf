@@ -10,5 +10,5 @@ resource "aws_route53_health_check" "healthcheck" {
   measure_latency         = var.measure_latency
   regions                 = var.regions
   cloudwatch_alarm_region = "us-east-1"
-  tags = var.tags
+  tags                    = var.tags
 }

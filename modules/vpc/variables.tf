@@ -1,11 +1,11 @@
 variable "create_vpc" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to create a VPC."
 }
 
 variable "vpc_name" {
-  type = string
+  type        = string
   description = "VPC name."
 }
 
@@ -16,7 +16,7 @@ variable "cidr" {
 }
 
 variable "availability_zones" {
-  type = list(string)
+  type        = list(string)
   description = "List of VPC availability zones, e.g. ['eu-west-1a', 'eu-west-1b', 'eu-west-1c']."
 }
 
@@ -33,35 +33,35 @@ variable "public_subnets" {
 }
 
 variable "enable_nat_gateway" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to enable NAT Gateway."
 }
 
 variable "single_nat_gateway" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to enable single NAT Gateway."
 }
 
 variable "enable_dns_hostnames" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to enable dns hostnames."
 }
 
 variable "enable_dns_support" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Whether or not to enable dns support."
 }
 
 variable "public_subnet_tags" {
-  type = map
+  type    = map(any)
   default = {}
 }
 
 variable "private_subnet_tags" {
-  type = map
+  type    = map(any)
   default = {}
 }
