@@ -1,24 +1,27 @@
-resource "aws_sns_topic" "default" {
-  name                                     = var.name
-  display_name                             = "${var.name} cronjob"
+resource "aws_sns_topic" "this" {
+  name                              = var.name
+  display_name                      = "${var.name} cronjob"
+  http_success_feedback_role_arn    = aws_iam_role.success_logger.arn
+  http_failure_feedback_role_arn    = aws_iam_role.failure_logger.arn
+  http_success_feedback_sample_rate = var.success_sample_percentage
 }
 
-# resource "aws_sns_topic_subscription" "this" {
-#   for_each                        = var.subscribers
-#   topic_arn                       = join("", aws_sns_topic.default.*.arn)
-#   protocol                        = var.protocol
-#   endpoint                        = var.endpoint
-#   endpoint_auto_confirms          = var.endpoint_auto_confirms
-# }
-
-resource "aws_cloudwatch_event_rule" "check-scheduler-event" {
-    name ="${var.name}-cronjob-check-scheduler-event"
-    description = "${var.name} cronjob schedule"
-    schedule_expression = var.schedule_expression
+resource "aws_sns_topic_subscription" "this" {
+  topic_arn = aws_sns_topic.this.arn
+  protocol  = "https"
+  endpoint  = var.endpoint
+  # endpoint_auto_confirms = var.endpoint_auto_confirms
 }
 
-resource "aws_cloudwatch_event_target" "sns" {
-  rule      = aws_cloudwatch_event_rule.check-scheduler-event.name
+resource "aws_cloudwatch_event_rule" "event_scheduler" {
+  name                = "${var.name}-event-scheduler"
+  description         = "${var.name} scheduler"
+  schedule_expression = var.schedule
+}
+
+resource "aws_cloudwatch_event_target" "event_target" {
+  rule      = aws_cloudwatch_event_rule.event_scheduler.name
   target_id = "SendToSNS"
-  arn       = aws_sns_topic.default.arn
+  arn       = aws_sns_topic.this.arn
+  input     = var.input
 }

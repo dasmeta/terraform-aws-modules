@@ -1,14 +1,33 @@
-## Todo
+## Description
 
-using aws SNS to create cronjobs
+This module creates cronjob based aws SNS and Cloudwatch services. It will send POST requests with input data as body "Message" json field value to specified endpoint.
 
-## Case1
+### NOTE: To activate cronjob you will need to send get request using "SubscribeURL" field value which aws SNS sends as initial POST request to specified endpoint
+
+## minimal params passing sample
 ```terraform
 module my_cronjob {
-    source = "dasmeta/modules/aws//modules/sns-cronjob"
+  source = "dasmeta/modules/aws//modules/sns-cronjob"
+  version = "XX.YY.ZZ"
 
-    name = "test-cron"
-    ....
+  name = "test-cron"
+  endpoint = "https://example.com/my-cron-endpoint"
+}
+```
+
+## all params passing sample
+```terraform
+module my_cronjob {
+  source = "dasmeta/modules/aws//modules/sns-cronjob"
+  version = "XX.YY.ZZ"
+
+  name = "test-cron"
+  endpoint = "https://example.com/my-cron-endpoint"
+  schedule = "cron(0 0/1 * * ? *)"
+  input    = jsonencode({
+    data = "some-data"
+  })
+  success_sample_percentage = 0
 }
 ```
 
