@@ -1,0 +1,16 @@
+- id: terraform-fmt
+  name: Terraform fmt
+  description: Rewrites all Terraform configuration files to a canonical format
+  entry: hooks/terraform-fmt.sh
+  language: script
+  files: \.tf$
+  exclude: \.+.terraform\/.*$
+
+- id: terraform_docs
+  name: Terraform docs
+  description: Inserts input and output documentation into README.md (using terraform-docs).
+  require_serial: true
+  entry: hooks/terraform_docs.sh
+  language: script
+  files: (\.tf|\.terraform\.lock\.hcl)$
+  exclude: \.terraform\/.*$
