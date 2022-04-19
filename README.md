@@ -5,10 +5,14 @@ Automate creation of Terraform README documentation and format modules before co
 ## How
 Modules to quickly spin up fully functional eks setup with right subnets and alb/logging/metrics and co.
 Using terraform-docs and terraform fmt and pre-commit hooks
+## Requirements for pre-commit hooks
+for Run our pre-commit hooks you need to install
+	- terraform
+	- terraform-docs
 
-## Config for githooks
+## Config for GitHooks
 
-```terraform
+```bash
 git config core.hooksPath githooks
 ```
 
