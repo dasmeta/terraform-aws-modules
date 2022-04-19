@@ -1,15 +1,19 @@
 #!/bin/bash
-set -evx
-for f in ./*modules*
-do
+
+for f in ./*modules*; do
     cd "$f"
-    for i in `ls -d */` do 
-        git diff
-        terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
+    for i in `ls -d */`;do
+        if ! git diff --quiet "${i}" 
+        then
+            terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
+        fi
     done
-    for y in $(find . -name '*.tf' -print) do
-        git diff
-        terraform fmt -write=true "${y}"
+    for y in $(find . -name '*.tf' -print)
+    do
+        if ! git diff --quiet "${y}" 
+        then
+            terraform fmt -write=true "${y}"
+        fi
     done
     cd ..
 done
