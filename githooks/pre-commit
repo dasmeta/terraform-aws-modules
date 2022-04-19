@@ -4,11 +4,14 @@ for f in ./*modules*
 do
     cd "$f"
     for i in `ls -d */`
-        do terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
+        do 
+        git diff
+        terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
     done
     for y in $(find . -name '*.tf' -print)
     do
-         terraform fmt -write=true "${y}"
+        git diff
+        terraform fmt -write=true "${y}"
     done
     cd ..
 done
