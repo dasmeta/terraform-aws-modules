@@ -167,12 +167,12 @@ module "cloudfront" {
 | <a name="input_origin_protocol_policy"></a> [origin\_protocol\_policy](#input\_origin\_protocol\_policy) | The origin protocol policy to apply to your origin. | `string` | `"http-only"` | no |
 | <a name="input_origin_read_timeout"></a> [origin\_read\_timeout](#input\_origin\_read\_timeout) | The Custom Read timeout, in seconds. | `number` | `30` | no |
 | <a name="input_origin_ssl_protocols"></a> [origin\_ssl\_protocols](#input\_origin\_ssl\_protocols) | The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS. | `list(string)` | <pre>[<br>  "TLSv1",<br>  "TLSv1.1",<br>  "TLSv1.2"<br>]</pre> | no |
-| <a name="input_origins"></a> [origins](#input\_origins) | Targets, types and custom\_origin\_config block are needed to create new origins. | `list` | n/a | yes |
+| <a name="input_origins"></a> [origins](#input\_origins) | Targets, types and custom\_origin\_config block are needed to create new origins. | `list(any)` | n/a | yes |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. | `string` | `"PriceClass_All"` | no |
 | <a name="input_restriction_type"></a> [restriction\_type](#input\_restriction\_type) | The method that you want to use to restrict distribution of your content by country: none, whitelist, or blacklist. | `string` | `"none"` | no |
 | <a name="input_retain_on_delete"></a> [retain\_on\_delete](#input\_retain\_on\_delete) | Disables the distribution instead of deleting it when destroying the resource through Terraform. | `bool` | `false` | no |
 | <a name="input_tags_name"></a> [tags\_name](#input\_tags\_name) | n/a | `string` | `"terraform testing"` | no |
-| <a name="input_targets"></a> [targets](#input\_targets) | Targets and patterns needed to create new behaviours. | `list` | `[]` | no |
+| <a name="input_targets"></a> [targets](#input\_targets) | Targets and patterns needed to create new behaviours. | `list(any)` | `[]` | no |
 | <a name="input_use_default_cert"></a> [use\_default\_cert](#input\_use\_default\_cert) | Whether to use custom or default certificate. | `bool` | `false` | no |
 | <a name="input_wait_for_deployment"></a> [wait\_for\_deployment](#input\_wait\_for\_deployment) | If enabled, the resource will wait for the distribution status to change from InProgress to Deployed. | `bool` | `false` | no |
 
