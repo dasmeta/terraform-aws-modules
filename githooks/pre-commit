@@ -1,15 +1,27 @@
 #!/bin/bash
-set -evx
-for f in ./*modules*
-do
+echo "Start git pre-commit hooks";
+echo "Start terraform docs";
+for f in ./*modules*; do
     cd "$f"
-    for i in `ls -d */` do 
-        git diff
-        terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
-    done
-    for y in $(find . -name '*.tf' -print) do
-        git diff
-        terraform fmt -write=true "${y}"
+    for i in `ls -d */`;do
+        if ! git diff --quiet "${i}" 
+        then
+            echo "Generating doc file: ${i}"; 
+            terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
+        fi
     done
     cd ..
 done
+echo "End terraform docs";
+echo "Start terraform fmt";
+
+for y in $(find . -name '*.tf' -print)
+    do
+        if ! git diff --quiet "${y}" 
+        then
+            echo "Formatting the file: ${y}"; 
+            terraform fmt -write=true "${y}"
+        fi
+done
+echo "End terraform fmt";
+echo "End git pre-commit hooks";
