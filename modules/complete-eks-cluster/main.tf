@@ -33,6 +33,7 @@ module "eks-cluster" {
   cluster_enabled_log_types      = var.cluster_enabled_log_types
   cluster_version                = var.cluster_version
   map_roles                      = var.map_roles
+  create_cluster                 = var.create_cluster
 }
 
 module "cloudwatch-metrics" {
