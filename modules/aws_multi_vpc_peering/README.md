@@ -13,6 +13,7 @@ module "vpc_multi_peering" {
     peering_vpc_id = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
     region         = "us-east-1"
 }
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
