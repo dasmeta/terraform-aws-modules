@@ -15,7 +15,7 @@ module "vpc_peering" {
   auto_accept_peering = true
 
   tags = {
-    Name        = "vpc-peering" #AA
+    Name        = "vpc-peering"
     Environment = "Test"
   }
 }
