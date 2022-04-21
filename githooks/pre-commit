@@ -1,8 +1,8 @@
 #!/bin/bash
+
 echo "Start git pre-commit hooks";
+
 echo "Start terraform docs";
-# for f in ./*modules*; do
-#     cd "$f"
 for i in `ls -d modules/*/`;do
     if ! git diff --cached --quiet "${i}" 
     then
@@ -10,11 +10,9 @@ for i in `ls -d modules/*/`;do
         terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
     fi
 done
-#     cd ..
-# done
 echo "End terraform docs";
-echo "Start terraform fmt";
 
+echo "Start terraform fmt";
 for y in $(find . -name '*.tf' -print)
     do
         if ! git diff --cached --quiet "${y}" 
@@ -24,4 +22,5 @@ for y in $(find . -name '*.tf' -print)
         fi
 done
 echo "End terraform fmt";
+
 echo "End git pre-commit hooks";
