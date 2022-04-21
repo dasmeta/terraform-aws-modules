@@ -87,12 +87,14 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_event_rule.event_scheduler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
-| [aws_cloudwatch_event_target.event_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
-| [aws_iam_role.failure_logger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role.success_logger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_cloudwatch_event_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
+| [aws_cloudwatch_event_target.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_iam_role.logger](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
+| [aws_sns_topic_policy.cw_event_permissions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
 | [aws_sns_topic_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
+| [aws_sqs_queue.dead_letter_queue](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
+| [aws_iam_policy_document.sns_topic_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -100,6 +102,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint to send POST request data to, the contents will vary with the protocol. | `string` | n/a | yes |
 | <a name="input_input"></a> [input](#input\_input) | The data, input to set into POST request body Message field. | `any` | `{}` | no |
+| <a name="input_is_enabled"></a> [is\_enabled](#input\_is\_enabled) | Controls if cronjob enabled or not | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name (e.g. app or cluster). | `string` | n/a | yes |
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | the aws cloudwatch event rule schedule expression that specifies when the scheduler runs. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html | `any` | `"cron(* * * * ? *)"` | no |
 | <a name="input_success_sample_percentage"></a> [success\_sample\_percentage](#input\_success\_sample\_percentage) | Percentage of success to sample | `string` | `100` | no |
