@@ -155,9 +155,3 @@ variable "map_roles" {
   }))
   default = []
 }
-
-variable "create_cluster" {
-  type        = bool
-  default     = true
-  description = "Whether or not to create cluster."
-}
