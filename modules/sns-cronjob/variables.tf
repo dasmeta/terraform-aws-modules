@@ -8,6 +8,12 @@ variable "endpoint" {
   description = "The endpoint to send POST request data to, the contents will vary with the protocol."
 }
 
+variable "is_enabled" {
+  type        = bool
+  default     = true
+  description = "Controls if cronjob enabled or not"
+}
+
 variable "input" {
   type        = any
   default     = {}
@@ -25,9 +31,3 @@ variable "success_sample_percentage" {
   default     = 100
   description = "Percentage of success to sample"
 }
-
-# variable "endpoint_auto_confirms" {
-#   type        = bool
-#   default     = false
-#   description = "Boolean indicating whether the end point is capable of auto confirming subscription."
-# }
