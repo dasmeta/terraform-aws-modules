@@ -1,17 +1,17 @@
 #!/bin/bash
 echo "Start git pre-commit hooks";
 echo "Start terraform docs";
-for f in ./*modules*; do
-    cd "$f"
-    for i in `ls -d */`;do
-        if ! git diff --quiet "${i}" 
-        then
-            echo "Generating doc file: ${i}"; 
-            terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
-        fi
-    done
-    cd ..
+# for f in ./*modules*; do
+#     cd "$f"
+for i in `ls -d modules/*/`;do
+    if ! git diff --quiet "${i}" 
+    then
+        echo "Generating doc file: ${i}"; 
+        terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
+    fi
 done
+#     cd ..
+# done
 echo "End terraform docs";
 echo "Start terraform fmt";
 
