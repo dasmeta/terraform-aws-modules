@@ -1,4 +1,4 @@
-resource "aws_sns_topic" "this" {
+resource aws_sns_topic "this" {
   name                              = var.name
   display_name                      = "${var.name} cronjob"
   http_success_feedback_role_arn    = aws_iam_role.logger.arn
@@ -31,5 +31,5 @@ resource "aws_cloudwatch_event_target" "this" {
 
 resource "aws_sqs_queue" "dead_letter_queue" {
   name                      = "${var.name}-cron-dlq"
-  message_retention_seconds = 1209600 # 14 days, TODO: check we maybe will need this under input and event under control whether to have dead-letter-queue
+  message_retention_seconds = 1209600 #  14 days, TODO: check we maybe will need this under input and event under control whether to have dead-letter-queue
 }

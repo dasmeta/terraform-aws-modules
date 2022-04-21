@@ -4,7 +4,7 @@ echo "Start terraform docs";
 # for f in ./*modules*; do
 #     cd "$f"
 for i in `ls -d modules/*/`;do
-    if ! git diff --quiet "${i}" 
+    if ! git diff --cached --quiet "${i}" 
     then
         echo "Generating doc file: ${i}"; 
         terraform-docs markdown table --output-file README.md --output-mode inject "${i}";
@@ -17,7 +17,7 @@ echo "Start terraform fmt";
 
 for y in $(find . -name '*.tf' -print)
     do
-        if ! git diff --quiet "${y}" 
+        if ! git diff --cached --quiet "${y}" 
         then
             echo "Formatting the file: ${y}"; 
             terraform fmt -write=true "${y}"
