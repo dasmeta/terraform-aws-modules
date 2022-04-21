@@ -6,6 +6,10 @@ output "vpc_private_subnets" {
   value = module.vpc[0].private_subnets
 }
 
+output "vpc_public_subnets" {
+  value = module.vpc[0].public_subnets
+}
+
 output "vpc_cidr_block" {
   value = module.vpc[0].vpc_cidr_block
 }

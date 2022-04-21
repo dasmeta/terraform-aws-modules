@@ -6,7 +6,7 @@ module "lambda" {
   source  = "raymondbutcher/lambda-builder/aws"
   version = "1.1.0"
 
-  function_name = coalesce(var.function_name, "${var.bucket_name}-to-cloudwatch-logs")
+  function_name = coalesce(var.function_name, "${substr(var.bucket_name, 0, 45)}-to-cloudwatch-logs")
   handler       = "lambda.handler"
   runtime       = "python3.7"
   memory_size   = var.memory_size
