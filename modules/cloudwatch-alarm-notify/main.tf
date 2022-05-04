@@ -40,6 +40,12 @@ locals {
   alarm_description_up           = "This metric monitors ${var.alarm_name} when threshold < ${var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object, "threshold", "default_threshold")}"
   alarm_description_down         = "This metric monitors ${var.alarm_name} when threshold > ${var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object, "threshold", "default_threshold")}"
   default_alert_variables_object = lookup(local.default, var.alert_type_name, {})
+  actions = concat(
+    aws_sns_topic.k8s-alerts-notify-email.*.arn,    // email
+    aws_sns_topic.k8s-alerts-notify-sms.*.arn,      // sms
+    aws_sns_topic.k8s-alerts-notify-opsgenie.*.arn, // Opsgenie
+    module.notify_slack.*.this_slack_topic_arn      // slack
+  )
 }
 
 ### Create a cloudwatch healthcheck metric alarm
@@ -57,12 +63,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   treat_missing_data        = var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object, "treat_missing_data", "default_treat_missing_data") #"breaching"
   insufficient_data_actions = var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object, "insufficient_data_actions", "default_insufficient_data_actions")
   alarm_description         = local.alarm_description_down
-  alarm_actions = [
-    aws_sns_topic.k8s-alerts-notify-email.arn,    // email
-    aws_sns_topic.k8s-alerts-notify-sms.arn,      // sms
-    aws_sns_topic.k8s-alerts-notify-opsgenie.arn, // Opsgenie
-    module.notify_slack.this_slack_topic_arn      // slack
-  ]
+  alarm_actions             = local.actions
 
   tags = {
     Name = "${var.alarm_name}-alerts"
@@ -84,12 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   treat_missing_data        = var.treat_missing_data != "" ? var.treat_missing_data : lookup(local.default_alert_variables_object, "treat_missing_data", "default_treat_missing_data") #"breaching"
   insufficient_data_actions = var.insufficient_data_actions != [] ? var.insufficient_data_actions : lookup(local.default_alert_variables_object, "insufficient_data_actions", "default_insufficient_data_actions")
   alarm_description         = local.alarm_description_up
-  ok_actions = [
-    aws_sns_topic.k8s-alerts-notify-email.arn,    // email
-    aws_sns_topic.k8s-alerts-notify-sms.arn,      // sms
-    aws_sns_topic.k8s-alerts-notify-opsgenie.arn, // Opsgenie
-    module.notify_slack.this_slack_topic_arn      // slack
-  ]
+  ok_actions                = local.actions
 
   tags = {
     Name = "${var.alarm_name}-alerts"
