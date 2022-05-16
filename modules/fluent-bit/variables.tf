@@ -53,5 +53,5 @@ variable "cluster_token" {
 
 variable "log_group_name" {
   type    = string
-  default = ""
+  default = "fluentbit-default-log-group"
 }
