@@ -1,8 +1,7 @@
 
-## If you want  have high level security in your eks cluster. You can use this module and setup users permission in one namespace.
-## Users can deploy resources only one namespaces in eks and don't change serviceaccount.
+### If you want  have high level security in your eks cluster. You can use this module and setup users permission in one namespace. Users can deploy resources only one namespaces in eks and don't change serviceaccount.
 
-# Example 1. Minimal parameter set and create permissions
+## Example 1. Minimal parameter set and create permissions
 
 1. Apply module
 
@@ -50,7 +49,7 @@ kubectl get configmap/aws-auth -nkube-system
 aws eks update-kubeconfig --name <cluster-name> --role-arn <role-arn>
 ```
 
-# Example 2. Maximal  parameter set and create permissions
+## Example 2. Maximal  parameter set and create permissions
 ```
 module "test" {
   source = "./module"
