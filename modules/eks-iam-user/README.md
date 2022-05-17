@@ -1,5 +1,6 @@
 
-# You can setup module and users can use only one namespaces in eks and don't change serviceaccount.
+## If you want  have high level security in your eks cluster. You can use this module and setup users permission in one namespace.
+## Users can deploy resources only one namespaces in eks and don't change serviceaccount.
 
 # Example 1. Minimal parameter set and create permissions
 
