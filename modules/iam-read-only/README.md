@@ -5,7 +5,7 @@
 
 ```
 module "test-read-only" {
-  source = "./module"
+  source = "dasmeta/modules/aws//modules/iam-read-only"
   attach_users_to_group = false
 }
 ```
@@ -14,7 +14,7 @@ module "test-read-only" {
 
 ```
 module "test-read-only" {
-  source = "./module"
+  source = "dasmeta/modules/aws//modules/iam-read-only"
   name   = "ReadOnlyTest"
   users  = ["test"]
 }
