@@ -1,7 +1,7 @@
 
-# Create AWS group and set ReadOnly permission.
+### Create AWS group and set ReadOnly permission.
 
-# Example 1. Minimal parameter set and create permissions
+## Example 1. Minimal parameter set and create permissions
 
 ```
 module "test-read-only" {
@@ -10,7 +10,7 @@ module "test-read-only" {
 }
 ```
 
-# Example 2. Maxsimum parameter set and create permissions
+## Example 2. Maxsimum parameter set and create permissions
 
 ```
 module "test-read-only" {
