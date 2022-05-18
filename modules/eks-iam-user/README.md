@@ -7,7 +7,7 @@
 
 ```
 module "test" {
-  source = "./module"
+  source = "dasmeta/modules/aws//modules/eks-iam-user"
 
   name      = "test"
   namespace = "test"
@@ -52,7 +52,7 @@ aws eks update-kubeconfig --name <cluster-name> --role-arn <role-arn>
 ## Example 2. Maximal  parameter set and create permissions
 ```
 module "test" {
-  source = "./module"
+  source = "dasmeta/modules/aws//modules/eks-iam-user"
 
   name      = "test"
   namespace = "test"
