@@ -1,7 +1,3 @@
-variable "name" {
-  type = string
-}
-
 variable "namespace" {
   type = string
 }
@@ -13,11 +9,6 @@ variable "usernames" {
 variable "create_namespace" {
   type    = bool
   default = true
-}
-
-variable "aws_account_id" {
-  type    = string
-  default = "1658511"
 }
 
 variable "rule" {

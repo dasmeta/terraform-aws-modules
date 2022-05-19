@@ -1,5 +1,7 @@
+data "aws_caller_identity" "current" {}
+
 locals {
-  aws_role_principal = "arn:aws:iam::${var.aws_account_id}:root"
+  aws_role_principal = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
   group_name         = "${var.name}-group"
 }
 

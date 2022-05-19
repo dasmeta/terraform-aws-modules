@@ -12,7 +12,6 @@ module "test" {
   name      = "test"
   namespace = "test"
 
-  aws_account_id = "5*****168"
   usernames      = ["test"]
 }
 
@@ -69,8 +68,7 @@ module "test" {
       verbs      = ["*"]
     }
   ]
-
-  aws_account_id = "5****168"
+  
   usernames      = ["test"]
 }
 
