@@ -38,11 +38,18 @@ variable "ip_addresses" {
 
 variable "network_peering" {
   type = list(object({
-    accepter_region_name   = string
-    provider_name          = string
-    route_table_cidr_block = string
-    vpc_id                 = string
-    aws_account_id         = string
+    accepter_region_name = string
+    aws_account_id       = string
+    vpc_id               = string
+    # this option is for identifying private route table and creating route table record with target to mongodb peering, so you need to pass one of private subnets id
+    # TODO: find better way for identifying vpc private route table, instead of using one of private subnets id
+    subnet_id = string
+    # IMPORTANT NOTE: this is something that you can chose from private address space and it should not overlap with VPC cidr,
+    #  please check the following links for more info:
+    # * https://www.mongodb.com/docs/atlas/security-vpc-peering/
+    # * https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/network_peering
+    # * https://datatracker.ietf.org/doc/html/rfc1918.html#section-3
+    atlas_cidr_block = string
   }))
 
   default = []
@@ -123,7 +130,7 @@ variable "alert_mode" {
   description = "This must be set to AVERAGE. Atlas computes the current metric value as an average."
 }
 
-variable "provider_name" {
+variable "provider_name" { # TODO: it seems peering and other connection related configs in this module were created so that are supporting only aws provider, and this config can be overridden. please check and make sure if we really need it
   type        = string
   default     = "AWS"
   description = "Cloud provider to whom the peering connection is being made."
@@ -348,7 +355,7 @@ variable "cluster_configs" {
     })
     auto_scaling_disk_gb_enabled = bool
     mongo_db_major_version       = string
-    provider_name                = string
+    provider_name                = string # TODO: not sure if we really need to configure mongo atlas cluster provider, as we can use global variable var.provider_name. needs checking
     disk_size_gb                 = number
     provider_instance_size_name  = string
   })

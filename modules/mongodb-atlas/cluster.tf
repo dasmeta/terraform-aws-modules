@@ -16,7 +16,7 @@ resource "mongodbatlas_cluster" "main" {
   mongo_db_major_version       = var.cluster_configs.mongo_db_major_version
 
   //Provider Settings "block"
-  provider_name               = var.cluster_configs.provider_name
+  provider_name               = var.provider_name
   disk_size_gb                = var.cluster_configs.disk_size_gb
   provider_instance_size_name = var.cluster_configs.provider_instance_size_name
   # provider_backup_enabled     = var.provider_backup_enabled
