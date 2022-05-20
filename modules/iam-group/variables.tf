@@ -14,13 +14,7 @@ variable "type" {
   description = "You can set read-only or admin-access or set other and set your own police action"
 }
 
-variable "attach_users_to_group" {
-  type        = bool
-  default     = true
-  description = "Attach Users in Group"
-}
-
-variable "police_action" {
+variable "policy_action" {
   type    = list(any)
   default = []
 }

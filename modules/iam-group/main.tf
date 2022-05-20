@@ -1,5 +1,5 @@
 locals {
-  action = var.type == "read-only" ? local.read_only_action : var.type == "admin-access" ? local.admin_access_action : var.type == "other" ? var.police_action : []
+  action = var.type == "read-only" ? local.read_only_action : var.type == "admin-access" ? local.admin_access_action : var.type == "other" ? var.policy_action : []
 
   admin_access_action = ["*"]
   read_only_action = [
@@ -51,9 +51,9 @@ locals {
   ]
 }
 
-resource "aws_iam_group_policy" "my_developer_policy" {
+resource "aws_iam_group_policy" "this" {
   name  = var.name
-  group = aws_iam_group.read_only.name
+  group = aws_iam_group.this.name
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -69,14 +69,13 @@ resource "aws_iam_group_policy" "my_developer_policy" {
   })
 }
 
-resource "aws_iam_group" "read_only" {
+resource "aws_iam_group" "this" {
   name = var.name
 }
 
-resource "aws_iam_group_membership" "team" {
-  count = var.attach_users_to_group ? 1 : 0
+resource "aws_iam_group_membership" "this" {
 
   name  = var.name
   users = var.users
-  group = aws_iam_group.read_only.name
+  group = aws_iam_group.this.name
 }
