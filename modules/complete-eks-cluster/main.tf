@@ -2,6 +2,8 @@ locals {
   eks_oidc_root_ca_thumbprint = replace(module.eks-cluster.oidc_provider_arn, "/.*id//", "")
 }
 
+data "aws_region" "current" {}
+
 module "vpc" {
   source = "../vpc" # change to the correct one
 
@@ -74,6 +76,7 @@ module "fluent-bit" {
   cluster_host        = module.eks-cluster.host
   cluster_certificate = module.eks-cluster.certificate
   cluster_token       = module.eks-cluster.token
+  region              = data.aws_region.current.name
 }
 
 module "metrics-server" {

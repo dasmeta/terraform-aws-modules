@@ -19,13 +19,23 @@ variable "path" {
     service_port = string
     path         = string
   }))
-  default = []
+  default = [
+    {
+      service_name = "dummy"
+      service_port = "80"
+      path         = "/alb-terraform-created"
+    }
+  ]
 }
 variable "default_backend" {
   type = object({
     service_name = string
     service_port = string
   })
+  default = {
+    service_name = "dummy"
+    service_port = "80"
+  }
 }
 # TODO: check if there is way to get this data as kubernetes data
 variable "api_version" {
