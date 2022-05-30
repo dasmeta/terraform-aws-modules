@@ -57,7 +57,7 @@ resource "aws_security_group" "my-vpn" {
   tags = var.tags
 }
 resource "aws_ec2_client_vpn_network_association" "my-vpn_sso" {
-  for_each               = toset(var.endpoint_subnets)
+  for_each = toset(var.endpoint_subnets)
 
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my-vpn_sso.id
   subnet_id              = each.value
