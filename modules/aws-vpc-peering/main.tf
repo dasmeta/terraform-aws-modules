@@ -35,7 +35,8 @@ resource "aws_vpc_peering_connection_options" "this" {
 }
 
 resource "aws_vpc_peering_connection_options" "accepter" {
-  count                     = var.create_vpc_peering ? 1 : 0
+  count = var.create_vpc_peering ? 1 : 0
+
   provider                  = aws.peer
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer_accepter.id
 
@@ -47,16 +48,21 @@ resource "aws_vpc_peering_connection_options" "accepter" {
 }
 
 resource "aws_route" "this_routes" {
-  provider                  = aws.this
-  count                     = var.from_this ? length(local.this_routes) : 0
-  route_table_id            = local.this_routes[count.index].rts_id
-  destination_cidr_block    = local.this_routes[count.index].dest_cidr
+  for_each = var.from_this ? { for this_route in local.this_routes : "${this_route.rts_id}--${this_route.dest_cidr}" => this_route } : {}
+
+  route_table_id            = each.value.rts_id
+  destination_cidr_block    = each.value.dest_cidr
   vpc_peering_connection_id = aws_vpc_peering_connection.this.id
+
+  provider = aws.this
 }
+
 resource "aws_route" "peer_routes" {
-  provider                  = aws.peer
-  count                     = var.from_peer ? length(local.peer_routes) : 0
-  route_table_id            = local.peer_routes[count.index].rts_id
-  destination_cidr_block    = local.peer_routes[count.index].dest_cidr
+  for_each = var.from_peer ? { for peer_route in local.peer_routes : "${peer_route.rts_id}--${peer_route.dest_cidr}" => peer_route } : {}
+
+  route_table_id            = each.value.rts_id
+  destination_cidr_block    = each.value.dest_cidr
   vpc_peering_connection_id = aws_vpc_peering_connection.this.id
+
+  provider = aws.peer
 }

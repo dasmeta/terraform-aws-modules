@@ -8,7 +8,3 @@ variable "peering_vpc_id" {
   type        = list(string)
 }
 
-variable "region" {
-  description = "Regioin"
-  type        = string
-}
