@@ -28,8 +28,6 @@ variable "endpoint_name" {
   type        = string
 }
 
-
-
 variable "authorization_ingress" {
   description = "Add authorization rules to grant clients access to the networks."
   type        = list(string)
@@ -52,46 +50,22 @@ variable "cloudwatch_log_group_retention_in_days" {
   default     = 30
 }
 
-variable "tls_validity_period_hours" {
-  description = "Specifies the number of hours after initial issuing that the certificate will become invalid."
-  type        = number
-  default     = 47400
-}
-variable "vpn_route_table_ids" {
-  description = "Route table IDs of the requestor"
-  type        = list(string)
-  default     = []
-}
+
 variable "vpc_id" {
   description = "VPC ID"
   type        = string
 }
-variable "enable_saml" {
-  type        = bool
-  default     = false
-  description = "Whether or not to enable SAML Provider."
-}
+
 variable "endpoint_subnets" {
   description = "List of IDs of endpoint subnets for network association"
   type        = list(string)
 }
-variable "create_peering" {
-  type        = bool
-  default     = false
-  description = "Can create peering true : false"
-}
+
 variable "peering_vpc_ids" {
   type    = list(string)
   default = []
 }
-variable "region" {
-  type    = string
-  default = "us-east-1"
-}
-variable "vpn_file_download" {
-  type    = string
-  default = ""
-}
+
 variable "split_tunnel" {
   type    = bool
   default = true

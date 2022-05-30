@@ -1,12 +1,11 @@
-provider "aws" {
-  region = var.region
-}
 module "vpc_peering" {
-  source   = "dasmeta/modules/aws//modules/aws-vpc-peering"
+  source = "../aws-vpc-peering"
+
   for_each = toset(var.peering_vpc_id)
+
   providers = {
     aws.this = aws
-    aws.peer = aws
+    aws.peer = aws.peer
   }
 
   this_vpc_id = var.main_vpc
@@ -15,7 +14,6 @@ module "vpc_peering" {
   auto_accept_peering = true
 
   tags = {
-    Name        = "vpc-peering"
-    Environment = "Test"
+    Name = "vpc-peering-${replace(each.value, "/[^0-9a-z]/i", "-")}"
   }
 }
