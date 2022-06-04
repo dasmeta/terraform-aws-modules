@@ -12,16 +12,8 @@ output "cluster_id" {
   value = module.eks-cluster.cluster_id
 }
 
-output "kubeconfig_filename" {
-  value = module.eks-cluster.kubeconfig_filename
-}
-
 output "cluster_iam_role_name" {
   value = module.eks-cluster.cluster_iam_role_name
-}
-
-output "worker_iam_role_name" {
-  value = module.eks-cluster.worker_iam_role_name
 }
 
 output "cluster_security_group_id" {

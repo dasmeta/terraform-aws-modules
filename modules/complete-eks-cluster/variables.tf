@@ -50,19 +50,13 @@ variable "manage_aws_auth" {
 
 variable "worker_groups" {
   type = any
-  default = [
-    {
+  default = {
+    default = {
       instance_type = "t3.xlarge"
       asg_max_size  = 5
     }
-  ]
+  }
   description = "Worker groups."
-}
-
-variable "worker_groups_launch_template" {
-  description = "A list of maps defining worker group configurations to be defined using AWS Launch Templates. See workers_group_defaults for valid keys."
-  type        = any
-  default     = []
 }
 
 variable "node_groups" {
@@ -75,8 +69,10 @@ variable "workers_group_defaults" {
   type = any
 
   default = {
-    root_volume_type = "gp2"
-    root_volume_size = 50
+    launch_template_use_name_prefix = true
+    launch_template_name            = "default"
+    root_volume_type                = "gp2"
+    root_volume_size                = 50
   }
   description = "Worker group defaults."
 }

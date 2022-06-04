@@ -22,14 +22,10 @@ module "eks-cluster" {
   cluster_name = var.cluster_name
   vpc_id       = module.vpc.vpc_id
   subnets      = module.vpc.vpc_private_subnets
-  # depends_on    = [module.vpc]
 
-  manage_aws_auth                = var.manage_aws_auth
   users                          = var.users
   node_groups                    = var.node_groups
   worker_groups                  = var.worker_groups
-  write_kubeconfig               = var.write_kubeconfig
-  worker_groups_launch_template  = var.worker_groups_launch_template
   workers_group_defaults         = var.workers_group_defaults
   cluster_endpoint_public_access = var.cluster_endpoint_public_access
   cluster_enabled_log_types      = var.cluster_enabled_log_types
