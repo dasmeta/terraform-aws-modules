@@ -1,10 +1,3 @@
-# data "aws_s3_bucket" "bucket_arn" {
-#   bucket = var.bucket_name
-#   depends_on = [
-#     aws_s3_bucket.
-#   ]
-# }
-
 resource "aws_cloudwatch_log_group" "test" {
   count = var.create_lambda_s3_to_cloudwatch ? 1 : 0
 

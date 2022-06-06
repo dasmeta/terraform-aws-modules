@@ -56,12 +56,10 @@ class LogEventsBatch:
         """
         print("Write")
         if len(self._events) >= self.MAX_BATCH_COUNT:
-            print("If1")
             raise Full
 
         event_size = len(message) + self.LOG_EVENT_OVERHEAD
         if self._size + event_size > self.MAX_BATCH_SIZE:
-            print("If2")
             raise Full
 
         event = {"message": message, "timestamp": timestamp}
@@ -179,8 +177,6 @@ def read_log_entries(bucket, key):
         s3_client.download_file(bucket, key, temp_file.name)
         with open(temp_file.name, 'r') as extracted_file:
             my_data = [json.loads(line) for line in extracted_file]
-            # print(f"Data")
-            # print(my_data)
             return  my_data
             
 
@@ -210,26 +206,16 @@ def handler(event, context):
             jsondump = json.dumps(data)
             print("JsonDump")
             print(jsondump)
-            print("Timestamp")
-            timestamp = data['date']
-            print(timestamp)
-        
+            timestamp = data['date']  
             datetimeFromfb = parse_iso8601(timestamp)
-            # datetimeNow = datetime.now()
-
-            # print("Object")
-            # print({datetimeFromfb, datetimeNow})
-
             parsed_entries.append((int(datetimeFromfb.timestamp() * 1000), jsondump))  
              
         parsed_entries.sort()
 
         for (timestamp, message) in parsed_entries:
             try:
-                print("Try")
                 log_stream.write(message, timestamp)
             except Full:
-                print("Except")
                 log_stream.flush()
                 log_stream.write(message, int(timestamp))
 
