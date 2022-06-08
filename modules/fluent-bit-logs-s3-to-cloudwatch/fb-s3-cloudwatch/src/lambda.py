@@ -54,7 +54,6 @@ class LogEventsBatch:
         due to batch limits, then a Full exception is raised instead.
 
         """
-        print("Write")
         if len(self._events) >= self.MAX_BATCH_COUNT:
             raise Full
 
@@ -65,7 +64,6 @@ class LogEventsBatch:
         event = {"message": message, "timestamp": timestamp}
 
         self._events.append(event)
-        print("Event append")
         self._size += event_size
 
 

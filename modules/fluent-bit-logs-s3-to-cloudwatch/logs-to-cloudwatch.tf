@@ -8,7 +8,7 @@ resource "aws_cloudwatch_log_group" "test" {
 module "s3_logs_to_cloudwatch" {
   count = var.create_lambda_s3_to_cloudwatch ? 1 : 0
 
-  source         = "./terraform-aws-alb-cloudwatch-logs-json"
+  source         = "./fb-s3-cloudwatch"
   bucket_name    = var.bucket_name
   log_group_name = aws_cloudwatch_log_group.test[0].name
 }
