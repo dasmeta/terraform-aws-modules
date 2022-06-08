@@ -6,7 +6,7 @@ locals {
 }
 resource "aws_cloudtrail" "cloudtrail" {
   name                          = var.name
-  s3_bucket_name                = aws_s3_bucket.s3.id
+  s3_bucket_name                = var.create_s3_bucket ? local.s3_bucket_name : var.bucket_name
   s3_key_prefix                 = local.s3_key_prefix
   include_global_service_events = var.include_global_service_events
   enable_log_file_validation    = var.enable_log_file_validation
@@ -35,12 +35,14 @@ resource "aws_cloudtrail" "cloudtrail" {
 }
 
 resource "aws_s3_bucket" "s3" {
+  count         = var.create_s3_bucket ? 1 : 0
   bucket        = local.s3_bucket_name
   force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "s3" {
-  bucket = aws_s3_bucket.s3.id
+  count  = var.create_s3_bucket ? 1 : 0
+  bucket = aws_s3_bucket.s3[0].id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
