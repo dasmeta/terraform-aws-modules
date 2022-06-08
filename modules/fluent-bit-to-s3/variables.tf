@@ -40,14 +40,6 @@ variable "create_namespace" {
   description = "wether or no to create namespace"
 }
 
-variable "eks_oidc_root_ca_thumbprint" {
-  type = string
-}
-
-variable "oidc_provider_arn" {
-  type = string
-}
-
 # Auth data
 
 variable "cluster_host" {
