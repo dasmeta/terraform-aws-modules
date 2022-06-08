@@ -2,6 +2,17 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
+#  User credential who have permission S3 bucket putobject
+variable "aws_secret_key" {
+  type    = string
+  default = ""
+}
+
+variable "aws_access_key" {
+  type    = string
+  default = ""
+}
+
 variable "region" {
   type    = string
   default = "eu-central-1"
