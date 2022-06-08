@@ -1,8 +1,8 @@
 ```
 module "fluent-bit-to-s3" {
-  source = "../fluent-bit-to-s3"
+  source = "dasmeta/modules/aws//modules/fluent-bit"
 
-  fluent_bit_name             = "dasmeta/modules/aws//modules/fluent-bit"
+  fluent_bit_name             = "fluent-bit"
   bucket_name                 = fluent-bit-s3-${var.cluster_name}"
   cluster_name                = var.cluster_name
 
