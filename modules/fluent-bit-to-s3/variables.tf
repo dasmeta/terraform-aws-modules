@@ -2,17 +2,6 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-#  User credential who have permission S3 bucket putobject
-variable "aws_secret_key" {
-  type    = string
-  default = ""
-}
-
-variable "aws_access_key" {
-  type    = string
-  default = ""
-}
-
 variable "region" {
   type    = string
   default = "eu-central-1"
@@ -38,6 +27,14 @@ variable "create_namespace" {
   type        = bool
   default     = false
   description = "wether or no to create namespace"
+}
+
+variable "eks_oidc_root_ca_thumbprint" {
+  type = string
+}
+
+variable "oidc_provider_arn" {
+  type = string
 }
 
 # Auth data

@@ -1,16 +1,9 @@
-env:
-  - name: AWS_REGION
-    value: ${region}
-  - name: AWS_SECRET_ACCESS_KEY
-    value: ${aws_secret_key}
-  - name: AWS_ACCESS_KEY_ID
-    value: ${aws_access_key}
 config:
   outputs: |
     [OUTPUT]
         Name s3
         Match *
-        bucket test-fluent-bit-bla2
+        bucket ${bucket_name}
         region ${region}
         use_put_object On
         s3_key_format /$TAG[1]/$TAG[3]/%Y/%m/%d/%s
