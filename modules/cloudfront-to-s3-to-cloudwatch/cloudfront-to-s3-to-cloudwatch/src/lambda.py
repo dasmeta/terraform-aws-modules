@@ -12,7 +12,6 @@ import boto3
 LOG_GROUP_NAME = environ["LOG_GROUP_NAME"]
 
 
-# https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
 FIELD_NAMES = [
     "date",
     "time",
