@@ -1,3 +1,9 @@
+data "aws_s3_bucket" "selected" {
+  count  = var.create_bucket ? 0 : 1
+  bucket = var.bucket_name
+}
+
+
 resource "aws_cloudwatch_log_group" "test" {
   count = var.create_lambda_s3_to_cloudwatch ? 1 : 0
 
@@ -20,7 +26,7 @@ resource "aws_lambda_permission" "bucket" {
   action        = "lambda:InvokeFunction"
   function_name = module.s3_logs_to_cloudwatch[0].function_name
   principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.bucket.arn
+  source_arn    = var.create_bucket ? aws_s3_bucket.bucket[0].arn : data.aws_s3_bucket.selected[0].arn
 
   depends_on = [
     aws_s3_bucket.bucket

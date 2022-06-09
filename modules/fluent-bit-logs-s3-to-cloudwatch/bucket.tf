@@ -1,8 +1,11 @@
 resource "aws_s3_bucket" "bucket" {
+  count  = var.create_bucket ? 1 : 0
   bucket = var.bucket_name
 }
 
 resource "aws_s3_bucket_ownership_controls" "disable_s3_acl" {
+  count = var.create_bucket ? 1 : 0
+
   bucket = var.bucket_name
 
   rule {
@@ -14,11 +17,15 @@ resource "aws_s3_bucket_ownership_controls" "disable_s3_acl" {
 }
 
 resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
-  bucket = aws_s3_bucket.bucket.id
-  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+  count = var.create_bucket ? 1 : 0
+
+  bucket = aws_s3_bucket.bucket[0].id
+  policy = data.aws_iam_policy_document.allow_access_from_another_account[0].json
 }
 
 data "aws_iam_policy_document" "allow_access_from_another_account" {
+  count = var.create_bucket ? 1 : 0
+
   statement {
     principals {
       type        = "AWS"
@@ -32,8 +39,8 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
     ]
 
     resources = [
-      aws_s3_bucket.bucket.arn,
-      "${aws_s3_bucket.bucket.arn}/*",
+      aws_s3_bucket.bucket[0].arn,
+      "${aws_s3_bucket.bucket[0].arn}/*",
     ]
   }
 }

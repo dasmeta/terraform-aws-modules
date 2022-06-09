@@ -8,6 +8,10 @@ variable "bucket_name" {
   default = "test-fluent-bit-bla"
 }
 
+variable "create_bucket" {
+  type    = bool
+  default = true
+}
 
 variable "assume_role_arn" {
   type        = list(string)

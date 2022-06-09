@@ -4,7 +4,7 @@
 module "s3-to-cloudwatch" {
   source                         = "dasmeta/modules/aws//modules/fluent-bit-logs-s3-to-cloudwatch"
   bucket_name                    = "test-fluent-bit-bla2"
-  assume_role_arn                = ["arn:aws:iam::5*68:role/eks-cluster-fluent-bit"]
+  create_bucket                  = "false"
 }
 ```
 
@@ -33,7 +33,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_s3_logs_to_cloudwatch"></a> [s3\_logs\_to\_cloudwatch](#module\_s3\_logs\_to\_cloudwatch) | ./terraform-aws-alb-cloudwatch-logs-json | n/a |
+| <a name="module_s3_logs_to_cloudwatch"></a> [s3\_logs\_to\_cloudwatch](#module\_s3\_logs\_to\_cloudwatch) | ./fb-s3-cloudwatch | n/a |
 
 ## Resources
 
@@ -46,6 +46,7 @@ No requirements.
 | [aws_s3_bucket_ownership_controls.disable_s3_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
 | [aws_s3_bucket_policy.allow_access_from_another_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_iam_policy_document.allow_access_from_another_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_s3_bucket.selected](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
 
 ## Inputs
 
@@ -53,6 +54,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_assume_role_arn"></a> [assume\_role\_arn](#input\_assume\_role\_arn) | AWS Acounts Assume roles arn which access bucket write | `list(string)` | <pre>[<br>  "arn:aws:iam::*:role/eks-cluster-fluent-bit-role"<br>]</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `"test-fluent-bit-bla"` | no |
+| <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | n/a | `bool` | `true` | no |
 | <a name="input_create_lambda_s3_to_cloudwatch"></a> [create\_lambda\_s3\_to\_cloudwatch](#input\_create\_lambda\_s3\_to\_cloudwatch) | n/a | `bool` | `true` | no |
 
 ## Outputs
