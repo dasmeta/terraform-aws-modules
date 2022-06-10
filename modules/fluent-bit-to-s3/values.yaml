@@ -1,0 +1,12 @@
+config:
+  outputs: |
+    [OUTPUT]
+        Name s3
+        Match *
+        bucket ${bucket_name}
+        region ${region}
+        use_put_object On
+        s3_key_format /$TAG[1]/$TAG[3]/%Y/%m/%d/%s
+        s3_key_format_tag_delimiters . 
+        total_file_size 5M
+        upload_timeout 1m
