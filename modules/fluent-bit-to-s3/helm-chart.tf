@@ -8,10 +8,8 @@ resource "helm_release" "fluent-bit" {
   values = [
     # file("${path.module}/values.yaml")
     templatefile("${path.module}/values.yaml", {
-      bucket_name    = local.bucket_name,
-      region         = local.region,
-      aws_secret_key = var.aws_secret_key,
-      aws_access_key = var.aws_access_key
+      bucket_name = local.bucket_name,
+      region      = local.region
     })
   ]
 
@@ -23,5 +21,10 @@ resource "helm_release" "fluent-bit" {
   set {
     name  = "serviceAccount.name"
     value = "fluent-bit"
+  }
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.fluent-bit.name}"
   }
 }

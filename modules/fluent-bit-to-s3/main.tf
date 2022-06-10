@@ -1,28 +1,22 @@
-locals {
-  fluent_name = var.fluent_bit_name != "" ? var.fluent_bit_name : "${var.cluster_name}-fluent-bit"
-  bucket_name = var.bucket_name != "" ? var.bucket_name : "fluent-bit-bucket"
-  region      = var.region != "" ? var.region : data.aws_region.current.name
-}
-
-resource "helm_release" "fluent-bit" {
-  name       = local.fluent_name
-  repository = "https://fluent.github.io/helm-charts"
-  chart      = "fluent-bit"
-  version    = "0.20.1"
-  namespace  = var.namespace
-
-  values = [
-    # file("${path.module}/values.yaml")
-    templatefile("${path.module}/values.yaml", { bucket_name = local.bucket_name, region = local.region, aws_secret_key = var.aws_secret_key, aws_access_key = var.aws_access_key })
-  ]
-
-  set {
-    name  = "clusterName"
-    value = var.cluster_name
-  }
-
-  set {
-    name  = "serviceAccount.name"
-    value = "fluent-bit"
-  }
-}
+/**
+ * # Why
+ * Terraform module to export container logs from EKS to S3
+ *
+ * ## Example
+ * ```
+ * module "fluent-bit" {
+ *   source = "../fluent-bit-to-s3"
+ *
+ *   fluent_bit_name             = "fluent-bit"
+ *   bucket_name                 = "fluent-bit-cloudwatch-354242324"
+ *   cluster_name                = ""
+ *   eks_oidc_root_ca_thumbprint = module.eks-cluster.eks_oidc_root_ca_thumbprint
+ *   oidc_provider_arn           = module.eks-cluster.oidc_provider_arn
+ *
+ *   cluster_host        = module.eks-cluster.host
+ *   cluster_certificate = module.eks-cluster.certificate
+ *   cluster_token       = module.eks-cluster.token
+ *   region              = data.aws_region.current.name
+ * }
+ * ```
+ */

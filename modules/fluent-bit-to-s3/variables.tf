@@ -2,19 +2,6 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-#  User credential who have permission S3 bucket putobject
-variable "aws_secret_key" {
-  type        = string
-  default     = ""
-  description = "AWS Secret Key fluent-bit will need to stream logs into s3 bucket to."
-}
-
-variable "aws_access_key" {
-  type        = string
-  default     = ""
-  description = "AWS Access Key fluent-bit will need to stream logs into s3 bucket to."
-}
-
 variable "region" {
   type        = string
   default     = "eu-central-1"
@@ -42,6 +29,14 @@ variable "create_namespace" {
   type        = bool
   default     = false
   description = "Wether or no to create namespace if namespace does not exist."
+}
+
+variable "eks_oidc_root_ca_thumbprint" {
+  type = string
+}
+
+variable "oidc_provider_arn" {
+  type = string
 }
 
 # Auth data
