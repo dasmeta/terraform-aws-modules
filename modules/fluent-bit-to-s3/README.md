@@ -55,7 +55,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | S3 bucket name fluent-bit should stream logs into | `string` | `"fluentbit-bucket-name"` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | S3 bucket name fluent-bit should stream logs into. | `string` | `"fluentbit-bucket-name"` | no |
 | <a name="input_cluster_certificate"></a> [cluster\_certificate](#input\_cluster\_certificate) | n/a | `string` | n/a | yes |
 | <a name="input_cluster_host"></a> [cluster\_host](#input\_cluster\_host) | Auth data | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS cluster name fluent-bit will be installed in. | `string` | n/a | yes |
@@ -66,6 +66,7 @@ No modules.
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace fluent-bit should be deployed into. | `string` | `"kube-system"` | no |
 | <a name="input_oidc_provider_arn"></a> [oidc\_provider\_arn](#input\_oidc\_provider\_arn) | n/a | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS Region logs should be streamed to (defaults to current region). | `string` | `"eu-central-1"` | no |
+| <a name="input_role_name"></a> [role\_name](#input\_role\_name) | AWS IAM Role fluent-bit will be using to stream logs. | `string` | `"logger"` | no |
 
 ## Outputs
 
