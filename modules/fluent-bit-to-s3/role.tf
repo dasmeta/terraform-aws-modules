@@ -5,8 +5,12 @@ resource "aws_iam_policy" "this" {
   policy = file("${path.module}/iam-policy.json")
 }
 
+locals {
+  role_name = var.role_name != "" ? var.role_name : "${var.cluster_name}-fluent-bit"
+}
+
 resource "aws_iam_role" "fluent-bit" {
-  name = "${var.cluster_name}-fluent-bit"
+  name = local.role_name
 
   assume_role_policy = <<POLICY
 {

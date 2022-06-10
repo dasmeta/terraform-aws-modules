@@ -55,5 +55,11 @@ variable "cluster_token" {
 variable "bucket_name" {
   type        = string
   default     = "fluentbit-bucket-name"
-  description = "S3 bucket name fluent-bit should stream logs into"
+  description = "S3 bucket name fluent-bit should stream logs into."
+}
+
+variable "role_name" {
+  type        = string
+  default     = "logger"
+  description = "AWS IAM Role fluent-bit will be using to stream logs."
 }
