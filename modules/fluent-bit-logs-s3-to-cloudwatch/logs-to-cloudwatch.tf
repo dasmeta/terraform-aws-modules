@@ -3,7 +3,6 @@ data "aws_s3_bucket" "selected" {
   bucket = var.bucket_name
 }
 
-
 resource "aws_cloudwatch_log_group" "test" {
   count = var.create_lambda_s3_to_cloudwatch ? 1 : 0
 
