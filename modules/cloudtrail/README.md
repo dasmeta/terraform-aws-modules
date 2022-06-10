@@ -1,6 +1,10 @@
-Module use examples.
+<!-- BEGIN_TF_DOCS -->
+# Why
+Module will enable AWS cloudtrail and setup streaming logs into S3 bucket
 
-# Example 1
+## Examples
+
+### Example 1
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
@@ -8,7 +12,7 @@ module "cloudtrail" {
 }
 ```
 
-# Example 2
+### Example 2
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
@@ -28,16 +32,19 @@ module "cloudtrail" {
   enable_logging             = true
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.16 |
 
 ## Modules
 
@@ -50,7 +57,6 @@ No modules.
 | [aws_cloudtrail.cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail) | resource |
 | [aws_s3_bucket.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_policy.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
