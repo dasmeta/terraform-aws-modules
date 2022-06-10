@@ -4,44 +4,47 @@ data "aws_region" "current" {}
 
 #  User credential who have permission S3 bucket putobject
 variable "aws_secret_key" {
-  type    = string
-  default = ""
+  type        = string
+  default     = ""
+  description = "AWS Secret Key fluent-bit will need to stream logs into s3 bucket to."
 }
 
 variable "aws_access_key" {
-  type    = string
-  default = ""
+  type        = string
+  default     = ""
+  description = "AWS Access Key fluent-bit will need to stream logs into s3 bucket to."
 }
 
 variable "region" {
-  type    = string
-  default = "eu-central-1"
+  type        = string
+  default     = "eu-central-1"
+  description = "AWS Region logs should be streamed to (defaults to current region)."
 }
 variable "fluent_bit_name" {
-  type    = string
-  default = "fluent-bit"
+  type        = string
+  default     = "fluent-bit"
+  description = "Fluent-bit chart release name."
 }
 
 variable "cluster_name" {
   type = string
   # default     = ""
-  description = "eks cluster name"
+  description = "EKS cluster name fluent-bit will be installed in."
 }
 
 variable "namespace" {
   type        = string
   default     = "kube-system"
-  description = "namespace fluent-bit should be deployed into"
+  description = "Namespace fluent-bit should be deployed into."
 }
 
 variable "create_namespace" {
   type        = bool
   default     = false
-  description = "wether or no to create namespace"
+  description = "Wether or no to create namespace if namespace does not exist."
 }
 
 # Auth data
-
 variable "cluster_host" {
   type = string
 }
@@ -55,6 +58,7 @@ variable "cluster_token" {
 }
 
 variable "bucket_name" {
-  type    = string
-  default = "fluentbit-bucket-name"
+  type        = string
+  default     = "fluentbit-bucket-name"
+  description = "S3 bucket name fluent-bit should stream logs into"
 }
