@@ -7,7 +7,7 @@
  * ```terraform
  * module "cloudtrail-s3-to-cloudwatch-minimal" {
  *   source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
- *   version = "0.32.0"
+ *   version = "0.33.0"
  *
  *   bucket_name                    = "cloudtrail-log-bucket"
  *   create_lambda_s3_to_cloudwatch = true
@@ -20,7 +20,7 @@
  * ```terraform
  * module "cloudtrail-s3-to-cloudwatch-no-lambda" {
  *   source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
- *   version = "0.32.0"
+ *   version = "0.33.0"
  *
  *   bucket_name                    = "cloudtrail-log-bucket"
  *   cloudtrail_name                = "cloudtrail"
@@ -31,7 +31,7 @@
  * ```terraform
  * module "cloudtrail-s3-to-cloudwatch-different-account" {
  *   source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
- *   version = "0.32.0"
+ *   version = "0.33.0"
  *
  *   bucket_name                    = "cloudtrail-log-bucket"
  *   cloudtrail_name                = "cloudtrail"
