@@ -1,8 +1,14 @@
-# Create S3 bucket for CloudTrail and enable lambda for move data to CloudWatch
+<!-- BEGIN_TF_DOCS -->
+# Why
+Create S3 bucket for CloudTrail and lambda to push data to CloudWatch
 
-```
-module "cloudtrail-to-s3-to-cloudwatch" {
-  source                         = "./cloudtrail-s3-to-cloudwatch"
+## Examples
+Minimal Setup
+```terraform
+module "cloudtrail-s3-to-cloudwatch-minimal" {
+  source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
+  version = "0.32.0"
+
   bucket_name                    = "cloudtrail-log-bucket"
   create_lambda_s3_to_cloudwatch = true
   // If you want access another account to write bucket you can set account id , if you use cloudtrail and s3 bucket same account you shouldn't set this variable
@@ -10,10 +16,35 @@ module "cloudtrail-to-s3-to-cloudwatch" {
   cloudtrail_name                = "cloudtrail"
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+Disable Lambda - just bucket
+```terraform
+module "cloudtrail-s3-to-cloudwatch-no-lambda" {
+  source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
+  version = "0.32.0"
+
+  bucket_name                    = "cloudtrail-log-bucket"
+  cloudtrail_name                = "cloudtrail"
+  create_lambda_s3_to_cloudwatch = false
+}
+```
+Different AWS Account (cross account log streaming)
+```terraform
+module "cloudtrail-s3-to-cloudwatch-different-account" {
+  source  = "dasmeta/modules/aws//modules/cloudtrail-s3-to-cloudwatch"
+  version = "0.32.0"
+
+  bucket_name                    = "cloudtrail-log-bucket"
+  cloudtrail_name                = "cloudtrail"
+  account_id                     = "56**168"
+}
+```
+
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 4.16 |
 
 ## Providers
 
@@ -43,11 +74,11 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `string` | `""` | no |
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `"test-fluent-bit-bla"` | no |
-| <a name="input_cloudtrail_name"></a> [cloudtrail\_name](#input\_cloudtrail\_name) | n/a | `string` | n/a | yes |
-| <a name="input_cloudtrail_region"></a> [cloudtrail\_region](#input\_cloudtrail\_region) | n/a | `string` | `"us-east-1"` | no |
-| <a name="input_create_lambda_s3_to_cloudwatch"></a> [create\_lambda\_s3\_to\_cloudwatch](#input\_create\_lambda\_s3\_to\_cloudwatch) | n/a | `bool` | `true` | no |
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | AWS Account ID logs will be pushed from. Will take default account\_id if nothing provided. | `string` | `""` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Whatever bucket CloudTrail logs will be pushed into. Works cross account. | `string` | `"test-fluent-bit-bla"` | no |
+| <a name="input_cloudtrail_name"></a> [cloudtrail\_name](#input\_cloudtrail\_name) | CloudTrail name logs will be pushed from. Used to setup permissions on Bucket to accept logs from. | `string` | n/a | yes |
+| <a name="input_cloudtrail_region"></a> [cloudtrail\_region](#input\_cloudtrail\_region) | The region CloudTrail reside. Used to to setup permissions on Bucket to accept logs from. Defaults to current region if non provided. | `string` | `""` | no |
+| <a name="input_create_lambda_s3_to_cloudwatch"></a> [create\_lambda\_s3\_to\_cloudwatch](#input\_create\_lambda\_s3\_to\_cloudwatch) | Will create Lambda which will push s3 logs into CloudWatch. | `bool` | `true` | no |
 
 ## Outputs
 

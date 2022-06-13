@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
-resource "" "errors" {
+resource "aws_cloudwatch_metric_alarm" "errors" {
   count = var.create_alarm ? 1 : 0
 
   alarm_name        = "${module.lambda.function_name}-errors"
