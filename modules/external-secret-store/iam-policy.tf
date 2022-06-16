@@ -2,6 +2,8 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_iam_policy" "policy" {
+  count = var.create_user ? 1 : 0
+
   name        = "external-secrets-access-policy-for-store-${local.sanitized-name}"
   path        = "/"
   description = "Policy gives external secrets store access to ${var.name}* secrets"
