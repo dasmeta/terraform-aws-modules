@@ -12,8 +12,10 @@ module "iam-user" {
 }
 
 resource "aws_iam_user_policy_attachment" "test-attach" {
+  count = var.create_user ? 1 : 0
+
   user       = module.iam-user[0].iam_user_name
-  policy_arn = aws_iam_policy.policy.arn
+  policy_arn = aws_iam_policy.policy[0].arn
 
   depends_on = [
     module.iam-user
