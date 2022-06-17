@@ -65,3 +65,13 @@ variable "sns_topic_name" {
   description = "Specifies the name of the Amazon SNS topic defined for notification of log file delivery"
   default     = null
 }
+
+variable "create_s3_bucket" {
+  type    = bool
+  default = true
+}
+
+variable "bucket_name" {
+  type    = string
+  default = null
+}
