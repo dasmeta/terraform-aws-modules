@@ -2,6 +2,7 @@ variable "name" {
   type        = string
   description = "Name"
 }
+
 variable "alb_arn" {
   type        = string
   description = "Application Load Balancer ARN"
@@ -25,23 +26,39 @@ variable "create_alb_association" {
   description = "Whether to create alb association with WAF web acl"
   default     = false
 }
+
 variable "allow_default_action" {
   type        = bool
   description = "Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default."
   default     = true
 }
+
 variable "visibility_config" {
   type        = any
   description = "Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration"
   default     = { metric_name = "test-waf-setup-waf-main-metrics" }
 }
+
 variable "rules" {
   type        = any
   description = "List of WAF rules."
   default     = []
 }
+
 variable "tags" {
   type        = any
   description = "List of WAF rules."
   default     = {}
+}
+
+variable "whitelist_ips" {
+  type        = list(string)
+  description = "List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule"
+  default     = []
+}
+
+variable "enable_whitelist" {
+  type        = bool
+  description = "An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist_ids list, as it will fail to remove in use resources"
+  default     = true
 }
