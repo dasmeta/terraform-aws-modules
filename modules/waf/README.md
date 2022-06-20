@@ -12,7 +12,7 @@ module "waf_alb" {
 }
 ```
 
-### Example 2 Simple example create waf for cloudfront. This example not set roles and doesn't have cloudfront association. You should use the web_acl_id property on the cloudfront_distribution instead. 
+### Example 2 Simple example create waf for cloudfront and allow only one IP access to it. This example doesn't have cloudfront association. You should use the web_acl_id property on the cloudfront_distribution instead.
 
 ```
 module "waf_cloudfront" {
@@ -25,6 +25,11 @@ module "waf_cloudfront" {
     metric_name                = "test-waf"
     sampled_requests_enabled   = true
   }
+
+  allow_default_action = false
+  whitelist_ips = [
+    "XXX.XXX.XXX.XXX/32" # Your super IP here
+  ]
 }
 ```
 
