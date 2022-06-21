@@ -18,7 +18,7 @@ module "alb-logs-lambda" {
 }
 ```
 
-# Create s3 bucket for CloudFront 
+# Create s3 bucket for ALB 
 ```
 module "alb-logs-lambda" {
   source              = "dasmeta/modules/aws//modules/alb-to-s3-to-cloudwatch/"
