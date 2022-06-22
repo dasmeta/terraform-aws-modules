@@ -2,8 +2,7 @@
 
 ## usage minimum example
 ```terraform
-# TODO: have module in our aws modules list and create security group with specific SG accesses 
-module "ess" {
+module "elastic-search" {
   source = "dasmeta/modules/aws//modules/elastic-search"
   version = "0.33.5"
  
