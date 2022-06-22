@@ -61,9 +61,9 @@ No requirements.
 | <a name="input_node_to_node_encryption_enabled"></a> [node\_to\_node\_encryption\_enabled](#input\_node\_to\_node\_encryption\_enabled) | Whether to enable node to node encryption | `bool` | `true` | no |
 | <a name="input_snapshot_options_automated_snapshot_start_hour"></a> [snapshot\_options\_automated\_snapshot\_start\_hour](#input\_snapshot\_options\_automated\_snapshot\_start\_hour) | The amount of ours to wait to snapshot of ES db | `number` | `0` | no |
 | <a name="input_timeouts_update"></a> [timeouts\_update](#input\_timeouts\_update) | The timeout update of ES | `string` | `null` | no |
-| <a name="input_vpc_options_security_group_whitelist_cidr"></a> [vpc\_options\_security\_group\_whitelist\_cidr](#input\_vpc\_options\_security\_group\_whitelist\_cidr) | The list of security group cidr blocks | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_vpc_options_security_group_whitelist_ids"></a> [vpc\_options\_security\_group\_whitelist\_ids](#input\_vpc\_options\_security\_group\_whitelist\_ids) | The list of security group ids | `list(string)` | `[]` | no |
-| <a name="input_vpc_options_subnet_ids"></a> [vpc\_options\_subnet\_ids](#input\_vpc\_options\_subnet\_ids) | The list of vpc subnet ids | `list(string)` | `[]` | no |
+| <a name="input_vpc_options_security_group_whitelist_cidr"></a> [vpc\_options\_security\_group\_whitelist\_cidr](#input\_vpc\_options\_security\_group\_whitelist\_cidr) | The list of security group cidr blocks to whitelist in ingress | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| <a name="input_vpc_options_security_group_whitelist_ids"></a> [vpc\_options\_security\_group\_whitelist\_ids](#input\_vpc\_options\_security\_group\_whitelist\_ids) | The list of security group ids to whitelist in ingress | `list(string)` | `[]` | no |
+| <a name="input_vpc_options_subnet_ids"></a> [vpc\_options\_subnet\_ids](#input\_vpc\_options\_subnet\_ids) | The list of vpc subnet ids, if availability\_zone\_count is two you have to pass two subnet ids | `list(string)` | n/a | yes |
 | <a name="input_zone_awareness_enabled"></a> [zone\_awareness\_enabled](#input\_zone\_awareness\_enabled) | The zone awareness of ES | `bool` | `true` | no |
 
 ## Outputs
