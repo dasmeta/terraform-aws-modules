@@ -1,6 +1,6 @@
 module "bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.0.1"
+  version = "3.3.0"
 
   bucket = var.name
   acl    = var.acl
@@ -28,7 +28,7 @@ module "iam_user" {
       {
         "Effect" : "Allow",
         "Action" : var.iam_user_actions,
-        "Resource" : "arn:aws:s3:::${var.name}/*"
+        "Resource" : ["arn:aws:s3:::${var.name}", "arn:aws:s3:::${var.name}/*"]
       }
     ]
   })

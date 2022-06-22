@@ -64,7 +64,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bucket"></a> [bucket](#module\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.0.1 |
+| <a name="module_bucket"></a> [bucket](#module\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.3.0 |
 | <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.25.5 |
 
 ## Resources
