@@ -3,6 +3,23 @@ variable "domain_name" {
   description = "The domain name of ES"
 }
 
+variable "vpc_options_subnet_ids" {
+  type        = list(string)
+  description = "The list of vpc subnet ids, if availability_zone_count is two you have to pass two subnet ids"
+}
+
+variable "vpc_options_security_group_whitelist_ids" {
+  type        = list(string)
+  default     = []
+  description = "The list of security group ids to whitelist in ingress"
+}
+
+variable "vpc_options_security_group_whitelist_cidr" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  description = "The list of security group cidr blocks to whitelist in ingress"
+}
+
 variable "es_version" {
   type        = string
   default     = "7.1"
@@ -61,24 +78,6 @@ variable "encrypt_at_rest_kms_key_id" {
   type        = string
   default     = "alias/aws/es"
   description = "The KMS key id to encrypt the ES domain with. If not specified then it defaults to using the aws/es service KMS key"
-}
-
-variable "vpc_options_subnet_ids" {
-  type        = list(string)
-  default     = []
-  description = "The list of vpc subnet ids"
-}
-
-variable "vpc_options_security_group_whitelist_ids" {
-  type        = list(string)
-  default     = []
-  description = "The list of security group ids"
-}
-
-variable "vpc_options_security_group_whitelist_cidr" {
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-  description = "The list of security group cidr blocks"
 }
 
 variable "node_to_node_encryption_enabled" {
