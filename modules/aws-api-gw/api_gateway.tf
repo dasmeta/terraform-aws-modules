@@ -9,7 +9,7 @@ resource "aws_api_gateway_rest_api" "api_gw" {
   }
 }
 
-resource "aws_api_gateway_deployment" "example" {
+resource "aws_api_gateway_deployment" "aws-api-depl" {
   rest_api_id = aws_api_gateway_rest_api.api_gw.id
 
   triggers = {
@@ -21,8 +21,8 @@ resource "aws_api_gateway_deployment" "example" {
   }
 }
 
-resource "aws_api_gateway_stage" "example" {
-  deployment_id = aws_api_gateway_deployment.example.id
+resource "aws_api_gateway_stage" "aws-api-stage" {
+  deployment_id = aws_api_gateway_deployment.aws-api-depl.id
   rest_api_id   = aws_api_gateway_rest_api.api_gw.id
   stage_name    = var.stage_name
 }
