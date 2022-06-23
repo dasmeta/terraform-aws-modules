@@ -226,7 +226,9 @@ def handler(event, context):
         for entry in read_log_entries(bucket, key):
             message = json.dumps(entry)
             print(f"Message {message}")
-            timestamp = int(parse_iso8601(entry["date"]).timestamp() * 1000)
+            # timestamp = int(parse_iso8601(entry["date"]).timestamp() * 1000)
+            datetimeNow = datetime.now()
+            timestamp = int(datetimeNow.timestamp() * 1000)
             parsed_entries.append((timestamp, message))
 
         parsed_entries.sort()
