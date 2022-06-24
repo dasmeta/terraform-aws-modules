@@ -22,3 +22,7 @@ variable "stage_name" {
   type = string
   default = "api-stage"
 }
+
+variable "rest_api_id" {
+  type = string
+}
