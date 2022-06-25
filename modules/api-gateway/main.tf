@@ -2,7 +2,7 @@ resource "aws_api_gateway_rest_api" "api-gateway" {
 
   name = var.name
 
-  body = templatefile("${path.module}/templates/sample.json.tpl", {
+  body = templatefile(var.open_api_path != "" ? var.open_api_path : "${path.module}/src/sample.json.tpl" ,  {
     path1 = "/"
     method1= "get"
     response_code="200"

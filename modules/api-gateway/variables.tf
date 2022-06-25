@@ -27,3 +27,12 @@ variable "rest_api_id" {
   type = string
   default = ""
 }
+
+variable "open_api_path" {
+  type = string
+  default = ""
+}
+
+
+
+
