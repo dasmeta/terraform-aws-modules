@@ -2,10 +2,22 @@ resource "aws_api_gateway_rest_api" "api-gateway" {
 
   name = var.name
 
+  body = templatefile("${path.module}/templates/sample.json.tpl", {
+    path1 = "/"
+    method1= "get"
+    response_code="200"
+  })
+
+
+
   endpoint_configuration {
     types = [var.endpoint_config_type]
   }
 }
+
+#data "template_file" "open_api" {
+#  template = file("${path.module}/templates/sample.tftpl")
+#}
 
 resource "aws_api_gateway_deployment" "aws-api-depl" {
   rest_api_id = var.rest_api_id != "" ? var.rest_api_id : aws_api_gateway_rest_api.api-gateway.id

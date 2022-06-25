@@ -25,4 +25,5 @@ variable "stage_name" {
 
 variable "rest_api_id" {
   type = string
+  default = ""
 }
