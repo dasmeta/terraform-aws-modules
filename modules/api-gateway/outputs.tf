@@ -8,5 +8,18 @@ output "execution_arn" {
   description = "The Execution ARN of the REST API."
 }
 
+output "access_key_id" {
+  value = aws_iam_access_key.api-gw-ak.id
+}
+
+output "access_secret_key" {
+  value = aws_iam_access_key.api-gw-ak.secret
+  sensitive = true
+}
+
+
+
+
+
 
 
