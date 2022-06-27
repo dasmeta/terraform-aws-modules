@@ -1,8 +1,5 @@
 resource "aws_iam_user" "api-gw-user" {
-  name = "api-gw-user"
-  path = "/system/"
-
-
+  name = var.iam_username
 }
 
 resource "aws_iam_access_key" "api-gw-ak" {
@@ -11,12 +8,10 @@ resource "aws_iam_access_key" "api-gw-ak" {
 }
 
 resource "aws_iam_user_policy" "api-gw-policy" {
-  name = "API-Gateway-policy"
+  name = var.policy_name
   user = aws_iam_user.api-gw-user.name
 
-  policy = file("${path.module}/src/iam-policy.json")
+  policy = templatefile("${path.module}/src/iam-policy.json.tpl", {
+    restapi_name = aws_api_gateway_rest_api.api-gateway.id
+  })
 }
-
-
-
-

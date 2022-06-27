@@ -39,4 +39,14 @@ variable "pgp_key" {
   default = ""
 }
 
+variable "iam_username" {
+  description = "username of newly created IAM user"
+  type        = string
+  default     = "api-gw-user"
+}
 
+variable "policy_name" {
+  description = "API Gateway policy name"
+  type        = string
+  default     = "api-gw-policy"
+}

@@ -16,10 +16,3 @@ output "access_secret_key" {
   value = aws_iam_access_key.api-gw-ak.secret
   sensitive = true
 }
-
-
-
-
-
-
-
