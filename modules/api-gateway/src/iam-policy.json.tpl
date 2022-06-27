@@ -7,10 +7,11 @@
       "Action": "apigateway:GET",
       "Resource": [
         "arn:aws:apigateway:*::/account",
-        "arn:aws:apigateway:*::/apis/*",
-        "arn:aws:apigateway:*::/apis",
+         "arn:aws:apigateway:*::/apis",
         "arn:aws:apigateway:*::/restapis",
-        "arn:aws:apigateway:*::/restapis/*"
+        "arn:aws:apigateway:*::/restapis/${restapi_name}",
+        "arn:aws:apigateway:*::/restapis/${restapi_name}/*"
+
       ]
     },
     {
