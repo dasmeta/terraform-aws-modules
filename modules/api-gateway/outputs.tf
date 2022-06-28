@@ -13,6 +13,6 @@ output "access_key_id" {
 }
 
 output "access_secret_key" {
-  value = aws_iam_access_key.api-gw-ak.secret
+  value     = var.pgp_key != "" ? aws_iam_access_key.api-gw-ak.encrypted_secret :  aws_iam_access_key.api-gw-ak.secret
   sensitive = true
 }

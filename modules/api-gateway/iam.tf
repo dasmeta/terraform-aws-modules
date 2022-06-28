@@ -3,7 +3,7 @@ resource "aws_iam_user" "api-gw-user" {
 }
 
 resource "aws_iam_access_key" "api-gw-ak" {
-  user = aws_iam_user.api-gw-user.name
+  user    = aws_iam_user.api-gw-user.name
   pgp_key = var.pgp_key
 }
 
