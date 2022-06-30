@@ -60,8 +60,8 @@ resource "aws_api_gateway_deployment" "aws-api-depl" {
 }
 
 resource "aws_api_gateway_usage_plan" "example" {
-  name         = var.usage_plan_values.usage_plan_name
-  description  = var.usage_plan_values.usage_plan_description
+  name        = var.usage_plan_values.usage_plan_name
+  description = var.usage_plan_values.usage_plan_description
 
   api_stages {
     api_id = aws_api_gateway_rest_api.api-gateway.id
