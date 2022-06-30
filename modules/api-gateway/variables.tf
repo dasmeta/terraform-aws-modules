@@ -40,3 +40,88 @@ variable "policy_name" {
   type        = string
   default     = "api-gw-policy"
 }
+
+#variable "http_method" {
+#
+#}
+#
+#variable "authorization" {
+#
+#}
+#
+#variable "api_key_required" {
+#
+#}
+
+#variable "integr_type" {
+#
+#}
+#
+#variable "integr_uri" {
+#
+#}
+#
+#variable "integr_http_method" {
+#
+#}
+#
+#variable "integr_passthrough" {
+#
+#}
+#
+#variable "integr_content_handling" {
+#
+#}
+#
+#variable "integr_header_name" {
+#
+#}
+#
+#variable "integr_header_mapto" {
+#
+#}
+
+variable "integration_values" {
+  type = map(string)
+  default = {
+    "type" = "HTTP" #HTTP AWS MOCK HTTP_PROXY AWS_PROXY
+    "endpoint_uri" = "https://www.google.de"
+    "integration_http_method" = "GET"
+    "header_name" = "integration.request.header.x-api-key"
+    "header_mapto" = "method.request.header.x-api-key"
+  }
+}
+
+variable "method_values" {
+  type = map(string)
+  default = {
+    "http_method" = "POST"
+    authorization = "NONE"
+    "api_key_required" = "true"
+  }
+}
+
+variable "usage_plan_values" {
+  default = {
+    usage_plan_name = "my-usage-plan"
+    "usage_plan_description" = "my description"
+    "quota_limit" = 10000
+    "quota_period" = "MONTH"
+    "throttle_burst_limit" = 1000
+    "throttle_rate_limit" = 500
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

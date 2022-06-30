@@ -8,6 +8,29 @@ module "api_gateway" {
   name = "api_gw"
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"
+
+  integration_values = {
+    "type" = "HTTP"
+    "endpoint_uri" = "https://www.google.de"
+    "integration_http_method" = "GET"
+    "header_name" = "integration.request.header.x-api-key"
+    "header_mapto" = "method.request.header.x-api-key"
+  }
+
+  method_values = {
+    "http_method" = "POST"
+    authorization = "NONE"
+    "api_key_required" = "true"
+  }
+
+  usage_plan_values = {
+    usage_plan_name = "my-usage-plan"
+    "usage_plan_description" = "my description"
+    "quota_limit" = 10000
+    "quota_period" = "MONTH"
+    "throttle_burst_limit" = 1000
+    "throttle_rate_limit" = 500
+  }
 }
 
 output "access_key_id" {
@@ -32,6 +55,29 @@ module "api_gateway" {
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"
   pgp_key = "keybase:miandevops"
+
+  integration_values = {
+    "type" = "HTTP"
+    "endpoint_uri" = "https://www.google.de"
+    "integration_http_method" = "GET"
+    "header_name" = "integration.request.header.x-api-key"
+    "header_mapto" = "method.request.header.x-api-key"
+  }
+
+  method_values = {
+    "http_method" = "POST"
+    authorization = "NONE"
+    "api_key_required" = "true"
+  }
+
+  usage_plan_values = {
+    usage_plan_name = "my-usage-plan"
+    "usage_plan_description" = "my description"
+    "quota_limit" = 10000
+    "quota_period" = "MONTH"
+    "throttle_burst_limit" = 1000
+    "throttle_rate_limit" = 500
+  }
 }
 
 output "access_key_id" {
