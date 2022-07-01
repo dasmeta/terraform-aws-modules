@@ -4,7 +4,7 @@ Module usage without "access secret key" encryption, so it will be directly outp
 
 ```
 module "api_gateway" {
-  source = "../terraform-aws-modules/modules/api-gateway"
+  source = "dasmeta/modules/aws//modules/api-gateway"
   name = "api_gw"
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"
@@ -50,7 +50,7 @@ terraform output -raw access_secret_key | base64 --decode | keybase pgp decrypt
 
 ```
 module "api_gateway" {
-  source = "../terraform-aws-modules/modules/api-gateway"
+  source = "dasmeta/modules/aws//modules/api-gateway"
   name = "api_gw"
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"

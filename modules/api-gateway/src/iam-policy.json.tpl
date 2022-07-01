@@ -6,11 +6,11 @@
       "Effect": "Allow",
       "Action": "apigateway:GET",
       "Resource": [
-        "arn:aws:apigateway:*::/account",
-         "arn:aws:apigateway:*::/apis",
-        "arn:aws:apigateway:*::/restapis",
-        "arn:aws:apigateway:*::/restapis/${restapi_name}",
-        "arn:aws:apigateway:*::/restapis/${restapi_name}/*"
+        "arn:aws:apigateway:${region}::/account",
+         "arn:aws:apigateway:${region}::/apis",
+        "arn:aws:apigateway:${region}::/restapis",
+        "arn:aws:apigateway:${region}::/restapis/${restapi_name}",
+        "arn:aws:apigateway:${region}::/restapis/${restapi_name}/*"
 
       ]
     },
@@ -19,10 +19,10 @@
       "Effect": "Allow",
       "Action": "apigateway:*",
       "Resource": [
-        "arn:aws:apigateway:*::/apikeys/*",
-        "arn:aws:apigateway:*::/apikeys",
-        "arn:aws:apigateway:*::/usageplans",
-        "arn:aws:apigateway:*::/usageplans/*"
+        "arn:aws:apigateway:${region}::/apikeys/*",
+        "arn:aws:apigateway:${region}::/apikeys",
+        "arn:aws:apigateway:${region}::/usageplans",
+        "arn:aws:apigateway:${region}::/usageplans/*"
       ]
     }
   ]

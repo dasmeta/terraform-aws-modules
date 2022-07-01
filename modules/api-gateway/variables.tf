@@ -3,6 +3,11 @@ variable "name" {
   default = "api-gw"
 }
 
+variable "create_user" {
+  type = bool
+  default = true
+}
+
 variable "endpoint_config_type" {
   type    = string
   default = "REGIONAL"
@@ -41,46 +46,6 @@ variable "policy_name" {
   default     = "api-gw-policy"
 }
 
-#variable "http_method" {
-#
-#}
-#
-#variable "authorization" {
-#
-#}
-#
-#variable "api_key_required" {
-#
-#}
-
-#variable "integr_type" {
-#
-#}
-#
-#variable "integr_uri" {
-#
-#}
-#
-#variable "integr_http_method" {
-#
-#}
-#
-#variable "integr_passthrough" {
-#
-#}
-#
-#variable "integr_content_handling" {
-#
-#}
-#
-#variable "integr_header_name" {
-#
-#}
-#
-#variable "integr_header_mapto" {
-#
-#}
-
 variable "integration_values" {
   type = map(string)
   default = {
@@ -110,18 +75,4 @@ variable "usage_plan_values" {
     "throttle_burst_limit"   = 1000
     "throttle_rate_limit"    = 500
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

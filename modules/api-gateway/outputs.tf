@@ -9,10 +9,10 @@ output "execution_arn" {
 }
 
 output "access_key_id" {
-  value = aws_iam_access_key.api-gw-ak.id
+  value = try (aws_iam_access_key.api-gw-ak[0].id, "")
 }
 
 output "access_secret_key" {
-  value     = var.pgp_key != "" ? aws_iam_access_key.api-gw-ak.encrypted_secret : aws_iam_access_key.api-gw-ak.secret
+  value     = try (var.pgp_key != "" ? aws_iam_access_key.api-gw-ak[0].encrypted_secret : aws_iam_access_key.api-gw-ak[0].secret, "")
   sensitive = true
 }
