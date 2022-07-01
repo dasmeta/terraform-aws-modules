@@ -1,13 +1,14 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  account_id = var.account_id == "" ? data.aws_caller_identity.current.account_id : var.account_id
+  account_id  = var.account_id == "" ? data.aws_caller_identity.current.account_id : var.account_id
+  bucket_name = var.bucket_name == "" ? "${local.account_id}-cloudfront-logs" : var.bucket_name
 }
 
 resource "aws_s3_bucket" "bucket" {
   count = var.create_bucket ? 1 : 0
 
-  bucket = var.bucket_name
+  bucket = local.bucket_name
 }
 
 resource "aws_s3_bucket_policy" "s3" {
@@ -31,8 +32,8 @@ resource "aws_s3_bucket_policy" "s3" {
                 "s3:PutBucketAcl"
             ],
             "Resource": [
-                "arn:aws:s3:::${var.bucket_name}",
-                "arn:aws:s3:::${var.bucket_name}/*"
+                "arn:aws:s3:::${local.bucket_name}",
+                "arn:aws:s3:::${local.bucket_name}/*"
             ]
         }
     ]
