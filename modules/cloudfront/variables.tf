@@ -245,3 +245,8 @@ variable "minimum_protocol_version" {
   default     = "TLSv1"
   description = "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections."
 }
+
+variable "logging_config" {
+  type    = any
+  default = {}
+}
