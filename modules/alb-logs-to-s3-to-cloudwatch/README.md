@@ -1,7 +1,7 @@
 # Create S3 bucket for ALB and enable lambda for move data to CloudWatch
 ```
 module "alb-logs-lambda" {
-  source              = "dasmeta/modules/aws//modules/alb-to-s3-to-cloudwatch/"
+  source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
   alb_log_bucket_name = "alb-access-log-test-123232234232313"
   account_id          = "56**8"
 }
@@ -11,7 +11,7 @@ module "alb-logs-lambda" {
 # Create lambda for move ALB s3 logs to CloudWatch
 ```
 module "alb-logs-lambda" {
-  source              = "dasmeta/modules/aws//modules/alb-to-s3-to-cloudwatch/"
+  source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
   alb_log_bucket_name = "alb-access-log-test-123232234232313"
   account_id  = "56**8"
   create_alb_log_bucket = false
@@ -21,7 +21,7 @@ module "alb-logs-lambda" {
 # Create s3 bucket for ALB 
 ```
 module "alb-logs-lambda" {
-  source              = "dasmeta/modules/aws//modules/alb-to-s3-to-cloudwatch/"
+  source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
   alb_log_bucket_name = "alb-access-log-test-123232234232313"
   create_lambda = false
 }
@@ -41,7 +41,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb_logs_to_cloudwatch"></a> [alb\_logs\_to\_cloudwatch](#module\_alb\_logs\_to\_cloudwatch) | ./alb-to-s3-to-cloudwatch-lambda | n/a |
+| <a name="module_alb_logs_to_cloudwatch"></a> [alb\_logs\_to\_cloudwatch](#module\_alb\_logs\_to\_cloudwatch) | ./alb-logs-to-s3-to-cloudwatch-lambda | n/a |
 
 ## Resources
 
