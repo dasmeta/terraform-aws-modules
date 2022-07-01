@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "create_user" {
-  type = bool
+  type    = bool
   default = true
 }
 

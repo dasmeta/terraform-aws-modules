@@ -121,11 +121,13 @@ No modules.
 | [aws_iam_access_key.api-gw-ak](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key) | resource |
 | [aws_iam_user.api-gw-user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
 | [aws_iam_user_policy.api-gw-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_create_user"></a> [create\_user](#input\_create\_user) | n/a | `bool` | `true` | no |
 | <a name="input_endpoint_config_type"></a> [endpoint\_config\_type](#input\_endpoint\_config\_type) | n/a | `string` | `"REGIONAL"` | no |
 | <a name="input_iam_username"></a> [iam\_username](#input\_iam\_username) | username of newly created IAM user | `string` | `"api-gw-user"` | no |
 | <a name="input_integration_values"></a> [integration\_values](#input\_integration\_values) | n/a | `map(string)` | <pre>{<br>  "endpoint_uri": "https://www.google.de",<br>  "header_mapto": "method.request.header.x-api-key",<br>  "header_name": "integration.request.header.x-api-key",<br>  "integration_http_method": "GET",<br>  "type": "HTTP"<br>}</pre> | no |
