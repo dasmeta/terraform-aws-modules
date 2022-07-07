@@ -76,3 +76,36 @@ variable "usage_plan_values" {
     "throttle_rate_limit"    = 500
   }
 }
+
+variable "manage_method_settings" {
+  type    = bool
+  default = true
+}
+
+variable "method_path" {
+  type    = string
+  default = "*/*"
+}
+
+variable "metrics_enabled" {
+  type    = bool
+  default = true
+}
+
+variable "data_trace_enabled" {
+  type    = bool
+  default = true
+}
+
+variable "logging_level" {
+  type    = string
+  default = "INFO"
+}
+
+variable "throttling" {
+  type = map(number)
+  default = {
+    throttling_rate_limit  = 100
+    throttling_burst_limit = 50
+  }
+}
