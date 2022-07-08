@@ -1,5 +1,4 @@
 resource "aws_api_gateway_rest_api" "api-gateway" {
-
   name = var.name
 
   endpoint_configuration {
@@ -16,6 +15,7 @@ resource "aws_api_gateway_method" "api_method" {
   request_parameters = {
     "method.request.header.x-api-key" = var.method_values.api_key_required
   }
+
   api_key_required = true
 }
 
