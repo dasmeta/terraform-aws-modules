@@ -13,16 +13,16 @@ terraform {
   }
 }
 
-provider "kubernetes" {
-  # Configuration options
-  host                   = var.cluster_host
-  cluster_ca_certificate = var.cluster_certificate
-  token                  = var.cluster_token
-}
+# provider "kubernetes" {
+#   # Configuration options
+#   host                   = var.cluster_host
+#   cluster_ca_certificate = var.cluster_certificate
+#   token                  = var.cluster_token
+# }
 
-provider "kubectl" {
-  host                   = var.cluster_host
-  cluster_ca_certificate = var.cluster_certificate
-  token                  = var.cluster_token
-  load_config_file       = false
-}
+# provider "kubectl" {
+#   host                   = var.cluster_host
+#   cluster_ca_certificate = var.cluster_certificate
+#   token                  = var.cluster_token
+#   load_config_file       = false
+# }

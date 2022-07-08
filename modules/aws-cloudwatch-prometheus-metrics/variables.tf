@@ -16,17 +16,3 @@ variable "cluster_name" {
   default     = ""
   description = "eks cluster name"
 }
-
-# Auth data
-
-variable "cluster_host" {
-  type = string
-}
-
-variable "cluster_certificate" {
-  type = string
-}
-
-variable "cluster_token" {
-  type = string
-}
