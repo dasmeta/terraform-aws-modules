@@ -1,18 +1,19 @@
+variable "cluster_name" {
+  type    = string
+  default = "dasmeta-test-new2"
+}
+
 variable "namespace" {
   type    = string
   default = "amazon-cloudwatch"
 }
 
 variable "eks_oidc_root_ca_thumbprint" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "oidc_provider_arn" {
-  type = string
-}
-
-variable "cluster_name" {
-  type        = string
-  default     = ""
-  description = "eks cluster name"
+  type    = string
+  default = ""
 }
