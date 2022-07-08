@@ -76,3 +76,22 @@ variable "usage_plan_values" {
     "throttle_rate_limit"    = 500
   }
 }
+
+variable "enable_monitoring" {
+  type    = bool
+  default = true
+}
+
+variable "method_path" {
+  type    = string
+  default = "*/*"
+}
+variable "monitoring_settings" {
+  default = {
+    "metrics_enabled"        = true
+    "data_trace_enabled"     = true
+    "logging_level"          = "INFO"
+    "throttling_rate_limit"  = 100
+    "throttling_burst_limit" = 50
+  }
+}
