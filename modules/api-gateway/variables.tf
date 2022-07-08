@@ -77,7 +77,7 @@ variable "usage_plan_values" {
   }
 }
 
-variable "manage_method_settings" {
+variable "enable_monitoring" {
   type    = bool
   default = true
 }
@@ -86,26 +86,12 @@ variable "method_path" {
   type    = string
   default = "*/*"
 }
-
-variable "metrics_enabled" {
-  type    = bool
-  default = true
-}
-
-variable "data_trace_enabled" {
-  type    = bool
-  default = true
-}
-
-variable "logging_level" {
-  type    = string
-  default = "INFO"
-}
-
-variable "throttling" {
-  type = map(number)
+variable "monitoring_settings" {
   default = {
-    throttling_rate_limit  = 100
-    throttling_burst_limit = 50
+    "metrics_enabled"        = true
+    "data_trace_enabled"     = true
+    "logging_level"          = "INFO"
+    "throttling_rate_limit"  = 100
+    "throttling_burst_limit" = 50
   }
 }

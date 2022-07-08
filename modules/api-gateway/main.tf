@@ -91,7 +91,7 @@ resource "aws_api_gateway_usage_plan" "example" {
 }
 
 resource "aws_api_gateway_method_settings" "general_settings" {
-  count = var.manage_method_settings ? 1 : 0
+  count = var.enable_monitoring ? 1 : 0
 
   rest_api_id = aws_api_gateway_rest_api.api-gateway.id
   stage_name  = var.stage_name
@@ -99,12 +99,12 @@ resource "aws_api_gateway_method_settings" "general_settings" {
 
   settings {
     # Enable CloudWatch logging and metrics
-    metrics_enabled    = var.metrics_enabled
-    data_trace_enabled = var.data_trace_enabled
-    logging_level      = var.logging_level
+    metrics_enabled    = var.monitoring_settings.metrics_enabled
+    data_trace_enabled = var.monitoring_settings.data_trace_enabled
+    logging_level      = var.monitoring_settings.logging_level
 
     # Limit the rate of calls to prevent abuse and unwanted charges
-    throttling_rate_limit  = var.throttling.throttling_rate_limit
-    throttling_burst_limit = var.throttling.throttling_burst_limit
+    throttling_rate_limit  = var.monitoring_settings.throttling_rate_limit
+    throttling_burst_limit = var.monitoring_settings.throttling_burst_limit
   }
 }
