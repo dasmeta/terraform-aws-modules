@@ -1,14 +1,14 @@
 ```
 module "cloudwatch-metrics" {
-  source = "../aws-cloudwatch-prometheus-metrics" # change to the correct one.
+  source = "dasmeta/modules/aws//modules/aws-cloudwatch-prometheus-metrics" # change to the correct one.
 
   eks_oidc_root_ca_thumbprint = ""
   oidc_provider_arn           = module.eks-cluster.oidc_provider_arn
   cluster_name                = "cluster_name"
 
-  cluster_host        = module.eks-cluster.host
-  cluster_certificate = module.eks-cluster.certificate
-  cluster_token       = module.eks-cluster.token
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 ```
 
