@@ -1,10 +1,11 @@
 data "aws_region" "current" {}
 
 module "api_iam_user" {
-  source = "dasmeta/modules/aws//modules/aws-iam-user"
+  source  = "dasmeta/modules/aws//modules/aws-iam-user"
+  version = "0.35.1"
 
   create_user = var.create_iam_user
-  username    = var.iam_username
+  username    = "${var.name}-user"
   console     = false
   policy = templatefile("${path.module}/src/iam-policy.json.tpl", {
     restapi_name = aws_api_gateway_rest_api.api-gateway.id
