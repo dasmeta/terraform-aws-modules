@@ -113,7 +113,7 @@ You have to copy the {COMMAND} and run in shell/console.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | n/a |
+| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.35.1 |
 
 ## Resources
 
