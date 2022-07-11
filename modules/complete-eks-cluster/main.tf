@@ -43,10 +43,11 @@ module "cloudwatch-metrics" {
   eks_oidc_root_ca_thumbprint = local.eks_oidc_root_ca_thumbprint
   oidc_provider_arn           = module.eks-cluster.oidc_provider_arn
   cluster_name                = var.cluster_name
+  enable_prometheus_metrics   = var.enable_cloudwatch_metrics_for_prometheus
 
-  cluster_host        = module.eks-cluster.host
-  cluster_certificate = module.eks-cluster.certificate
-  cluster_token       = module.eks-cluster.token
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 module "alb-ingress-controller" {
