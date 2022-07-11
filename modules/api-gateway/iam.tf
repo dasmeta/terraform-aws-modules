@@ -2,7 +2,7 @@ data "aws_region" "current" {}
 
 module "api_iam_user" {
   source  = "dasmeta/modules/aws//modules/aws-iam-user"
-  version = "0.35.1"
+  version = "0.35.2"
 
   create_user = var.create_iam_user
   username    = "${var.name}-user"
