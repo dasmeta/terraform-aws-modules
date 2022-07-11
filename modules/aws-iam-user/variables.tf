@@ -33,11 +33,6 @@ variable "pgp_key" {
   default     = ""
 }
 
-variable "create-new-policy" {
-  type        = bool
-  default     = false
-  description = "If value true will create new policy"
-}
 variable "policy" {
   description = "IAM policy resource"
   type        = any
