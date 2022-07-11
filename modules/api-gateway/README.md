@@ -43,10 +43,6 @@ output "access_secret_key" {
 ```
 
 Module usage with PGP encryption
-You can decrypt "access secret key" with following command
-```
-terraform output -raw access_secret_key | base64 --decode | keybase pgp decrypt
-```
 
 ```
 module "api_gateway" {
@@ -84,12 +80,21 @@ output "access_key_id" {
   value = module.api_gateway.access_key_id
 }
 
-output "access_secret_key" {
-  value = module.api_gateway.access_secret_key
-  sensitive = true
+output "secret_access_key" {
+  value       = module.api_gateway.access_secret_key_encrypted == "" ? null : <<EOF
+export GPG_TTY=$(tty) && echo "${module.api_gateway.access_secret_key_encrypted}" | base64 --decode | gpg --decrypt
+EOF
 }
 ```
+In this case your output of `secret_access_key` will be something like this:
+```
+secret_access_key = <<EOT
 
+${COMMAND}
+
+EOT
+```
+You have to copy the {COMMAND} and run in shell/console.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
