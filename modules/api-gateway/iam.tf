@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 module "api_iam_user" {
-  source = "/Users/Vika/Documents/projects/terraform-aws-modules/modules/aws-iam-user"
+  source = "dasmeta/modules/aws//modules/aws-iam-user"
 
   create_user = var.create_iam_user
   username    = var.iam_username
