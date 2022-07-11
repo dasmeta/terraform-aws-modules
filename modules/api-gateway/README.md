@@ -147,6 +147,7 @@ You have to copy the {COMMAND} and run in shell/console.
 | <a name="input_open_api_path"></a> [open\_api\_path](#input\_open\_api\_path) | n/a | `string` | `""` | no |
 | <a name="input_pgp_key"></a> [pgp\_key](#input\_pgp\_key) | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string` | `null` | no |
 | <a name="input_policy_name"></a> [policy\_name](#input\_policy\_name) | API Gateway policy name | `string` | `"api-gw-policy"` | no |
+| <a name="input_response_models"></a> [response\_models](#input\_response\_models) | A map of the API models used for the response's content type. | `map(any)` | `null` | no |
 | <a name="input_rest_api_id"></a> [rest\_api\_id](#input\_rest\_api\_id) | n/a | `string` | `""` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | n/a | `string` | `"api-stage"` | no |
 | <a name="input_usage_plan_values"></a> [usage\_plan\_values](#input\_usage\_plan\_values) | n/a | `map` | <pre>{<br>  "quota_limit": 10000,<br>  "quota_period": "MONTH",<br>  "throttle_burst_limit": 1000,<br>  "throttle_rate_limit": 500,<br>  "usage_plan_description": "my description",<br>  "usage_plan_name": "my-usage-plan"<br>}</pre> | no |
