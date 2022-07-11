@@ -306,7 +306,6 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api"></a> [api](#input\_api) | Whether to create IAM access key | `bool` | `true` | no |
 | <a name="input_console"></a> [console](#input\_console) | Whether to create IAM user login profile | `bool` | `true` | no |
-| <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Whether create a policy or not. | `bool` | `true` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Whether to create the IAM user | `bool` | `true` | no |
 | <a name="input_pgp_key"></a> [pgp\_key](#input\_pgp\_key) | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string` | `""` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | IAM policy resource | `any` | `null` | no |
