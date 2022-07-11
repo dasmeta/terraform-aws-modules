@@ -97,3 +97,9 @@ variable "monitoring_settings" {
     "throttling_burst_limit" = 50
   }
 }
+
+variable "create_policy" {
+  description = "Whether create a policy or not."
+  type        = bool
+  default     = true
+}
