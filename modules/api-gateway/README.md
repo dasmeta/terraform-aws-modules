@@ -113,7 +113,7 @@ You have to copy the {COMMAND} and run in shell/console.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.35.1 |
+| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.35.2 |
 
 ## Resources
 
@@ -135,6 +135,7 @@ You have to copy the {COMMAND} and run in shell/console.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_iam_user"></a> [create\_iam\_user](#input\_create\_iam\_user) | Whether to create specific api access user to api gateway./[''871]. | `bool` | `true` | no |
+| <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Whether create a policy or not. | `bool` | `true` | no |
 | <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | n/a | `bool` | `true` | no |
 | <a name="input_endpoint_config_type"></a> [endpoint\_config\_type](#input\_endpoint\_config\_type) | n/a | `string` | `"REGIONAL"` | no |
 | <a name="input_iam_username"></a> [iam\_username](#input\_iam\_username) | username of newly created IAM user | `string` | `"api-gw-user"` | no |
