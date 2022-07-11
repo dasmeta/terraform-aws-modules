@@ -38,9 +38,3 @@ variable "policy" {
   type        = any
   default     = null
 }
-
-variable "create_policy" {
-  description = "Whether create a policy or not."
-  type        = bool
-  default     = true
-}
