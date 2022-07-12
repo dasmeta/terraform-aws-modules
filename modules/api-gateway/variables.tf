@@ -103,3 +103,9 @@ variable "create_policy" {
   type        = bool
   default     = true
 }
+
+variable "response_models" {
+  description = "A map of the API models used for the response's content type."
+  type        = map(any)
+  default     = null
+}
