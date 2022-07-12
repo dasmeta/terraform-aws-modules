@@ -18,6 +18,20 @@ variable "stage_name" {
   default = "api-stage"
 }
 
+variable "enable_access_logs" {
+  type        = bool
+  default     = true
+  description = "Weather enable or not the access logs on stage"
+}
+
+variable "access_logs_format" {
+  type        = string
+  default     = <<EOT
+{ "requestId":"$context.requestId", "resourcePath":"$context.resourcePath", "httpMethod":"$context.httpMethod", "responseLength":"$context.responseLength", "responseLatency":"$context.responseLatency", "status":"$context.status", "protocol":"$context.protocol", "extendedRequestId":"$context.extendedRequestId", "ip": "$context.identity.sourceIp", "caller":"$context.identity.caller", "user":"$context.identity.user", "userAgent":"$context.identity.userAgent", "requestTime":"$context.requestTime"}
+EOT
+  description = "The access logs format to sync into cloudwatch log group"
+}
+
 variable "rest_api_id" {
   type    = string
   default = ""
@@ -47,22 +61,22 @@ variable "policy_name" {
 }
 
 variable "integration_values" {
-  type = map(string)
+  type = any
   default = {
     "type"                    = "HTTP" #HTTP AWS MOCK HTTP_PROXY AWS_PROXY
     "endpoint_uri"            = "https://www.google.de"
     "integration_http_method" = "GET"
-    "header_name"             = "integration.request.header.x-api-key"
-    "header_mapto"            = "method.request.header.x-api-key"
+    request_parameters        = { "integration.request.header.x-api-key" = "method.request.header.x-api-key" }
   }
 }
 
 variable "method_values" {
-  type = map(string)
+  type = any
   default = {
-    "http_method"      = "POST"
+    http_method        = "POST"
     authorization      = "NONE"
-    "api_key_required" = "true"
+    api_key_required   = true
+    request_parameters = {}
   }
 }
 
@@ -86,6 +100,7 @@ variable "method_path" {
   type    = string
   default = "*/*"
 }
+
 variable "monitoring_settings" {
   default = {
     "metrics_enabled"        = true
@@ -94,4 +109,22 @@ variable "monitoring_settings" {
     "throttling_rate_limit"  = 100
     "throttling_burst_limit" = 50
   }
+}
+
+variable "custom_domain" {
+  type = object({
+    name      = string # this is just first part of domain without zone part
+    zone_name = string
+  })
+  default = {
+    name      = ""
+    zone_name = ""
+  }
+  description = "Allows to setup/attach custom domain to api gateway setup, it will create also r53 record and certificate. Note that all keys of object are required to pass when you need one"
+}
+
+variable "set_account_settings" {
+  type        = bool
+  default     = false
+  description = "The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn"
 }
