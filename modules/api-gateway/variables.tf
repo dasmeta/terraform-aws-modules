@@ -3,9 +3,10 @@ variable "name" {
   default = "api-gw"
 }
 
-variable "create_user" {
-  type    = bool
-  default = true
+variable "create_iam_user" {
+  type        = bool
+  default     = true
+  description = "Whether to create specific api access user to api gateway./[''871]."
 }
 
 variable "endpoint_config_type" {
@@ -45,7 +46,7 @@ variable "open_api_path" {
 variable "pgp_key" {
   description = "Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true`"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "iam_username" {
@@ -127,4 +128,16 @@ variable "set_account_settings" {
   type        = bool
   default     = false
   description = "The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn"
+}
+
+variable "create_policy" {
+  description = "Whether create a policy or not."
+  type        = bool
+  default     = true
+}
+
+variable "response_models" {
+  description = "A map of the API models used for the response's content type."
+  type        = map(any)
+  default     = null
 }

@@ -18,10 +18,11 @@ resource "aws_api_gateway_method" "api_method" {
 }
 
 resource "aws_api_gateway_method_response" "method_response" {
-  rest_api_id = aws_api_gateway_rest_api.api-gateway.id
-  resource_id = aws_api_gateway_rest_api.api-gateway.root_resource_id
-  http_method = aws_api_gateway_method.api_method.http_method
-  status_code = "200"
+  rest_api_id     = aws_api_gateway_rest_api.api-gateway.id
+  resource_id     = aws_api_gateway_rest_api.api-gateway.root_resource_id
+  http_method     = aws_api_gateway_method.api_method.http_method
+  response_models = var.response_models
+  status_code     = "200"
 }
 
 resource "aws_api_gateway_integration" "aws_api_integr" {

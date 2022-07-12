@@ -9,10 +9,17 @@ output "execution_arn" {
 }
 
 output "access_key_id" {
-  value = try(aws_iam_access_key.api-gw-ak[0].id, "")
+  description = "The access key ID"
+  value       = module.api_iam_user.iam_access_key_id
 }
 
 output "access_secret_key" {
-  value     = try(var.pgp_key != "" ? aws_iam_access_key.api-gw-ak[0].encrypted_secret : aws_iam_access_key.api-gw-ak[0].secret, "")
-  sensitive = true
+  description = "The access key secret"
+  value       = module.api_iam_user.iam_access_key_secret
+  sensitive   = true
+}
+
+output "access_secret_key_encrypted" {
+  description = "The access key secret with pgp encryption"
+  value       = module.api_iam_user.iam_access_key_encrypted_secret
 }

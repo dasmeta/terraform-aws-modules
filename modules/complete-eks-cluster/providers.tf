@@ -13,3 +13,9 @@ terraform {
     }
   }
 }
+
+provider "kubernetes" {
+  host                   = module.eks-cluster.host
+  cluster_ca_certificate = module.eks-cluster.certificate
+  token                  = module.eks-cluster.token
+}

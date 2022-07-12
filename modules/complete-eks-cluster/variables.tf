@@ -96,6 +96,12 @@ variable "alb_log_bucket_name" {
   default = ""
 }
 
+#CLOUDWATCH
+variable "enable_cloudwatch_metrics_for_prometheus" {
+  type    = bool
+  default = false
+}
+
 # FLUENT-BIT
 variable "fluent_bit_name" {
   type    = string
