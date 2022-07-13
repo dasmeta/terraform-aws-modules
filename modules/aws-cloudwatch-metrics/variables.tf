@@ -20,6 +20,11 @@ variable "create_namespace" {
   description = "wether or no to create namespace"
 }
 
+variable "containerdSockPath" {
+  type    = string
+  default = "/run/dockershim.sock"
+}
+
 variable "eks_oidc_root_ca_thumbprint" {
   type = string
 }

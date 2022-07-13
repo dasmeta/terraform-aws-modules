@@ -15,6 +15,11 @@ resource "helm_release" "aws-cloudwatch-metrics" {
   }
 
   set {
+    name  = "containerdSockPath"
+    value = var.containerdSockPath
+  }
+
+  set {
     name  = "serviceAccount.name"
     value = "aws-cloudwatch-metrics"
   }
@@ -40,6 +45,11 @@ resource "helm_release" "aws-cloudwatch-metrics-prometheus" {
   set {
     name  = "clusterName"
     value = var.cluster_name
+  }
+
+  set {
+    name  = "region"
+    value = data.aws_region.current.name
   }
 
   set {
