@@ -10,13 +10,13 @@ variable "cluster_name" {
 
 variable "namespace" {
   type        = string
-  default     = "kube-system"
+  default     = "amazon-cloudwatch"
   description = "namespace cloudwatch metrics should be deployed into"
 }
 
 variable "create_namespace" {
   type        = bool
-  default     = false
+  default     = true
   description = "wether or no to create namespace"
 }
 
