@@ -1,6 +1,41 @@
 variable "name" {
-  type    = string
-  default = "api-gw"
+  type        = string
+  description = "The name of API gateway"
+}
+
+variable "body" {
+  type        = string
+  default     = null
+  description = "An OpenAPI/Sagger specification json string with description of paths/resources/methods, check AWS docs for more info: https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api.html"
+}
+
+variable "endpoint_config_type" {
+  type        = string
+  default     = "REGIONAL"
+  description = "API Gateway config type. Valid values: EDGE, REGIONAL or PRIVATE"
+}
+
+variable "root_resource_configs" {
+  type = any
+  default = {
+    POST = {
+      authorization      = "NONE"
+      api_key_required   = true
+      request_parameters = {}
+      response = {
+        models      = null
+        status_code = "200"
+      }
+      integration = {
+        type                    = "HTTP" #HTTP AWS MOCK HTTP_PROXY AWS_PROXY
+        endpoint_uri            = "https://www.google.de"
+        integration_http_method = null
+        request_parameters      = { "integration.request.header.x-api-key" = "method.request.header.x-api-key" }
+      }
+    }
+
+  }
+  description = "The methods/methods_responses/integrations configs for root '/' resource, the key is HTTPS method like ANY/POST/GET"
 }
 
 variable "create_iam_user" {
@@ -9,9 +44,10 @@ variable "create_iam_user" {
   description = "Whether to create specific api access user to api gateway./[''871]."
 }
 
-variable "endpoint_config_type" {
-  type    = string
-  default = "REGIONAL"
+variable "pgp_key" {
+  description = "Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true`"
+  type        = string
+  default     = null
 }
 
 variable "stage_name" {
@@ -33,62 +69,15 @@ EOT
   description = "The access logs format to sync into cloudwatch log group"
 }
 
-variable "rest_api_id" {
-  type    = string
-  default = ""
-}
-
-variable "open_api_path" {
-  type    = string
-  default = ""
-}
-
-variable "pgp_key" {
-  description = "Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true`"
-  type        = string
-  default     = null
-}
-
-variable "iam_username" {
-  description = "username of newly created IAM user"
-  type        = string
-  default     = "api-gw-user"
-}
-
-variable "policy_name" {
-  description = "API Gateway policy name"
-  type        = string
-  default     = "api-gw-policy"
-}
-
-variable "integration_values" {
-  type = any
-  default = {
-    "type"                    = "HTTP" #HTTP AWS MOCK HTTP_PROXY AWS_PROXY
-    "endpoint_uri"            = "https://www.google.de"
-    "integration_http_method" = "GET"
-    request_parameters        = { "integration.request.header.x-api-key" = "method.request.header.x-api-key" }
-  }
-}
-
-variable "method_values" {
-  type = any
-  default = {
-    http_method        = "POST"
-    authorization      = "NONE"
-    api_key_required   = true
-    request_parameters = {}
-  }
-}
-
 variable "usage_plan_values" {
+  type = any
   default = {
-    usage_plan_name          = "my-usage-plan"
-    "usage_plan_description" = "my description"
-    "quota_limit"            = 10000
-    "quota_period"           = "MONTH"
-    "throttle_burst_limit"   = 1000
-    "throttle_rate_limit"    = 500
+    usage_plan_name        = "my-usage-plan"
+    usage_plan_description = "my description"
+    quota_limit            = 10000
+    quota_period           = "MONTH"
+    throttle_burst_limit   = 1000
+    throttle_rate_limit    = 500
   }
 }
 
@@ -114,7 +103,7 @@ variable "monitoring_settings" {
 
 variable "custom_domain" {
   type = object({
-    name      = string # this is just first part of domain without zone part
+    name      = string # this is just first/prefix/subdomain part of domain without zone part
     zone_name = string
   })
   default = {
@@ -128,16 +117,4 @@ variable "set_account_settings" {
   type        = bool
   default     = false
   description = "The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn"
-}
-
-variable "create_policy" {
-  description = "Whether create a policy or not."
-  type        = bool
-  default     = true
-}
-
-variable "response_models" {
-  description = "A map of the API models used for the response's content type."
-  type        = map(any)
-  default     = null
 }

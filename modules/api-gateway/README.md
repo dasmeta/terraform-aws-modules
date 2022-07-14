@@ -1,36 +1,42 @@
-Module use examples.
+# Allows to create/setup AWS API Gateway resources with configurable manner
 
-Module usage without "access secret key" encryption, so it will be directly outputed to console (Not secure)
 
-```
+## Module use examples.
+
+### Module usage without "access secret key" encryption, so it will be directly outputed to console (Not secure)
+
+```hcl
 module "api_gateway" {
   source = "dasmeta/modules/aws//modules/api-gateway"
+
   name = "api_gw"
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"
 
-  integration_values = {
-    "type" = "HTTP"
-    "endpoint_uri" = "https://www.google.de"
-    "integration_http_method" = "GET"
-    "header_name" = "integration.request.header.x-api-key"
-    "header_mapto" = "method.request.header.x-api-key"
+  root_resource_configs = {
+    ANY = {
+        authorization    = "NONE"
+        api_key_required = true
+
+        integration = {
+          type                    = "HTTP"
+          endpoint_uri            = "https://www.google.de"
+          integration_http_method = "ANY"
+          request_parameters      = { "integration.request.header.x-api-key" = "method.request.header.x-api-key" }
+        }
+    }
   }
 
-  method_values = {
-    "http_method" = "POST"
-    authorization = "NONE"
-    "api_key_required" = "true"
-  }
+  usage_plan_values = {}
 
-  usage_plan_values = {
-    usage_plan_name = "my-usage-plan"
-    "usage_plan_description" = "my description"
-    "quota_limit" = 10000
-    "quota_period" = "MONTH"
-    "throttle_burst_limit" = 1000
-    "throttle_rate_limit" = 500
+  providers = {
+    aws.virginia = aws.virginia
   }
+}
+
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
 }
 
 output "access_key_id" {
@@ -42,37 +48,35 @@ output "access_secret_key" {
 }
 ```
 
-Module usage with PGP encryption
+### Module usage with PGP encryption
 
 ```
 module "api_gateway" {
   source = "dasmeta/modules/aws//modules/api-gateway"
+
   name = "api_gw"
   endpoint_config_type = "REGIONAL"
   stage_name = "api-stage"
   pgp_key = "keybase:miandevops"
 
-  integration_values = {
-    "type" = "HTTP"
-    "endpoint_uri" = "https://www.google.de"
-    "integration_http_method" = "GET"
-    "header_name" = "integration.request.header.x-api-key"
-    "header_mapto" = "method.request.header.x-api-key"
+    root_resource_configs = {
+    POST = {
+        authorization    = "NONE"
+        api_key_required = true
+
+        integration = {
+          type                    = "HTTP"
+          endpoint_uri            = "https://www.google.de"
+          integration_http_method = "POST"
+          request_parameters      = { "integration.request.header.x-api-key" = "method.request.header.x-api-key" }
+        }
+    }
   }
 
-  method_values = {
-    "http_method" = "POST"
-    authorization = "NONE"
-    "api_key_required" = "true"
-  }
+  usage_plan_values = {}
 
-  usage_plan_values = {
-    usage_plan_name = "my-usage-plan"
-    "usage_plan_description" = "my description"
-    "quota_limit" = 10000
-    "quota_period" = "MONTH"
-    "throttle_burst_limit" = 1000
-    "throttle_rate_limit" = 500
+  providers = {
+    aws.virginia = aws.virginia
   }
 }
 
@@ -85,6 +89,11 @@ output "secret_access_key" {
 export GPG_TTY=$(tty) && echo "${module.api_gateway.access_secret_key_encrypted}" | base64 --decode | gpg --decrypt
 EOF
 }
+
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
 ```
 In this case your output of `secret_access_key` will be something like this:
 ```
@@ -95,6 +104,47 @@ ${COMMAND}
 EOT
 ```
 You have to copy the {COMMAND} and run in shell/console.
+
+### create api-gateway with Swagger/OpenAPI json config file, without user creation, with custom domain, with monitoring/logging enabled, with configuring account stings for cloudwatch
+#### here you can get the file [./examples/swagger-config-example.json](./examples/swagger-config-example.json) 
+
+```hcl
+module "api_gateway" {
+  source  = "dasmeta/modules/aws//modules/api-gateway"
+
+  name                  = "my-super-api"
+  endpoint_config_type  = "EDGE"
+  body                  = file("./examples/swagger-config-example.json")
+  root_resource_configs = {}
+
+  stage_name           = prod
+  usage_plan_values    = {}
+  create_iam_user      = false
+  custom_domain        = {
+    name      = "super-api"
+    zone_name = "mega.example.com"
+  }
+  enable_monitoring    = true
+  monitoring_settings  = monitoring_settings = {
+    metrics_enabled        = true
+    data_trace_enabled     = true
+    logging_level          = "INFO"
+    throttling_rate_limit  = 200
+    throttling_burst_limit = 250
+  }
+  set_account_settings = true
+
+  providers = {
+    aws.virginia = aws.virginia
+  }
+}
+
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+```
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
