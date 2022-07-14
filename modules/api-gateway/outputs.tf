@@ -1,10 +1,10 @@
 output "id" {
-  value       = aws_api_gateway_rest_api.api-gateway.id
+  value       = aws_api_gateway_rest_api.this.id
   description = "The ID of the REST API."
 }
 
 output "execution_arn" {
-  value       = aws_api_gateway_rest_api.api-gateway.*.execution_arn
+  value       = aws_api_gateway_rest_api.this.*.execution_arn
   description = "The Execution ARN of the REST API."
 }
 
