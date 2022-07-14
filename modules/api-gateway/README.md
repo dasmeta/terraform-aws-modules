@@ -164,55 +164,44 @@ provider "aws" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_settings"></a> [account\_settings](#module\_account\_settings) | ../api-gateway-account-settings | n/a |
-| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.35.2 |
-| <a name="module_certificate_edge"></a> [certificate\_edge](#module\_certificate\_edge) | dasmeta/modules/aws//modules/ssl-certificate | 0.34.0 |
-| <a name="module_certificate_regional"></a> [certificate\_regional](#module\_certificate\_regional) | dasmeta/modules/aws//modules/ssl-certificate | 0.34.0 |
+| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | ../aws-iam-user | n/a |
+| <a name="module_custom_domain"></a> [custom\_domain](#module\_custom\_domain) | ./custom-domain | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_api_gateway_base_path_mapping.custom_domain_api_mapping](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_base_path_mapping) | resource |
-| [aws_api_gateway_deployment.aws-api-depl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment) | resource |
-| [aws_api_gateway_domain_name.custom_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_domain_name) | resource |
-| [aws_api_gateway_integration.aws_api_integr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
-| [aws_api_gateway_integration_response.integration_response](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration_response) | resource |
-| [aws_api_gateway_method.api_method](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) | resource |
-| [aws_api_gateway_method_response.method_response](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response) | resource |
+| [aws_api_gateway_deployment.deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment) | resource |
+| [aws_api_gateway_integration.root_methods_integrations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
+| [aws_api_gateway_integration_response.root_methods_integration_responses](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration_response) | resource |
+| [aws_api_gateway_method.root_methods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) | resource |
+| [aws_api_gateway_method_response.root_methods_responses](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response) | resource |
 | [aws_api_gateway_method_settings.general_settings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_settings) | resource |
-| [aws_api_gateway_rest_api.api-gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api) | resource |
-| [aws_api_gateway_stage.aws-api-stage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage) | resource |
-| [aws_api_gateway_usage_plan.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan) | resource |
+| [aws_api_gateway_rest_api.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api) | resource |
+| [aws_api_gateway_stage.stage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage) | resource |
+| [aws_api_gateway_usage_plan.usage_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan) | resource |
 | [aws_cloudwatch_log_group.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [aws_route53_record.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
-| [aws_route53_zone.custom_domain_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_logs_format"></a> [access\_logs\_format](#input\_access\_logs\_format) | The access logs format to sync into cloudwatch log group | `string` | `"{ \"requestId\":\"$context.requestId\", \"resourcePath\":\"$context.resourcePath\", \"httpMethod\":\"$context.httpMethod\", \"responseLength\":\"$context.responseLength\", \"responseLatency\":\"$context.responseLatency\", \"status\":\"$context.status\", \"protocol\":\"$context.protocol\", \"extendedRequestId\":\"$context.extendedRequestId\", \"ip\": \"$context.identity.sourceIp\", \"caller\":\"$context.identity.caller\", \"user\":\"$context.identity.user\", \"userAgent\":\"$context.identity.userAgent\", \"requestTime\":\"$context.requestTime\"}\n"` | no |
+| <a name="input_body"></a> [body](#input\_body) | An OpenAPI/Sagger specification json string with description of paths/resources/methods, check AWS docs for more info: https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api.html | `string` | `null` | no |
 | <a name="input_create_iam_user"></a> [create\_iam\_user](#input\_create\_iam\_user) | Whether to create specific api access user to api gateway./[''871]. | `bool` | `true` | no |
-| <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Whether create a policy or not. | `bool` | `true` | no |
-| <a name="input_custom_domain"></a> [custom\_domain](#input\_custom\_domain) | Allows to setup/attach custom domain to api gateway setup, it will create also r53 record and certificate. Note that all keys of object are required to pass when you need one | <pre>object({<br>    name      = string # this is just first part of domain without zone part<br>    zone_name = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "zone_name": ""<br>}</pre> | no |
+| <a name="input_custom_domain"></a> [custom\_domain](#input\_custom\_domain) | Allows to setup/attach custom domain to api gateway setup, it will create also r53 record and certificate. Note that all keys of object are required to pass when you need one | <pre>object({<br>    name      = string # this is just first/prefix/subdomain part of domain without zone part<br>    zone_name = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "zone_name": ""<br>}</pre> | no |
 | <a name="input_enable_access_logs"></a> [enable\_access\_logs](#input\_enable\_access\_logs) | Weather enable or not the access logs on stage | `bool` | `true` | no |
 | <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | n/a | `bool` | `true` | no |
-| <a name="input_endpoint_config_type"></a> [endpoint\_config\_type](#input\_endpoint\_config\_type) | n/a | `string` | `"REGIONAL"` | no |
-| <a name="input_iam_username"></a> [iam\_username](#input\_iam\_username) | username of newly created IAM user | `string` | `"api-gw-user"` | no |
-| <a name="input_integration_values"></a> [integration\_values](#input\_integration\_values) | n/a | `any` | <pre>{<br>  "endpoint_uri": "https://www.google.de",<br>  "integration_http_method": "GET",<br>  "request_parameters": {<br>    "integration.request.header.x-api-key": "method.request.header.x-api-key"<br>  },<br>  "type": "HTTP"<br>}</pre> | no |
+| <a name="input_endpoint_config_type"></a> [endpoint\_config\_type](#input\_endpoint\_config\_type) | API Gateway config type. Valid values: EDGE, REGIONAL or PRIVATE | `string` | `"REGIONAL"` | no |
 | <a name="input_method_path"></a> [method\_path](#input\_method\_path) | n/a | `string` | `"*/*"` | no |
-| <a name="input_method_values"></a> [method\_values](#input\_method\_values) | n/a | `any` | <pre>{<br>  "api_key_required": true,<br>  "authorization": "NONE",<br>  "http_method": "POST",<br>  "request_parameters": {}<br>}</pre> | no |
 | <a name="input_monitoring_settings"></a> [monitoring\_settings](#input\_monitoring\_settings) | n/a | `map` | <pre>{<br>  "data_trace_enabled": true,<br>  "logging_level": "INFO",<br>  "metrics_enabled": true,<br>  "throttling_burst_limit": 50,<br>  "throttling_rate_limit": 100<br>}</pre> | no |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"api-gw"` | no |
-| <a name="input_open_api_path"></a> [open\_api\_path](#input\_open\_api\_path) | n/a | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name of API gateway | `string` | n/a | yes |
 | <a name="input_pgp_key"></a> [pgp\_key](#input\_pgp\_key) | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string` | `null` | no |
-| <a name="input_policy_name"></a> [policy\_name](#input\_policy\_name) | API Gateway policy name | `string` | `"api-gw-policy"` | no |
-| <a name="input_response_models"></a> [response\_models](#input\_response\_models) | A map of the API models used for the response's content type. | `map(any)` | `null` | no |
-| <a name="input_rest_api_id"></a> [rest\_api\_id](#input\_rest\_api\_id) | n/a | `string` | `""` | no |
+| <a name="input_root_resource_configs"></a> [root\_resource\_configs](#input\_root\_resource\_configs) | The methods/methods\_responses/integrations configs for root '/' resource, the key is HTTPS method like ANY/POST/GET | `any` | <pre>{<br>  "POST": {<br>    "api_key_required": true,<br>    "authorization": "NONE",<br>    "integration": {<br>      "endpoint_uri": "https://www.google.de",<br>      "integration_http_method": null,<br>      "request_parameters": {<br>        "integration.request.header.x-api-key": "method.request.header.x-api-key"<br>      },<br>      "type": "HTTP"<br>    },<br>    "request_parameters": {},<br>    "response": {<br>      "models": null,<br>      "status_code": "200"<br>    }<br>  }<br>}</pre> | no |
 | <a name="input_set_account_settings"></a> [set\_account\_settings](#input\_set\_account\_settings) | The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn | `bool` | `false` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | n/a | `string` | `"api-stage"` | no |
-| <a name="input_usage_plan_values"></a> [usage\_plan\_values](#input\_usage\_plan\_values) | n/a | `map` | <pre>{<br>  "quota_limit": 10000,<br>  "quota_period": "MONTH",<br>  "throttle_burst_limit": 1000,<br>  "throttle_rate_limit": 500,<br>  "usage_plan_description": "my description",<br>  "usage_plan_name": "my-usage-plan"<br>}</pre> | no |
+| <a name="input_usage_plan_values"></a> [usage\_plan\_values](#input\_usage\_plan\_values) | n/a | `any` | <pre>{<br>  "quota_limit": 10000,<br>  "quota_period": "MONTH",<br>  "throttle_burst_limit": 1000,<br>  "throttle_rate_limit": 500,<br>  "usage_plan_description": "my description",<br>  "usage_plan_name": "my-usage-plan"<br>}</pre> | no |
 
 ## Outputs
 
