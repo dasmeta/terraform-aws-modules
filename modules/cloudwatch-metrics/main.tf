@@ -2,7 +2,7 @@ resource "helm_release" "aws-cloudwatch-metrics" {
   name       = "aws-cloudwatch-metrics"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-cloudwatch-metrics"
-  version    = "0.0.4"
+  version    = "0.0.7"
   namespace  = var.namespace
 
   values = [
