@@ -26,6 +26,9 @@ resource "aws_cloudfront_distribution" "main" {
     Name = var.tags_name
   }
 
+  logging_config = var.logging_config
+
+
   wait_for_deployment = var.wait_for_deployment
 
   default_cache_behavior {

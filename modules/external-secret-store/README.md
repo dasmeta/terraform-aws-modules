@@ -53,6 +53,7 @@ Any secret created in Secret Manager matching the prefix can be requested via th
 | <a name="input_controller"></a> [controller](#input\_controller) | Not sure what is this for yet. | `string` | `"dev"` | no |
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create IAM user to read credentials or aws\_access\_key\_id / aws\_access\_secret combination should be used. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Secret store name. | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | `"default"` | no |
 
 ## Outputs
 

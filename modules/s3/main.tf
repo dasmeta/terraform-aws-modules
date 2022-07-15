@@ -28,7 +28,7 @@ module "iam_user" {
       {
         "Effect" : "Allow",
         "Action" : var.iam_user_actions,
-        "Resource" : "arn:aws:s3:::${var.name}/*"
+        "Resource" : ["arn:aws:s3:::${var.name}", "arn:aws:s3:::${var.name}/*"]
       }
     ]
   })

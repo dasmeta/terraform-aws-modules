@@ -28,16 +28,7 @@ variable "oidc_provider_arn" {
   type = string
 }
 
-# Auth data
-
-variable "cluster_host" {
-  type = string
-}
-
-variable "cluster_certificate" {
-  type = string
-}
-
-variable "cluster_token" {
-  type = string
+variable "enable_prometheus_metrics" {
+  type    = bool
+  default = false
 }

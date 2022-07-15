@@ -37,7 +37,8 @@ variable "iam_user_actions" {
     "s3:GetBucketAcl",
     "s3:DeleteObject",
     "s3:DeleteObjectVersion",
-    "s3:PutLifecycleConfiguration"
+    "s3:PutLifecycleConfiguration",
+    "s3:PutObjectAcl"
   ]
   description = "The allowed actions that created user can perform on this created bucket."
 }

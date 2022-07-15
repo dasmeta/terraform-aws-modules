@@ -32,3 +32,8 @@ variable "create_user" {
   default     = true
   description = "Create IAM user to read credentials or aws_access_key_id / aws_access_secret combination should be used."
 }
+
+variable "namespace" {
+  type    = string
+  default = "default"
+}
