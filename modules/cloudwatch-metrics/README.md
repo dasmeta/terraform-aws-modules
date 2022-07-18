@@ -1,6 +1,6 @@
 ```
 module "cloudwatch-metrics" {
-  source = "dasmeta/modules/aws//modules/aws-cloudwatch-metrics" # change to the correct one.
+  source = "dasmeta/modules/aws//modules/cloudwatch-metrics" # change to the correct one.
 
   eks_oidc_root_ca_thumbprint = ""
   oidc_provider_arn           = module.eks-cluster.oidc_provider_arn
