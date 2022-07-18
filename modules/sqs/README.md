@@ -5,7 +5,7 @@
 module "sqs" {
   source  = "dasmeta/modules/aws//modules/aws-iam-user"
 
-  name       = "pdf-processing-queue-${var.env}"
+  name       = "my-super-sample-queue"
 }
 ```
 
