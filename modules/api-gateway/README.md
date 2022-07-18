@@ -164,7 +164,7 @@ provider "aws" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_account_settings"></a> [account\_settings](#module\_account\_settings) | ../api-gateway-account-settings | n/a |
-| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | ../aws-iam-user | n/a |
+| <a name="module_api_iam_user"></a> [api\_iam\_user](#module\_api\_iam\_user) | dasmeta/modules/aws//modules/aws-iam-user | 0.35.5 |
 | <a name="module_custom_domain"></a> [custom\_domain](#module\_custom\_domain) | ./custom-domain | n/a |
 
 ## Resources
