@@ -1,9 +1,8 @@
 data "aws_region" "current" {}
 
 module "api_iam_user" {
-  source = "../aws-iam-user" # TODO: change to remote terraform repository
-  # source  = "dasmeta/modules/aws//modules/aws-iam-user"
-  # version = "0.35.2"
+  source  = "dasmeta/modules/aws//modules/aws-iam-user"
+  version = "0.35.5"
 
   create_user   = var.create_iam_user
   create_policy = true
