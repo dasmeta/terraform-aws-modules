@@ -17,7 +17,7 @@ resource "aws_iam_role" "logger" {
 EOL
 
   inline_policy {
-    name    = "${var.name}-cron-success-logger"
+    name   = "${var.name}-cron-success-logger"
     policy = <<EOL
 {
     "Version": "2012-10-17",
