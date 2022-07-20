@@ -1,6 +1,8 @@
 #!/bin/bash
 
 echo 'Start git pre-commit hooks and checks... ';
+
 sudo pre-commit run -a;
+
 echo 'End git pre-commit hooks and checks... ';
 
