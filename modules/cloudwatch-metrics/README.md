@@ -1,6 +1,6 @@
 ```
 module "cloudwatch-metrics" {
-  source = "dasmeta/modules/aws//modules/aws-cloudwatch-metrics" # change to the correct one.
+  source = "dasmeta/modules/aws//modules/cloudwatch-metrics" # change to the correct one.
 
   eks_oidc_root_ca_thumbprint = ""
   oidc_provider_arn           = module.eks-cluster.oidc_provider_arn
@@ -49,6 +49,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | eks cluster name | `string` | `""` | no |
+| <a name="input_containerdSockPath"></a> [containerdSockPath](#input\_containerdSockPath) | n/a | `string` | `"/run/dockershim.sock"` | no |
 | <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | wether or no to create namespace | `bool` | `false` | no |
 | <a name="input_eks_oidc_root_ca_thumbprint"></a> [eks\_oidc\_root\_ca\_thumbprint](#input\_eks\_oidc\_root\_ca\_thumbprint) | n/a | `string` | n/a | yes |
 | <a name="input_enable_prometheus_metrics"></a> [enable\_prometheus\_metrics](#input\_enable\_prometheus\_metrics) | n/a | `bool` | `false` | no |

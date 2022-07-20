@@ -2,7 +2,7 @@ resource "helm_release" "aws-cloudwatch-metrics" {
   name       = "aws-cloudwatch-metrics"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-cloudwatch-metrics"
-  version    = "0.0.4"
+  version    = "0.0.7"
   namespace  = var.namespace
 
   values = [
@@ -12,6 +12,11 @@ resource "helm_release" "aws-cloudwatch-metrics" {
   set {
     name  = "clusterName"
     value = var.cluster_name
+  }
+
+  set {
+    name  = "containerdSockPath"
+    value = var.containerdSockPath
   }
 
   set {
@@ -40,6 +45,11 @@ resource "helm_release" "aws-cloudwatch-metrics-prometheus" {
   set {
     name  = "clusterName"
     value = var.cluster_name
+  }
+
+  set {
+    name  = "region"
+    value = data.aws_region.current.name
   }
 
   set {
