@@ -1,6 +1,6 @@
 ```
 module "cloudwatch_metric_filter" {
-  source = "../"
+  source = "dasmeta/modules/aws//modules/metric-filter"
   metrics_patterns = [
     {
       name    = "ERROR"
