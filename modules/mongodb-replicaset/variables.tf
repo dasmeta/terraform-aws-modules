@@ -15,3 +15,29 @@ variable "cluster_certificate" {
 variable "cluster_token" {
   type = string
 }
+
+variable "name" {
+  type        = string
+  default     = "mongodb"
+  description = "Release name."
+}
+
+variable "values" {
+  description = "Extra values"
+  type        = list(string)
+  default     = null
+}
+
+variable "set" {
+  description = "Value block with custom STRING values to be merged with the values yaml."
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = null
+}
+
+variable "chart_version" {
+  type    = string
+  default = "10.8.0"
+}
