@@ -27,7 +27,7 @@
 
 
 ## Example
-
+```hcl
 module network {
     source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
     
@@ -63,6 +63,7 @@ module network {
     # Vpn file location and name file extension .ovpn
     vpn_file_download        = "/Users/devops/Documents/vpn.ovpn"
 }
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
