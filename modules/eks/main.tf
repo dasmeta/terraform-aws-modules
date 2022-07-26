@@ -30,10 +30,12 @@ module "eks-cluster" {
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
   cluster_enabled_log_types       = var.cluster_enabled_log_types
 
-  eks_managed_node_groups          = var.node_groups
   self_managed_node_groups         = var.worker_groups
   self_managed_node_group_defaults = var.workers_group_defaults
+  eks_managed_node_group_defaults  = var.node_groups_default
+  eks_managed_node_groups          = var.node_groups
 
-  aws_auth_users = local.map_users
-  aws_auth_roles = var.map_roles
+  manage_aws_auth_configmap = true
+  aws_auth_users            = local.map_users
+  aws_auth_roles            = var.map_roles
 }

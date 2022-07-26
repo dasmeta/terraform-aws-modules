@@ -16,7 +16,7 @@ variable "cluster_name" {
 
 variable "cluster_version" {
   type        = string
-  default     = "1.18"
+  default     = "1.22"
   description = "Cluster version."
 }
 
@@ -36,32 +36,38 @@ variable "enable_irsa" {
 }
 
 variable "worker_groups" {
-  type = any
-  default = {
-    default = {
-      instance_type = "t3.xlarge"
-      asg_max_size  = 5
-    }
-  }
-  description = "Worker groups."
+  description = "self_managed_node_group_defaults."
+  type        = any
+  default     = {}
 }
 
 variable "workers_group_defaults" {
-  type = any
-  default = {
-    launch_template_use_name_prefix = true
-    launch_template_name            = "default"
-    root_volume_type                = "gp2"
-    root_volume_size                = 50
-  }
-
-  description = "Worker group defaults."
+  description = "Map of self-managed node group definitions to create."
+  type        = any
+  default     = {}
 }
 
 variable "node_groups" {
-  description = "Map of map of node groups to create. See `node_groups` module's documentation for more details"
+  description = "Map of EKS managed node group definitions to create"
   type        = any
-  default     = {}
+  default = {
+    default = {
+      min_size       = 1
+      max_size       = 2
+      desired_size   = 1
+      instance_types = ["t3.medium"]
+    }
+  }
+}
+
+
+variable "node_groups_default" {
+  description = "Map of EKS managed node group default configurations"
+  type        = any
+  default = {
+    disk_size      = 50
+    instance_types = ["t3.medium"]
+  }
 }
 
 variable "cluster_endpoint_public_access" {

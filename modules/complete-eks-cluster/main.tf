@@ -25,6 +25,7 @@ module "eks-cluster" {
 
   users                          = var.users
   node_groups                    = var.node_groups
+  node_groups_default            = var.node_groups_default
   worker_groups                  = var.worker_groups
   workers_group_defaults         = var.workers_group_defaults
   cluster_endpoint_public_access = var.cluster_endpoint_public_access

@@ -52,17 +52,34 @@ variable "worker_groups" {
   type = any
   default = {
     default = {
-      instance_type = "t3.xlarge"
-      asg_max_size  = 5
+      instance_type = "t3.medium"
+      asg_max_size  = 1
     }
   }
   description = "Worker groups."
 }
 
 variable "node_groups" {
-  description = "Map of map of node groups to create. See `node_groups` module's documentation for more details"
+  description = "Map of EKS managed node group definitions to create"
   type        = any
-  default     = {}
+  default = {
+    default = {
+      min_size       = 1
+      max_size       = 2
+      desired_size   = 1
+      instance_types = ["t3.medium"]
+    }
+  }
+}
+
+
+variable "node_groups_default" {
+  description = "Map of EKS managed node group default configurations"
+  type        = any
+  default = {
+    disk_size      = 50
+    instance_types = ["t3.medium"]
+  }
 }
 
 variable "workers_group_defaults" {
@@ -139,7 +156,7 @@ variable "cluster_enabled_log_types" {
 variable "cluster_version" {
   description = "Allows to set/change kubernetes cluster version, kubernetes version needs to be updated at leas once a year. Please check here for available versions https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
   type        = string
-  default     = "1.21"
+  default     = "1.22"
 }
 
 variable "map_roles" {
