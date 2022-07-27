@@ -1,4 +1,4 @@
-# Terraform AWS Client VPN Endpoint 
+# Terraform AWS Client VPN Endpoint
 
 ## How to create Application for VPN in AWS Single Sign-On
 - Create private certificate in AWS Certificate Manager. Copy arn and use in module
@@ -30,7 +30,7 @@
 ```hcl
 module network {
     source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
-    
+
 
     # If you connect many vpc in vpn you should create vpc peering
     peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
@@ -42,10 +42,10 @@ module network {
     saml_provider_arn             = "" # SAML Provider ARN
     certificate_arn               = "" # Certificate ARN
     authorization_ingress         = ["10.0.0.0/16","20.0.0.0/16","40.0.0.0/16"] # VPCs CIDRs
-    
+
     endpoint_subnets              = ["subnet-073672353a64692db0148"]
-    
-    # Add routes in VPN route table 
+
+    # Add routes in VPN route table
     additional_routes             = {
                                         first = {
                                                     cidr      = "20.0.0.0/16"

@@ -8,7 +8,7 @@ module "s3-to-cloudwatch" {
 }
 ```
 
-# Create S3 bucket for FluentBit and disable lambda 
+# Create S3 bucket for FluentBit and disable lambda
 
 ```
 module "s3-to-cloudwatch" {

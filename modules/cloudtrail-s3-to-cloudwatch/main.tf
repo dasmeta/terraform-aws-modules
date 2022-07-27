@@ -1,7 +1,7 @@
 /**
  * # Why
  * Create S3 bucket for CloudTrail and lambda to push data to CloudWatch
- * 
+ *
  * ## Examples
  * Minimal Setup
  * ```terraform

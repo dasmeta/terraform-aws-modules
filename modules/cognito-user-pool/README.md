@@ -1,6 +1,6 @@
 # Minimum usage example
 
-This module creates an "example-pool" and a "main" client. Both of them have default values a part of which is described in the variables.tf file. 
+This module creates an "example-pool" and a "main" client. Both of them have default values a part of which is described in the variables.tf file.
 
 ```
 module "cognito" {
@@ -27,7 +27,7 @@ module "user-pool" {
     email_verification_subject = "Your verification code"
     sms_authentication_message = "SMS example: {####}"
     sms_verification_message   = "SMS example: {####}"
-    
+
     verification_message_template = {
         email_message_by_link = "Please click the link below to verify your email address. {##Verify Email##} "
         email_subject_by_link = "Your verification link"

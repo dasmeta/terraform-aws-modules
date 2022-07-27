@@ -1,7 +1,7 @@
 # How To
 This module you can use when create multiple vpc peering. You can have one main vpc and multiple peering.
 
-### Example: 
+### Example:
 
 provider "aws" {
     region = "us-east-1"

@@ -28,5 +28,3 @@ git config core.hooksPath githooks
 
 ## Comming soon
 - cert-manager to request certificates via AWS
-
-

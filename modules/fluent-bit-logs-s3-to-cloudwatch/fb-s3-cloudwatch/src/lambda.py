@@ -176,11 +176,11 @@ def read_log_entries(bucket, key):
         with open(temp_file.name, 'r') as extracted_file:
             my_data = [json.loads(line) for line in extracted_file]
             return  my_data
-            
 
 
 
-    
+
+
 
 def handler(event, context):
     for record in event["Records"]:
@@ -195,7 +195,7 @@ def handler(event, context):
 
 
         parsed_entries = []
-        
+
 
         my_data = read_log_entries(bucket, key)
 
@@ -204,10 +204,10 @@ def handler(event, context):
             jsondump = json.dumps(data)
             print("JsonDump")
             print(jsondump)
-            timestamp = data['date']  
+            timestamp = data['date']
             datetimeFromfb = parse_iso8601(timestamp)
-            parsed_entries.append((int(datetimeFromfb.timestamp() * 1000), jsondump))  
-             
+            parsed_entries.append((int(datetimeFromfb.timestamp() * 1000), jsondump))
+
         parsed_entries.sort()
 
         for (timestamp, message) in parsed_entries:

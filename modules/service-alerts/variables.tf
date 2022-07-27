@@ -142,7 +142,7 @@ variable "error_period" {
   description = "Error Period"
 }
 
-# Network 
+# Network
 variable "enable_network_threshold" {
   type        = bool
   default     = true

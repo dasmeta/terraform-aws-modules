@@ -1,4 +1,4 @@
-## Minimum usage example 
+## Minimum usage example
 
 This example creates clodufront setup with a default origin only and uses S3 bucket. Also it has no custom certiifcate, as the `use_default_cert = true`.
 
@@ -11,7 +11,7 @@ module "cf" {
           type = "bucket"
           custom_origin_config = []
         }
-    ] 
+    ]
     use_default_cert = true
     default_target_origin_id = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
     domain_names = ["example.com"]
@@ -53,7 +53,7 @@ module test-cloudfront {
     bucket          = "mylogs.s3.amazonaws.com"
     prefix          = "myprefix"
   }
-  
+
   acm_cert_arn = data.aws_acm_certificate.issued.arn
   create_lambda_security_headers = true
   default_target_origin_id = data.aws_s3_bucket.selected.bucket_regional_domain_name
@@ -61,7 +61,7 @@ module test-cloudfront {
 }
 ```
 
-## Another usage example 
+## Another usage example
 
 This example creates other origins except the default origin and uses not only s3, but also load balancers to do it. In the `origin` block you need to specify the type of the target for each item. There are 2 types: "alb", "bucket". Also if you want to create lambda function for security headers, set `create_lambda_security_headers = true`.
 

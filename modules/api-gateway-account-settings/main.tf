@@ -1,4 +1,4 @@
-# as stated in docs: 
+# as stated in docs:
 ## Provides a settings of an API Gateway Account. Settings is applied region-wide per provider block.
 ## As there is no API method for deleting account settings or resetting it to defaults, destroying this resource will keep your account settings intact
 resource "aws_api_gateway_account" "account_settings" {

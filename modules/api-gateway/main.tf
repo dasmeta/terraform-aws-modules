@@ -135,7 +135,7 @@ resource "aws_api_gateway_method_settings" "general_settings" {
     throttling_burst_limit = var.monitoring_settings.throttling_burst_limit
   }
 
-  depends_on = [module.account_settings] # if you get the error "CloudWatch Logs role ARN must be set in account settings to enable logging" please set set_account_settings to true 
+  depends_on = [module.account_settings] # if you get the error "CloudWatch Logs role ARN must be set in account settings to enable logging" please set set_account_settings to true
 }
 
 module "custom_domain" {

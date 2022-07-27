@@ -61,4 +61,3 @@ module "db" {
   db_parameter_group_tags = var.db_parameter_group_tags
   db_subnet_group_tags    = var.db_subnet_group_tags
 }
-

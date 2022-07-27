@@ -1,7 +1,7 @@
 This module uses bitnami's mongodb chart to create replicaset or standalone.
 
 ## Usage example
-In this case you have a `values-replicaset.yaml` file where all the configs are described and pass it to the module. 
+In this case you have a `values-replicaset.yaml` file where all the configs are described and pass it to the module.
 `rootPassword` and `replicaSetKey` are variables in that file and are passed with terraform(it can be handled also with AWS Secrets MAnager).
 ```
 module "mongodb" {

@@ -59,7 +59,7 @@ Resources:
   CodeBuild:
     Type: AWS::CodeBuild::Project
     Properties:
-      Artifacts: 
+      Artifacts:
         Type: S3
         Location: !Ref Bucket
         Path: !Ref KeyTargetPath
@@ -72,7 +72,7 @@ Resources:
         Type: ${jsonencode(codebuild_environment_type)}
       QueuedTimeoutInMinutes: ${jsonencode(codebuild_queued_timeout_in_minutes)}
       ServiceRole: !GetAtt CodeBuildRole.Arn
-      Source: 
+      Source:
         Type: S3
         Location: !Sub "$${Bucket}/$${KeySource}"
       TimeoutInMinutes: ${jsonencode(codebuild_timeout_in_minutes)}
@@ -80,12 +80,12 @@ Resources:
     Type: AWS::Events::Rule
     Properties:
       EventPattern: { "source": [ "aws.codebuild" ], "detail-type": [ "CodeBuild Build State Change" ], "detail": { "build-status": [ "FAILED", "STOPPED", "SUCCEEDED" ], "project-name": [ !Ref CodeBuild ] } }
-      Targets: 
+      Targets:
         - Arn: !GetAtt LambdaFunction.Arn
           Id: !Ref LambdaFunction
   CodeBuildEventPermission:
     Type: AWS::Lambda::Permission
-    Properties: 
+    Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Ref LambdaFunction
       Principal: events.amazonaws.com

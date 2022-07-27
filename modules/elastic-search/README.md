@@ -5,7 +5,7 @@
 module "elastic-search" {
   source = "dasmeta/modules/aws//modules/elastic-search"
   version = "0.33.6"
- 
+
   domain_name = "my-new-es-domain-name"
 
   vpc_options_subnet_ids = [
