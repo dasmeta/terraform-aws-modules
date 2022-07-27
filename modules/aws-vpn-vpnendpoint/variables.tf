@@ -70,3 +70,8 @@ variable "split_tunnel" {
   type    = bool
   default = true
 }
+
+variable "vpn_port" {
+  type    = number
+  default = 443
+}

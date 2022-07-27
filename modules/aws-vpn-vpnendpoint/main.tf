@@ -32,6 +32,8 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   split_tunnel           = var.split_tunnel
   transport_protocol     = "udp"
   dns_servers            = [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
+  vpn_port               = var.vpn_port
+
   authentication_options {
     type              = "federated-authentication"
     saml_provider_arn = var.saml_provider_arn
@@ -44,6 +46,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
     Name = var.endpoint_name
   })
 }
+
 resource "aws_security_group" "my-vpn" {
   name        = "client-vpn-endpoint-${var.endpoint_name}"
   description = "Egress All. Used for other groups where VPN access is required. "

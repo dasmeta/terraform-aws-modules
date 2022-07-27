@@ -31,12 +31,8 @@
 module network {
     source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
     
-    # VPN Endpoint
-    region                        = "us-east-1"
-    enable_saml                   = false
-    
+
     # If you connect many vpc in vpn you should create vpc peering
-    create_peering                = true
     peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
 
     # VPN vpc Id
@@ -60,8 +56,6 @@ module network {
                                                     subnet_id = "subnet-073672353a64692db014"
                                                 }
                                     }
-    # Vpn file location and name file extension .ovpn
-    vpn_file_download        = "/Users/devops/Documents/vpn.ovpn"
 }
 ```
 
