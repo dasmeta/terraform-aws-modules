@@ -121,7 +121,7 @@ module "waf_alb" {
 ```
 
 
-### Rule Type 
+### Rule Type
 
 ```
 {
@@ -179,7 +179,7 @@ module "waf_alb" {
 
     # Byte Match Rule example
     # Refer to https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#byte-match-statement
-    
+
     {
       name     = "ByteMatchRule-4"
       priority = "4"
@@ -202,7 +202,7 @@ module "waf_alb" {
         type                  = "NONE"
       }
     },
-    
+
     # Geo Match Rule example
     {
       name     = "GeoMatchRule-5"
@@ -297,7 +297,7 @@ module "waf_alb" {
         }
       }
     },
-    
+
     # Size constraint Rule example
     # Refer to https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#size-constraint-statement
 

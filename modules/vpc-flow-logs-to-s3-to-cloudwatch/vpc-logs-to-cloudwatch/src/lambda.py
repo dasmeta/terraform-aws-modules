@@ -172,11 +172,11 @@ def read_log_entries(bucket, key):
                 extracted_file, fieldnames=FIELD_NAMES, delimiter=" "
             )
             yield from reader
-            
 
 
 
-    
+
+
 
 def handler(event, context):
     for record in event["Records"]:
@@ -191,7 +191,7 @@ def handler(event, context):
 
 
         parsed_entries = []
-        
+
         datetimeNow = datetime.now()
         my_data = read_log_entries(bucket, key)
 
@@ -200,8 +200,8 @@ def handler(event, context):
             jsondump = json.dumps(data)
             print("JsonDump")
             print(jsondump)
-            parsed_entries.append((int(datetimeNow.timestamp() * 1000), jsondump))  
-             
+            parsed_entries.append((int(datetimeNow.timestamp() * 1000), jsondump))
+
         parsed_entries.sort()
 
         for (timestamp, message) in parsed_entries:

@@ -60,4 +60,3 @@ variable "website" {
   default     = {}
   description = "The website configuration for the created bucket."
 }
-

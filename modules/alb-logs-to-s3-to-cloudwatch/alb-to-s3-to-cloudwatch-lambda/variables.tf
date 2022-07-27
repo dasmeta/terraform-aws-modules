@@ -37,4 +37,3 @@ variable "create_alarm" {
 #   type    = list(string)
 #   default = []
 # }
-

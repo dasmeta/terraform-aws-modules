@@ -8,7 +8,7 @@ module "vpc-flow-logs-to-s3-to-cloudwatch" {
 }
 ```
 
-# Create S3 bucket only for FluentBit and disable lambda 
+# Create S3 bucket only for FluentBit and disable lambda
 
 ```
 module "vpc-flow-logs-to-s3-to-cloudwatch" {

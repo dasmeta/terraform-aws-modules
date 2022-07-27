@@ -106,7 +106,7 @@ EOT
 You have to copy the {COMMAND} and run in shell/console.
 
 ### create api-gateway with Swagger/OpenAPI json config file, without user creation, with custom domain, with monitoring/logging enabled, with configuring account stings for cloudwatch
-#### here you can get the file [./examples/swagger-config-example.json](./examples/swagger-config-example.json) 
+#### here you can get the file [./examples/swagger-config-example.json](./examples/swagger-config-example.json)
 
 ```hcl
 module "api_gateway" {

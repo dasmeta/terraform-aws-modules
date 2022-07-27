@@ -36,13 +36,13 @@ kubectl get configmap/aws-auth -nkube-system
 
 ```
   map_roles = [{
-    rolearn  = "arn:aws:iam::5***168:role/test"  # Module output role arn 
-    username = "test" # Role name 
-    groups   = ["test-namespace"] # Module output group name 
+    rolearn  = "arn:aws:iam::5***168:role/test"  # Module output role arn
+    username = "test" # Role name
+    groups   = ["test-namespace"] # Module output group name
   }]
 ```
 
-3. Update eks config and check 
+3. Update eks config and check
 
 ```
 aws eks update-kubeconfig --name <cluster-name> --role-arn <role-arn>
@@ -68,7 +68,7 @@ module "test" {
       verbs      = ["*"]
     }
   ]
-  
+
   usernames      = ["test"]
 }
 
@@ -90,13 +90,13 @@ kubectl get configmap/aws-auth -nkube-system
 
 ```
   map_roles = [{
-    rolearn  = "arn:aws:iam::5***168:role/test"  # Module output role arn 
-    username = "test" # Role name 
-    groups   = ["test-namespace"] # Module output group name 
+    rolearn  = "arn:aws:iam::5***168:role/test"  # Module output role arn
+    username = "test" # Role name
+    groups   = ["test-namespace"] # Module output group name
   }]
 ```
 
-3. Update eks config and check 
+3. Update eks config and check
 
 ```
 aws eks update-kubeconfig --name <cluster-name> --role-arn <role-arn>

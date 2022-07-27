@@ -29,7 +29,7 @@ module "test-own-access" {
   name   = "OwnGroup"
   type   = "other"
   users  = ["test"]
-  police_action = [ 
+  police_action = [
     "aws-portal:ViewBilling",
     "ec2:Describe*",
     ]

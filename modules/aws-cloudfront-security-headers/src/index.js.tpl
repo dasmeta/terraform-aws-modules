@@ -1,5 +1,5 @@
 exports.handler = (event, context, callback) => {
-    
+
     //Get contents of response
     const response = event.Records[0].cf.response;
     const headers = response.headers;

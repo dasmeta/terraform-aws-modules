@@ -17,7 +17,7 @@ module "cloudfront-lambda" {
 }
 ```
 
-# Create s3 bucket for CloudFront 
+# Create s3 bucket for CloudFront
 ```
 module "cloudfront-lambda" {
   source      = "dasmeta/modules/aws//modules/cloudfront-to-s3-to-cloudwatch"

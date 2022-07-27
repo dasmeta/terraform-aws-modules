@@ -1,4 +1,4 @@
-# aws S3 bucket and iam user with access to it 
+# aws S3 bucket and iam user with access to it
 
 Creates AWS S3 bucket and if there is need IAM user with appropriated accesses to list/get/put/delete objects in it.
 

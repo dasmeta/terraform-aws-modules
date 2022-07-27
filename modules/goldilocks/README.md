@@ -8,7 +8,7 @@
 The module create Goldilocks installation prerequisites. The module default create the prerequisites.
 
 ° vertical-pod-autoscaler configure in the cluster
-° metrics-server 
+° metrics-server
 
 ```
 module "goldilocks" {

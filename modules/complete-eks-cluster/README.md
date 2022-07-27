@@ -19,7 +19,7 @@ locals {
     private_subnets = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
     public_subnets  = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
     cluster_enabled_log_types = ["audit"]
-    
+
     # When you create EKS, API server endpoint access default is public. When you use private this variable value should be equal false.
     cluster_endpoint_public_access = true
     public_subnet_tags = {
@@ -50,34 +50,34 @@ module "prod_complete_cluster" {
   private_subnet_tags   = local.private_subnet_tags
   cluster_enabled_log_types = local.cluster_enabled_log_types
   cluster_endpoint_public_access = local.cluster_endpoint_public_access
-  
+
   ### EKS
   cluster_name          = local.cluster_name
   manage_aws_auth       = true
 
-  # IAM users username and group. By default value is ["system:masters"] 
+  # IAM users username and group. By default value is ["system:masters"]
   user = [
           {
             username = "devops1"
-            group    = ["system:masters"]   
+            group    = ["system:masters"]  
           },
           {
             username = "devops2"
-            group    = ["system:kube-scheduler"]   
+            group    = ["system:kube-scheduler"]  
           },
           {
             username = "devops3"
           }
   ]
-  
+
   # You can create node use node_group when you create node in specific subnet zone.(Note. This Case Ec2 Instance havn't specific name).
-  # Other case you can use worker_group variable. 
+  # Other case you can use worker_group variable.
 
   node_groups = {
     example =  {
       name  = "nodegroup"
       name-prefix     = "nodegroup"
-      additional_tags = { 
+      additional_tags = {
           "Name"      = "node"
           "ExtraTag"  = "ExtraTag"  
       }

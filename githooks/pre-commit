@@ -3,4 +3,3 @@
 echo 'Start git pre-commit hooks and checks... ';
 pre-commit run -a;
 echo 'End git pre-commit hooks and checks... ';
-

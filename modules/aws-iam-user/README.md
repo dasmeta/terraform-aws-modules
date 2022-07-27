@@ -22,7 +22,7 @@ This module outputs commands and PGP messages which can be decrypted either usin
 
 ## Case 1
 
-case 1 creates an AWS IAM user with Programmatic access , AWS Management Console access and policy attachment to the user. 
+case 1 creates an AWS IAM user with Programmatic access , AWS Management Console access and policy attachment to the user.
   - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
   - AWS Management Console access: Used the for AWS Management Console
@@ -36,7 +36,7 @@ module "aws-read-only" {
     username                = "test-user"
     pgp_key                 = "keybase:devopsmher"
     policy_attachment       = [
-                                  "arn:aws:iam::aws:policy/ReadOnlyAccess", 
+                                  "arn:aws:iam::aws:policy/ReadOnlyAccess",
                                   "arn:aws:iam::aws:policy/IAMUserChangePassword"
                               ]
 }
@@ -69,7 +69,7 @@ output "keybase_secret_key_decrypt_command" {
 
 ## Case 2
 
-case 2 creates an AWS IAM user with Programmatic access after create new policy and policy attachment to the user. 
+case 2 creates an AWS IAM user with Programmatic access after create new policy and policy attachment to the user.
   - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
 At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
@@ -86,7 +86,7 @@ module "mongodb-backup-s3-storage-user" {
         {
             "Effect": "Allow",
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::s3-backet-mongo-backup" # arn resource 
+            "Resource": "arn:aws:s3:::s3-backet-mongo-backup" # arn resource
         }
     ]
 })
@@ -116,9 +116,9 @@ output "iam_access_key_secret" {
 ```
 ## Case 3
 
-case 3 creates an AWS IAM user with Programmatic access. 
+case 3 creates an AWS IAM user with Programmatic access.
  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
- 
+
 At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
 
 
@@ -209,7 +209,7 @@ echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 
 
 ### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
 
-AWS Management Console access and policy attachment to the user. 
+AWS Management Console access and policy attachment to the user.
   - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
   - AWS Management Console access: Used the for AWS Management Console
@@ -223,7 +223,7 @@ module "aws-read-only" {
     username                = "test-user"
     pgp_key                 = "your-pgp-key"
     policy_attachment       = [
-                                  "arn:aws:iam::aws:policy/ReadOnlyAccess", 
+                                  "arn:aws:iam::aws:policy/ReadOnlyAccess",
                                   "arn:aws:iam::aws:policy/IAMUserChangePassword"
                               ]
 }
@@ -256,7 +256,7 @@ EOF
 ### Step 4 : Decode each encoded data from step 3 outputs
 after successfull Step 3 there should be shell/console commands as output for the following ouputs `iam_user_login_profile_encrypted_password` and `secret_access_key` .
 
-You have to copy the `{COMMAND}` and run in shell/console. Here is the form of output: 
+You have to copy the `{COMMAND}` and run in shell/console. Here is the form of output:
 
 ```bash
 Outputs:
