@@ -1,11 +1,3 @@
-locals {
-  eks_oidc_root_ca_thumbprint = replace(module.eks-cluster[0].oidc_provider_arn, "/.*id//", "")
-}
-
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = module.eks-cluster[0].cluster_id
-# }
-
 # Required arguments
 variable "vpc_id" {
   type        = string
@@ -24,7 +16,7 @@ variable "cluster_name" {
 
 variable "cluster_version" {
   type        = string
-  default     = "1.18"
+  default     = "1.22"
   description = "Cluster version."
 }
 
@@ -33,18 +25,6 @@ variable "create_cluster" {
   type        = bool
   default     = true
   description = "Whether or not to create cluster."
-}
-
-variable "write_kubeconfig" {
-  type        = bool
-  default     = true
-  description = "Whether or not to create kubernetes config file."
-}
-
-variable "kubeconfig_output_path" {
-  type        = string
-  default     = "./"
-  description = "Where to put kubeconfig file."
 }
 
 variable "enable_irsa" {
@@ -56,42 +36,38 @@ variable "enable_irsa" {
 }
 
 variable "worker_groups" {
-  type = any
-  default = [
-    {
-      instance_type = "t3.xlarge"
-      asg_max_size  = 5
-    }
-  ]
-  description = "Worker groups."
-}
-
-variable "workers_group_defaults" {
-  type = any
-  default = {
-    root_volume_type   = "gp2"
-    root_volume_size   = 50
-    kubelet_extra_args = "--node-labels=cluster_name=production,type=gpu_optimised --register-with-taints app=vums:NoSchedule"
-  }
-
-  description = "Worker group defaults."
-}
-
-variable "node_groups" {
-  description = "Map of map of node groups to create. See `node_groups` module's documentation for more details"
+  description = "self_managed_node_group_defaults."
   type        = any
   default     = {}
 }
 
-variable "worker_groups_launch_template" {
-  description = "A list of maps defining worker group configurations to be defined using AWS Launch Templates. See workers_group_defaults for valid keys."
+variable "workers_group_defaults" {
+  description = "Map of self-managed node group definitions to create."
   type        = any
-  default     = []
+  default     = {}
 }
 
-variable "manage_aws_auth" {
-  type    = bool
-  default = true
+variable "node_groups" {
+  description = "Map of EKS managed node group definitions to create"
+  type        = any
+  default = {
+    default = {
+      min_size       = 1
+      max_size       = 2
+      desired_size   = 1
+      instance_types = ["t3.medium"]
+    }
+  }
+}
+
+
+variable "node_groups_default" {
+  description = "Map of EKS managed node group default configurations"
+  type        = any
+  default = {
+    disk_size      = 50
+    instance_types = ["t3.medium"]
+  }
 }
 
 variable "cluster_endpoint_public_access" {
