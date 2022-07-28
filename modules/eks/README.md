@@ -1,4 +1,4 @@
 
 
-# [NOTICE] This module is being deprecated . Module new version https://github.com/dasmeta/terraform-aws-complete-eks-cluster/tree/main/modules/eks
+# [NOTICE] This module is being deprecated . Module new version https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/eks
 
