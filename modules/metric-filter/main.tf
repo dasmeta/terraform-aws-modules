@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_log_metric_filter" "yada" {
+resource "aws_cloudwatch_log_metric_filter" "metric_filter" {
   for_each = { for mp in var.metrics_patterns : mp.name => mp }
 
   name           = each.value.name
@@ -10,7 +10,7 @@ resource "aws_cloudwatch_log_metric_filter" "yada" {
     namespace  = var.metrics_namespace
     value      = "1"
     unit       = each.value.unit
-    dimensions = var.dimensions
+    dimensions = each.value.dimensions
   }
 }
 

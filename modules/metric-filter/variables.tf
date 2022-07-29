@@ -2,9 +2,10 @@ variable "metrics_patterns" {
   type = any
   default = [
     {
-      name    = "ERROR"
-      pattern = "ERROR"
-      unit    = "None"
+      name       = "ERROR"
+      pattern    = "ERROR"
+      unit       = "None"
+      dimensions = {}
     }
   ]
 }
@@ -16,9 +17,4 @@ variable "log_group_name" {
 variable "metrics_namespace" {
   type    = string
   default = "Log_Filters"
-}
-
-variable "dimensions" {
-  type    = any
-  default = {}
 }
