@@ -1,3 +1,8 @@
+output "s3_bucket_id" {
+  description = "The bucket name"
+  value       = module.bucket.s3_bucket_id
+}
+
 output "iam_user_name" {
   description = "The user's name"
   value       = module.iam_user.iam_user_name
