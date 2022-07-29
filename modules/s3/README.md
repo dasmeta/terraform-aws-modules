@@ -49,6 +49,29 @@ module "my_bucket" {
   }
 }
 ```
+## Case 3: website with initial index.html and "/images/**" content
+```terraform
+module "my_bucket" {
+  source = "dasmeta/modules/aws//modules/s3"
+  version = "0.36.2"
+
+  name = "my-website"
+
+  versioning = {
+    enabled = true
+  }
+
+  website = {
+    index_document = "index.html"
+    error_document = "index.html"
+  }
+
+  create_index_html = true
+  bucket_files = "{module.path}/images"
+}
+```
+
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
