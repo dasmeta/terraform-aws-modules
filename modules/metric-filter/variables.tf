@@ -2,9 +2,9 @@ variable "metrics_patterns" {
   type = any
   default = [
     {
-      name       = "ERROR"
-      pattern    = "ERROR"
-      unit       = "None"
+      name       = ""
+      pattern    = ""
+      unit       = ""
       dimensions = {}
     }
   ]

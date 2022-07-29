@@ -7,9 +7,9 @@ variable "patterns" {
   type = list(any)
   default = [
     {
-      name       = "errors"
-      source     = "group1"
-      pattern    = "error"
+      name       = ""
+      source     = ""
+      pattern    = ""
       dimensions = {}
     }
   ]
@@ -18,8 +18,8 @@ variable "patterns" {
 variable "log_groups" {
   type = map(any)
   default = {
-    group1 = "/group/one/path"
-    group2 = "/group/two/path"
-    groupN = "/group/nnn/path"
+    group1 = ""
+    group2 = ""
+    groupN = ""
   }
 }
