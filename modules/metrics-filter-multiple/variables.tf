@@ -6,20 +6,20 @@ variable "metrics_namespace" {
 variable "patterns" {
   type = list(any)
   default = [
-    {
-      name       = ""
-      source     = ""
-      pattern    = ""
-      dimensions = {}
-    }
+    # {
+    #   name       = ""
+    #   source     = ""
+    #   pattern    = ""
+    #   dimensions = {}
+    # }
   ]
 }
 
 variable "log_groups" {
   type = map(any)
   default = {
-    group1 = ""
-    group2 = ""
-    groupN = ""
+    # group1 = ""
+    # group2 = ""
+    # groupN = ""
   }
 }
