@@ -89,5 +89,3 @@ module "ingress" {
     kubernetes_manifest.create_namespace
   ]
 }
-
-

@@ -16,7 +16,7 @@ module "ssl-certificate-auth" {
   zone                = "example.com"
 }
 
-or 
+or
 
 module "ssl-certificate-auth" {
 
@@ -68,7 +68,7 @@ module ssl-certificate-auth {
       name = "test"
       value   = "test ssl"
   }
-  
+
   providers {
     aws = aws.virginia
   }

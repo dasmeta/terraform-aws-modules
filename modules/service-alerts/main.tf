@@ -22,7 +22,7 @@ locals {
           "title": "${var.pod_name} CPU_Utilization"
           }
       }
-EOF 
+EOF
   memory  = <<EOF
       {
         "type": "metric",
@@ -137,7 +137,7 @@ resource "aws_cloudwatch_dashboard" "error_metric_include2" {
 }
 
 
-// CPU ALARM 
+// CPU ALARM
 module "cloudwatchalarm_cpu" {
   count      = var.enable_cpu_threshold ? 1 : 0
   source     = "../cloudwatch-alarm-notify"
@@ -159,7 +159,7 @@ module "cloudwatchalarm_cpu" {
   slack_channel                          = var.slack_channel
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body
@@ -168,7 +168,7 @@ module "cloudwatchalarm_cpu" {
   opsgenie_endpoint = var.opsgenie_endpoints
 }
 
-// MEMORY ALARM 
+// MEMORY ALARM
 module "cloudwatchalarm_memory" {
   count      = var.enable_memory_threshold ? 1 : 0
   source     = "../cloudwatch-alarm-notify"
@@ -191,7 +191,7 @@ module "cloudwatchalarm_memory" {
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
 
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body
@@ -200,7 +200,7 @@ module "cloudwatchalarm_memory" {
   opsgenie_endpoint = var.opsgenie_endpoints
 }
 
-// Log Filter 
+// Log Filter
 module "cloudwatch_log_metric_filter" {
   count  = var.enable_error_filter ? 1 : 0
   source = "../cloudwatch-log-metric"
@@ -235,7 +235,7 @@ module "cloudwatchalarm_error" {
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
 
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body
@@ -267,7 +267,7 @@ module "cloudwatchalarm_network_tx" {
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
 
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body
@@ -297,7 +297,7 @@ module "cloudwatchalarm_network_rx" {
   slack_channel                          = var.slack_channel
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body
@@ -306,7 +306,7 @@ module "cloudwatchalarm_network_rx" {
   opsgenie_endpoint = var.opsgenie_endpoints
 }
 
-// Pod Restarts 
+// Pod Restarts
 module "cloudwatchalarm_restart_count" {
   count      = var.enable_restart_threshold ? 1 : 0
   source     = "../cloudwatch-alarm-notify"
@@ -328,7 +328,7 @@ module "cloudwatchalarm_restart_count" {
   slack_channel                          = var.slack_channel
   slack_username                         = var.slack_username
   cloudwatch_log_group_retention_in_days = var.cloudwatch_log_group_retention_in_days
-  # SNS Topic 
+  # SNS Topic
   sns_subscription_email_address_list = var.sns_subscription_email_address_list
   sns_subscription_phone_number_list  = var.sns_subscription_phone_number_list
   sms_message_body                    = var.sms_message_body

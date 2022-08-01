@@ -54,7 +54,7 @@ module "mongodb-atlas" {
 ```
 
 ## Issues
-mongodbatlas_cloud_provider_snapshot_backup_policy resource requires access through an access list of IP ranges. To solve this problem you need to 
+mongodbatlas_cloud_provider_snapshot_backup_policy resource requires access through an access list of IP ranges. To solve this problem you need to
 1. open Organization -> Settings and set Require IP Access List for Public API ON,
 2. add the source IP in the API key access list:
    Organization -> Access Manager -> API Keys -> Edit API key permissions -> Next -> ADD ACCESS LIST ENTRY -> Add your source IP

@@ -31,7 +31,7 @@ In this case, you can create alarm to override default parameters.
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
-    
+
     # Type  k8s_alerts, alb_alerts
     alert_type_name  = "alb_alerts"
     threshold        = "50"
@@ -52,8 +52,8 @@ This case you can create alarm not implemented case.
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
-    
-    
+
+
     # Variables
     comparison_operator    = "GreaterThanOrEqualToThreshold"
     evaluation_periods     = "1"
@@ -65,8 +65,8 @@ module "cloudwatchalarm" {
     threshold              = "50"
     treat_missing_data     = "notBreaching"
     dimensions             = {}
-    insufficient_data_actions = [] 
-    
+    insufficient_data_actions = []
+
     # Slack information
     slack_hook_url   = ""
     slack_channel    = ""

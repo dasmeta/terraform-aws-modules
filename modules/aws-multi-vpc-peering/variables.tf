@@ -7,4 +7,3 @@ variable "peering_vpc_id" {
   description = "Peering VPC ids."
   type        = list(string)
 }
-

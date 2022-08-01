@@ -1,4 +1,4 @@
-# Terraform AWS Client VPN Endpoint 
+# Terraform AWS Client VPN Endpoint
 
 ## How to create Application for VPN in AWS Single Sign-On
 - Create private certificate.
@@ -24,7 +24,7 @@
 ```hcl
 module network {
     source      = "git::https://github.com/dasmeta/terraform.git//modules/newtwork?="
-    
+
     #VPC Peering
     create_vpc_peering = false
     main_vpc_id        = "vpc-1234567889"

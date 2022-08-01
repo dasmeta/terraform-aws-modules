@@ -9,6 +9,7 @@ Using terraform-docs and terraform fmt and pre-commit hooks
 for Run our pre-commit hooks you need to install
 	- terraform
 	- terraform-docs
+	- pre-commit
 
 ## Config for GitHooks
 
@@ -27,5 +28,3 @@ git config core.hooksPath githooks
 
 ## Comming soon
 - cert-manager to request certificates via AWS
-
-

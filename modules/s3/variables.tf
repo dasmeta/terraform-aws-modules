@@ -9,6 +9,30 @@ variable "acl" {
   description = "The acl config for bucket, NOTE: 'acl' conflicts with 'grant' and 'owner'."
 }
 
+variable "ignore_public_acls" {
+  description = "Whether Amazon S3 should ignore public ACLs for this bucket."
+  type        = bool
+  default     = false
+}
+
+variable "restrict_public_buckets" {
+  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
+  type        = bool
+  default     = false
+}
+
+variable "block_public_acls" {
+  description = "Whether Amazon S3 should block public ACLs for this bucket."
+  type        = bool
+  default     = false
+}
+
+variable "block_public_policy" {
+  description = "Whether Amazon S3 should block public bucket policies for this bucket."
+  type        = bool
+  default     = false
+}
+
 variable "grant" {
   type        = any
   default     = []
@@ -61,3 +85,18 @@ variable "website" {
   description = "The website configuration for the created bucket."
 }
 
+variable "create_index_html" {
+  type        = bool
+  default     = false
+  description = "Whether to create and initial index.html file with default data."
+}
+
+variable "bucket_files" {
+  type = object({
+    path = string
+  })
+  default = {
+    path = ""
+  }
+  description = "Initial content for bucket, use acl and pattern params if you need more control."
+}
