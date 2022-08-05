@@ -1,7 +1,7 @@
 ```
 module "cloudwatch_metric_filter" {
   source = "dasmeta/modules/aws//modules/metric-filter"
-  
+
   // Dimensions only applicable for JSON or delimited filter patterns
   metrics_patterns = [
     {
