@@ -1,6 +1,9 @@
 # Terraform AWS Client VPN Endpoint
 
-## How to create Application for VPN in AWS Single Sign-On
+
+## example with SSO
+
+### How to create Application for VPN in AWS Single Sign-On
 - Create private certificate in AWS Certificate Manager. Copy arn and use in module
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
@@ -26,11 +29,11 @@
 - Add vpn profile and add ovpn file.
 
 
-## Example
+### module setup for SSO
 ```hcl
 module network {
-    source      = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
-
+    source  = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
+    version = "0.36.4"
 
     # If you connect many vpc in vpn you should create vpc peering
     peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
@@ -47,15 +50,99 @@ module network {
 
     # Add routes in VPN route table
     additional_routes             = {
-                                        first = {
-                                                    cidr      = "20.0.0.0/16"
-                                                    subnet_id = "subnet-073672353a64692db014"
-                                                }
-                                        second = {
-                                                    cidr      = "40.0.0.0/16"
-                                                    subnet_id = "subnet-073672353a64692db014"
-                                                }
-                                    }
+        first = {
+            cidr      = "20.0.0.0/16"
+            subnet_id = "subnet-073672353a64692db014"
+        }
+        second = {
+            cidr      = "40.0.0.0/16"
+            subnet_id = "subnet-073672353a64692db014"
+        }
+    }
+}
+```
+
+## example with client certificate
+In order to use VPN with client certificate one have to instal openvpn and easy-rsa
+here is simple steps for
+
+### how to create CA certificate server and client keys using easy-rsa tool
+```sh
+git clone https://github.com/OpenVPN/easy-rsa.git
+cd easy-rsa/easyrsa3
+./easyrsa init-pki
+./easyrsa build-ca nopass # type yes for build success
+./easyrsa build-server-full server nopass # create server
+./easyrsa build-client-full client1.domain.tld nopass # create an client
+mkdir ./custom_folder/
+cp pki/ca.crt ./custom_folder/
+cp pki/issued/server.crt ./custom_folder/
+cp pki/private/server.key ./custom_folder/
+cp pki/issued/client1.domain.tld.crt ./custom_folder
+cp pki/private/client1.domain.tld.key ./custom_folder/
+cd ./custom_folder/
+
+```
+### upload generated  server and client certificates into aws CM (it will output certificate arm)
+```sh
+aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
+aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
+```
+### download .ovpn from vpn endpoint and edit it by adding the following in end of file
+cert /path/client1.domain.tld.crt
+key /path/client1.domain.tld.key
+
+### module setup
+```hcl
+
+module "vpn_vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.14.0"
+
+  name = "my_vpn_vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["eu-central-1a"]
+  private_subnets = ["10.0.1.0/24"]
+  public_subnets  = ["10.0.10.0/24"]
+
+  enable_nat_gateway   = true
+  enable_vpn_gateway   = true
+  enable_dns_hostnames = true
+}
+
+module "vpn" {
+  source  = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint/"
+  version = "0.36.4"
+
+  # VPN Endpoint
+  vpc_id                     = module.vpn_vpc.vpc_id
+  endpoint_name              = "my_test"
+  endpoint_client_cidr_block = "30.0.0.0/16"
+  saml_provider_arn          = ""
+  certificate_arn            = "arn:aws:acm:eu-central-1:xxxxx:certificate/yyy-yyyy-yyyy-yyyy-yyyyyyyyyyyyy"
+  client_certificate_arn     = "arn:aws:acm:eu-central-1:yyyyy:certificate/zzz-zzzz-zzzz-zzzz-zzzzzzzzzzzzz"
+
+  // Accept traffic to cidrs
+  authorization_ingress = ["172.17.0.0/16", "0.0.0.0/0"]
+  endpoint_subnets = [
+    module.vpn_vpc.private_subnets[0]
+  ]
+  additional_routes = {
+    test = {
+        cidr      = "172.17.0.0/16"
+        subnet_id = module.vpn_vpc.private_subnets[0]
+    }
+  }
+
+  split_tunnel    = false
+  peering_vpc_ids = ["vpc-xxxxxxxxxxxxx"]
+  vpn_port        = 1194
+
+  providers = {
+    aws      = aws
+    aws.peer = aws
+  }
 }
 ```
 

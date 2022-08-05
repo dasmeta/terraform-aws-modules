@@ -35,8 +35,9 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   vpn_port               = var.vpn_port
 
   authentication_options {
-    type              = "federated-authentication"
-    saml_provider_arn = var.saml_provider_arn
+    type                       = var.saml_provider_arn != "" ? "federated-authentication" : "certificate-authentication"
+    saml_provider_arn          = var.saml_provider_arn != "" ? var.saml_provider_arn : null
+    root_certificate_chain_arn = var.saml_provider_arn != "" ? null : coalesce(var.client_certificate_arn, var.certificate_arn)
   }
   connection_log_options {
     enabled = false
@@ -84,7 +85,7 @@ resource "aws_ec2_client_vpn_route" "my-vpn_sso" {
   description            = "From ${each.value.subnet_id} to ${each.value.cidr}"
 
   timeouts {
-    create = "5m"
-    delete = "5m"
+    create = "20m"
+    delete = "20m"
   }
 }
