@@ -10,11 +10,18 @@ variable "tags" {
 variable "saml_provider_arn" {
   description = "The ARN of the IAM SAML identity provider."
   type        = string
+  default     = ""
 }
 
 variable "certificate_arn" {
   description = "Certificate arn"
   type        = string
+}
+
+variable "client_certificate_arn" {
+  description = "Client Certificate arn when we setup certificate-authentication type vpn"
+  type        = string
+  default     = ""
 }
 
 variable "endpoint_client_cidr_block" {
