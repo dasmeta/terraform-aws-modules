@@ -3,6 +3,11 @@ output "s3_bucket_id" {
   value       = module.bucket.s3_bucket_id
 }
 
+output "s3_bucket_website_endpoint" {
+  description = "The access key secret"
+  value       = module.bucket.s3_bucket_website_endpoint
+}
+
 output "iam_user_name" {
   description = "The user's name"
   value       = module.iam_user.iam_user_name
