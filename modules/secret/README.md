@@ -50,7 +50,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Secret name | `string` | n/a | yes |
-| <a name="input_value"></a> [value](#input\_value) | Secret value | `any` | n/a | yes |
+| <a name="input_value"></a> [value](#input\_value) | Secret value | `any` | `null` | no |
 
 ## Outputs
 
