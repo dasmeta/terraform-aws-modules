@@ -4,7 +4,7 @@ output "s3_bucket_id" {
 }
 
 output "s3_bucket_website_endpoint" {
-  description = "The access key secret"
+  description = "The website endpoint associated to created s3 bucket"
   value       = module.bucket.s3_bucket_website_endpoint
 }
 
