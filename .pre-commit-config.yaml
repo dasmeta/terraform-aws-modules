@@ -23,5 +23,5 @@ repos:
   hooks:
     - id: terraform_fmt
     - id: terraform_docs
-  args:
-      - '--args=--lockfile=false'
+      args:
+          - '--args=--lockfile=false'
