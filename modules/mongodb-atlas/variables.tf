@@ -371,10 +371,11 @@ variable "cluster_configs" {
     }
 
     auto_scaling_disk_gb_enabled = true
-    mongo_db_major_version       = "4.2"
-    provider_name                = "AWS"
-    disk_size_gb                 = 100
-    provider_instance_size_name  = "M10"
+    # mongo_db_major_version       = "4.2"
+    mongo_db_major_version      = "4.4"
+    provider_name               = "AWS"
+    disk_size_gb                = 100
+    provider_instance_size_name = "M10"
   }
 
   description = "Mongo atlas cluster configurations"
