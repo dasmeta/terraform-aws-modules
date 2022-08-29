@@ -342,7 +342,6 @@ variable "teams" {
   default = [
   ]
 }
-
 variable "cluster_configs" {
   type = object({
     cluster_type = string,
@@ -354,7 +353,6 @@ variable "cluster_configs" {
       read_only_nodes = number
     })
     auto_scaling_disk_gb_enabled = bool
-    mongo_db_major_version       = string
     provider_name                = string # TODO: not sure if we really need to configure mongo atlas cluster provider, as we can use global variable var.provider_name. needs checking
     disk_size_gb                 = number
     provider_instance_size_name  = string
@@ -371,12 +369,15 @@ variable "cluster_configs" {
     }
 
     auto_scaling_disk_gb_enabled = true
-    # mongo_db_major_version       = "4.2"
-    mongo_db_major_version      = "4.4"
-    provider_name               = "AWS"
-    disk_size_gb                = 100
-    provider_instance_size_name = "M10"
+    provider_name                = "AWS"
+    disk_size_gb                 = 100
+    provider_instance_size_name  = "M10"
   }
 
   description = "Mongo atlas cluster configurations"
+}
+variable "mongo_db_major_version" {
+  type        = string
+  default     = "4.4"
+  description = "Mongo Atlas cluster version."
 }
