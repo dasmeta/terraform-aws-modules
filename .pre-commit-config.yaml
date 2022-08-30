@@ -23,5 +23,7 @@ repos:
   hooks:
     - id: terraform_fmt
     - id: terraform_docs
-  args:
-      - '--args=--lockfile=false'
+      args:
+        - --hook-config=--path-to-file=README.md
+        - --hook-config=--add-to-existing-file=true
+        - --hook-config=--create-file-if-not-exist=true
