@@ -13,7 +13,7 @@ resource "mongodbatlas_cluster" "main" {
   }
   cloud_backup                 = var.cloud_backup
   auto_scaling_disk_gb_enabled = var.cluster_configs.auto_scaling_disk_gb_enabled
-  mongo_db_major_version       = var.cluster_configs.mongo_db_major_version
+  mongo_db_major_version       = var.mongo_db_major_version
 
   //Provider Settings "block"
   provider_name               = var.provider_name
