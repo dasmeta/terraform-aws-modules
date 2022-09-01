@@ -43,7 +43,7 @@ module "sso-deploy" {
 
   cluster_name   = "my-cluster"
   cluster_region = "eu-west-1"
-  group_arn      = "arn:aws:iam::471767607298:role/AWSReservedSSO_development_6d8ab1c0b48350e7"
+  group_arn      = "group_arn"
   rbac_group     = "dev-group"
 
 
