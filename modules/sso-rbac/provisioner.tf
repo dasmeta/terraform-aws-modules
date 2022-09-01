@@ -10,7 +10,6 @@ resource "null_resource" "provision2" {
 
   #You need eksctl installed and
   provisioner "local-exec" {
-    command = "eksctl create iamidentitymapping --cluster my-cluster --region eu-west-1 --group acc-viewers --arn arn:aws:iam::471767607298:role/AWSReservedSSO_accounting_38389ad3e523a8ce --username kubernetesdeleteme@dasmeta.com"
+    command = "sleep 10 && eksctl create iamidentitymapping --cluster my-cluster --region eu-west-1 --group acc-viewers --arn arn:aws:iam::471767607298:role/AWSReservedSSO_accounting_38389ad3e523a8ce --username kubernetesdeleteme@dasmeta.com"
   }
 }
-

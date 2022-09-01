@@ -30,7 +30,3 @@ resource "aws_ssoadmin_managed_policy_attachment" "this" {
   managed_policy_arn = each.value.policy_arn
   permission_set_arn = aws_ssoadmin_permission_set.this[each.value.policy_set].arn
 }
-
-#-----------------------------------------------------------------------------------------------------------------------
-# LOCAL VARIABLES AND DATA SOURCES
-#-----------------------------------------------------------------------------------------------------------------------

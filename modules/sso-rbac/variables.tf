@@ -36,3 +36,16 @@ variable "rbac_group" {
 variable "group_arn" {
   type = string
 }
+
+variable "rbac_rule" {
+  type = list(object({
+    name = string
+    namespace = string
+    api_groups =  list(string)
+    resources = list(string)
+    resource_names = list(string)
+    verbs = list(string)
+  }))
+
+
+}
