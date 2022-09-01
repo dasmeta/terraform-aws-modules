@@ -51,11 +51,11 @@ variable "rbac_rule" {
 variable "rbac_role_binding" {
   type = list(object({
     rolebinding_name = string
-    rolename = string
-    namespace = string
-    group_name = string
-    role_kind = string
-    api_groups = list(string)
-
+    role_name        = string
+    namespace        = string
+    principal_kind   = string
+    role_kind        = string
+    group_name       = string
+    api_groups       = string
   }))
 }
