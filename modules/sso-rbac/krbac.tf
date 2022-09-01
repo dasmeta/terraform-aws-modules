@@ -1,9 +1,9 @@
 resource "kubernetes_role_v1" "k8s-rbac" {
 
-  for_each  = { for kr in var.rbac_rule : kr.name => ps }
+  for_each = { for kr in var.rbac_rule : kr.name => ps }
 
   metadata {
-    name = each.key
+    name      = each.key
     namespace = each.value.namespace
     labels = {
       test = "MyRole"
@@ -17,9 +17,3 @@ resource "kubernetes_role_v1" "k8s-rbac" {
     verbs          = each.value.verbs
   }
 }
-
-
-
-
-
-

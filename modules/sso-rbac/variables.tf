@@ -39,13 +39,11 @@ variable "group_arn" {
 
 variable "rbac_rule" {
   type = list(object({
-    name = string
-    namespace = string
-    api_groups =  list(string)
-    resources = list(string)
+    name           = string
+    namespace      = string
+    api_groups     = list(string)
+    resources      = list(string)
     resource_names = list(string)
-    verbs = list(string)
+    verbs          = list(string)
   }))
-
-
 }

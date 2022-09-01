@@ -18,8 +18,6 @@ data "aws_identitystore_user" "this" {
   }
 }
 
-
-
 resource "aws_ssoadmin_account_assignment" "this" {
   for_each = local.assignment_map
 
