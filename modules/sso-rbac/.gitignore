@@ -4,6 +4,8 @@
 
 **/.idea/*
 
+.idea/
+
 # .tfstate files
 *.tfstate
 *.tfstate.*

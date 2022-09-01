@@ -47,3 +47,15 @@ variable "rbac_rule" {
     verbs          = list(string)
   }))
 }
+
+variable "rbac_role_binding" {
+  type = list(object({
+    rolebinding_name = string
+    rolename = string
+    namespace = string
+    group_name = string
+    role_kind = string
+    api_groups = list(string)
+
+  }))
+}
