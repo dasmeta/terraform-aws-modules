@@ -85,44 +85,42 @@ module "route53" {
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name                                             | Version |
-| ------------------------------------------------ | ------- |
-| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
-| Name                                            | Source | Version |
-| ----------------------------------------------- | ------ | ------- |
-| <a name="module_zone"></a> [zone](#module_zone) | ./zone | n/a     |
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_zone"></a> [zone](#module\_zone) | ./zone | n/a |
 
 ## Resources
 
-| Name                                                                                                                        | Type        |
-| --------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [aws_route53_record.add_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource    |
-| [aws_route53_zone.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone)        | data source |
+| Name | Type |
+|------|------|
+| [aws_route53_record.add_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_zone.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
 
-| Name                                                               | Description                                                                                       | Type                                                                                           | Default | Required |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- | :------: |
-| <a name="input_create_zone"></a> [create_zone](#input_create_zone) | controlls whether create Route53 zone or use already created zone for just generating new records | `bool`                                                                                         | `true`  |    no    |
-| <a name="input_records"></a> [records](#input_records)             | dns records name, type and value list                                                             | <pre>list(object({<br> name = string,<br> type = string,<br> value = set(string)<br> }))</pre> | `[]`    |    no    |
-| <a name="input_ttl"></a> [ttl](#input_ttl)                         | TTL Time                                                                                          | `string`                                                                                       | `"30"`  |    no    |
-| <a name="input_zone"></a> [zone](#input_zone)                      | Route53 zone name                                                                                 | `string`                                                                                       | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_create_zone"></a> [create\_zone](#input\_create\_zone) | controlls whether create Route53 zone or use already created zone for just generating new records | `bool` | `true` | no |
+| <a name="input_records"></a> [records](#input\_records) | dns records name, type and value list | <pre>list(object({<br>    name  = string,<br>    type  = string,<br>    value = set(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_ttl"></a> [ttl](#input\_ttl) | TTL Time | `string` | `"30"` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | Route53 zone name | `string` | n/a | yes |
 
 ## Outputs
 
-| Name                                                     | Description       |
-| -------------------------------------------------------- | ----------------- |
-| <a name="output_arn"></a> [arn](#output_arn)             | Returns zone arn. |
-| <a name="output_zone_id"></a> [zone_id](#output_zone_id) | Returns zone id.  |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | Returns zone arn. |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Returns zone id. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
