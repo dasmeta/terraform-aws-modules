@@ -46,3 +46,35 @@ No resources.
 
 No outputs.
 <!-- END_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 0.15.0 |
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_vpc_peering"></a> [vpc\_peering](#module\_vpc\_peering) | ../aws-vpc-peering | n/a |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_main_vpc"></a> [main\_vpc](#input\_main\_vpc) | MainVPC Id | `string` | n/a | yes |
+| <a name="input_peering_vpc_id"></a> [peering\_vpc\_id](#input\_peering\_vpc\_id) | Peering VPC ids. | `list(string)` | n/a | yes |
+
+## Outputs
+
+No outputs.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
