@@ -136,6 +136,18 @@ variable "provider_name" { # TODO: it seems peering and other connection related
   description = "Cloud provider to whom the peering connection is being made."
 }
 
+variable "backing_provider_name" {
+  type        = string
+  default     = null
+  description = "Cloud service provider on which the server for a multi-tenant cluster is provisioned, valid for only when instanceSizeName is M2 or M5."
+}
+
+variable "provider_region_name" {
+  type        = string
+  default     = null
+  description = "Cloud service provider on which the server for a multi-tenant cluster is provisioned, valid for only when instanceSizeName is M2 or M5."
+}
+
 variable "access_users" {
   type = list(object({
     username      = string,
