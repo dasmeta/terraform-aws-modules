@@ -1,8 +1,8 @@
 # How To
+
 This module you can use , when create domain certificate
 
-
-### Example 1:  You can use this case when create a wildcard certificate or other subdomain certificate.
+### Example 1: You can use this case when create a wildcard certificate or other subdomain certificate.
 
 ```
 # Domain "The main domain"
@@ -32,7 +32,9 @@ module "ssl-certificate-auth" {
 
 
 ```
+
 ### Example 2: You can use this case when you create a single certificate և add different subdomains or another domain name
+
 ```
 # Domain "The main domain"
 # Alternative_domains "Subdomain or other main domain or wildcard domain"
@@ -48,11 +50,13 @@ module ssl-certificate-auth {
   tags = {
       name    = "test"
       value   = "ssl"
-  }  
+  }
 }
 
 ```
+
 ### Example 3: You can use this case when you create certificate different region.
+
 ```
 provider "aws" {
   alias  = "virginia"
@@ -74,56 +78,18 @@ module ssl-certificate-auth {
   }
 }
 ```
-<!-- BEGIN_TF_DOCS -->
-## Requirements
 
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-No modules.
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_acm_certificate.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) | resource |
-| [aws_acm_certificate_validation.cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
-| [aws_route53_record.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_route53_zone.zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alternative_domains"></a> [alternative\_domains](#input\_alternative\_domains) | Subdomain or other domain or wildcard certificate name will be create. | `list(string)` | `[]` | no |
-| <a name="input_alternative_zones"></a> [alternative\_zones](#input\_alternative\_zones) | This variable use route53. Must equal to alternative\_domains. (Note. When you use wildcard must be equal to main zone) | `list(string)` | `[]` | no |
-| <a name="input_domain"></a> [domain](#input\_domain) | Main domain name ssl certificate. | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | tags | `any` | `{}` | no |
-| <a name="input_zone"></a> [zone](#input\_zone) | This variable use route53. Can equal to main domain name. | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | SSL Certificate ARN to be used in ingress controllers |
-<!-- END_TF_DOCS -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| Name                                             | Version |
+| ------------------------------------------------ | ------- |
+| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
 
 ## Modules
 
@@ -131,26 +97,27 @@ No modules.
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_acm_certificate.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) | resource |
-| [aws_acm_certificate_validation.cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
-| [aws_route53_record.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_route53_zone.zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+| Name                                                                                                                                          | Type        |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [aws_acm_certificate.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate)                       | resource    |
+| [aws_acm_certificate_validation.cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource    |
+| [aws_route53_record.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record)                         | resource    |
+| [aws_route53_zone.zones](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone)                         | data source |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alternative_domains"></a> [alternative\_domains](#input\_alternative\_domains) | Subdomain or other domain or wildcard certificate name will be create. | `list(string)` | `[]` | no |
-| <a name="input_alternative_zones"></a> [alternative\_zones](#input\_alternative\_zones) | This variable use route53. Must equal to alternative\_domains. (Note. When you use wildcard must be equal to main zone) | `list(string)` | `[]` | no |
-| <a name="input_domain"></a> [domain](#input\_domain) | Main domain name ssl certificate. | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | tags | `any` | `{}` | no |
-| <a name="input_zone"></a> [zone](#input\_zone) | This variable use route53. Can equal to main domain name. | `string` | n/a | yes |
+| Name                                                                                       | Description                                                                                                            | Type           | Default | Required |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------- | :------: |
+| <a name="input_alternative_domains"></a> [alternative_domains](#input_alternative_domains) | Subdomain or other domain or wildcard certificate name will be create.                                                 | `list(string)` | `[]`    |    no    |
+| <a name="input_alternative_zones"></a> [alternative_zones](#input_alternative_zones)       | This variable use route53. Must equal to alternative_domains. (Note. When you use wildcard must be equal to main zone) | `list(string)` | `[]`    |    no    |
+| <a name="input_domain"></a> [domain](#input_domain)                                        | Main domain name ssl certificate.                                                                                      | `string`       | n/a     |   yes    |
+| <a name="input_tags"></a> [tags](#input_tags)                                              | tags                                                                                                                   | `any`          | `{}`    |    no    |
+| <a name="input_zone"></a> [zone](#input_zone)                                              | This variable use route53. Can equal to main domain name.                                                              | `string`       | n/a     |   yes    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | SSL Certificate ARN to be used in ingress controllers |
+| Name                                         | Description                                           |
+| -------------------------------------------- | ----------------------------------------------------- |
+| <a name="output_arn"></a> [arn](#output_arn) | SSL Certificate ARN to be used in ingress controllers |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

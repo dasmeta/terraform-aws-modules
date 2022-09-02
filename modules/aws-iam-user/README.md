@@ -13,6 +13,7 @@ When `pgp_key` is specified as `keybase:username`, make sure that that user has 
 ### How to decrypt user's encrypted password and secret key
 
 This module outputs commands and PGP messages which can be decrypted either using [keybase.io web-site](https://keybase.io/decrypt) or using command line to get user's password and user's secret key:
+
 - `keybase_password_decrypt_command`
 - `keybase_secret_key_decrypt_command`
 - `keybase_password_pgp_message`
@@ -23,11 +24,12 @@ This module outputs commands and PGP messages which can be decrypted either usin
 ## Case 1
 
 case 1 creates an AWS IAM user with Programmatic access , AWS Management Console access and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-  - AWS Management Console access: Used the for AWS Management Console
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
+- AWS Management Console access: Used the for AWS Management Console
+
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
 
 ```terraform
 
@@ -70,10 +72,10 @@ output "keybase_secret_key_decrypt_command" {
 ## Case 2
 
 case 2 creates an AWS IAM user with Programmatic access after create new policy and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Secret Key)
 
 ```terraform
 module "mongodb-backup-s3-storage-user" {
@@ -114,13 +116,14 @@ output "iam_access_key_secret" {
 }
 
 ```
+
 ## Case 3
 
 case 3 creates an AWS IAM user with Programmatic access.
- - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Secret Key)
 
 ```terraform
 
@@ -154,10 +157,11 @@ output "iam_access_key_secret" {
 
 ## Case 4
 
-case 2 creates an AWS IAM user with  AWS Management Console access.
-  - AWS Management Console access: Used the for AWS Management Console
+case 2 creates an AWS IAM user with AWS Management Console access.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Management Console Password)
+- AWS Management Console access: Used the for AWS Management Console
+
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Management Console Password)
 
 ```terraform
 
@@ -183,10 +187,10 @@ output "keybase_password_decrypt_command" {
   value       = module.mongodb-backup-s3-storage-user.keybase_password_decrypt_command
 }
 ```
+
 ## Case 5 with local pgp_key
 
 ### How to Use PGP to Encrypt Your Terraform Secrets
-
 
 ### - Step 1 : make sure gpg is installed
 
@@ -203,16 +207,17 @@ gpg --version
 echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 \n Subkey-Type: RSA\n Subkey-Curve: nistp256\n Subkey-Length: 2048\n Name-Real: Das Meta\n Name-Comment: How to Use PGP to Encrypt Your Terraform Secrets\n Name-Email: devops@dasmeta.com\n Expire-Date: 0\n Passphrase: Hgv1231vv23j1hv23\n # Do a commit here, so that we can later print "done" :-)\n %commit\n %echo done" >  key-gen-template && gpg --gen-key --batch key-gen-template && gpg --export "devops@dasmeta.com" | base64
 
 ```
--  Passphrase: `Hgv1231vv23j1hv23`
-- Copy the result key and insert it in the module as the `pgp_key` in step 3.
 
+- Passphrase: `Hgv1231vv23j1hv23`
+- Copy the result key and insert it in the module as the `pgp_key` in step 3.
 
 ### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
 
 AWS Management Console access and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-  - AWS Management Console access: Used the for AWS Management Console
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
+
+- AWS Management Console access: Used the for AWS Management Console
 
 At the `terraform apply` shows the ouputs which we will use in step 4(for example user password or access_key) of the user ( User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
 
@@ -254,6 +259,7 @@ EOF
 ```
 
 ### Step 4 : Decode each encoded data from step 3 outputs
+
 after successfull Step 3 there should be shell/console commands as output for the following ouputs `iam_user_login_profile_encrypted_password` and `secret_access_key` .
 
 You have to copy the `{COMMAND}` and run in shell/console. Here is the form of output:
@@ -276,119 +282,63 @@ EOT
 
 ```
 
-<!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | terraform-aws-modules/iam/aws//modules/iam-user | 4.6.0 |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_iam_user_policy.iam_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
-| [aws_iam_user_policy_attachment.user-attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_api"></a> [api](#input\_api) | Whether to create IAM access key | `bool` | `true` | no |
-| <a name="input_console"></a> [console](#input\_console) | Whether to create IAM user login profile | `bool` | `true` | no |
-| <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Whether create a policy or not. | `bool` | `false` | no |
-| <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Whether to create the IAM user | `bool` | `true` | no |
-| <a name="input_pgp_key"></a> [pgp\_key](#input\_pgp\_key) | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string` | `""` | no |
-| <a name="input_policy"></a> [policy](#input\_policy) | IAM policy resource | `any` | `null` | no |
-| <a name="input_policy_attachment"></a> [policy\_attachment](#input\_policy\_attachment) | The list of ARN-s of the policy you want to apply | `list(string)` | `[]` | no |
-| <a name="input_username"></a> [username](#input\_username) | Desired name for the IAM user | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_iam_access_key_encrypted_secret"></a> [iam\_access\_key\_encrypted\_secret](#output\_iam\_access\_key\_encrypted\_secret) | The encrypted secret, base64 encoded |
-| <a name="output_iam_access_key_id"></a> [iam\_access\_key\_id](#output\_iam\_access\_key\_id) | The access key ID |
-| <a name="output_iam_access_key_key_fingerprint"></a> [iam\_access\_key\_key\_fingerprint](#output\_iam\_access\_key\_key\_fingerprint) | The fingerprint of the PGP key used to encrypt the secret |
-| <a name="output_iam_access_key_secret"></a> [iam\_access\_key\_secret](#output\_iam\_access\_key\_secret) | The access key secret |
-| <a name="output_iam_access_key_ses_smtp_password_v4"></a> [iam\_access\_key\_ses\_smtp\_password\_v4](#output\_iam\_access\_key\_ses\_smtp\_password\_v4) | The secret access key converted into an SES SMTP password |
-| <a name="output_iam_access_key_status"></a> [iam\_access\_key\_status](#output\_iam\_access\_key\_status) | Active or Inactive. Keys are initially active, but can be made inactive by other means. |
-| <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | The ARN assigned by AWS for this user |
-| <a name="output_iam_user_login_profile_encrypted_password"></a> [iam\_user\_login\_profile\_encrypted\_password](#output\_iam\_user\_login\_profile\_encrypted\_password) | The encrypted password, base64 encoded |
-| <a name="output_iam_user_login_profile_key_fingerprint"></a> [iam\_user\_login\_profile\_key\_fingerprint](#output\_iam\_user\_login\_profile\_key\_fingerprint) | The fingerprint of the PGP key used to encrypt the password |
-| <a name="output_iam_user_name"></a> [iam\_user\_name](#output\_iam\_user\_name) | The user's name |
-| <a name="output_iam_user_unique_id"></a> [iam\_user\_unique\_id](#output\_iam\_user\_unique\_id) | The unique ID assigned by AWS |
-| <a name="output_keybase_password_decrypt_command"></a> [keybase\_password\_decrypt\_command](#output\_keybase\_password\_decrypt\_command) | Decrypt user password command |
-| <a name="output_keybase_password_pgp_message"></a> [keybase\_password\_pgp\_message](#output\_keybase\_password\_pgp\_message) | Encrypted password |
-| <a name="output_keybase_secret_key_decrypt_command"></a> [keybase\_secret\_key\_decrypt\_command](#output\_keybase\_secret\_key\_decrypt\_command) | Decrypt access secret key command |
-| <a name="output_keybase_secret_key_pgp_message"></a> [keybase\_secret\_key\_pgp\_message](#output\_keybase\_secret\_key\_pgp\_message) | Encrypted access secret key |
-| <a name="output_pgp_key"></a> [pgp\_key](#output\_pgp\_key) | PGP key used to encrypt sensitive data for this user (if empty - secrets are not encrypted) |
-<!-- END_TF_DOCS -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| Name                                             | Version |
+| ------------------------------------------------ | ------- |
+| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | terraform-aws-modules/iam/aws//modules/iam-user | 4.6.0 |
+| Name                                                        | Source                                          | Version |
+| ----------------------------------------------------------- | ----------------------------------------------- | ------- |
+| <a name="module_iam_user"></a> [iam_user](#module_iam_user) | terraform-aws-modules/iam/aws//modules/iam-user | 4.6.0   |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [aws_iam_user_policy.iam_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
+| Name                                                                                                                                                 | Type     |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [aws_iam_user_policy.iam_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy)                   | resource |
 | [aws_iam_user_policy_attachment.user-attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment) | resource |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_api"></a> [api](#input\_api) | Whether to create IAM access key | `bool` | `true` | no |
-| <a name="input_console"></a> [console](#input\_console) | Whether to create IAM user login profile | `bool` | `true` | no |
-| <a name="input_create_policy"></a> [create\_policy](#input\_create\_policy) | Whether create a policy or not. | `bool` | `false` | no |
-| <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Whether to create the IAM user | `bool` | `true` | no |
-| <a name="input_pgp_key"></a> [pgp\_key](#input\_pgp\_key) | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string` | `""` | no |
-| <a name="input_policy"></a> [policy](#input\_policy) | IAM policy resource | `any` | `null` | no |
-| <a name="input_policy_attachment"></a> [policy\_attachment](#input\_policy\_attachment) | The list of ARN-s of the policy you want to apply | `list(string)` | `[]` | no |
-| <a name="input_username"></a> [username](#input\_username) | Desired name for the IAM user | `string` | n/a | yes |
+| Name                                                                                 | Description                                                                                                                                                                                                         | Type           | Default | Required |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------- | :------: |
+| <a name="input_api"></a> [api](#input_api)                                           | Whether to create IAM access key                                                                                                                                                                                    | `bool`         | `true`  |    no    |
+| <a name="input_console"></a> [console](#input_console)                               | Whether to create IAM user login profile                                                                                                                                                                            | `bool`         | `true`  |    no    |
+| <a name="input_create_policy"></a> [create_policy](#input_create_policy)             | Whether create a policy or not.                                                                                                                                                                                     | `bool`         | `false` |    no    |
+| <a name="input_create_user"></a> [create_user](#input_create_user)                   | Whether to create the IAM user                                                                                                                                                                                      | `bool`         | `true`  |    no    |
+| <a name="input_pgp_key"></a> [pgp_key](#input_pgp_key)                               | Either a base-64 encoded PGP public key, or a keybase username in the form `keybase:username`. Used to encrypt password and access key. `pgp_key` is required when `create_iam_user_login_profile` is set to `true` | `string`       | `""`    |    no    |
+| <a name="input_policy"></a> [policy](#input_policy)                                  | IAM policy resource                                                                                                                                                                                                 | `any`          | `null`  |    no    |
+| <a name="input_policy_attachment"></a> [policy_attachment](#input_policy_attachment) | The list of ARN-s of the policy you want to apply                                                                                                                                                                   | `list(string)` | `[]`    |    no    |
+| <a name="input_username"></a> [username](#input_username)                            | Desired name for the IAM user                                                                                                                                                                                       | `string`       | n/a     |   yes    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_iam_access_key_encrypted_secret"></a> [iam\_access\_key\_encrypted\_secret](#output\_iam\_access\_key\_encrypted\_secret) | The encrypted secret, base64 encoded |
-| <a name="output_iam_access_key_id"></a> [iam\_access\_key\_id](#output\_iam\_access\_key\_id) | The access key ID |
-| <a name="output_iam_access_key_key_fingerprint"></a> [iam\_access\_key\_key\_fingerprint](#output\_iam\_access\_key\_key\_fingerprint) | The fingerprint of the PGP key used to encrypt the secret |
-| <a name="output_iam_access_key_secret"></a> [iam\_access\_key\_secret](#output\_iam\_access\_key\_secret) | The access key secret |
-| <a name="output_iam_access_key_ses_smtp_password_v4"></a> [iam\_access\_key\_ses\_smtp\_password\_v4](#output\_iam\_access\_key\_ses\_smtp\_password\_v4) | The secret access key converted into an SES SMTP password |
-| <a name="output_iam_access_key_status"></a> [iam\_access\_key\_status](#output\_iam\_access\_key\_status) | Active or Inactive. Keys are initially active, but can be made inactive by other means. |
-| <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | The ARN assigned by AWS for this user |
-| <a name="output_iam_user_login_profile_encrypted_password"></a> [iam\_user\_login\_profile\_encrypted\_password](#output\_iam\_user\_login\_profile\_encrypted\_password) | The encrypted password, base64 encoded |
-| <a name="output_iam_user_login_profile_key_fingerprint"></a> [iam\_user\_login\_profile\_key\_fingerprint](#output\_iam\_user\_login\_profile\_key\_fingerprint) | The fingerprint of the PGP key used to encrypt the password |
-| <a name="output_iam_user_name"></a> [iam\_user\_name](#output\_iam\_user\_name) | The user's name |
-| <a name="output_iam_user_unique_id"></a> [iam\_user\_unique\_id](#output\_iam\_user\_unique\_id) | The unique ID assigned by AWS |
-| <a name="output_keybase_password_decrypt_command"></a> [keybase\_password\_decrypt\_command](#output\_keybase\_password\_decrypt\_command) | Decrypt user password command |
-| <a name="output_keybase_password_pgp_message"></a> [keybase\_password\_pgp\_message](#output\_keybase\_password\_pgp\_message) | Encrypted password |
-| <a name="output_keybase_secret_key_decrypt_command"></a> [keybase\_secret\_key\_decrypt\_command](#output\_keybase\_secret\_key\_decrypt\_command) | Decrypt access secret key command |
-| <a name="output_keybase_secret_key_pgp_message"></a> [keybase\_secret\_key\_pgp\_message](#output\_keybase\_secret\_key\_pgp\_message) | Encrypted access secret key |
-| <a name="output_pgp_key"></a> [pgp\_key](#output\_pgp\_key) | PGP key used to encrypt sensitive data for this user (if empty - secrets are not encrypted) |
+| Name                                                                                                                                                           | Description                                                                                 |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| <a name="output_iam_access_key_encrypted_secret"></a> [iam_access_key_encrypted_secret](#output_iam_access_key_encrypted_secret)                               | The encrypted secret, base64 encoded                                                        |
+| <a name="output_iam_access_key_id"></a> [iam_access_key_id](#output_iam_access_key_id)                                                                         | The access key ID                                                                           |
+| <a name="output_iam_access_key_key_fingerprint"></a> [iam_access_key_key_fingerprint](#output_iam_access_key_key_fingerprint)                                  | The fingerprint of the PGP key used to encrypt the secret                                   |
+| <a name="output_iam_access_key_secret"></a> [iam_access_key_secret](#output_iam_access_key_secret)                                                             | The access key secret                                                                       |
+| <a name="output_iam_access_key_ses_smtp_password_v4"></a> [iam_access_key_ses_smtp_password_v4](#output_iam_access_key_ses_smtp_password_v4)                   | The secret access key converted into an SES SMTP password                                   |
+| <a name="output_iam_access_key_status"></a> [iam_access_key_status](#output_iam_access_key_status)                                                             | Active or Inactive. Keys are initially active, but can be made inactive by other means.     |
+| <a name="output_iam_user_arn"></a> [iam_user_arn](#output_iam_user_arn)                                                                                        | The ARN assigned by AWS for this user                                                       |
+| <a name="output_iam_user_login_profile_encrypted_password"></a> [iam_user_login_profile_encrypted_password](#output_iam_user_login_profile_encrypted_password) | The encrypted password, base64 encoded                                                      |
+| <a name="output_iam_user_login_profile_key_fingerprint"></a> [iam_user_login_profile_key_fingerprint](#output_iam_user_login_profile_key_fingerprint)          | The fingerprint of the PGP key used to encrypt the password                                 |
+| <a name="output_iam_user_name"></a> [iam_user_name](#output_iam_user_name)                                                                                     | The user's name                                                                             |
+| <a name="output_iam_user_unique_id"></a> [iam_user_unique_id](#output_iam_user_unique_id)                                                                      | The unique ID assigned by AWS                                                               |
+| <a name="output_keybase_password_decrypt_command"></a> [keybase_password_decrypt_command](#output_keybase_password_decrypt_command)                            | Decrypt user password command                                                               |
+| <a name="output_keybase_password_pgp_message"></a> [keybase_password_pgp_message](#output_keybase_password_pgp_message)                                        | Encrypted password                                                                          |
+| <a name="output_keybase_secret_key_decrypt_command"></a> [keybase_secret_key_decrypt_command](#output_keybase_secret_key_decrypt_command)                      | Decrypt access secret key command                                                           |
+| <a name="output_keybase_secret_key_pgp_message"></a> [keybase_secret_key_pgp_message](#output_keybase_secret_key_pgp_message)                                  | Encrypted access secret key                                                                 |
+| <a name="output_pgp_key"></a> [pgp_key](#output_pgp_key)                                                                                                       | PGP key used to encrypt sensitive data for this user (if empty - secrets are not encrypted) |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

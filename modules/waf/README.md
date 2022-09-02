@@ -1,5 +1,4 @@
-
-### Example  1. Simple example create waf. This example not set roles and doesn't have association.
+### Example 1. Simple example create waf. This example not set roles and doesn't have association.
 
 ```
 module "waf_alb" {
@@ -119,7 +118,6 @@ module "waf_alb" {
   }
 }
 ```
-
 
 ### Rule Type
 
@@ -323,95 +321,52 @@ module "waf_alb" {
       }
     }
 ```
-<!-- BEGIN_TF_DOCS -->
-## Requirements
 
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 3.8.1 |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_wafv2_ip_set.whitelist_ip_set](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_ip_set) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alb_arn"></a> [alb\_arn](#input\_alb\_arn) | Application Load Balancer ARN | `string` | `""` | no |
-| <a name="input_alb_arn_list"></a> [alb\_arn\_list](#input\_alb\_arn\_list) | Application Load Balancer ARN list | `list(string)` | `[]` | no |
-| <a name="input_allow_default_action"></a> [allow\_default\_action](#input\_allow\_default\_action) | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default. | `bool` | `true` | no |
-| <a name="input_create_alb_association"></a> [create\_alb\_association](#input\_create\_alb\_association) | Whether to create alb association with WAF web acl | `bool` | `false` | no |
-| <a name="input_enable_whitelist"></a> [enable\_whitelist](#input\_enable\_whitelist) | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist\_ids list, as it will fail to remove in use resources | `bool` | `true` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name | `string` | n/a | yes |
-| <a name="input_rules"></a> [rules](#input\_rules) | List of WAF rules. | `any` | `[]` | no |
-| <a name="input_scope"></a> [scope](#input\_scope) | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string` | `"REGIONAL"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of WAF rules. | `any` | `{}` | no |
-| <a name="input_visibility_config"></a> [visibility\_config](#input\_visibility\_config) | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration | `any` | <pre>{<br>  "metric_name": "test-waf-setup-waf-main-metrics"<br>}</pre> | no |
-| <a name="input_whitelist_ips"></a> [whitelist\_ips](#input\_whitelist\_ips) | List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule | `list(string)` | `[]` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_web_acl_arn"></a> [web\_acl\_arn](#output\_web\_acl\_arn) | n/a |
-| <a name="output_web_acl_id"></a> [web\_acl\_id](#output\_web\_acl\_id) | n/a |
-<!-- END_TF_DOCS -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| Name                                             | Version |
+| ------------------------------------------------ | ------- |
+| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 3.8.1 |
+| Name                                         | Source                         | Version |
+| -------------------------------------------- | ------------------------------ | ------- |
+| <a name="module_waf"></a> [waf](#module_waf) | umotif-public/waf-webaclv2/aws | 3.8.1   |
 
 ## Resources
 
-| Name | Type |
-|------|------|
+| Name                                                                                                                          | Type     |
+| ----------------------------------------------------------------------------------------------------------------------------- | -------- |
 | [aws_wafv2_ip_set.whitelist_ip_set](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_ip_set) | resource |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alb_arn"></a> [alb\_arn](#input\_alb\_arn) | Application Load Balancer ARN | `string` | `""` | no |
-| <a name="input_alb_arn_list"></a> [alb\_arn\_list](#input\_alb\_arn\_list) | Application Load Balancer ARN list | `list(string)` | `[]` | no |
-| <a name="input_allow_default_action"></a> [allow\_default\_action](#input\_allow\_default\_action) | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default. | `bool` | `true` | no |
-| <a name="input_create_alb_association"></a> [create\_alb\_association](#input\_create\_alb\_association) | Whether to create alb association with WAF web acl | `bool` | `false` | no |
-| <a name="input_enable_whitelist"></a> [enable\_whitelist](#input\_enable\_whitelist) | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist\_ids list, as it will fail to remove in use resources | `bool` | `true` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name | `string` | n/a | yes |
-| <a name="input_rules"></a> [rules](#input\_rules) | List of WAF rules. | `any` | `[]` | no |
-| <a name="input_scope"></a> [scope](#input\_scope) | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string` | `"REGIONAL"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of WAF rules. | `any` | `{}` | no |
-| <a name="input_visibility_config"></a> [visibility\_config](#input\_visibility\_config) | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration | `any` | <pre>{<br>  "metric_name": "test-waf-setup-waf-main-metrics"<br>}</pre> | no |
-| <a name="input_whitelist_ips"></a> [whitelist\_ips](#input\_whitelist\_ips) | List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule | `list(string)` | `[]` | no |
+| Name                                                                                                | Description                                                                                                                                                                                                                                 | Type           | Default                                                                | Required |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------------- | :------: |
+| <a name="input_alb_arn"></a> [alb_arn](#input_alb_arn)                                              | Application Load Balancer ARN                                                                                                                                                                                                               | `string`       | `""`                                                                   |    no    |
+| <a name="input_alb_arn_list"></a> [alb_arn_list](#input_alb_arn_list)                               | Application Load Balancer ARN list                                                                                                                                                                                                          | `list(string)` | `[]`                                                                   |    no    |
+| <a name="input_allow_default_action"></a> [allow_default_action](#input_allow_default_action)       | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default.                                                                                                                                        | `bool`         | `true`                                                                 |    no    |
+| <a name="input_create_alb_association"></a> [create_alb_association](#input_create_alb_association) | Whether to create alb association with WAF web acl                                                                                                                                                                                          | `bool`         | `false`                                                                |    no    |
+| <a name="input_enable_whitelist"></a> [enable_whitelist](#input_enable_whitelist)                   | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist_ids list, as it will fail to remove in use resources                                                                                 | `bool`         | `true`                                                                 |    no    |
+| <a name="input_name"></a> [name](#input_name)                                                       | Name                                                                                                                                                                                                                                        | `string`       | n/a                                                                    |   yes    |
+| <a name="input_rules"></a> [rules](#input_rules)                                                    | List of WAF rules.                                                                                                                                                                                                                          | `any`          | `[]`                                                                   |    no    |
+| <a name="input_scope"></a> [scope](#input_scope)                                                    | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string`       | `"REGIONAL"`                                                           |    no    |
+| <a name="input_tags"></a> [tags](#input_tags)                                                       | List of WAF rules.                                                                                                                                                                                                                          | `any`          | `{}`                                                                   |    no    |
+| <a name="input_visibility_config"></a> [visibility_config](#input_visibility_config)                | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration                                                                                                              | `any`          | <pre>{<br> "metric_name": "test-waf-setup-waf-main-metrics"<br>}</pre> |    no    |
+| <a name="input_whitelist_ips"></a> [whitelist_ips](#input_whitelist_ips)                            | List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule                                                                                     | `list(string)` | `[]`                                                                   |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_web_acl_arn"></a> [web\_acl\_arn](#output\_web\_acl\_arn) | n/a |
-| <a name="output_web_acl_id"></a> [web\_acl\_id](#output\_web\_acl\_id) | n/a |
+| Name                                                                 | Description |
+| -------------------------------------------------------------------- | ----------- |
+| <a name="output_web_acl_arn"></a> [web_acl_arn](#output_web_acl_arn) | n/a         |
+| <a name="output_web_acl_id"></a> [web_acl_id](#output_web_acl_id)    | n/a         |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

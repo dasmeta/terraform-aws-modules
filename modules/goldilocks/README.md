@@ -1,4 +1,5 @@
 # todo
+
 - Goldilocks is a Kubernetes controller that provides a dashboard that gives recommendations on how to set your resource requests.
 
 ## Usage
@@ -25,99 +26,53 @@ module "goldilocks" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/ingress | n/a |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [helm_release.goldilocks_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.metric_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.vpa](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_manifest.create_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
-| [null_resource.vpa_configure](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alb_certificate_arn"></a> [alb\_certificate\_arn](#input\_alb\_certificate\_arn) | Domain Certificate ARN | `string` | `""` | no |
-| <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | n/a | `string` | `"goldilocks-dashboard"` | no |
-| <a name="input_alb_subnet"></a> [alb\_subnet](#input\_alb\_subnet) | Ingress Annotations Add  EKS Public Subnet | `string` | `""` | no |
-| <a name="input_auth"></a> [auth](#input\_auth) | n/a | <pre>object({<br>    userPoolARN      = string,<br>    userPoolClientID = string,<br>    userPoolDomain   = string<br>  })</pre> | n/a | yes |
-| <a name="input_create_dashboard_ingress"></a> [create\_dashboard\_ingress](#input\_create\_dashboard\_ingress) | Access Goldilocks Dashboard | `bool` | `true` | no |
-| <a name="input_create_metric_server"></a> [create\_metric\_server](#input\_create\_metric\_server) | Create metric server | `bool` | `true` | no |
-| <a name="input_create_vpa_server"></a> [create\_vpa\_server](#input\_create\_vpa\_server) | VPA configure in the cluster | `bool` | `true` | no |
-| <a name="input_hostname"></a> [hostname](#input\_hostname) | n/a | `string` | `"goldilocks.example.com"` | no |
-| <a name="input_namespaces"></a> [namespaces](#input\_namespaces) | Goldilocks labels on your namespaces | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Domain Name | `string` | n/a | yes |
-
-## Outputs
-
-No outputs.
-<!-- END_TF_DOCS -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| Name                                                                  | Version |
+| --------------------------------------------------------------------- | ------- |
+| <a name="provider_helm"></a> [helm](#provider_helm)                   | n/a     |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider_kubernetes) | n/a     |
+| <a name="provider_null"></a> [null](#provider_null)                   | n/a     |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/ingress | n/a |
+| Name                                                     | Source                               | Version |
+| -------------------------------------------------------- | ------------------------------------ | ------- |
+| <a name="module_ingress"></a> [ingress](#module_ingress) | dasmeta/modules/aws//modules/ingress | n/a     |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [helm_release.goldilocks_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.metric_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.vpa](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| Name                                                                                                                                | Type     |
+| ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [helm_release.goldilocks_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release)              | resource |
+| [helm_release.metric_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release)                  | resource |
+| [helm_release.vpa](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release)                            | resource |
 | [kubernetes_manifest.create_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
-| [null_resource.vpa_configure](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.vpa_configure](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource)                | resource |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_alb_certificate_arn"></a> [alb\_certificate\_arn](#input\_alb\_certificate\_arn) | Domain Certificate ARN | `string` | `""` | no |
-| <a name="input_alb_name"></a> [alb\_name](#input\_alb\_name) | n/a | `string` | `"goldilocks-dashboard"` | no |
-| <a name="input_alb_subnet"></a> [alb\_subnet](#input\_alb\_subnet) | Ingress Annotations Add  EKS Public Subnet | `string` | `""` | no |
-| <a name="input_auth"></a> [auth](#input\_auth) | n/a | <pre>object({<br>    userPoolARN      = string,<br>    userPoolClientID = string,<br>    userPoolDomain   = string<br>  })</pre> | n/a | yes |
-| <a name="input_create_dashboard_ingress"></a> [create\_dashboard\_ingress](#input\_create\_dashboard\_ingress) | Access Goldilocks Dashboard | `bool` | `true` | no |
-| <a name="input_create_metric_server"></a> [create\_metric\_server](#input\_create\_metric\_server) | Create metric server | `bool` | `true` | no |
-| <a name="input_create_vpa_server"></a> [create\_vpa\_server](#input\_create\_vpa\_server) | VPA configure in the cluster | `bool` | `true` | no |
-| <a name="input_hostname"></a> [hostname](#input\_hostname) | n/a | `string` | `"goldilocks.example.com"` | no |
-| <a name="input_namespaces"></a> [namespaces](#input\_namespaces) | Goldilocks labels on your namespaces | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Domain Name | `string` | n/a | yes |
+| Name                                                                                                      | Description                               | Type                                                                                                            | Default                         | Required |
+| --------------------------------------------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------- | :------: |
+| <a name="input_alb_certificate_arn"></a> [alb_certificate_arn](#input_alb_certificate_arn)                | Domain Certificate ARN                    | `string`                                                                                                        | `""`                            |    no    |
+| <a name="input_alb_name"></a> [alb_name](#input_alb_name)                                                 | n/a                                       | `string`                                                                                                        | `"goldilocks-dashboard"`        |    no    |
+| <a name="input_alb_subnet"></a> [alb_subnet](#input_alb_subnet)                                           | Ingress Annotations Add EKS Public Subnet | `string`                                                                                                        | `""`                            |    no    |
+| <a name="input_auth"></a> [auth](#input_auth)                                                             | n/a                                       | <pre>object({<br> userPoolARN = string,<br> userPoolClientID = string,<br> userPoolDomain = string<br> })</pre> | n/a                             |   yes    |
+| <a name="input_create_dashboard_ingress"></a> [create_dashboard_ingress](#input_create_dashboard_ingress) | Access Goldilocks Dashboard               | `bool`                                                                                                          | `true`                          |    no    |
+| <a name="input_create_metric_server"></a> [create_metric_server](#input_create_metric_server)             | Create metric server                      | `bool`                                                                                                          | `true`                          |    no    |
+| <a name="input_create_vpa_server"></a> [create_vpa_server](#input_create_vpa_server)                      | VPA configure in the cluster              | `bool`                                                                                                          | `true`                          |    no    |
+| <a name="input_hostname"></a> [hostname](#input_hostname)                                                 | n/a                                       | `string`                                                                                                        | `"goldilocks.example.com"`      |    no    |
+| <a name="input_namespaces"></a> [namespaces](#input_namespaces)                                           | Goldilocks labels on your namespaces      | `set(string)`                                                                                                   | <pre>[<br> "default"<br>]</pre> |    no    |
+| <a name="input_zone_name"></a> [zone_name](#input_zone_name)                                              | Domain Name                               | `string`                                                                                                        | n/a                             |   yes    |
 
 ## Outputs
 
 No outputs.
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
