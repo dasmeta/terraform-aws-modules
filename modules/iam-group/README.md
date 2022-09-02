@@ -1,4 +1,3 @@
-
 ### Create AWS group and set ReadOnly permission.
 
 ## Example 1. Minimal parameter set and create read-only group
@@ -36,8 +35,7 @@ module "test-own-access" {
 }
 ```
 
-
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -72,4 +70,4 @@ No modules.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

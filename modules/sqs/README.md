@@ -1,6 +1,7 @@
 # This module allows to create aws sqs and iam user with specific queue data/message pull/push/purge/delete accesses
 
 ## minimal example
+
 ```hcl
 module "sqs" {
   source  = "dasmeta/modules/aws//modules/aws-iam-user"
@@ -9,7 +10,7 @@ module "sqs" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -73,4 +74,4 @@ No requirements.
 | <a name="output_queue_name"></a> [queue\_name](#output\_queue\_name) | The name of the created Amazon SQS queue |
 | <a name="output_queue_url"></a> [queue\_url](#output\_queue\_url) | The url of the SQS queue |
 | <a name="output_username"></a> [username](#output\_username) | The name of the IAM user who have access to created Amazon SQS queue to push/pull messages |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -14,7 +14,7 @@ module "aws_cloudwatch_log_metric_filter" {
 
 When you complete enable proces, CloudWatch creates a service-linked role that CloudWatch uses in the monitoring account to access data shared from your other accounts. This service-linked role is called AWSServiceRoleForCloudWatchCrossAccount. We cant create this role with terraform becouse role name have AWSServiceRole prefix.
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -47,4 +47,4 @@ No modules.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,3 +1,5 @@
+# zone
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -17,16 +19,18 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_cognito_identity_pool.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_identity_pool) | resource |
-| [aws_iam_saml_provider.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_saml_provider) | resource |
+| [aws_route53_zone.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Identitiy pool name | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Route53 Zone name | `string` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | Return created zone arn. |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Return created zone id. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -15,7 +15,8 @@ module "aws_iam_account_password_policy" {
   password_reuse_prevention      = 0
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -55,4 +56,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_iam_account_password_policy_expire_passwords"></a> [iam\_account\_password\_policy\_expire\_passwords](#output\_iam\_account\_password\_policy\_expire\_passwords) | Indicates whether passwords in the account expire. |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

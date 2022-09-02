@@ -12,7 +12,6 @@ module "cognito" {
 }
 ```
 
-
 # Usage example
 
 In this example sms and email verification or authentication messages are added. They are properly described in the variables.tf file.
@@ -41,7 +40,7 @@ Here schemas, lambda_config and sms_configuration are added. Also if you want to
 
 ```
 module "cognito" {
-    source = "../../terraform-aws-modules/modules/cognito-user-pool"  
+    source = "../../terraform-aws-modules/modules/cognito-user-pool"
 
     name                       = "example3-pool"
     email_verification_message = "Your verification code is {####}. "
@@ -104,7 +103,7 @@ module "cognito" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -182,4 +181,4 @@ No modules.
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | AWS Cognito User Pool ARN |
 | <a name="output_clients_id"></a> [clients\_id](#output\_clients\_id) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,6 +1,5 @@
 # Allows to create/setup AWS API Gateway resources with configurable manner
 
-
 ## Module use examples.
 
 ### Module usage without "access secret key" encryption, so it will be directly outputed to console (Not secure)
@@ -95,7 +94,9 @@ provider "aws" {
   region = "us-east-1"
 }
 ```
+
 In this case your output of `secret_access_key` will be something like this:
+
 ```
 secret_access_key = <<EOT
 
@@ -103,9 +104,11 @@ ${COMMAND}
 
 EOT
 ```
+
 You have to copy the {COMMAND} and run in shell/console.
 
 ### create api-gateway with Swagger/OpenAPI json config file, without user creation, with custom domain, with monitoring/logging enabled, with configuring account stings for cloudwatch
+
 #### here you can get the file [./examples/swagger-config-example.json](./examples/swagger-config-example.json)
 
 ```hcl
@@ -145,8 +148,7 @@ provider "aws" {
 }
 ```
 
-
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -212,4 +214,4 @@ provider "aws" {
 | <a name="output_access_secret_key_encrypted"></a> [access\_secret\_key\_encrypted](#output\_access\_secret\_key\_encrypted) | The access key secret with pgp encryption |
 | <a name="output_execution_arn"></a> [execution\_arn](#output\_execution\_arn) | The Execution ARN of the REST API. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the REST API. |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

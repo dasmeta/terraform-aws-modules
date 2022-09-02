@@ -49,7 +49,9 @@ module "my_bucket" {
   }
 }
 ```
-## Case 3: website with initial index.html and "/images/**" content
+
+## Case 3: website with initial index.html and "/images/\*\*" content
+
 ```terraform
 module "my_bucket" {
   source = "dasmeta/modules/aws//modules/s3"
@@ -71,7 +73,7 @@ module "my_bucket" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -127,5 +129,5 @@ module "my_bucket" {
 | <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | The ARN assigned by AWS for this user |
 | <a name="output_iam_user_name"></a> [iam\_user\_name](#output\_iam\_user\_name) | The user's name |
 | <a name="output_s3_bucket_id"></a> [s3\_bucket\_id](#output\_s3\_bucket\_id) | The bucket name |
-| <a name="output_s3_bucket_website_endpoint"></a> [s3\_bucket\_website\_endpoint](#output\_s3\_bucket\_website\_endpoint) | The access key secret |
-<!-- END_TF_DOCS -->
+| <a name="output_s3_bucket_website_endpoint"></a> [s3\_bucket\_website\_endpoint](#output\_s3\_bucket\_website\_endpoint) | The website endpoint associated to created s3 bucket |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

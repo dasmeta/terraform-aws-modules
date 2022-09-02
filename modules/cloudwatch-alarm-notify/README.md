@@ -3,6 +3,7 @@ Module use examples.
 # Example 1
 
 In this case, you can create alarm default parameters using only alert type.
+
 ```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
@@ -24,9 +25,11 @@ module "cloudwatchalarm" {
     opsgenie_endpoint = [""]
 }
 ```
+
 # Example 2
 
 In this case, you can create alarm to override default parameters.
+
 ```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
@@ -45,9 +48,11 @@ module "cloudwatchalarm" {
     opsgenie_endpoint = [""]
 }
 ```
+
 # Example 3
 
 This case you can create alarm not implemented case.
+
 ```
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
@@ -77,7 +82,7 @@ module "cloudwatchalarm" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -142,4 +147,4 @@ No requirements.
 |------|-------------|
 | <a name="output_metric_name"></a> [metric\_name](#output\_metric\_name) | n/a |
 | <a name="output_namespace"></a> [namespace](#output\_namespace) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,5 +1,5 @@
-
 # example with ALB default and 2 more cache behaviors:
+
 ```hcl
 provider "aws" {
   region = "us-east-1"
@@ -59,37 +59,38 @@ module "cdn" {
 ```
 
 # sample with S3 default cache behavior
- ```hcl
+
+```hcl
 provider "aws" {
-  region = "us-east-1"
+ region = "us-east-1"
 }
 
 module "cdn" {
-  source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
-  version = "0.19.5"
+ source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
+ version = "0.19.5"
 
-  zone    = ["devops.dasmeta.com"]
-  aliases = ["cdn.devops.dasmeta.com"]
-  comment = "My CloudFront"
+ zone    = ["devops.dasmeta.com"]
+ aliases = ["cdn.devops.dasmeta.com"]
+ comment = "My CloudFront"
 
-  origin = {
-    s3 = {
-      domain_name = "S3 website URL" # you need to enable S3 website to have this
-      custom_origin_config = {
-        origin_protocol_policy = "http-only"
-      }
-    }
-  }
+ origin = {
+   s3 = {
+     domain_name = "S3 website URL" # you need to enable S3 website to have this
+     custom_origin_config = {
+       origin_protocol_policy = "http-only"
+     }
+   }
+ }
 
-  default_cache_behavior = {
-    target_origin_id = "s3"
-    use_forwarded_values = true
-    headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it
-  }
+ default_cache_behavior = {
+   target_origin_id = "s3"
+   use_forwarded_values = true
+   headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it
+ }
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -169,4 +170,4 @@ module "cdn" {
 | <a name="output_cloudfront_origin_access_identities"></a> [cloudfront\_origin\_access\_identities](#output\_cloudfront\_origin\_access\_identities) | The origin access identities created |
 | <a name="output_cloudfront_origin_access_identity_iam_arns"></a> [cloudfront\_origin\_access\_identity\_iam\_arns](#output\_cloudfront\_origin\_access\_identity\_iam\_arns) | The IAM arns of the origin access identities created |
 | <a name="output_cloudfront_origin_access_identity_ids"></a> [cloudfront\_origin\_access\_identity\_ids](#output\_cloudfront\_origin\_access\_identity\_ids) | The IDS of the origin access identities created |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

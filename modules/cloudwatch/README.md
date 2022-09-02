@@ -1,9 +1,10 @@
 # How to
+
 1. assign your widgets to the widgets variable, but don't insert any "", so the right syntax is:
    widgets = {
-    "widgets": [ ....
-      ...
-    ]
+   "widgets": [ ....
+   ...
+   ]
    }
 2. run
 
@@ -15,7 +16,8 @@ module "cloudwatch" {
   widgets = "some json file"
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -46,4 +48,4 @@ No modules.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

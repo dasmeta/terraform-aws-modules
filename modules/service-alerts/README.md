@@ -1,6 +1,7 @@
 # Module Use Case
 
 ## Case 1
+
 ```
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
@@ -18,6 +19,7 @@ module "cloudwatchalarm" {
 ```
 
 ## Case 2
+
 ```
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
@@ -49,6 +51,7 @@ module "cloudwatchalarm" {
 ```
 
 ## Case 3
+
 ```
 module "cloudwatchalarm" {
     source  = "dasmeta/modules/aws//modules/service-alerts"
@@ -107,7 +110,7 @@ module "cloudwatchalarm" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -185,4 +188,4 @@ No requirements.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

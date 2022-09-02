@@ -1,6 +1,7 @@
 # Terraform AWS Client VPN Endpoint
 
 ## How to create Application for VPN in AWS Single Sign-On
+
 - Create private certificate.
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
@@ -13,14 +14,15 @@
 - Save changes
 - Download AWS SSO SAML metadata file (file for vpn secret)
 - Select tab "Attribute mappings":
-    - Subject -> ${user:subject} -> emailAddress
-    - NameID -> ${user:email} -> basic
-    - FirstName -> ${user:name} -> basic
-    - LastName -> ${user:familyName} -> basic
+  - Subject -> ${user:subject} -> emailAddress
+  - NameID -> ${user:email} -> basic
+  - FirstName -> ${user:name} -> basic
+  - LastName -> ${user:familyName} -> basic
 - Select tab "Assigned users"
 - Assign users or groups created on previous step
 
 ## Example
+
 ```hcl
 module network {
     source      = "git::https://github.com/dasmeta/terraform.git//modules/newtwork?="
@@ -54,7 +56,7 @@ module network {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -108,4 +110,4 @@ No resources.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

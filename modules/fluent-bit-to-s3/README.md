@@ -1,4 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 # Why
 Terraform module to export container logs from EKS to S3
 
@@ -73,4 +73,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_assume_role_arn"></a> [assume\_role\_arn](#output\_assume\_role\_arn) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

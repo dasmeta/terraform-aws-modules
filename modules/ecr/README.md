@@ -1,4 +1,5 @@
 # todo
+
 - Terraform the creation of AWS ECR objects.
 
 ## Usage
@@ -7,6 +8,7 @@
 Repository names can have minimum 2 and maximum 256 characters. The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes.
 
 # Case 1
+
 ```
 module "ecr" {
      source  = "dasmeta/modules/aws//modules/ecr"
@@ -15,6 +17,7 @@ module "ecr" {
 ```
 
 # Case 2
+
 ```
 module "ecr" {
      source  = "dasmeta/modules/aws//modules/ecr"
@@ -22,7 +25,7 @@ module "ecr" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -50,4 +53,4 @@ No resources.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

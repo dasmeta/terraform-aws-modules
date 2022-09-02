@@ -1,8 +1,8 @@
 # How To
+
 This module you can use , when create domain certificate
 
-
-### Example 1:  You can use this case when create a wildcard certificate or other subdomain certificate.
+### Example 1: You can use this case when create a wildcard certificate or other subdomain certificate.
 
 ```
 # Domain "The main domain"
@@ -32,7 +32,9 @@ module "ssl-certificate-auth" {
 
 
 ```
+
 ### Example 2: You can use this case when you create a single certificate և add different subdomains or another domain name
+
 ```
 # Domain "The main domain"
 # Alternative_domains "Subdomain or other main domain or wildcard domain"
@@ -48,11 +50,13 @@ module ssl-certificate-auth {
   tags = {
       name    = "test"
       value   = "ssl"
-  }  
+  }
 }
 
 ```
+
 ### Example 3: You can use this case when you create certificate different region.
+
 ```
 provider "aws" {
   alias  = "virginia"
@@ -74,7 +78,8 @@ module ssl-certificate-auth {
   }
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -113,4 +118,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | SSL Certificate ARN to be used in ingress controllers |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

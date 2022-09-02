@@ -108,7 +108,7 @@ module "cloudfront" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -188,4 +188,4 @@ module "cloudfront" {
 |------|-------------|
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | CDN domain name to be aliasd in Route53 or used somewhere else. |
 | <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | CDN hosted zone id to be aliasd in Route53 or used somewhere else. |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

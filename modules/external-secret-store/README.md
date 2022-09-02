@@ -7,10 +7,11 @@ module "secret-store" {
   name = "store-name"
 }
 ```
-This is going to create AWS IAM User and restric access to Secret Manager keys starting with store-name (e.g. store-name-*).
+
+This is going to create AWS IAM User and restric access to Secret Manager keys starting with store-name (e.g. store-name-\*).
 Any secret created in Secret Manager matching the prefix can be requested via that External Secret Store and be populated as a Secret.
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -58,4 +59,4 @@ Any secret created in Secret Manager matching the prefix can be requested via th
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

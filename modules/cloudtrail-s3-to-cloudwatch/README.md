@@ -1,4 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 # Why
 Create S3 bucket for CloudTrail and lambda to push data to CloudWatch
 
@@ -44,13 +44,13 @@ module "cloudtrail-s3-to-cloudwatch-different-account" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 4.16 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.16 |
 
 ## Modules
 
@@ -83,4 +83,4 @@ module "cloudtrail-s3-to-cloudwatch-different-account" {
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

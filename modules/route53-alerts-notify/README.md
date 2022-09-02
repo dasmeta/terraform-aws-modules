@@ -1,4 +1,3 @@
-
 ## use sample
 
 ```hcl
@@ -29,7 +28,8 @@ module "healthcheck" {
 
 
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -104,4 +104,4 @@ module "healthcheck" {
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,4 +1,5 @@
 # Create S3 bucket for CloudFront and enable lambda for move data to CloudWatch
+
 ```
 module "cloudfront-lambda" {
   source      = "dasmeta/modules/aws//modules/cloudfront-to-s3-to-cloudwatch"
@@ -7,7 +8,8 @@ module "cloudfront-lambda" {
 }
 ```
 
-# Create lambda for move CloudFront s3 logs  to CloudWatch
+# Create lambda for move CloudFront s3 logs to CloudWatch
+
 ```
 module "cloudfront-lambda" {
   source      = "dasmeta/modules/aws//modules/cloudfront-to-s3-to-cloudwatch"
@@ -18,6 +20,7 @@ module "cloudfront-lambda" {
 ```
 
 # Create s3 bucket for CloudFront
+
 ```
 module "cloudfront-lambda" {
   source      = "dasmeta/modules/aws//modules/cloudfront-to-s3-to-cloudwatch"
@@ -25,16 +28,20 @@ module "cloudfront-lambda" {
   create_lambda = false
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.16 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.16 |
 
 ## Modules
 
@@ -58,12 +65,12 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | n/a | `string` | `""` | no |
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | n/a | yes |
-| <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | n/a | `bool` | `true` | no |
-| <a name="input_create_lambda"></a> [create\_lambda](#input\_create\_lambda) | n/a | `bool` | `true` | no |
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | Remote AWS Account id to stream logs to. If left empty current account will be used. | `string` | `""` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Name of the bucket module will create for CloudFront to stream logs to. Will default to account\_id-cloudfront-logs. | `string` | `""` | no |
+| <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | Defines if the module should create the bucket or use one specified. | `bool` | `true` | no |
+| <a name="input_create_lambda"></a> [create\_lambda](#input\_create\_lambda) | If enabled lambda will be created which will stream logs from S3 into CloudWatch. | `bool` | `true` | no |
 
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

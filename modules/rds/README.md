@@ -1,6 +1,7 @@
 # How to use
 
 Case 1. Create Security group and create RDS
+
 ```
 data "aws_vpc" "main" {
   id = "vpc-04c3b2abe39cd8a6a"
@@ -40,7 +41,9 @@ module "rds" {
     }]
 }
 ```
+
 Case 2. Create RDS
+
 ```
 module "rds" {
     source  = "dasmeta/modules/aws//modules/rds"
@@ -62,7 +65,8 @@ module "rds" {
 //  vpc_security_group_ids = ["sg-062742ac7a7f8c7a7"]
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -136,4 +140,4 @@ No resources.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

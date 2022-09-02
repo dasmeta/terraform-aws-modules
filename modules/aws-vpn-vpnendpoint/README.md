@@ -1,9 +1,9 @@
 # Terraform AWS Client VPN Endpoint
 
-
 ## example with SSO
 
 ### How to create Application for VPN in AWS Single Sign-On
+
 - Create private certificate in AWS Certificate Manager. Copy arn and use in module
 - Open AWS SSO service page. Select Applications from the sidebar
 - Choose Add a new application
@@ -16,10 +16,10 @@
 - Save changes
 - Download AWS SSO SAML metadata file.
 - Select tab "Attribute mappings":
-    - Subject -> ${user:subject} -> emailAddress
-    - NameID -> ${user:email} -> basic
-    - FirstName -> ${user:name} -> basic
-    - LastName -> ${user:familyName} -> basic
+  - Subject -> ${user:subject} -> emailAddress
+  - NameID -> ${user:email} -> basic
+  - FirstName -> ${user:name} -> basic
+  - LastName -> ${user:familyName} -> basic
 - Select tab "Assigned users", if you haven't user you should be create in SSO.
 - Assign users or groups created on previous step
 - You add AWS Account in AWS SSO, and add create Permission sets.
@@ -28,8 +28,8 @@
 - When module completely create you can download aws client vpn. https://aws.amazon.com/vpn/client-vpn-download/
 - Add vpn profile and add ovpn file.
 
-
 ### module setup for SSO
+
 ```hcl
 module network {
     source  = "dasmeta/modules/aws//modules/aws-vpn-vpnendpoint"
@@ -63,10 +63,12 @@ module network {
 ```
 
 ## example with client certificate
+
 In order to use VPN with client certificate one have to instal openvpn and easy-rsa
 here is simple steps for
 
 ### how to create CA certificate server and client keys using easy-rsa tool
+
 ```sh
 git clone https://github.com/OpenVPN/easy-rsa.git
 cd easy-rsa/easyrsa3
@@ -83,16 +85,21 @@ cp pki/private/client1.domain.tld.key ./custom_folder/
 cd ./custom_folder/
 
 ```
-### upload generated  server and client certificates into aws CM (it will output certificate arm)
+
+### upload generated server and client certificates into aws CM (it will output certificate arm)
+
 ```sh
 aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
 aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
 ```
+
 ### download .ovpn from vpn endpoint and edit it by adding the following in end of file
+
 cert /path/client1.domain.tld.crt
 key /path/client1.domain.tld.key
 
 ### module setup
+
 ```hcl
 
 module "vpn_vpc" {
@@ -146,7 +153,7 @@ module "vpn" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -201,4 +208,4 @@ module "vpn" {
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

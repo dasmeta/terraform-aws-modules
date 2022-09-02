@@ -13,6 +13,7 @@ When `pgp_key` is specified as `keybase:username`, make sure that that user has 
 ### How to decrypt user's encrypted password and secret key
 
 This module outputs commands and PGP messages which can be decrypted either using [keybase.io web-site](https://keybase.io/decrypt) or using command line to get user's password and user's secret key:
+
 - `keybase_password_decrypt_command`
 - `keybase_secret_key_decrypt_command`
 - `keybase_password_pgp_message`
@@ -23,11 +24,12 @@ This module outputs commands and PGP messages which can be decrypted either usin
 ## Case 1
 
 case 1 creates an AWS IAM user with Programmatic access , AWS Management Console access and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-  - AWS Management Console access: Used the for AWS Management Console
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
+- AWS Management Console access: Used the for AWS Management Console
+
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
 
 ```terraform
 
@@ -70,10 +72,10 @@ output "keybase_secret_key_decrypt_command" {
 ## Case 2
 
 case 2 creates an AWS IAM user with Programmatic access after create new policy and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Secret Key)
 
 ```terraform
 module "mongodb-backup-s3-storage-user" {
@@ -114,13 +116,14 @@ output "iam_access_key_secret" {
 }
 
 ```
+
 ## Case 3
 
 case 3 creates an AWS IAM user with Programmatic access.
- - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Access Key, AWS Secret Key)
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Access Key, AWS Secret Key)
 
 ```terraform
 
@@ -154,10 +157,11 @@ output "iam_access_key_secret" {
 
 ## Case 4
 
-case 2 creates an AWS IAM user with  AWS Management Console access.
-  - AWS Management Console access: Used the for AWS Management Console
+case 2 creates an AWS IAM user with AWS Management Console access.
 
-At the `terraform apply` shows the parameters of the user ( User  Name, User ARN, AWS Management Console Password)
+- AWS Management Console access: Used the for AWS Management Console
+
+At the `terraform apply` shows the parameters of the user ( User Name, User ARN, AWS Management Console Password)
 
 ```terraform
 
@@ -183,10 +187,10 @@ output "keybase_password_decrypt_command" {
   value       = module.mongodb-backup-s3-storage-user.keybase_password_decrypt_command
 }
 ```
+
 ## Case 5 with local pgp_key
 
 ### How to Use PGP to Encrypt Your Terraform Secrets
-
 
 ### - Step 1 : make sure gpg is installed
 
@@ -203,16 +207,17 @@ gpg --version
 echo "%echo Generating a basic OpenPGP key \n Key-Type: RSA \n Key-Length: 2048 \n Subkey-Type: RSA\n Subkey-Curve: nistp256\n Subkey-Length: 2048\n Name-Real: Das Meta\n Name-Comment: How to Use PGP to Encrypt Your Terraform Secrets\n Name-Email: devops@dasmeta.com\n Expire-Date: 0\n Passphrase: Hgv1231vv23j1hv23\n # Do a commit here, so that we can later print "done" :-)\n %commit\n %echo done" >  key-gen-template && gpg --gen-key --batch key-gen-template && gpg --export "devops@dasmeta.com" | base64
 
 ```
--  Passphrase: `Hgv1231vv23j1hv23`
-- Copy the result key and insert it in the module as the `pgp_key` in step 3.
 
+- Passphrase: `Hgv1231vv23j1hv23`
+- Copy the result key and insert it in the module as the `pgp_key` in step 3.
 
 ### - Step 3 : creates an AWS IAM user with Programmatic access with local `pgp_key`
 
 AWS Management Console access and policy attachment to the user.
-  - Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
 
-  - AWS Management Console access: Used the for AWS Management Console
+- Programmatic access: Used the AWS CLI, or use the Tools for Windows PowerShell.
+
+- AWS Management Console access: Used the for AWS Management Console
 
 At the `terraform apply` shows the ouputs which we will use in step 4(for example user password or access_key) of the user ( User ARN, AWS Access Key, AWS Management Console Password, AWS Secret Key)
 
@@ -254,6 +259,7 @@ EOF
 ```
 
 ### Step 4 : Decode each encoded data from step 3 outputs
+
 after successfull Step 3 there should be shell/console commands as output for the following ouputs `iam_user_login_profile_encrypted_password` and `secret_access_key` .
 
 You have to copy the `{COMMAND}` and run in shell/console. Here is the form of output:
@@ -276,7 +282,7 @@ EOT
 
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -333,4 +339,4 @@ No requirements.
 | <a name="output_keybase_secret_key_decrypt_command"></a> [keybase\_secret\_key\_decrypt\_command](#output\_keybase\_secret\_key\_decrypt\_command) | Decrypt access secret key command |
 | <a name="output_keybase_secret_key_pgp_message"></a> [keybase\_secret\_key\_pgp\_message](#output\_keybase\_secret\_key\_pgp\_message) | Encrypted access secret key |
 | <a name="output_pgp_key"></a> [pgp\_key](#output\_pgp\_key) | PGP key used to encrypt sensitive data for this user (if empty - secrets are not encrypted) |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

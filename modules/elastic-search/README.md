@@ -1,6 +1,7 @@
 # module allowing to create aws elastic-search/open-search domain
 
 ## usage minimum example
+
 ```terraform
 module "elastic-search" {
   source = "dasmeta/modules/aws//modules/elastic-search"
@@ -15,8 +16,7 @@ module "elastic-search" {
 }
 ```
 
-
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -76,4 +76,4 @@ module "elastic-search" {
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | The endpoint of the ES domain |
 | <a name="output_master_password"></a> [master\_password](#output\_master\_password) | The master password of the ES domain |
 | <a name="output_master_username"></a> [master\_username](#output\_master\_username) | The master username of the ES domain |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

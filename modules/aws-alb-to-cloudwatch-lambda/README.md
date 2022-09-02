@@ -1,31 +1,31 @@
 # terraform-aws-lambda-builder
 
-This Terraform module packages and deploys an AWS Lambda function. It optionally runs a build script *inside Lambda or CodeBuild* to build the Lambda package. This is great for building and deploying Go, Node.js, Python and other Lambda functions without needing any of their toolchains installed.
+This Terraform module packages and deploys an AWS Lambda function. It optionally runs a build script _inside Lambda or CodeBuild_ to build the Lambda package. This is great for building and deploying Go, Node.js, Python and other Lambda functions without needing any of their toolchains installed.
 
 ## Features
 
-* Supports `source_dir` to automatically create Lambda packages.
-    * Handles source code changes automatically and correctly.
-    * No unexpected changes in Terraform plans.
-* Supports `LAMBDA build_mode` to run a build scripts inside Lambda.
-    * Runs inside Lambda using the same runtime environment as the target Lambda function.
-    * Define your own build script with shell commands like `pip install`, `npm install`, etc.
-    * No reliance on `pip`, `virtualenv`, `npm`, etc being on the machine running Terraform.
-    * Smaller zip files to upload because `pip install`, etc. doesn't run locally.
-* Supports `CODEBUILD build_mode` to run inside CodeBuild.
-    * Define your own build steps in `buildspec.yml` with shell commands like `go build`, etc.
-    * No reliance on `go`, etc being on the machine running Terraform.
-    * Smaller zip files to upload because `go get`, `go build`, etc. doesn't run locally.
-* Supports `S3/FILENAME build_mode` to just get the zip functionality.
-    * For when there are no build steps but you still want the `source_dir` zip functionality.
-* Helps you to avoid:
-    * Extra setup requirements on the machine running Terraform.
-    * Separate build steps to create packages before running Terraform.
-    * Committing built package zip files to version control.
+- Supports `source_dir` to automatically create Lambda packages.
+  - Handles source code changes automatically and correctly.
+  - No unexpected changes in Terraform plans.
+- Supports `LAMBDA build_mode` to run a build scripts inside Lambda.
+  - Runs inside Lambda using the same runtime environment as the target Lambda function.
+  - Define your own build script with shell commands like `pip install`, `npm install`, etc.
+  - No reliance on `pip`, `virtualenv`, `npm`, etc being on the machine running Terraform.
+  - Smaller zip files to upload because `pip install`, etc. doesn't run locally.
+- Supports `CODEBUILD build_mode` to run inside CodeBuild.
+  - Define your own build steps in `buildspec.yml` with shell commands like `go build`, etc.
+  - No reliance on `go`, etc being on the machine running Terraform.
+  - Smaller zip files to upload because `go get`, `go build`, etc. doesn't run locally.
+- Supports `S3/FILENAME build_mode` to just get the zip functionality.
+  - For when there are no build steps but you still want the `source_dir` zip functionality.
+- Helps you to avoid:
+  - Extra setup requirements on the machine running Terraform.
+  - Separate build steps to create packages before running Terraform.
+  - Committing built package zip files to version control.
 
 ## Requirements
 
-* Python
+- Python
 
 Python is used to create deterministic zip files. Terraform's `archive_file` data source is not used because it sometimes [produces different results](https://github.com/terraform-providers/terraform-provider-archive/issues/34) which lead to spurious resource changes when working in teams.
 
@@ -57,16 +57,16 @@ See the [tests](tests) directory for more working examples.
 
 The `build_mode` input variable can be set to one of:
 
-* `CODEBUILD`
-    * Zips `source_dir`, uploads it to `s3_bucket` and runs CodeBuild to build the final package.
-* `LAMBDA`
-    * Zips `source_dir`, uploads it to `s3_bucket` and runs `build.sh` inside Lambda to build the final package.
-* `S3`
-    * Zips `source_dir` and uploads to `s3_bucket` at `s3_key`.
-* `FILENAME`
-    * Zips `source_dir` and uploads it directly to the Lambda service.
-* `DISABLED` (default)
-    * Disables build functionality.
+- `CODEBUILD`
+  - Zips `source_dir`, uploads it to `s3_bucket` and runs CodeBuild to build the final package.
+- `LAMBDA`
+  - Zips `source_dir`, uploads it to `s3_bucket` and runs `build.sh` inside Lambda to build the final package.
+- `S3`
+  - Zips `source_dir` and uploads to `s3_bucket` at `s3_key`.
+- `FILENAME`
+  - Zips `source_dir` and uploads it directly to the Lambda service.
+- `DISABLED` (default)
+  - Disables build functionality.
 
 ### CodeBuild build mode
 
@@ -74,21 +74,21 @@ If running in `CODEBUILD` build mode, then this module will use CodeBuild and yo
 
 The `CODEBUILD` build mode works as follows.
 
-* Terraform runs [zip.py](https://github.com/raymondbutcher/terraform-archive-stable) which:
-    * Creates a zip file from the source directory.
-    * Timestamps and permissions are normalised so the resulting file hash is consistent and only affected by meaningful changes.
-* Terraform uploads the zip file to the S3 bucket.
-* Terraform creates a CloudFormation stack which:
-    * Creates a CodeBuild project which:
-        * Uses the S3 bucket zip file as the source.
-        * Uses the `buildspec.yml` file from the zipped source directory.
-        * Should build and output artifacts to include in the new zip file.
-    * Creates a custom resource Lambda function which:
-        * Starts the CodeBuild project.
-        * Gets invoked again when CodeBuild finishes.
-        * Verifies that CodeBuild has uploaded the new zip file.
-    * Outputs the location of the new zip file for Terraform to use.
-* Terraform creates a Lambda function using the new zip file.
+- Terraform runs [zip.py](https://github.com/raymondbutcher/terraform-archive-stable) which:
+  - Creates a zip file from the source directory.
+  - Timestamps and permissions are normalised so the resulting file hash is consistent and only affected by meaningful changes.
+- Terraform uploads the zip file to the S3 bucket.
+- Terraform creates a CloudFormation stack which:
+  - Creates a CodeBuild project which:
+    - Uses the S3 bucket zip file as the source.
+    - Uses the `buildspec.yml` file from the zipped source directory.
+    - Should build and output artifacts to include in the new zip file.
+  - Creates a custom resource Lambda function which:
+    - Starts the CodeBuild project.
+    - Gets invoked again when CodeBuild finishes.
+    - Verifies that CodeBuild has uploaded the new zip file.
+  - Outputs the location of the new zip file for Terraform to use.
+- Terraform creates a Lambda function using the new zip file.
 
 ### Lambda build mode
 
@@ -96,31 +96,31 @@ If running in `LAMBDA` build mode, then this module will run `build.sh` from `so
 
 The `LAMBDA` build mode works as follows.
 
-* Terraform runs [zip.py](https://github.com/raymondbutcher/terraform-archive-stable) which:
-    * Creates a zip file from the source directory.
-    * Timestamps and permissions are normalised so the resulting file hash is consistent and only affected by meaningful changes.
-* Terraform uploads the zip file to the S3 bucket.
-* Terraform creates a CloudFormation stack which:
-    * Creates a custom resource Lambda function which:
-        * Downloads the zip file from the S3 bucket.
-        * Extracts the zip file.
-        * Runs the build script.
-        * Creates a new zip file.
-        * Uploads it to the S3 bucket in another location.
-    * Outputs the location of the new zip file for Terraform to use.
-* Terraform creates a Lambda function using the new zip file.
+- Terraform runs [zip.py](https://github.com/raymondbutcher/terraform-archive-stable) which:
+  - Creates a zip file from the source directory.
+  - Timestamps and permissions are normalised so the resulting file hash is consistent and only affected by meaningful changes.
+- Terraform uploads the zip file to the S3 bucket.
+- Terraform creates a CloudFormation stack which:
+  - Creates a custom resource Lambda function which:
+    - Downloads the zip file from the S3 bucket.
+    - Extracts the zip file.
+    - Runs the build script.
+    - Creates a new zip file.
+    - Uploads it to the S3 bucket in another location.
+  - Outputs the location of the new zip file for Terraform to use.
+- Terraform creates a Lambda function using the new zip file.
 
- Different runtimes have different tools installed. Here are some notes about what is available to use in `build.sh`.
+Different runtimes have different tools installed. Here are some notes about what is available to use in `build.sh`.
 
-| Runtime    | Notes               |
-|------------|---------------------|
-| nodejs10.x | `npm install` works |
-| nodejs12.x | `npm install` works |
-| nodejs14.x  | waiting on [this](https://github.com/aws-cloudformation/aws-cloudformation-coverage-roadmap/issues/80), try CodeBuild instead |
-| python2.7  | `pip` not included  |
-| python3.6  | `pip install` works |
-| python3.7  | `pip install` works |
-| python3.8  | `pip install` works |
+| Runtime    | Notes                                                                                                                         |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| nodejs10.x | `npm install` works                                                                                                           |
+| nodejs12.x | `npm install` works                                                                                                           |
+| nodejs14.x | waiting on [this](https://github.com/aws-cloudformation/aws-cloudformation-coverage-roadmap/issues/80), try CodeBuild instead |
+| python2.7  | `pip` not included                                                                                                            |
+| python3.6  | `pip install` works                                                                                                           |
+| python3.7  | `pip install` works                                                                                                           |
+| python3.8  | `pip install` works                                                                                                           |
 
 Runtimes not listed above have not been tested.
 
@@ -140,7 +140,7 @@ The `DISABLED` build mode disables build functionality, making this module do no
 
 If a `role` is not provided then one will be created automatically. There are various input variables which add policies to this role. If `dead_letter_config` or `vpc_config` are set, then the required policies are automatically attached to this role.
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -252,4 +252,4 @@ If a `role` is not provided then one will be created automatically. There are va
 | <a name="output_tracing_config"></a> [tracing\_config](#output\_tracing\_config) | The tracing configuration. |
 | <a name="output_version"></a> [version](#output\_version) | Latest published version of your Lambda Function. |
 | <a name="output_vpc_config"></a> [vpc\_config](#output\_vpc\_config) | The VPC configuration. |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

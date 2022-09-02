@@ -1,4 +1,5 @@
 # Create S3 bucket for ALB and enable lambda for move data to CloudWatch
+
 ```
 module "alb-logs-lambda" {
   source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
@@ -9,6 +10,7 @@ module "alb-logs-lambda" {
 ```
 
 # Create lambda for move ALB s3 logs to CloudWatch
+
 ```
 module "alb-logs-lambda" {
   source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
@@ -19,6 +21,7 @@ module "alb-logs-lambda" {
 ```
 
 # Create s3 bucket for ALB
+
 ```
 module "alb-logs-lambda" {
   source              = "dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch/"
@@ -26,7 +29,8 @@ module "alb-logs-lambda" {
   create_lambda = false
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -73,4 +77,4 @@ module "alb-logs-lambda" {
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

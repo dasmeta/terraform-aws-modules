@@ -1,5 +1,4 @@
-
-### Example  1. Simple example create waf. This example not set roles and doesn't have association.
+### Example 1. Simple example create waf. This example not set roles and doesn't have association.
 
 ```
 module "waf_alb" {
@@ -119,7 +118,6 @@ module "waf_alb" {
   }
 }
 ```
-
 
 ### Rule Type
 
@@ -323,7 +321,8 @@ module "waf_alb" {
       }
     }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -368,4 +367,4 @@ No requirements.
 |------|-------------|
 | <a name="output_web_acl_arn"></a> [web\_acl\_arn](#output\_web\_acl\_arn) | n/a |
 | <a name="output_web_acl_id"></a> [web\_acl\_id](#output\_web\_acl\_id) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

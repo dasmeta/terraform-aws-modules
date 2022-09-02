@@ -28,14 +28,17 @@ module "cloudwatch_metric_filter" {
   metrics_namespace = "Log_Filters"
 }
 ```
+
 This results in:
 Log_Filters/GroupKey/Name
 
-
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.16 |
 
 ## Providers
 
@@ -55,11 +58,11 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_log_groups"></a> [log\_groups](#input\_log\_groups) | n/a | `map(any)` | <pre>{<br>  "group1": "/group/one/path",<br>  "group2": "/group/two/path",<br>  "groupN": "/group/nnn/path"<br>}</pre> | no |
+| <a name="input_log_groups"></a> [log\_groups](#input\_log\_groups) | n/a | `map(any)` | `{}` | no |
 | <a name="input_metrics_namespace"></a> [metrics\_namespace](#input\_metrics\_namespace) | n/a | `string` | `"LogBasedMetrics"` | no |
-| <a name="input_patterns"></a> [patterns](#input\_patterns) | n/a | `list(any)` | <pre>[<br>  {<br>    "dimensions": {},<br>    "name": "errors",<br>    "pattern": "error",<br>    "source": "group1"<br>  }<br>]</pre> | no |
+| <a name="input_patterns"></a> [patterns](#input\_patterns) | n/a | `list(any)` | `[]` | no |
 
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

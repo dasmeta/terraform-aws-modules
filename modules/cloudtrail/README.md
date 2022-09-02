@@ -1,12 +1,14 @@
 Module use examples.
 
 # Example 1 Logging All Management account
+
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
   name           = "audit-logs"
 }
 ```
+
 # Example 2 Logging All S3 Object Events By Using Basic Event Selectors
 
 ```
@@ -27,6 +29,7 @@ module "cloudtrail" {
 ```
 
 # Example 3 Logging All Lambda Function Invocations By Using Basic Event Selectors
+
 ```
 module "cloudtrail" {
   source         = "dasmeta/modules/aws//modules/cloudtrail/"
@@ -46,7 +49,8 @@ module "cloudtrail" {
   enable_logging             = true
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -90,4 +94,4 @@ No modules.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

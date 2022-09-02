@@ -1,8 +1,10 @@
 # HOW TO
+
 You can use module use when you create zones and add records.
 Module output zone id and zone arn.
 
 ## Example 1. create only zone
+
 ```terraform
 module "route53" {
     source = "dasmeta/modules/aws//modules/route53"
@@ -13,6 +15,7 @@ module "route53" {
 ```
 
 ## Example 2. Create zone and add one record
+
 ```terraform
 module "route53" {
     source  = "dasmeta/modules/aws//modules/route53"
@@ -57,6 +60,7 @@ module "route53" {
 ```
 
 ## Example 4. Create only records
+
 ```terraform
 module "route53" {
     source = "dasmeta/modules/aws//modules/route53"
@@ -80,7 +84,7 @@ module "route53" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -119,4 +123,4 @@ No requirements.
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | Returns zone arn. |
 | <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Returns zone id. |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

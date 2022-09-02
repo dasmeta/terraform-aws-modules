@@ -2,10 +2,10 @@
 
 Note.
 
- Metrics that have not had any new data points in the past two weeks do not appear in the console. They also do not appear when you type their metric name or dimension names in the ///search box in the All metrics tab in the console, and they are not returned in the results of a list-metrics command. The best way to retrieve these metrics is with the get-metric-data or get-metric-statistics commands in the AWS CLI. -->
-
+Metrics that have not had any new data points in the past two weeks do not appear in the console. They also do not appear when you type their metric name or dimension names in the ///search box in the All metrics tab in the console, and they are not returned in the results of a list-metrics command. The best way to retrieve these metrics is with the get-metric-data or get-metric-statistics commands in the AWS CLI. -->
 
 ## Example 1. Create Log group and metric filter.
+
 ```
 module "aws_cloudwatch_log_metric_filter" {
     source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
@@ -19,6 +19,7 @@ module "aws_cloudwatch_log_metric_filter" {
 ```
 
 ## Example 2. Add metric filter existing in the log group
+
 ```
 module "aws_cloudwatch_log_metric_filter" {
     source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
@@ -30,7 +31,9 @@ module "aws_cloudwatch_log_metric_filter" {
     metric_name      = "metric-name"
 }
 ```
+
 ## Example 3. Create Log group and metric filter override default values.
+
 ```
 module "aws_cloudwatch_log_metric_filter" {
     source = "dasmeta/modules/aws//modules/cloudwatch-log-metric"
@@ -46,8 +49,7 @@ module "aws_cloudwatch_log_metric_filter" {
 }
 ```
 
-
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -87,4 +89,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_metric_filter_id"></a> [metric\_filter\_id](#output\_metric\_filter\_id) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

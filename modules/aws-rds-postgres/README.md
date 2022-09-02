@@ -1,4 +1,5 @@
 ## Example
+
 ```
 module "postgres" {
   source     = "../../../../dasmeta/terraform/modules/aws-rds-postgres"
@@ -10,7 +11,8 @@ module "postgres" {
   subnet_ids = var.vpc_subnet_ids # ["subnet-457845", "subnet-54875787"]
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -64,4 +66,4 @@ No requirements.
 |------|-------------|
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | n/a |
 | <a name="output_password"></a> [password](#output\_password) | n/a |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

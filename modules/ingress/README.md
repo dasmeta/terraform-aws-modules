@@ -58,7 +58,8 @@ module "ingress" {
   ]
 }
 ```
-<!-- BEGIN_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -100,5 +101,6 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_alb_name"></a> [alb\_name](#output\_alb\_name) | The name of alb generated after apply |
+| <a name="output_annotations"></a> [annotations](#output\_annotations) | The annotations that created ingress will get |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The ingress group name |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

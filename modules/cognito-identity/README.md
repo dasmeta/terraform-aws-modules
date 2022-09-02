@@ -1,5 +1,7 @@
 # Minimal usage example 1
+
 This example creates an identity pool, named test-identity-1, with cognito provider.
+
 ```
 module "identity" {
   source = "dasmeta/modules/aws//modules/cognito-identity"
@@ -15,7 +17,9 @@ module "identity" {
 ```
 
 # Minimal usage example 2
+
 This example creates an identity pool, named test-identity-2, with google provider.
+
 ```
 module "identity" {
   source = "dasmeta/modules/aws//modules/cognito-identity"
@@ -35,7 +39,9 @@ module "identity" {
 ```
 
 # Another usage example
+
 This example creates an identity pool, named test-identity-3, with more than 1 cognito_identity_providers, google and facebook login providers, authenticated and unauthenticated roles. Also you can use amazon, twitter and digits as login providers.
+
 ```
 module "identity" {
   source = "dasmeta/modules/aws//modules/cognito-identity"
@@ -74,7 +80,7 @@ module "identity" {
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -111,4 +117,4 @@ No modules.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
