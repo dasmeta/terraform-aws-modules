@@ -1,6 +1,6 @@
 resource "kubernetes_role_binding" "example" {
 
-  for_each = { for krb in var.rbac_role_binding : krb.rolebinding_name => krb }
+  for_each = { for kr in local.role_binding : kr.name => kr }
 
   metadata {
     name      = each.key
@@ -8,14 +8,14 @@ resource "kubernetes_role_binding" "example" {
   }
 
   subject {
-    kind      = each.value.principal_kind #Kind - User/Group
-    name      = each.value.group_name     #Group/User to bind
-    api_group = each.value.api_groups
+    kind      = "Group" #Kind - User/Group
+    name      = each.value.group     #Group/User to bind
+    api_group = "rbac.authorization.k8s.io"
   }
 
   role_ref {
-    api_group = each.value.api_groups
-    kind      = each.value.role_kind # kind - Role/ClusterRole Role
-    name      = each.value.role_name # Role/ClusterRole name dev-viewers
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role" # kind - Role/ClusterRole Role
+    name      = each.value.name # Role/ClusterRole name dev-viewers
   }
 }

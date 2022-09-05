@@ -1,15 +1,22 @@
-resource "null_resource" "provision1" {
-
-  #You need eksctl installed and
-  provisioner "local-exec" {
-    command = "eksctl create iamidentitymapping --cluster ${var.cluster_name} --region ${var.cluster_region} --group ${var.rbac_group} --arn ${var.group_arn}"
-  }
+data "aws_iam_roles" "permission_set_arns" {
+  for_each = { for kr in local.role_binding : kr.name => kr }
+  path_prefix = "/aws-reserved/sso.amazonaws.com/eu-west-1/AWSReservedSSO_permission-set-${each.value.group}"
 }
 
-resource "null_resource" "provision2" {
-
-  #You need eksctl installed and
-  provisioner "local-exec" {
-    command = "sleep 10 && eksctl create iamidentitymapping --cluster my-cluster --region eu-west-1 --group acc-viewers --arn arn:aws:iam::471767607298:role/AWSReservedSSO_accounting_38389ad3e523a8ce --username kubernetesdeleteme@dasmeta.com"
-  }
+data "aws_iam_roles" "sso" {
+  path_prefix = "/aws-reserved/sso.amazonaws.com/"
 }
+
+module "eks_auth" {
+  source = "aidanmelen/eks-auth/aws"
+  eks    = var.eks_module
+
+  map_roles = [for role_binding in local.role_binding : {
+      rolearn  = [for role_arn in module.permission_set_roles.arns_without_path : role_arn if length(regexall(".+AWSReservedSSO_permission-set-${role_binding.group}.+", role_arn)) > 0][0]
+      username = role_binding.group
+      groups   = [role_binding.group]
+    }
+  ]
+}
+
+

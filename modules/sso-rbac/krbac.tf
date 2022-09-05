@@ -1,6 +1,6 @@
 resource "kubernetes_role_v1" "k8s-rbac" {
 
-  for_each = { for kr in var.rbac_rule : kr.name => kr }
+  for_each = { for kr in local.role_binding : kr.name => kr }
 
   metadata {
     name      = each.key
@@ -8,9 +8,8 @@ resource "kubernetes_role_v1" "k8s-rbac" {
   }
 
   rule {
-    api_groups     = try(each.value.api_groups, "")
+    api_groups     = ["apps"]
     resources      = each.value.resources
-    resource_names = each.value.resource_names
-    verbs          = each.value.verbs
+    verbs          = each.value.actions
   }
 }
