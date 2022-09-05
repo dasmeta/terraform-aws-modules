@@ -1,9 +1,36 @@
 ## Module can read secret manager data with name
 
+### Example 1. Get all data
 ```
-module "secret-reader" {
-  source = "dasmeta/modules/aws//modules/secret-reader"
+module "secret_manager" {
+  source = "../terraform/"
   name   = "lambda_envs"
+}
+
+locals {
+  PATH = module.secret_manager.secrets["PATH"]
+}
+
+resource "null_resource" "secret_manager" {
+  provisioner "local-exec" {
+    command = "echo ${local.PATH}"
+  }
+}
+```
+
+### Example 2. Get data with key
+
+```
+module "secret_manager" {
+  source = "../terraform/"
+  name   = "lambda_envs"
+  secret_key = "PATH"
+}
+
+resource "null_resource" "secret_manager" {
+  provisioner "local-exec" {
+    command = "echo ${module.secret_manager.secret_value}"
+  }
 }
 ```
 <!-- BEGIN_TF_DOCS -->
@@ -33,10 +60,12 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Your secret name | `string` | n/a | yes |
+| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | You can get secret value if set key name | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| <a name="output_secret_value"></a> [secret\_value](#output\_secret\_value) | n/a |
 | <a name="output_secrets"></a> [secrets](#output\_secrets) | n/a |
 <!-- END_TF_DOCS -->
