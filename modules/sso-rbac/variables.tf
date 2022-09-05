@@ -1,11 +1,11 @@
 variable "assignment" {
   type = list(object({
-    group = string
+    group     = string
     namespace = string
-    name = string
+    name      = string
 
     role = list(object({
-      actions    = list(string)
+      actions   = list(string)
       resources = list(string)
 
     }))

@@ -8,8 +8,8 @@ resource "kubernetes_role_v1" "k8s-rbac" {
   }
 
   rule {
-    api_groups     = ["apps"]
-    resources      = each.value.resources
-    verbs          = each.value.actions
+    api_groups = ["apps"]
+    resources  = each.value.resources
+    verbs      = each.value.actions
   }
 }

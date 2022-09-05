@@ -16,7 +16,7 @@ resource "aws_ssoadmin_account_assignment" "this" {
 }
 
 data "aws_identitystore_group" "this" {
-  for_each = { for as in var.assignment : as.group => as }
+  for_each          = { for as in var.assignment : as.group => as }
   identity_store_id = local.identity_store_id
 
   filter {
@@ -26,11 +26,11 @@ data "aws_identitystore_group" "this" {
 }
 
 locals {
-  identity_store_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
-  attribute_path = "DisplayName"
-  instance_arn       = tolist(data.aws_ssoadmin_instances.this.arns)[0]
-  principal_type = "GROUP"
-  target_id   = data.aws_caller_identity.current.account_id
-  target_type = "AWS_ACCOUNT"
+  identity_store_id   = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
+  attribute_path      = "DisplayName"
+  instance_arn        = tolist(data.aws_ssoadmin_instances.this.arns)[0]
+  principal_type      = "GROUP"
+  target_id           = data.aws_caller_identity.current.account_id
+  target_type         = "AWS_ACCOUNT"
   permission_set_role = module.permission_set_roles.arns_without_path
 }

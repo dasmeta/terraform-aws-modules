@@ -1,7 +1,7 @@
 module "sso_module" {
-  source = <module_path>
+  source = "../module"
 
-  eks_module = <eks_module>
+  eks_module = module.eks
 
   assignment = [{
     name = "role1"

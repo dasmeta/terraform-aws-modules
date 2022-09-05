@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8242c45-527d-4cd1-aa46-e863d35d7160" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/examples/aws-rbac.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/examples/aws-rbac.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/account-assignment.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/account-assignment.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/examples/aws-rbac.tf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/sso-rbac/krbac.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/krbac.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/krolebinding.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/krolebinding.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/sso-rbac/locals.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/locals.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/main.tf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/outputs.tf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/sso-rbac/permission-set.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/permission-set.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/sso-rbac/provisioner.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/provisioner.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/sso-rbac/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/modules/sso-rbac/variables.tf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +76,7 @@
       <workItem from="1662102925009" duration="9855000" />
       <workItem from="1662195638055" duration="1736000" />
       <workItem from="1662357876971" duration="110000" />
+      <workItem from="1662406917275" duration="346000" />
     </task>
     <servers />
   </component>
