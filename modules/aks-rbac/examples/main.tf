@@ -8,16 +8,16 @@ module "sso_module" {
 
 
   assignment = [{
-    name = "role1"
-    group = "development"
+    name      = "role1"
+    group     = "development"
     namespace = "development"
-    role = [local.role1]
+    role      = [local.role1]
 
-  },{
-    name = "role2"
-    group = "accounting"
+    }, {
+    name      = "role2"
+    group     = "accounting"
     namespace = "accounting"
-    role = [local.role2]
+    role      = [local.role2]
   }]
 
 }
@@ -25,12 +25,12 @@ module "sso_module" {
 locals {
 
   role1 = {
-    actions = ["get", "list", "watch"]
+    actions   = ["get", "list", "watch"]
     resources = ["deployments"]
   }
 
   role2 = {
-    actions = ["get", "list", "watch"]
+    actions   = ["get", "list", "watch"]
     resources = ["pods"]
   }
 }
