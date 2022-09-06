@@ -6,6 +6,12 @@
 *.tfstate.*
 *.lock.hcl
 
+
+**/.idea/*
+
+.idea/
+
+
 # Crash log files
 crash.log
 
