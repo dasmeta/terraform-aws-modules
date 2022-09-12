@@ -16,7 +16,7 @@ variable "is_enabled" {
 
 variable "input" {
   type        = any
-  default     = {}
+  default     = ""
   description = "The data, input to set into POST request body Message field."
 }
 

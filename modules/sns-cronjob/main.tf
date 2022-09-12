@@ -33,3 +33,9 @@ resource "aws_sqs_queue" "dead_letter_queue" {
   name                      = "${var.name}-cron-dlq"
   message_retention_seconds = 1209600 #  14 days, TODO: check we maybe will need this under input and event under control whether to have dead-letter-queue
 }
+
+resource "aws_sns_topic_subscription" "user_updates_sqs_target" {
+  topic_arn = aws_sns_topic.this.arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.dead_letter_queue.arn
+}
