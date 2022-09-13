@@ -38,6 +38,7 @@ variable "set" {
 }
 variable "root_password" {
   type = string
+  sensitive = true
 }
 
 variable "replicaset_key" {
