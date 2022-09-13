@@ -26,7 +26,7 @@ resource "helm_release" "mongodb" {
   }
 
   set {
-    name  = "persistence.annotations.volume.beta.kubernetes\\.io/storage-class"
+    name  = "persistence.annotations.volume\\.beta\\.kubernetes\\.io/storage-class"
     value = var.persistence_annotations
   }
 
