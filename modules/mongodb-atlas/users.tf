@@ -17,8 +17,8 @@ resource "mongodbatlas_database_user" "user" {
     for_each = each.value.roles
 
     content {
-      role_name     = each.value.roles.role_name
-      database_name = each.value.roles.database_name
+      role_name     = roles.value.role_name
+      database_name = roles.value.database_name
     }
 
   }
