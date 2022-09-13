@@ -8,6 +8,12 @@ variable "namespace" {
   default = "amazon-cloudwatch"
 }
 
+variable "create_namespace" {
+  type        = bool
+  default     = false
+  description = "wether or no to create namespace"
+}
+
 variable "eks_oidc_root_ca_thumbprint" {
   type    = string
   default = ""
