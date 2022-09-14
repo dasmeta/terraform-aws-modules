@@ -36,4 +36,3 @@ dashboards:
         filters: 
         statistic: Sum
         period: 300
-        
