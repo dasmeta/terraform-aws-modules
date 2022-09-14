@@ -25,9 +25,12 @@ resource "helm_release" "mongodb" {
     value = var.persistence_size
   }
 
-  set {
-    name  = "persistence.annotations.volume\\.beta\\.kubernetes\\.io/storage-class"
-    value = var.persistence_annotations
+  dynamic "set" {
+    for_each = var.persistence_annotations != null ? [var.persistence_annotations] : []
+    content {
+      name  = "persistence.annotations.volume\\.beta\\.kubernetes\\.io/storage-class"
+      value = var.persistence_annotations
+    }
   }
 
   set {
@@ -50,24 +53,36 @@ resource "helm_release" "mongodb" {
     value = var.resources.requests.memory
   }
 
-  set {
-    name  = "arbiter.resources.limits.cpu"
-    value = var.arbiter_resources.limits.cpu
+  dynamic "set" {
+    for_each = var.arbiter_resources.limits.cpu != null ? [var.arbiter_resources.limits.cpu] : []
+    content {
+      name  = "arbiter.resources.limits.cpu"
+      value = var.arbiter_resources.limits.cpu
+    }
   }
 
-  set {
-    name  = "arbiter.resources.limits.memory"
-    value = var.arbiter_resources.limits.memory
+  dynamic "set" {
+    for_each = var.arbiter_resources.limits.memory != null ? [var.arbiter_resources.limits.memory] : []
+    content {
+      name  = "arbiter.resources.limits.memory"
+      value = var.arbiter_resources.limits.memory
+    }
   }
 
-  set {
-    name  = "arbiter.resources.requests.cpu"
-    value = var.arbiter_resources.requests.cpu
+  dynamic "set" {
+    for_each = var.arbiter_resources.requests.cpu != null ? [var.arbiter_resources.requests.cpu] : []
+    content {
+      name  = "arbiter.resources.requests.cpu"
+      value = var.arbiter_resources.requests.cpu
+    }
   }
 
-  set {
-    name  = "arbiter.resources.requests.memory"
-    value = var.arbiter_resources.requests.memory
+  dynamic "set" {
+    for_each = var.arbiter_resources.requests.memory != null ? [var.arbiter_resources.requests.memory] : []
+    content {
+      name  = "arbiter.resources.requests.memory"
+      value = var.arbiter_resources.requests.memory
+    }
   }
 
   set {
