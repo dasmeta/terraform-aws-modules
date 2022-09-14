@@ -1,38 +1,48 @@
 dashboards:
   dashboard1:
+      - name: "Container 409"
+        markdown: "Test Markdown"
+        type: text
       - name: "Container 404"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
       - name: "Container 403"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
       - name: "Container 402"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
       - name: "Container 408"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
   dashboard2:
       - name: "Container 405"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
       - name: "Container 406"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
       - name: "Container 407"
         source: "ContainerInsights/pod_memory_utilization"
         filters: 
         statistic: Sum
         period: 300
+        type: metric
