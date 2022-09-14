@@ -1,0 +1,39 @@
+dashboards:
+  dashboard1:
+      - name: "Container 404"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+      - name: "Container 403"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+      - name: "Container 402"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+      - name: "Container 408"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+  dashboard2:
+      - name: "Container 405"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+      - name: "Container 406"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+      - name: "Container 407"
+        source: "ContainerInsights/pod_memory_utilization"
+        filters: 
+        statistic: Sum
+        period: 300
+        

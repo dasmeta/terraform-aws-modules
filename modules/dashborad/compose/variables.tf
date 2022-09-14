@@ -1,0 +1,3 @@
+variable "widget" {
+  type = any
+}
