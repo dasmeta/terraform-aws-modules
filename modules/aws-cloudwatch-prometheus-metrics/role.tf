@@ -4,7 +4,7 @@ data "aws_iam_policy" "this" {
 data "aws_region" "current" {}
 
 resource "aws_iam_role" "aws-cloudwatch-metrics-role" {
-  name = "${var.cluster_name}-cloudwatch-metrics-role"
+  name = "${var.cluster_name}-prometheus-metrics-exporter-role"
 
   assume_role_policy = <<POLICY
 {
