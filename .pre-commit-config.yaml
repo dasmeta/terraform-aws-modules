@@ -11,7 +11,6 @@ repos:
       exclude: CHANGELOG.md
     - id: check-yaml
     - id: check-merge-conflict
-    - id: check-executables-have-shebangs
     - id: check-case-conflict
     - id: mixed-line-ending
       args: [--fix=lf]
@@ -19,11 +18,11 @@ repos:
       args: ['--allow-missing-credentials']
     - id: detect-private-key
 - repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.74.1
+  rev: v1.64.1
   hooks:
-    - id: terraform_fmt
-    - id: terraform_docs
-      args:
+      - id: terraform_fmt
+      - id: terraform_docs
+        args:
         - --hook-config=--path-to-file=README.md
         - --hook-config=--add-to-existing-file=true
         - --hook-config=--create-file-if-not-exist=true

@@ -1,0 +1,15 @@
+on:
+  pull_request:
+  push:
+    branches: [main, test*]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v3
+    - name: self test action
+      uses: dasmeta/reusable-actions-workflows/pre-commit@0.0.6
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}

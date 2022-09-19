@@ -1,0 +1,22 @@
+name:  Publish
+on: [pull_request, push]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  changelog:
+    needs: [publish]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master

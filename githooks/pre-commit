@@ -1,5 +1,4 @@
 #!/bin/bash
 
-echo 'Start git pre-commit hooks and checks... ';
-pre-commit run -a;
-echo 'End git pre-commit hooks and checks... ';
+set -e
+pre-commit run --show-diff-on-failure --color=always --all-files
