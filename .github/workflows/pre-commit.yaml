@@ -10,6 +10,6 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v3
     - name: self test action
-      uses: dasmeta/reusable-actions-workflows/pre-commit@0.0.6
+      uses: dasmeta/reusable-actions-workflows/pre-commit@0.0.5
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
