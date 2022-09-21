@@ -14,9 +14,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  changelog:
-    needs: [publish]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Changelog
-        uses: scottbrenner/generate-changelog-action@master
