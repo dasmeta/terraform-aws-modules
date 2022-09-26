@@ -2,7 +2,7 @@ locals {
   group_name = "${var.alb_name}-group"
   default_annotations = {
     "alb.ingress.kubernetes.io/load-balancer-name" = var.alb_name
-    "alb.ingress.kubernetes.io/scheme"             = "internet-facing"
+    "alb.ingress.kubernetes.io/scheme"             = var.internal ? "internal" : "internet-facing"
     "alb.ingress.kubernetes.io/backend-protocol"   = "HTTP"
     "alb.ingress.kubernetes.io/listen-ports"       = "[{\"HTTPS\":443}, {\"HTTP\":80}]"
     "alb.ingress.kubernetes.io/group.name"         = local.group_name

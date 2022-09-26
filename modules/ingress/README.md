@@ -93,6 +93,7 @@ No modules.
 | <a name="input_api_version"></a> [api\_version](#input\_api\_version) | The api version of ingress, can be networking/v1 and extensions/v1beta1 for now | `string` | `"networking/v1"` | no |
 | <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br>    service_name = string<br>    service_port = string<br>  })</pre> | <pre>{<br>  "service_name": "dummy",<br>  "service_port": "80"<br>}</pre> | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname | `string` | n/a | yes |
+| <a name="input_internal"></a> [internal](#input\_internal) | If the ingress (load balancer) should be marked as internal to only be accessible from inside VPC. | `bool` | `false` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | `"default"` | no |
 | <a name="input_path"></a> [path](#input\_path) | n/a | <pre>list(object({<br>    service_name = string<br>    service_port = string<br>    path         = string<br>  }))</pre> | <pre>[<br>  {<br>    "path": "/alb-terraform-created",<br>    "service_name": "dummy",<br>    "service_port": "80"<br>  }<br>]</pre> | no |
 

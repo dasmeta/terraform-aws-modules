@@ -48,3 +48,9 @@ variable "namespace" {
   type    = string
   default = "default"
 }
+
+variable "internal" {
+  type        = bool
+  default     = false
+  description = "If the ingress (load balancer) should be marked as internal to only be accessible from inside VPC."
+}
