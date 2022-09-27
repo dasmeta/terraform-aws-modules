@@ -37,3 +37,9 @@ variable "namespace" {
   type    = string
   default = "default"
 }
+
+variable "prefix" {
+  type        = string
+  default     = ""
+  description = "This value is going be used as uniq prefix for secret store AWS resources like iam policy/user as for multi region setups we having collision"
+}

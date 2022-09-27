@@ -8,16 +8,22 @@ variable "stage_name" {
   description = "The API Gateway stage name"
 }
 
-variable "custom_domain" {
-  type = object({
-    name      = string # this is just first part of domain without zone part
+variable "custom_domains" {
+  type = list(object({
+    name      = string # this is just first/prefix/subdomain part of domain without zone part
     zone_name = string
-  })
-  default = {
-    name      = ""
-    zone_name = ""
-  }
+  }))
+  default     = []
   description = "Allows to setup/attach custom domain to api gateway setup, it will create also r53 record and certificate. Note that all keys of object are required to pass when you need one"
+}
+
+variable "custom_domain_additional_options" {
+  type = list(list(object({
+    set_identifier             = string
+    geolocation_routing_policy = any
+  })))
+  default     = []
+  description = "Additional route53 configs in this list for using along side to custom_domain listing"
 }
 
 variable "endpoint_config_type" {

@@ -135,15 +135,19 @@ resource "aws_api_gateway_method_settings" "general_settings" {
     throttling_burst_limit = var.monitoring_settings.throttling_burst_limit
   }
 
-  depends_on = [module.account_settings] # if you get the error "CloudWatch Logs role ARN must be set in account settings to enable logging" please set set_account_settings to true
+  depends_on = [
+    module.account_settings,
+    aws_api_gateway_stage.stage
+  ] # if you get the error "CloudWatch Logs role ARN must be set in account settings to enable logging" please set set_account_settings to true
 }
 
 module "custom_domain" {
   source = "./custom-domain"
 
-  api_id        = aws_api_gateway_rest_api.this.id
-  stage_name    = var.stage_name
-  custom_domain = var.custom_domain
+  api_id                           = aws_api_gateway_rest_api.this.id
+  stage_name                       = var.stage_name
+  custom_domains                   = var.custom_domains
+  custom_domain_additional_options = var.custom_domain_additional_options
 
   providers = {
     aws.virginia = aws.virginia

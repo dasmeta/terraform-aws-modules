@@ -2,7 +2,7 @@ module "iam-user" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-user"
   version = "4.6.0"
 
-  name  = "${local.sanitized-name}-secret-manager"
+  name  = "${var.prefix}${local.sanitized-name}-secret-manager"
   count = var.create_user ? 1 : 0
 
   create_iam_access_key         = true
