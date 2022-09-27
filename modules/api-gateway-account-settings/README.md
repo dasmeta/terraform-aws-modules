@@ -22,10 +22,14 @@ No modules.
 | [aws_api_gateway_account.account_settings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_account) | resource |
 | [aws_iam_role.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_create_cloudwatch_log_role"></a> [create\_cloudwatch\_log\_role](#input\_create\_cloudwatch\_log\_role) | This allows to create cloudwatch role which is one per aws account and is not region specific | `bool` | `false` | no |
+| <a name="input_set_account_settings"></a> [set\_account\_settings](#input\_set\_account\_settings) | The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn, also cloudwatch role should be created before enabling setting | `bool` | `false` | no |
 
 ## Outputs
 

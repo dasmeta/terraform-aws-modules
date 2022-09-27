@@ -101,20 +101,32 @@ variable "monitoring_settings" {
   }
 }
 
-variable "custom_domain" {
-  type = object({
+variable "custom_domains" {
+  type = list(object({
     name      = string # this is just first/prefix/subdomain part of domain without zone part
     zone_name = string
-  })
-  default = {
-    name      = ""
-    zone_name = ""
-  }
+  }))
+  default     = []
   description = "Allows to setup/attach custom domain to api gateway setup, it will create also r53 record and certificate. Note that all keys of object are required to pass when you need one"
+}
+
+variable "custom_domain_additional_options" {
+  type = list(list(object({
+    set_identifier             = string
+    geolocation_routing_policy = any
+  })))
+  default     = []
+  description = "Additional route53 configs in this list for using along side to custom_domain listing"
 }
 
 variable "set_account_settings" {
   type        = bool
   default     = false
-  description = "The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn"
+  description = "The account setting is important to have per account region level set before enabling logging as it have important setting set for cloudwatch role arn, also cloudwatch role should be created before enabling setting"
+}
+
+variable "create_cloudwatch_log_role" {
+  type        = bool
+  default     = false
+  description = "This allows to create cloudwatch role which is one per aws account and is not region specific"
 }

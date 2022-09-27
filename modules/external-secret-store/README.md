@@ -55,6 +55,7 @@ Any secret created in Secret Manager matching the prefix can be requested via th
 | <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create IAM user to read credentials or aws\_access\_key\_id / aws\_access\_secret combination should be used. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Secret store name. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | `"default"` | no |
+| <a name="input_prefix"></a> [prefix](#input\_prefix) | This value is going be used as uniq prefix for secret store AWS resources like iam policy/user as for multi region setups we having collision | `string` | `""` | no |
 
 ## Outputs
 
