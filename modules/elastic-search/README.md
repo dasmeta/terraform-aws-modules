@@ -51,6 +51,7 @@ module "elastic-search" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_policies"></a> [access\_policies](#input\_access\_policies) | Custom access policies, if not provided one being generated automatically | `string` | `""` | no |
 | <a name="input_availability_zone_count"></a> [availability\_zone\_count](#input\_availability\_zone\_count) | The number of availability zones of ES | `number` | `2` | no |
+| <a name="input_create_service_link_role"></a> [create\_service\_link\_role](#input\_create\_service\_link\_role) | Create service link role for AWS Elasticsearch Service | `bool` | `true` | no |
 | <a name="input_dedicated_master_enabled"></a> [dedicated\_master\_enabled](#input\_dedicated\_master\_enabled) | Have dedicated master or not for ES | `bool` | `false` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name of ES | `string` | n/a | yes |
 | <a name="input_ebs_options_ebs_enabled"></a> [ebs\_options\_ebs\_enabled](#input\_ebs\_options\_ebs\_enabled) | Whether enable EBS for ES | `bool` | `true` | no |
