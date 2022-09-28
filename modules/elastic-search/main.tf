@@ -37,7 +37,8 @@ module "elastic_search" {
     domain_name = var.domain_name
   })
 
-  timeouts_update = var.timeouts_update
+  timeouts_update          = var.timeouts_update
+  create_service_link_role = var.create_service_link_role
 }
 
 
