@@ -1,34 +1,78 @@
-variable "alb_name" {
+variable "name" {
   type        = string
-  description = "Ingress name"
+  description = "Name of the Ingress, must be unique."
 }
 
 variable "hostname" {
   type        = string
-  description = "Hostname"
+  default     = null
+  description = "Host is the fully qualified domain name of a network host."
 }
 
-variable "annotations" {
-  type    = any
-  default = {}
+variable "scheme" {
+  type        = string
+  default     = "internet-facing"
+  description = "Specifies whether your LoadBalancer will be internet facing."
+}
+
+variable "backend_protocol" {
+  type        = string
+  default     = "HTTP"
+  description = "Specifies the protocol used when route traffic to pods."
+}
+
+variable "certificate_arn" {
+  type        = string
+  default     = ""
+  description = "Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule."
+}
+
+variable "listen_ports" {
+  type        = string
+  default     = "[{\"HTTP\":80}]"
+  description = "Specifies the ports that ALB used to listen on."
+}
+
+variable "ssl_redirect" {
+  type        = bool
+  default     = true
+  description = "Redirects HTTP traffic into HTTPs if set true."
+}
+
+variable "healthcheck_path" {
+  type        = string
+  default     = "/"
+  description = "Specifies the HTTP path when performing health check on targets."
+}
+
+variable "ssl_policy" {
+  type        = string
+  default     = "ELBSecurityPolicy-2016-08"
+  description = "Specifies the Security Policy that should be assigned to the ALB."
+}
+
+variable "load_balancer_attributes" {
+  type        = string
+  default     = ""
+  description = "Specifies Load Balancer Attributes that should be applied to the ALB."
+}
+
+variable "success_codes" {
+  type        = string
+  default     = "200"
+  description = "Specifies the HTTP status code that should be expected when doing health checks against the specified health check path."
 }
 
 variable "path" {
   type = list(object({
     service_name        = string
     service_port_number = string
-    service_port_name   = string
     path                = string
   }))
-  default = [
-    {
-      service_name        = "response-200"
-      service_port_number = null
-      service_port_name   = "use-annotation"
-      path                = "/200"
-    }
-  ]
+  default     = null
+  description = "Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend."
 }
+
 variable "default_backend" {
   type = object({
     service_name = string
@@ -39,16 +83,11 @@ variable "default_backend" {
     service_port = null
   }
 }
-# TODO: check if there is way to get this data as kubernetes data
-variable "api_version" {
-  type        = string
-  default     = "networking/v1"
-  description = "The api version of ingress, can be networking/v1 and extensions/v1beta1 for now"
-}
 
 variable "namespace" {
-  type    = string
-  default = "default"
+  type        = string
+  default     = "default"
+  description = "K8s namespace where the Ingress will be created."
 }
 
 variable "tls_hosts" {
