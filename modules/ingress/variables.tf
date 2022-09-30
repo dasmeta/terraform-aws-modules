@@ -15,15 +15,17 @@ variable "annotations" {
 
 variable "path" {
   type = list(object({
-    service_name = string
-    service_port = string
-    path         = string
+    service_name        = string
+    service_port_number = string
+    service_port_name   = string
+    path                = string
   }))
   default = [
     {
-      service_name = "dummy"
-      service_port = "80"
-      path         = "/alb-terraform-created"
+      service_name        = "response-200"
+      service_port_number = null
+      service_port_name   = "use-annotation"
+      path                = "/200"
     }
   ]
 }
@@ -33,8 +35,8 @@ variable "default_backend" {
     service_port = string
   })
   default = {
-    service_name = "dummy"
-    service_port = "80"
+    service_name = null
+    service_port = null
   }
 }
 # TODO: check if there is way to get this data as kubernetes data
@@ -47,4 +49,10 @@ variable "api_version" {
 variable "namespace" {
   type    = string
   default = "default"
+}
+
+variable "tls_hosts" {
+  type        = list(string)
+  default     = null
+  description = "Hosts are a list of hosts included in the TLS certificate."
 }
