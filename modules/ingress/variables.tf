@@ -29,7 +29,7 @@ variable "certificate_arn" {
 
 variable "listen_ports" {
   type        = string
-  default     = "80"
+  default     = 80
   description = "Specifies the ports that ALB used to listen on."
 }
 

@@ -1,46 +1,39 @@
 # Module setup ingress controller.
 
-# Example 1. Minimal parameter set default annotatandions
+## Problem
+When creating R53 records or CDN origins we need to explicitly pass ALB's DNS name to those resources. It's not convenient and not flexible.
+Besides, there may be multiple ingresses each of which can create an ALB, but this is expensive.
+
+## Solution
+We recommend to use this Terraform module which
+1. creates a k8s Ingress resource,
+2. created resource makes an ALB in AWS,
+3. has `alb.ingress.kubernetes.io/group.name` annotation set by default.
+
+In the result of this you can
+1. manage the state of the resource by Terraform,
+2. by setting `alb.ingress.kubernetes.io/group.name` annotation attach multiple ingresses to the main one created by the module and use just one ALB,
+3. manage all the Ingress rules from the application side.
+
+# Example. Create ingress with an existing certificate, host and custom values for ingress annotations
 
 ```terraform
-module "ingress" {
-  source   = "dasmeta/modules/aws//modules/ingress"
-
-  name = "test-ingress"
+data "aws_acm_certificate" "issued" {
+  domain   = "dasmeta.com"
+  statuses = ["ISSUED"]
 }
-```
 
-# Example 2. Create ingress with an existing certificate, host and custom values for annotations and rules
-1.If you want to use a port with number for an Ingress rule, just pass it to `service_port_number` and pass null to `service_port_name`.
-2.Otherwise you can use `use-annotation` value for the port, in this case pass it to `service_port_name` and pass null to `service_port_number`.
-  Also, for this case you have to pass a `"alb.ingress.kubernetes.io/actions.${action-name}"` annotation, where `${action-name}` has to be specified and also used as the `service_name` in Ingress rule.
-
-```terraform
 module "ingress" {
-  source   = "dasmeta/modules/aws//modules/ingress"
+  source = "dasmeta/modules/aws//modules/ingress"
 
-  name = "test"
-  hostname = "test.devops.dasmeta.com"
+  name     = "terraform-ingress
+  hostname = "dasmeta.com"
 
-  certificate_arn          = "arn:aws:acm:us-east-1:5********68:certificate/a55ee6eb****1706"
-  ssl_policy               = "ELBSecurityPolicy-FS-1-2-Res-2020-10"
-  healthcheck_path         = "/health"
-  success_codes            = "200-399"
+  certificate_arn           = data.aws_acm_certificate.issued.arn
+  healthcheck_path          = "/health"
+  healthcheck_success_codes = "200-399"
 
-  path = [
-    {
-      service_name = "nginx"
-      service_port_number = "80"
-      service_port_name = null
-      path         = "/alb-terraform-created"
-    },
-    {
-      service_name = "response-200"
-      service_port_number = null
-      service_port_name = "use-annotation"
-      path         = "/200"
-    }
-  ]
+  tls_hosts = "dasmeta.com"
 }
 ```
 
@@ -78,7 +71,7 @@ No modules.
 | <a name="input_healthcheck_path"></a> [healthcheck\_path](#input\_healthcheck\_path) | Specifies the HTTP path when performing health check on targets. | `string` | `"/"` | no |
 | <a name="input_healthcheck_success_codes"></a> [healthcheck\_success\_codes](#input\_healthcheck\_success\_codes) | Specifies the HTTP status code that should be expected when doing health checks against the specified health check path. | `string` | `"200"` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Host is the fully qualified domain name of a network host. | `string` | `null` | no |
-| <a name="input_listen_ports"></a> [listen\_ports](#input\_listen\_ports) | Specifies the ports that ALB used to listen on. | `string` | `"80"` | no |
+| <a name="input_listen_ports"></a> [listen\_ports](#input\_listen\_ports) | Specifies the ports that ALB used to listen on. | `string` | `80` | no |
 | <a name="input_load_balancer_attributes"></a> [load\_balancer\_attributes](#input\_load\_balancer\_attributes) | Specifies Load Balancer Attributes that should be applied to the ALB. | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Ingress, must be unique. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | K8s namespace where the Ingress will be created. | `string` | `"default"` | no |
