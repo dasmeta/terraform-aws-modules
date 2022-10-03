@@ -13,6 +13,15 @@ We recommend to use this Terraform module. In the result of this you can:
 
 # Example. Create ingress with an existing certificate, host and custom values for ingress annotations
 
+## Usage
+
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+$ kubectl apply -f ingress.yaml
+```
+
 ```terraform
 data "aws_acm_certificate" "issued" {
   domain   = "dasmeta.com"
@@ -75,15 +84,6 @@ spec:
             backend:
               serviceName: myapp2
               servicePort: 8088
-```
-
-## Usage
-
-```bash
-$ terraform init
-$ terraform plan
-$ terraform apply
-$ kubectl apply -f ingress.yaml
 ```
 
 
