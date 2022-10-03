@@ -29,7 +29,7 @@ variable "certificate_arn" {
 
 variable "listen_ports" {
   type        = string
-  default     = "[{\"HTTP\":80}]"
+  default     = "80"
   description = "Specifies the ports that ALB used to listen on."
 }
 
@@ -57,7 +57,7 @@ variable "load_balancer_attributes" {
   description = "Specifies Load Balancer Attributes that should be applied to the ALB."
 }
 
-variable "success_codes" {
+variable "healthcheck_success_codes" {
   type        = string
   default     = "200"
   description = "Specifies the HTTP status code that should be expected when doing health checks against the specified health check path."
@@ -65,9 +65,9 @@ variable "success_codes" {
 
 variable "path" {
   type = list(object({
-    service_name        = string
-    service_port_number = string
-    path                = string
+    name = string
+    port = string
+    path = string
   }))
   default     = null
   description = "Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend."
