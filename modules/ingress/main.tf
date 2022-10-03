@@ -3,11 +3,11 @@ locals {
 
   //dummy_path has to he specified by default otherwise ingress can't be built
   dummy_path = [{
-    name = "response-static"
-    port = null
-    path = "/Pto48SjdzKBclyL5"
+    name        = "response-static"
+    port        = null
+    path        = "/Pto48SjdzKBclyL5"
+    static_port = "use-annotation"
   }]
-  port = "use-annotation"
 
   annotations = {
     "alb.ingress.kubernetes.io/load-balancer-name"       = var.name
@@ -59,7 +59,7 @@ resource "kubernetes_ingress_v1" "this_v1" {
                 name = path.value["name"]
                 port {
                   number = path.value["port"]
-                  name   = var.path != null ? null : local.port
+                  name   = var.path != null ? null : path.value["static_port"]
                 }
               }
             }
