@@ -1,14 +1,19 @@
-output "alb_name" {
-  value       = var.alb_name
-  description = "The name of alb generated after apply"
+output "name" {
+  value       = var.name
+  description = "The name of Ingress."
 }
 
 output "group_name" {
   value       = local.group_name
-  description = "The ingress group name"
+  description = "The Ingress group name."
 }
 
 output "annotations" {
   value       = local.annotations
-  description = "The annotations that created ingress will get"
+  description = "Ingress resource's annotations."
+}
+
+output "ingress_hostname" {
+  value       = data.kubernetes_ingress_v1.ingress.status.0.load_balancer.0.ingress.0.hostname
+  description = "Load Balancer DNS name."
 }
