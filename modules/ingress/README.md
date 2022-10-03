@@ -5,12 +5,8 @@ When creating R53 records or CDN origins we need to explicitly pass ALB's DNS na
 Besides, there may be multiple ingresses each of which can create an ALB, but this is expensive.
 
 ## Solution
-We recommend to use this Terraform module which
-1. creates a k8s Ingress resource,
-2. created resource makes an ALB in AWS,
-3. has `alb.ingress.kubernetes.io/group.name` annotation set by default.
-
-In the result of this you can
+The main purpose of `ingress` module is to manage ingress resource from Terraform but edit/use/configure it from k8s side.
+We recommend to use this Terraform module. In the result of this you can:
 1. manage the state of the resource by Terraform,
 2. by setting `alb.ingress.kubernetes.io/group.name` annotation attach multiple ingresses to the main one created by the module and use just one ALB,
 3. manage all the Ingress rules from the application side.
@@ -26,7 +22,7 @@ data "aws_acm_certificate" "issued" {
 module "ingress" {
   source = "dasmeta/modules/aws//modules/ingress"
 
-  name     = "terraform-ingress
+  name     = "terraform-ingress"
   hostname = "dasmeta.com"
 
   certificate_arn           = data.aws_acm_certificate.issued.arn
@@ -36,6 +32,41 @@ module "ingress" {
   tls_hosts = "dasmeta.com"
 }
 ```
+
+`ingress.yaml`
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: default
+  name: ingress
+  annotations:
+      alb.ingress.kubernetes.io/group.name: test-ingress,
+      kubernetes.io/ingress.class: alb,
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /welcome
+            backend:
+              serviceName: myapp1
+              servicePort: 80
+          - path: /bye
+            backend:
+              serviceName: myapp2
+              servicePort: 8088
+
+```
+
+## Usage
+
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+$ kubectl apply -f ingress.yaml
+```
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

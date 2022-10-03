@@ -1,7 +1,6 @@
 ### Add paths to Ingress with K8s
 This example creates an Ingress with Terraform for an existing domain. Terraform attaches `alb.ingress.kubernetes.io/group.name` to the resource by default and its value is ${local.name}.
-The main purpose of `ingress` module is to manage ingress resource from Terraform but edit/use/configure it from k8s side.
-So there is an `ingress.yaml` file where `alb.ingress.kubernetes.io/group.name` is set and has the same value as Ingress created by Terraform.
+In `ingress.yaml` files `alb.ingress.kubernetes.io/group.name` is set and has the same value as Ingress created by Terraform.
 In this way these 2 ingresses are attached to the same ALB.
 
 
@@ -17,7 +16,7 @@ $ terraform apply
 
 and then this one for K8s:
 ```bash
-kubectl apply -f ingress.yaml
+$ kubectl apply -f ingress.yaml
 ```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
