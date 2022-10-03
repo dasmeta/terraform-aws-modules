@@ -14,7 +14,7 @@ locals {
     "alb.ingress.kubernetes.io/scheme"                   = var.scheme
     "alb.ingress.kubernetes.io/backend-protocol"         = var.backend_protocol
     "alb.ingress.kubernetes.io/certificate-arn"          = var.certificate_arn
-    "alb.ingress.kubernetes.io/listen-ports"             = var.certificate_arn == "" ? "[{\"HTTP\":${var.listen_ports}}]" : "[{\"HTTPS\":443}, {\"HTTP\":80}]"
+    "alb.ingress.kubernetes.io/listen-ports"             = var.certificate_arn == "" ? "[{\"HTTP\":80}]" : "[{\"HTTPS\":443}, {\"HTTP\":80}]"
     "alb.ingress.kubernetes.io/actions.response-static"  = "{\"Type\": \"fixed-response\", \"FixedResponseConfig\": { \"ContentType\": \"text/plain\", \"StatusCode\": \"200\", \"MessageBody\": \"Hello!\"}}"
     "alb.ingress.kubernetes.io/actions.ssl-redirect"     = var.ssl_redirect == true ? "{\"Type\": \"redirect\", \"RedirectConfig\": { \"Protocol\": \"HTTPS\", \"Port\": \"443\", \"StatusCode\": \"HTTP_301\"}}" : ""
     "alb.ingress.kubernetes.io/group.name"               = local.group_name

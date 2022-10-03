@@ -27,12 +27,6 @@ variable "certificate_arn" {
   description = "Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule."
 }
 
-variable "listen_ports" {
-  type        = string
-  default     = 80
-  description = "Specifies the ports that ALB used to listen on."
-}
-
 variable "ssl_redirect" {
   type        = bool
   default     = true
