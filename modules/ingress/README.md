@@ -31,6 +31,26 @@ module "ingress" {
 
   tls_hosts = "dasmeta.com"
 }
+
+module "route53" {
+  source  = "dasmeta/modules/aws//modules/route53"
+  version = "0.21.17"
+
+  zone        = "example.com"
+  create_zone = false
+  records = [
+    {
+      name  = "test1.example.com"
+      type  = "A"
+      value = [module.ingress.ingress_hostname]
+    }
+  ]
+  ttl = "30"
+
+  depends_on = [
+    module.ingress
+  ]
+}
 ```
 
 `ingress.yaml`
@@ -55,7 +75,6 @@ spec:
             backend:
               serviceName: myapp2
               servicePort: 8088
-
 ```
 
 ## Usage
@@ -91,6 +110,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [kubernetes_ingress_v1.this_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) | resource |
+| [kubernetes_ingress_v1.ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/ingress_v1) | data source |
 
 ## Inputs
 
@@ -118,5 +138,6 @@ No modules.
 |------|-------------|
 | <a name="output_annotations"></a> [annotations](#output\_annotations) | Ingress resource's annotations. |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The Ingress group name. |
+| <a name="output_ingress_hostname"></a> [ingress\_hostname](#output\_ingress\_hostname) | Load Balancer DNS name. |
 | <a name="output_name"></a> [name](#output\_name) | The name of Ingress. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

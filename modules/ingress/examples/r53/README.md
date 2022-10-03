@@ -7,9 +7,7 @@ No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+No providers.
 
 ## Modules
 
@@ -20,9 +18,7 @@ No requirements.
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [kubernetes_ingress_v1.example](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/ingress_v1) | data source |
+No resources.
 
 ## Inputs
 

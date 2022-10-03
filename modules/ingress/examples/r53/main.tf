@@ -2,12 +2,6 @@ locals {
   name = "test-ingress"
 }
 
-data "kubernetes_ingress_v1" "example" {
-  metadata {
-    name = local.name
-  }
-}
-
 //Creates a k8s ingress resource
 module "ingress" {
   source = "../.."
@@ -26,7 +20,7 @@ module "route53" {
     {
       name  = "test1.example.com"
       type  = "A"
-      value = data.kubernetes_ingress_v1.example.status.0.load_balancer.0.ingress.0.hostname
+      value = [module.ingress.ingress_hostname]
     }
   ]
   ttl = "30"
