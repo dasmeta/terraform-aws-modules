@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PATH="/c/Program Files/nodejs:$HOME/AppData/Roaming/npm/:$PATH"
+# pkg=git-conventional-commits
+# status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
+# if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
+#     npm install --global $command
+# fi
+git-conventional-commits commit-msg-hook "$1"
