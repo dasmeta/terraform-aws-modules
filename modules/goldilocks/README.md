@@ -43,7 +43,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/ingress | n/a |
+| <a name="module_ingress"></a> [ingress](#module\_ingress) | dasmeta/modules/aws//modules/ingress | 1.0.0 |
 
 ## Resources
 
