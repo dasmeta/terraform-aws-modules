@@ -16,7 +16,11 @@ for Run our pre-commit hooks you need to install
 ```bash
 git config core.hooksPath githooks
 ```
+## NOTE you must install 
 
+```bash
+npm install --global git-conventional-commits
+```
 ## What
 - alb-ingress-controller with access logs and necessary permissions to handle k8s ingress resource
 - eks-metrics-to-cloudwatch-metrics
