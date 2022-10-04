@@ -29,6 +29,7 @@ resource "kubernetes_manifest" "create_namespace" {
   }
 }
 
+
 resource "null_resource" "vpa_configure" {
   for_each = var.namespaces
 
