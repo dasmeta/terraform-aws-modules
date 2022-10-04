@@ -56,6 +56,7 @@ resource "helm_release" "goldilocks_deploy" {
   ]
 }
 
+
 module "ingress" {
   count   = var.create_dashboard_ingress ? 1 : 0
   source  = "dasmeta/modules/aws//modules/ingress"
