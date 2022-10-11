@@ -7,10 +7,11 @@ locals {
   # multiple topics are optional. We filter the ones not used.
   alarm_actions = [
     for topic in [
-      local.notify_email ? aws_sns_topic.this-email[0].arn : null,                           // email
-      local.notify_sms ? aws_sns_topic.this-sms[0].arn : null,                               // sms
-      local.notify_opsgenie ? aws_sns_topic.this-opsgenie[0].arn : null,                     // Opsgenie
-      local.notify_slack ? data.aws_sns_topic.aws_sns_topic_slack_health_check[0].arn : null // slack
+      local.notify_email ? aws_sns_topic.this-email[0].arn : null,                            // email
+      local.notify_sms ? aws_sns_topic.this-sms[0].arn : null,                                // sms
+      local.notify_opsgenie ? aws_sns_topic.this-opsgenie[0].arn : null,                      // Opsgenie
+      local.notify_slack ? data.aws_sns_topic.aws_sns_topic_slack_health_check[0].arn : null, // slack
+      var.sns_topic_arn                                                                       // custom topic
     ] :
     topic if topic != null
   ]
