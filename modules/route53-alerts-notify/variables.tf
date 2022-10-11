@@ -166,16 +166,19 @@ variable "sms_message_body" {
 variable "slack_hook_url" {
   type        = string
   description = "This is slack webhook url path without domain"
+  default     = null
 }
 
 variable "slack_channel" {
   type        = string
   description = "Slack Channel"
+  default     = null
 }
 
 variable "slack_username" {
   type        = string
   description = "Slack User Name"
+  default     = null
 }
 
 ### Opsgenie variables

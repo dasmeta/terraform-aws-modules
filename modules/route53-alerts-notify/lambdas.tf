@@ -1,4 +1,5 @@
 module "notify_slack" {
+  count   = local.notify_slack ? 1 : 0
   source  = "terraform-aws-modules/notify-slack/aws"
   version = "4.18.0"
 
