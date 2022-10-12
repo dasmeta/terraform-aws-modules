@@ -1,0 +1,17 @@
+name: 'PR Description checker'
+on:
+  pull_request:
+    types: [opened, edited]
+jobs:
+  add-jira-description:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cakeinpanic/jira-description-action@v0.3.2
+        name: jira-description-action
+        with:
+          github-token: $${{ secrets.GITHUB_TOKEN }}
+          jira-token: $${{ secrets.JIRA_TOKEN }}
+          jira-base-url: https://tutorbot.atlassian.net
+          fail-when-jira-issue-not-found: true
+          custom-issue-number-regexp: '[0-9]+'
+          jira-project-key: '${project_name}'
