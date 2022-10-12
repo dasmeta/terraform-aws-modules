@@ -139,10 +139,16 @@ variable "depends" {
 
 
 ### SNS Topic related variables
+variable "sns_topic_arn" {
+  type        = string
+  description = "The ARN of an SNS topic to which notifications will be sent. This does not relate to the other SNS topic variables."
+  default     = null
+}
+
 variable "topic_name" {
   type        = string
   default     = "topic"
-  description = "SNS topic name."
+  description = "SNS base name with which SNS topics in this module will be created."
 }
 
 variable "sns_subscription_email_address_list" {
@@ -166,16 +172,19 @@ variable "sms_message_body" {
 variable "slack_hook_url" {
   type        = string
   description = "This is slack webhook url path without domain"
+  default     = null
 }
 
 variable "slack_channel" {
   type        = string
   description = "Slack Channel"
+  default     = null
 }
 
 variable "slack_username" {
   type        = string
   description = "Slack User Name"
+  default     = null
 }
 
 ### Opsgenie variables

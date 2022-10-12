@@ -1,8 +1,8 @@
 ### SNS slack lambda notification about health checks ###
 
 data "aws_sns_topic" "aws_sns_topic_slack_health_check" {
-
-  name = "${replace("${var.domain_name}${var.resource_path}", "/[./]+/", "-")}-slack"
+  count = local.notify_slack ? 1 : 0
+  name  = "${replace("${var.domain_name}${var.resource_path}", "/[./]+/", "-")}-slack"
   depends_on = [
     module.notify_slack
   ]
@@ -23,13 +23,8 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   dimensions = {
     HealthCheckId = aws_route53_health_check.healthcheck.id
   }
-  alarm_description = var.alarm_description_down
-  alarm_actions = [
-    aws_sns_topic.this-email.arn,                           // email
-    aws_sns_topic.this-sms.arn,                             // sms
-    aws_sns_topic.this-opsgenie.arn,                        // Opsgenie
-    data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
-  ]
+  alarm_description         = var.alarm_description_down
+  alarm_actions             = local.alarm_actions
   insufficient_data_actions = []
   treat_missing_data        = var.treat_missing_data #"breaching"
   depends_on = [
@@ -49,13 +44,8 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   dimensions = {
     HealthCheckId = aws_route53_health_check.healthcheck.id
   }
-  alarm_description = var.alarm_description_up
-  ok_actions = [
-    aws_sns_topic.this-email.arn,                           // email
-    aws_sns_topic.this-sms.arn,                             // sms
-    aws_sns_topic.this-opsgenie.arn,                        // Opsgenie
-    data.aws_sns_topic.aws_sns_topic_slack_health_check.arn // slack
-  ]
+  alarm_description         = var.alarm_description_up
+  ok_actions                = local.alarm_actions
   insufficient_data_actions = []
   treat_missing_data        = var.treat_missing_data #"breaching"
   depends_on = [
