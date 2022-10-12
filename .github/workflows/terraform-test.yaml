@@ -1,0 +1,21 @@
+name: Terraform Test
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  terraform-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - dashboard
+    permissions: write-all
+    steps:
+    - uses: dasmeta/reusable-actions-workflows/terraform-test@terraform-test
+      with:
+        aws-region: ${{ secrets.AWS_REGION}}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        path: modules/${{ matrix.path }}
