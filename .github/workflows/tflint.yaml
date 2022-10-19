@@ -1,15 +1,16 @@
-name: Pre-Commit
+name: Tflint
 on:
   pull_request:
   push:
     branches: [main, master]
+
 jobs:
   terraform-validate:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         path:
-          - alb-logs-to-s3-to-cloudwatch
+                    - alb-logs-to-s3-to-cloudwatch
           - api-gateway
           - api-gateway-account-settings
           - aws-alb-to-cloudwatch-lambda
@@ -71,12 +72,10 @@ jobs:
           - waf
     permissions: write-all
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v3
-    - name: self test action
-      uses: dasmeta/reusable-actions-workflows/pre-commit@main
+    - uses: dasmeta/reusable-actions-workflows/tflint@main
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        aws-region: ${{ secrets.AWS_REGION}}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        path: modules/${{ matrix.path }}
+        path: modules/${{ matrix.path }}  
+        repo-token: ${{ secrets.GITHUB_TOKEN }}

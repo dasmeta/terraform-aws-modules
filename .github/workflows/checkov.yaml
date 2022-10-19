@@ -1,4 +1,4 @@
-name: Pre-Commit
+name: Checkov
 on:
   pull_request:
   push:
@@ -71,12 +71,7 @@ jobs:
           - waf
     permissions: write-all
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v3
-    - name: self test action
-      uses: dasmeta/reusable-actions-workflows/pre-commit@main
+    - uses: dasmeta/reusable-actions-workflows/checkov@main
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        path: modules/${{ matrix.path }}
+        fetch-depth: 0
+        directory: modules/${{ matrix.directory }}
