@@ -6,77 +6,13 @@ on:
 jobs:
   terraform-validate:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        path:
-          - alb-logs-to-s3-to-cloudwatch
-          - api-gateway
-          - api-gateway-account-settings
-          - aws-alb-to-cloudwatch-lambda
-          - aws-cloudfront-security-headers
-          - aws-cloudwatch-prometheus-metrics
-          - aws-iam-user
-          - aws-load-balancer-controller
-          - aws-multi-vpc-peering
-          - aws-network
-          - aws-rds-postgres
-          - aws-vpc-peering
-          - aws-vpn-vpnendpoint
-          - budgets
-          - cloudfront-ssl-hsts
-          - cloudfront-to-s3-to-cloudwatch
-          - cloudfront
-          - cloudtrail-s3-to-cloudwatch
-          - cloudtrail
-          - cloudwatch-alarm-notify 
-          - cloudwatch-cross-account-share
-          - cloudwatch-log-metric
-          - cloudwatch-metrics
-          - cloudwatch
-          - cognito-identitiy-pool
-          - cognito-identity-pool-final
-          - cognito-identity
-          - cognito-user-pool
-          - complete-eks-cluster
-          - ecr
-          - eks-iam-user-constrain
-          - eks
-          - elastic-search
-          - external-secret-store
-          - external-secrets
-          - fluent-bit-logs-s3-to-cloudwatch
-          - fluent-bit-to-s3
-          - fluent-bit
-          - goldilocks
-          - iam-account-password-policy
-          - iam-group
-          - ingress
-          - metric-filter
-          - metrics-filter-multiple
-          - metrics-server
-          - mongodb-atlas
-          - mongodb
-          - rabbitmq
-          - rds
-          - route53-alerts-notify
-          - route53
-          - s3
-          - secret
-          - service-alerts
-          - sns-cronjob
-          - sqs
-          - ssl-certificate
-          - vpc-flow-logs-to-s3-to-cloudwatch
-          - vpc
-          - waf
     permissions: write-all
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v3
-    - name: self test action
+    - name: Pre-Commit
       uses: dasmeta/reusable-actions-workflows/pre-commit@main
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         path: modules/${{ matrix.path }}
+      continue-on-error: true

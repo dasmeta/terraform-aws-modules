@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         path:
-                    - alb-logs-to-s3-to-cloudwatch
+          - alb-logs-to-s3-to-cloudwatch
           - api-gateway
           - api-gateway-account-settings
           - aws-alb-to-cloudwatch-lambda
@@ -79,3 +79,4 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         path: modules/${{ matrix.path }}  
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true

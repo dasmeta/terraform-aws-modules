@@ -86,6 +86,7 @@ jobs:
           infracost breakdown --path=modules/${{ matrix.path }} \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
+        continue-on-error: true
 
       - name: Checkout PR branch
         uses: actions/checkout@v3
@@ -96,6 +97,7 @@ jobs:
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
+        continue-on-error: true
 
       - name: Post Infracost comment
         run: |
@@ -104,3 +106,4 @@ jobs:
                                      --github-token=${{github.token}} \
                                      --pull-request=${{github.event.pull_request.number}} \
                                      --behavior=update
+        continue-on-error: true

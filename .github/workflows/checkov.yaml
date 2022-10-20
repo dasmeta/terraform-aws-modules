@@ -74,4 +74,5 @@ jobs:
     - uses: dasmeta/reusable-actions-workflows/checkov@main
       with:
         fetch-depth: 0
-        directory: modules/${{ matrix.directory }}
+        directory: modules/${{ matrix.path }}
+      continue-on-error: true
