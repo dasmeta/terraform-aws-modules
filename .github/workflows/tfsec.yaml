@@ -1,0 +1,14 @@
+name: TFSEC
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+jobs:
+  terraform-tfsec:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+    - uses: dasmeta/reusable-actions-workflows/tfsec@main
+      with:
+        fetch-depth: 0
+    continue-on-error: true
