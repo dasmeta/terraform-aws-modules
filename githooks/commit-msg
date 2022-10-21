@@ -1,0 +1,86 @@
+#!/bin/bash
+
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[1;32m'
+NC='\033[0m'
+
+isNvmOk=false
+isYarnOk=false
+isNodeOk=false
+isGccOk=false
+
+source ~/.nvm/nvm.sh > /dev/null 2>&1
+nvm -v > /dev/null 2>&1
+if [ ! $? -eq 0 ]; then
+  mkdir ~/.nvm > /dev/null 2>&1
+  (curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash) > /dev/null 2>&1
+
+  source ~/.nvm/nvm.sh
+
+  if [ `command -v nvm` ]; then
+      isNvmOk=true
+      #echo -e "$${GREEN}[ OK ]$${NC} nvm installed successfully"
+  else
+      isNvmOk=false
+      #echo -e "$${RED}[ FAIL ]$${NC} Error during nvm installation"
+  fi
+fi
+
+
+if  [  `command -v node`  ]; then
+    isNodeOk=true
+    #echo -e "$${GREEN}[ OK ]$${NC} npm and node is already installed"
+else
+  #echo -e "$${YELLOW}[ WAIT ]$${NC} npm is not installed.. installing"
+  nvm install node > /dev/null 2>&1
+  if [ `command -v node` ] && [ `command -v npm` ]; then
+      isNodeOk=true
+      #echo -e "$${GREEN}[ OK ]$${NC} npm installed successfully"
+  fi
+
+#  mkdir ~/.npm-global > /dev/null 2>&1
+#  npm config set prefix '~/.npm-global' > /dev/null 2>&1
+#  export PATH=~/.npm-global/bin:$PATH > /dev/null 2>&1
+#  source ~/.profile > /dev/null 2>&1
+
+fi
+
+
+if [ `command -v yarn` ]; then
+  isYarnOk=true
+  #echo -e "$${GREEN}[ OK ]$${NC} Yarn already installed"
+
+else
+  rm -rf ~/.yarn
+  (curl -o- -L https://yarnpkg.com/install.sh | bash) > /dev/null 2>&1
+  export PATH="$HOME/.yarn/bin:$PATH"
+  yarn config set prefix ~/.yarn -g > /dev/null 2>&1
+
+  if [ `command -v yarn` ]; then
+    isYarnOk=true
+     # echo $yarn_result
+    #  echo -e "$${GREEN}[ OK ]$${NC} Yarn installed successfully"
+  fi
+fi
+
+#echo -e "$${GREEN}[ OK ]$${NC}" nvm cache clear --force
+
+PATH="/c/Program Files/nodejs:$HOME/AppData/Roaming/npm/:$PATH"
+
+npm install --global git-conventional-commits > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    isGccOk=true
+   # echo -e "$${GREEN}[ OK ]$${NC} git-conventional-commit successfully installed"
+  else
+    isGccOk=false
+   # echo -e "$${RED}[ FAIL ]$${NC} Error during installation of git-conventional-commit"
+fi
+
+git-conventional-commits commit-msg-hook "$1"
+
+if [[ $isNodeOk && $isYarnOk && $isNvmOk && $isNodeOk ]]; then
+    echo -e "$${GREEN}[ OK ]$${NC} Dependencies installed successfully"
+else
+    echo -e "$${RED}[ FAIL ]$${NC} Error during dependency installation"
+fi
