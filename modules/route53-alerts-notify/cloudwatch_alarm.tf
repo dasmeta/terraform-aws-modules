@@ -11,7 +11,7 @@ data "aws_sns_topic" "aws_sns_topic_slack_health_check" {
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
-  alarm_name          = ":x: ${var.domain_name}${var.resource_path}"
+  alarm_name          = "${var.alarm_prefix_down}${var.domain_name}${var.resource_path}"
   namespace           = var.namespace
   metric_name         = var.metric_name
   comparison_operator = var.comparison_operator
@@ -32,7 +32,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   ]
 }
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
-  alarm_name          = ":white_check_mark: ${var.domain_name}${var.resource_path}"
+  alarm_name          = "${var.alarm_prefix_up}${var.domain_name}${var.resource_path}"
   namespace           = var.namespace
   metric_name         = var.metric_name
   comparison_operator = var.comparison_operator

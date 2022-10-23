@@ -123,6 +123,19 @@ variable "alarm_description_up" {
   type    = string
   default = "This metric monitors whether the service endpoint is up"
 }
+
+variable "alarm_prefix_down" {
+  description = "A prefix for the alarm message when the host is down. The default is a slack emoji."
+  type        = string
+  default     = ":x: "
+}
+
+variable "alarm_prefix_up" {
+  description = "A prefix for the alarm message when the host is up. The default is a slack emoji."
+  type        = string
+  default     = ":white_check_mark: "
+}
+
 variable "alarm_actions" {
   type    = list(string)
   default = []

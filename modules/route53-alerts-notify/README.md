@@ -70,6 +70,8 @@ module "healthcheck" {
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | n/a | `list(string)` | `[]` | no |
 | <a name="input_alarm_description_down"></a> [alarm\_description\_down](#input\_alarm\_description\_down) | n/a | `string` | `"This metric monitors whether the service endpoint is down or not."` | no |
 | <a name="input_alarm_description_up"></a> [alarm\_description\_up](#input\_alarm\_description\_up) | n/a | `string` | `"This metric monitors whether the service endpoint is up"` | no |
+| <a name="input_alarm_prefix_down"></a> [alarm\_prefix\_down](#input\_alarm\_prefix\_down) | A prefix for the alarm message when the host is down. The default is a slack emoji. | `string` | `":x: "` | no |
+| <a name="input_alarm_prefix_up"></a> [alarm\_prefix\_up](#input\_alarm\_prefix\_up) | A prefix for the alarm message when the host is up. The default is a slack emoji. | `string` | `":white_check_mark: "` | no |
 | <a name="input_alarm_region"></a> [alarm\_region](#input\_alarm\_region) | Region from where the alarms must be monitored. All regions are taken if the value is omited. | `string` | `"eu-central-1"` | no |
 | <a name="input_comparison_operator"></a> [comparison\_operator](#input\_comparison\_operator) | Comparison operator. | `string` | `"LessThanThreshold"` | no |
 | <a name="input_depends"></a> [depends](#input\_depends) | n/a | `list` | `[]` | no |
