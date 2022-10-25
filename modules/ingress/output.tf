@@ -14,6 +14,6 @@ output "annotations" {
 }
 
 output "ingress_hostname" {
-  value       = data.kubernetes_ingress_v1.ingress.status.0.load_balancer.0.ingress.0.hostname
+  value       = try(data.kubernetes_ingress_v1.ingress.status.0.load_balancer.0.ingress.0.hostname, null)
   description = "Load Balancer DNS name."
 }

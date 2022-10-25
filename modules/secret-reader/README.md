@@ -69,3 +69,39 @@ No modules.
 | <a name="output_secret_value"></a> [secret\_value](#output\_secret\_value) | n/a |
 | <a name="output_secrets"></a> [secrets](#output\_secrets) | n/a |
 <!-- END_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_secretsmanager_secret.by_secret_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret_version.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_name"></a> [name](#input\_name) | Your secret name | `string` | n/a | yes |
+| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | You can get secret value if set key name | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_secret_value"></a> [secret\_value](#output\_secret\_value) | n/a |
+| <a name="output_secrets"></a> [secrets](#output\_secrets) | n/a |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

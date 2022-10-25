@@ -28,7 +28,7 @@ jobs:
           - cloudfront
           - cloudtrail-s3-to-cloudwatch
           - cloudtrail
-          - cloudwatch-alarm-notify 
+          - cloudwatch-alarm-notify
           - cloudwatch-log-metric
           - cloudwatch-metrics
           - cloudwatch
