@@ -33,6 +33,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   transport_protocol     = "udp"
   dns_servers            = [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
   vpn_port               = var.vpn_port
+  security_group_ids     = [aws_security_group.my-vpn.id]
 
   authentication_options {
     type                       = var.saml_provider_arn != "" ? "federated-authentication" : "certificate-authentication"
@@ -60,13 +61,14 @@ resource "aws_security_group" "my-vpn" {
   }
   tags = var.tags
 }
+
 resource "aws_ec2_client_vpn_network_association" "my-vpn_sso" {
   for_each = toset(var.endpoint_subnets)
 
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my-vpn_sso.id
   subnet_id              = each.value
-  security_groups        = [aws_security_group.my-vpn.id]
 }
+
 resource "aws_ec2_client_vpn_authorization_rule" "my-vpn_sso_to_dns" {
   for_each = toset(var.authorization_ingress)
 
