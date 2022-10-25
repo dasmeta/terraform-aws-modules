@@ -65,7 +65,7 @@ resource "aws_ec2_client_vpn_network_association" "my-vpn_sso" {
 
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my-vpn_sso.id
   subnet_id              = each.value
-  security_groups        = [aws_security_group.my-vpn.id]
+  security_group_ids     = [aws_security_group.my-vpn.id]
 }
 resource "aws_ec2_client_vpn_authorization_rule" "my-vpn_sso_to_dns" {
   for_each = toset(var.authorization_ingress)
