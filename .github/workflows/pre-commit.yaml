@@ -1,15 +1,18 @@
+name: Pre-Commit
 on:
   pull_request:
   push:
-    branches: [main, test-me-*]
-
+    branches: [main, master]
 jobs:
-  main:
+  terraform-validate:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v3
-    - name: Run Pre-commit Hook and Post to PR comment
-      uses: dasmeta/reusable-actions-workflows/pre-commit@0.0.7
+    - name: Pre-Commit
+      uses: dasmeta/reusable-actions-workflows/pre-commit@main
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        path: modules/${{ matrix.path }}
+      continue-on-error: true
