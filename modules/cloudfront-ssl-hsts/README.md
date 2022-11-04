@@ -109,7 +109,7 @@ module "cdn" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws-cloudfront-security-headers"></a> [aws-cloudfront-security-headers](#module\_aws-cloudfront-security-headers) | dasmeta/modules/aws//modules/aws-cloudfront-security-headers | 0.23.1 |
-| <a name="module_ssl-certificate-auth"></a> [ssl-certificate-auth](#module\_ssl-certificate-auth) | dasmeta/modules/aws//modules/ssl-certificate | 0.17.1 |
+| <a name="module_ssl-certificate-auth"></a> [ssl-certificate-auth](#module\_ssl-certificate-auth) | dasmeta/modules/aws//modules/ssl-certificate | 1.1.2 |
 
 ## Resources
 

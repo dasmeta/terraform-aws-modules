@@ -6,6 +6,6 @@ module "ssl-certificate-auth" {
   domain              = element(var.aliases, 0)
   alternative_domains = slice(var.aliases, 1, length(var.aliases))
   zone                = element(var.zone, 0)
-  alternative_zones    = slice(var.zone, 1, length(var.zone))
+  alternative_zones   = slice(var.zone, 1, length(var.zone))
   tags                = var.tags
 }
