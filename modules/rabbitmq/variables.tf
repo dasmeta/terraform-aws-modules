@@ -41,6 +41,11 @@ variable "security_groups" {
   type = list(string)
 }
 
+variable "create_security_group" {
+  type    = bool
+  default = false
+}
+
 variable "auto_minor_version_upgrade" {
   type    = bool
   default = true
@@ -80,32 +85,22 @@ variable "tags" {
   default = {}
 }
 
-# broker_name = "kalgera-broker-stage"
+variable "security_group_name" {
+  type    = string
+  default = "RabbitMQ security group name."
+}
 
-# engine_type        = "RabbitMQ"
-# engine_version     = "3.8.11"
-# storage_type       = "ebs"
+variable "security_group_description" {
+  type    = string
+  default = "RabbitMQ security group description."
+}
 
-# the most cheap type is mq.m5.large on multi az deployment mode, mq.t3.micro is available on SINGLE_INSTANCE deployment mode.
-# host_instance_type = "mq.m5.large"
-# deployment_mode     = "CLUSTER_MULTI_AZ"
-# publicly_accessible = false
-# subnet_ids          = module.prod_complete_cluster.vpc_private_subnets
-# security_groups     = [ module.prod_complete_cluster.cluster_primary_security_group_id ]
+variable "vpc_id" {
+  type    = string
+  default = ""
+}
 
-# auto_minor_version_upgrade = true
-
-# logs {
-#   general = true
-# }
-
-# maintenance_window_start_time {
-#   day_of_week = "SUNDAY"
-#   time_of_day = "03:00 - 05:00"
-#   time_zone = "UTC"
-# }
-
-# user {
-#   username = "kalgeramq"
-#   password = "kalgeramq123$"
-# }
+variable "ingress_with_cidr_blocks" {
+  type    = list(map(string))
+  default = []
+}
