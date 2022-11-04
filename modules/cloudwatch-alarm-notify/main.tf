@@ -23,7 +23,17 @@ locals {
       threshold                 = "20"
       treat_missing_data        = "notBreaching"
       insufficient_data_actions = []
-    }
+    },
+    rds_alerts = {
+      comparison_operator       = "GreaterThanOrEqualToThreshold"
+      evaluation_periods        = "2"
+      period                    = "300"
+      namespace                 = "AWS/RDS"
+      unit                      = null
+      statistic                 = "Average"
+      treat_missing_data        = "breaching"
+      insufficient_data_actions = []
+    },
     other = {
       comparison_operator       = "GreaterThanOrEqualToThreshold"
       evaluation_periods        = "1"
