@@ -1,5 +1,3 @@
-# [NOTICE] This module is deprecated. Module new version https://github.com/dasmeta/terraform-aws-rabbitmq
-
 # tests
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
