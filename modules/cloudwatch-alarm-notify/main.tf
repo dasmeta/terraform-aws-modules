@@ -47,6 +47,9 @@ locals {
     module.notify_slack.*.this_slack_topic_arn,          // slack
     var.sns_topic_arn == null ? [] : [var.sns_topic_arn] // custom
   )
+  # ensure that there is no % in the tag value. Sometimes you want the name of
+  # the metric to be part of the alarm name. Some metrics have the % sign in the name.
+  tag_name = replace("${var.alarm_name}-alerts", "%", "Percent")
 }
 
 ### Create a cloudwatch healthcheck metric alarm
@@ -89,6 +92,6 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   ok_actions                = local.actions
 
   tags = {
-    Name = "${var.alarm_name}-alerts"
+    Name = local.tag_name
   }
 }
