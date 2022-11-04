@@ -1,4 +1,4 @@
-module "modules_rabbitmq" {
+module "rabbitmq" {
   source = "dasmeta/modules/aws//modules/rabbitmq"
 
   broker_name        = "app-dev-mq"

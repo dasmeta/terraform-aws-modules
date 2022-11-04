@@ -13,7 +13,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_modules_rabbitmq"></a> [modules\_rabbitmq](#module\_modules\_rabbitmq) | dasmeta/modules/aws//modules/rabbitmq | n/a |
+| <a name="module_rabbitmq"></a> [rabbitmq](#module\_rabbitmq) | dasmeta/modules/aws//modules/rabbitmq | n/a |
 
 ## Resources
 
