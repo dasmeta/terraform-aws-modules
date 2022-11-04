@@ -50,7 +50,7 @@ locals {
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
-  alarm_name                = ":x: ${var.alarm_name}"
+  alarm_name                = "${var.alarm_prefix_down}${var.alarm_name}"
   namespace                 = var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object, "namespace", "default_namespace")
   metric_name               = var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object, "metric_name", "default_metric_name")
   comparison_operator       = var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object, "comparison_operator", "default_comparison_operator")
@@ -72,7 +72,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
 
 
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
-  alarm_name                = ":white_check_mark: ${var.alarm_name}"
+  alarm_name                = "${var.alarm_prefix_down}${var.alarm_name}"
   namespace                 = var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object, "namespace", "default_namespace")
   metric_name               = var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object, "metric_name", "default_metric_name")
   comparison_operator       = var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object, "comparison_operator", "default_comparison_operator")

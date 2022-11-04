@@ -119,6 +119,8 @@ No requirements.
 | <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | n/a | `list(string)` | `[]` | no |
 | <a name="input_alarm_description"></a> [alarm\_description](#input\_alarm\_description) | n/a | `string` | `""` | no |
 | <a name="input_alarm_name"></a> [alarm\_name](#input\_alarm\_name) | Domain name or ip address of checking service. | `string` | n/a | yes |
+| <a name="input_alarm_prefix_down"></a> [alarm\_prefix\_down](#input\_alarm\_prefix\_down) | A prefix for the alarm message when the host is down. The default is a slack emoji. | `string` | `":x: "` | no |
+| <a name="input_alarm_prefix_up"></a> [alarm\_prefix\_up](#input\_alarm\_prefix\_up) | A prefix for the alarm message when the host is up. The default is a slack emoji. | `string` | `":white_check_mark: "` | no |
 | <a name="input_alert_type_name"></a> [alert\_type\_name](#input\_alert\_type\_name) | Alert\_Type | `string` | `"other"` | no |
 | <a name="input_cloudwatch_log_group_retention_in_days"></a> [cloudwatch\_log\_group\_retention\_in\_days](#input\_cloudwatch\_log\_group\_retention\_in\_days) | Specifies the number of days you want to retain log events in log group for Lambda. | `number` | `0` | no |
 | <a name="input_comparison_operator"></a> [comparison\_operator](#input\_comparison\_operator) | Comparison operator. | `string` | `""` | no |
