@@ -98,6 +98,12 @@ variable "alarm_description" {
 }
 
 ### SNS Topic related variables
+variable "sns_topic_arn" {
+  type        = string
+  description = "The ARN of an SNS topic to which notifications will be sent. This does not relate to the other SNS topic variables."
+  default     = null
+}
+
 variable "sns_subscription_email_address_list" {
   type        = list(string)
   default     = []

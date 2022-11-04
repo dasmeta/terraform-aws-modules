@@ -137,6 +137,7 @@ No requirements.
 | <a name="input_sms_message_body"></a> [sms\_message\_body](#input\_sms\_message\_body) | n/a | `string` | `"sms_message_body"` | no |
 | <a name="input_sns_subscription_email_address_list"></a> [sns\_subscription\_email\_address\_list](#input\_sns\_subscription\_email\_address\_list) | List of email addresses | `list(string)` | `[]` | no |
 | <a name="input_sns_subscription_phone_number_list"></a> [sns\_subscription\_phone\_number\_list](#input\_sns\_subscription\_phone\_number\_list) | List of telephone numbers to subscribe to SNS. | `list(string)` | `[]` | no |
+| <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | The ARN of an SNS topic to which notifications will be sent. This does not relate to the other SNS topic variables. | `string` | `null` | no |
 | <a name="input_statistic"></a> [statistic](#input\_statistic) | Statistic. | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags object. | `map` | `{}` | no |
 | <a name="input_threshold"></a> [threshold](#input\_threshold) | Threshold. | `string` | `""` | no |

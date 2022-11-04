@@ -41,10 +41,11 @@ locals {
   alarm_description_down         = "This metric monitors ${var.alarm_name} when threshold > ${var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object, "threshold", "default_threshold")}"
   default_alert_variables_object = lookup(local.default, var.alert_type_name, {})
   actions = concat(
-    aws_sns_topic.k8s-alerts-notify-email.*.arn,    // email
-    aws_sns_topic.k8s-alerts-notify-sms.*.arn,      // sms
-    aws_sns_topic.k8s-alerts-notify-opsgenie.*.arn, // Opsgenie
-    module.notify_slack.*.this_slack_topic_arn      // slack
+    aws_sns_topic.k8s-alerts-notify-email.*.arn,         // email
+    aws_sns_topic.k8s-alerts-notify-sms.*.arn,           // sms
+    aws_sns_topic.k8s-alerts-notify-opsgenie.*.arn,      // Opsgenie
+    module.notify_slack.*.this_slack_topic_arn,          // slack
+    var.sns_topic_arn == null ? [] : [var.sns_topic_arn] // custom
   )
 }
 
