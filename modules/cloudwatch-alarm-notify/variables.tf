@@ -3,6 +3,18 @@ variable "alarm_name" {
   description = "Domain name or ip address of checking service."
 }
 
+variable "alarm_prefix_down" {
+  description = "A prefix for the alarm message when the host is down. The default is a slack emoji."
+  type        = string
+  default     = ":x: "
+}
+
+variable "alarm_prefix_up" {
+  description = "A prefix for the alarm message when the host is up. The default is a slack emoji."
+  type        = string
+  default     = ":white_check_mark: "
+}
+
 variable "tags" {
   # type = object
   default     = {}
@@ -86,6 +98,12 @@ variable "alarm_description" {
 }
 
 ### SNS Topic related variables
+variable "sns_topic_arn" {
+  type        = string
+  description = "The ARN of an SNS topic to which notifications will be sent. This does not relate to the other SNS topic variables."
+  default     = null
+}
+
 variable "sns_subscription_email_address_list" {
   type        = list(string)
   default     = []

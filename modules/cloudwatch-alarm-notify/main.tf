@@ -51,16 +51,20 @@ locals {
   alarm_description_down         = "This metric monitors ${var.alarm_name} when threshold > ${var.threshold != "" ? var.threshold : lookup(local.default_alert_variables_object, "threshold", "default_threshold")}"
   default_alert_variables_object = lookup(local.default, var.alert_type_name, {})
   actions = concat(
-    aws_sns_topic.k8s-alerts-notify-email.*.arn,    // email
-    aws_sns_topic.k8s-alerts-notify-sms.*.arn,      // sms
-    aws_sns_topic.k8s-alerts-notify-opsgenie.*.arn, // Opsgenie
-    module.notify_slack.*.this_slack_topic_arn      // slack
+    aws_sns_topic.k8s-alerts-notify-email.*.arn,         // email
+    aws_sns_topic.k8s-alerts-notify-sms.*.arn,           // sms
+    aws_sns_topic.k8s-alerts-notify-opsgenie.*.arn,      // Opsgenie
+    module.notify_slack.*.this_slack_topic_arn,          // slack
+    var.sns_topic_arn == null ? [] : [var.sns_topic_arn] // custom
   )
+  # ensure that there is no % in the tag value. Sometimes you want the name of
+  # the metric to be part of the alarm name. Some metrics have the % sign in the name.
+  tag_name = replace("${var.alarm_name}-alerts", "%", "Percent")
 }
 
 ### Create a cloudwatch healthcheck metric alarm
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
-  alarm_name                = ":x: ${var.alarm_name}"
+  alarm_name                = "${var.alarm_prefix_down}${var.alarm_name}"
   namespace                 = var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object, "namespace", "default_namespace")
   metric_name               = var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object, "metric_name", "default_metric_name")
   comparison_operator       = var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object, "comparison_operator", "default_comparison_operator")
@@ -82,7 +86,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
 
 
 resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
-  alarm_name                = ":white_check_mark: ${var.alarm_name}"
+  alarm_name                = "${var.alarm_prefix_down}${var.alarm_name}"
   namespace                 = var.namespace != "" ? var.namespace : lookup(local.default_alert_variables_object, "namespace", "default_namespace")
   metric_name               = var.metric_name != "" ? var.metric_name : lookup(local.default_alert_variables_object, "metric_name", "default_metric_name")
   comparison_operator       = var.comparison_operator != "" ? var.comparison_operator : lookup(local.default_alert_variables_object, "comparison_operator", "default_comparison_operator")
@@ -98,6 +102,6 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-up" {
   ok_actions                = local.actions
 
   tags = {
-    Name = "${var.alarm_name}-alerts"
+    Name = local.tag_name
   }
 }
