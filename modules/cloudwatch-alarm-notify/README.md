@@ -8,7 +8,7 @@ In this case, you can create alarm default parameters using only alert type.
 module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
-    # Type  k8s_alerts, alb_alerts
+    # Type  k8s_alerts, alb_alerts,rds_alerts,other
     alert_type_name  = "k8s_alerts"
 
     dimensions = {
@@ -35,7 +35,7 @@ module "cloudwatchalarm" {
     source           = "dasmeta/modules/aws//modules/cloudwatch-alarm-notify"
     alarm_name       = "alarmname"
 
-    # Type  k8s_alerts, alb_alerts
+    # Type  k8s_alerts, alb_alerts,rds_alerts,other
     alert_type_name  = "alb_alerts"
     threshold        = "50"
 
