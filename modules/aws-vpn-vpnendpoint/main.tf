@@ -31,7 +31,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   client_cidr_block      = var.endpoint_client_cidr_block
   split_tunnel           = var.split_tunnel
   transport_protocol     = "udp"
-  dns_servers            = [ var.dns_servers, cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
+  dns_servers            = [ var.dns_server, cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
   vpn_port               = var.vpn_port
   security_group_ids     = [aws_security_group.my-vpn.id]
 
