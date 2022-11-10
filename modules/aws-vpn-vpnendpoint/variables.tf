@@ -82,3 +82,8 @@ variable "vpn_port" {
   type    = number
   default = 443
 }
+
+variable "dns_servers" {
+  type = string
+  default = "8.8.8.8"
+}
