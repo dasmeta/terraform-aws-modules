@@ -6,7 +6,18 @@ on:
 jobs:
   terraform-tfsec:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      checks: write
+      issues: write
+      packages: write
+      repository-projects: write
+      security-events: write
+      statuses: write
+      id-token: write
     steps:
     - uses: dasmeta/reusable-actions-workflows/tfsec@main
       with:
