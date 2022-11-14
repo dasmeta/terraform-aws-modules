@@ -6,6 +6,13 @@ on:
 
 jobs:
   terraform-validate:
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      id-token: write
+      security-events: write
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -70,7 +77,7 @@ jobs:
           - vpc-flow-logs-to-s3-to-cloudwatch
           - vpc
           - waf
-    permissions: write-all
+     
     steps:
     - uses: dasmeta/reusable-actions-workflows/tflint@main
       with:
