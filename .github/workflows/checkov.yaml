@@ -6,6 +6,13 @@ on:
 jobs:
   terraform-validate:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      security-events: write
+      id-token: write
     strategy:
       matrix:
         path:
@@ -69,7 +76,7 @@ jobs:
           - vpc-flow-logs-to-s3-to-cloudwatch
           - vpc
           - waf
-    permissions: write-all
+     
     steps:
     - uses: dasmeta/reusable-actions-workflows/checkov@main
       with:
