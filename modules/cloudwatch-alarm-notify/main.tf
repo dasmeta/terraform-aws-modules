@@ -80,7 +80,7 @@ resource "aws_cloudwatch_metric_alarm" "metric-alarm-down" {
   alarm_actions             = local.actions
 
   tags = {
-    Name = "${var.alarm_name}-alerts"
+    Name = local.tag_name
   }
 }
 
