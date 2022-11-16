@@ -57,6 +57,12 @@ variable "cloudwatch_log_group_retention_in_days" {
   default     = 30
 }
 
+variable "cloudwatch_log_group_kms_key_id" {
+  description = "Specifies the ARN of the CMK to use when encrypting log data."
+  type        = string
+  default     = null
+}
+
 
 variable "vpc_id" {
   description = "VPC ID"
@@ -84,6 +90,6 @@ variable "vpn_port" {
 }
 
 variable "dns_server" {
-  type = string
+  type    = string
   default = "8.8.8.8"
 }
