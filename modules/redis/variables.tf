@@ -78,11 +78,6 @@ variable "at_rest_encryption_enabled" {
   description = "Enable encryption at rest"
 }
 
-variable "transit_encryption_enabled" {
-  type    = bool
-  default = true
-}
-
 variable "parameter" {
   type = list(object({
     name  = string
