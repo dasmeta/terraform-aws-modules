@@ -193,6 +193,7 @@ module "vpn" {
 | <a name="input_authorization_ingress"></a> [authorization\_ingress](#input\_authorization\_ingress) | Add authorization rules to grant clients access to the networks. | `list(string)` | n/a | yes |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | Certificate arn | `string` | n/a | yes |
 | <a name="input_client_certificate_arn"></a> [client\_certificate\_arn](#input\_client\_certificate\_arn) | Client Certificate arn when we setup certificate-authentication type vpn | `string` | `""` | no |
+| <a name="input_cloudwatch_log_group_kms_key_id"></a> [cloudwatch\_log\_group\_kms\_key\_id](#input\_cloudwatch\_log\_group\_kms\_key\_id) | Specifies the ARN of the CMK to use when encrypting log data. | `string` | `null` | no |
 | <a name="input_cloudwatch_log_group_name_prefix"></a> [cloudwatch\_log\_group\_name\_prefix](#input\_cloudwatch\_log\_group\_name\_prefix) | Specifies the name prefix of CloudWatch Log Group for VPC flow logs. | `string` | `"/aws/client-vpn-endpoint/"` | no |
 | <a name="input_cloudwatch_log_group_retention_in_days"></a> [cloudwatch\_log\_group\_retention\_in\_days](#input\_cloudwatch\_log\_group\_retention\_in\_days) | Specifies the number of days you want to retain log events in the specified log group for VPN connection logs. | `number` | `30` | no |
 | <a name="input_dns_server"></a> [dns\_server](#input\_dns\_server) | n/a | `string` | `"8.8.8.8"` | no |

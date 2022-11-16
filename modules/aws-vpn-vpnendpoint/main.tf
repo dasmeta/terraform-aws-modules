@@ -17,6 +17,7 @@ module "vpc_multi_peering" {
 resource "aws_cloudwatch_log_group" "my-vpn" {
   name              = "${var.cloudwatch_log_group_name_prefix}${var.endpoint_name}"
   retention_in_days = var.cloudwatch_log_group_retention_in_days
+  kms_key_id        = var.cloudwatch_log_group_kms_key_id
   tags              = var.tags
 }
 
