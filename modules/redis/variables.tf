@@ -120,3 +120,12 @@ variable "port" {
   default     = 6379
   description = "Redis port"
 }
+
+variable "transit_encryption_enabled" {
+  type        = bool
+  default     = false
+  description = <<-EOT
+    Set `true` to enable encryption in transit. Forced `true` if `var.auth_token` is set.
+    If this is enabled, use the [following guide](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/in-transit-encryption.html#connect-tls) to access redis.
+    EOT
+}
