@@ -13,8 +13,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_infra-secret"></a> [infra-secret](#module\_infra-secret) | dasmeta/modules/aws//modules/secret-reader | n/a |
-| <a name="module_service-secret"></a> [service-secret](#module\_service-secret) | dasmeta/modules/aws//modules/secret | 1.2.0 |
+| <a name="module_infra-secret"></a> [infra-secret](#module\_infra-secret) | ../../ | n/a |
+| <a name="module_service-secret"></a> [service-secret](#module\_service-secret) | ../../../secret | n/a |
 
 ## Resources
 

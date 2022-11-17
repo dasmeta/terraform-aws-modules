@@ -1,5 +1,5 @@
 module "infra-secret" {
-  source = "dasmeta/modules/aws//modules/secret-reader"
+  source = "../../"
 
   name = "test-project/dev/infra-secret"
 }
@@ -12,8 +12,7 @@ locals {
 }
 
 module "service-secret" {
-  source  = "dasmeta/modules/aws//modules/secret"
-  version = "1.2.0"
+  source = "../../../secret"
 
   name = "test-project/dev/app-secret"
   value = {
