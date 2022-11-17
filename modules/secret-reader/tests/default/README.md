@@ -1,4 +1,4 @@
-# tests
+# default
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
