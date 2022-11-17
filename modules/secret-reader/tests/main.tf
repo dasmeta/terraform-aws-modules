@@ -19,7 +19,7 @@ module "service-secret" {
   value = {
     "RABBITMQ_USER" : local.RABBITMQ_USER
     "RABBITMQ_PASSWORD" : local.RABBITMQ_PASSWORD
-    "JWT_KEY" : local.LOG_BASEDIR
-    "JWT_ALGORITHM" : local.LOGGING_YAML
+    "JWT_KEY" : local.JWT_KEY
+    "JWT_ALGORITHM" : local.JWT_ALGORITHM
   }
 }
