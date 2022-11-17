@@ -96,7 +96,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Your secret name | `string` | n/a | yes |
-| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | You can get secret value if set key name | `string` | n/a | yes |
+| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | You can get secret value if set key name | `string` | `null` | no |
 
 ## Outputs
 
