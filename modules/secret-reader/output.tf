@@ -3,5 +3,5 @@ output "secrets" {
 }
 
 output "secret_value" {
-  value = local.secrets[var.secret_key]
+  value = try(local.secrets[var.secret_key], null)
 }
