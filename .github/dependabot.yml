@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "terraform"
-    directory: 
+    directory:
       - "/"
       - "modules/alb-logs-to-s3-to-cloudwatch"
       - "modules/api-gateway"
