@@ -1,4 +1,4 @@
-# test
+# regular
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -15,7 +15,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_efs"></a> [efs](#module\_efs) | dasmeta/modules/aws//modules/efs | n/a |
+| <a name="module_efs"></a> [efs](#module\_efs) | ../../ | n/a |
 
 ## Resources
 

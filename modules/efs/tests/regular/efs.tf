@@ -1,6 +1,6 @@
 module "efs" {
-  source                   = "dasmeta/modules/aws//modules/efs"
-  creation_token           = "EFS"
+  source                   = "../../"
+  creation_token           = "EFS-regular"
   availability_zone_prefix = "a"
   encrypted                = true
   kms_key_id               = aws_kms_key.key.id
