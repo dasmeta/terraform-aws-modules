@@ -53,7 +53,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_availability_zone_prefix"></a> [availability\_zone\_prefix](#input\_availability\_zone\_prefix) | Availability zone prefix, concat later to region code | `string` | `"a"` | no |
+| <a name="input_availability_zone_prefix"></a> [availability\_zone\_prefix](#input\_availability\_zone\_prefix) | Availability zone prefix, concat later to region code | `string` | `""` | no |
 | <a name="input_creation_token"></a> [creation\_token](#input\_creation\_token) | Creation token, same as unique name | `string` | n/a | yes |
 | <a name="input_encrypted"></a> [encrypted](#input\_encrypted) | Weather make encrypted or not | `bool` | `false` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | AWS kms key arn | `string` | `null` | no |

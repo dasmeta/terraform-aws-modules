@@ -13,5 +13,6 @@ resource "aws_efs_file_system" "efs" {
 }
 
 locals {
-  az_name = format("%s%s", data.aws_region.current.name, var.availability_zone_prefix)
+  # az_name = format("%s%s", data.aws_region.current.name, var.availability_zone_prefix)
+  az_name = var.availability_zone_prefix != "" ? format("%s%s", data.aws_region.current.name, var.availability_zone_prefix) : null
 }

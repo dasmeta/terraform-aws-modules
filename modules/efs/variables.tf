@@ -6,10 +6,10 @@ variable "creation_token" {
 variable "availability_zone_prefix" {
   description = "Availability zone prefix, concat later to region code"
   type        = string
-  default     = "a"
+  default     = ""
 
   validation {
-    condition     = contains(["a", "b", "c", "d", "e", "f"], var.availability_zone_prefix)
+    condition     = contains(["a", "b", "c", "d", "e", "f", ""], var.availability_zone_prefix)
     error_message = "Valid variable parameters are those final result is us-east-1 -> a <-"
   }
 }
