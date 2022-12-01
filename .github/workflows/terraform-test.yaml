@@ -15,8 +15,8 @@ jobs:
     strategy:
       matrix:
         path:
-          - alb-logs-to-s3-to-cloudwatch
           - api-gateway
+          - alb-logs-to-s3-to-cloudwatch
           - api-gateway-account-settings
           - aws-alb-to-cloudwatch-lambda
           - aws-cloudfront-security-headers
