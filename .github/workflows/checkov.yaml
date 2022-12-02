@@ -1,0 +1,85 @@
+name: Checkov
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+jobs:
+  terraform-validate:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      security-events: write
+      id-token: write
+    strategy:
+      matrix:
+        path:
+          - modules/api-gateway
+          - modules/alb-logs-to-s3-to-cloudwatch
+          - modules/api-gateway-account-settings
+          - modules/aws-alb-to-cloudwatch-lambda
+          - modules/aws-cloudfront-security-headers
+          - modules/aws-cloudwatch-prometheus-metrics
+          - modules/aws-iam-user
+          - modules/aws-load-balancer-controller
+          - modules/aws-multi-vpc-peering
+          - modules/aws-network
+          - modules/aws-rds-postgres
+          - modules/aws-vpc-peering
+          - modules/aws-vpn-vpnendpoint
+          - modules/budgets
+          - modules/cloudfront-ssl-hsts
+          - modules/cloudfront-to-s3-to-cloudwatch
+          - modules/cloudfront
+          - modules/cloudtrail-s3-to-cloudwatch
+          - modules/cloudtrail
+          - modules/cloudwatch-alarm-notify
+          - modules/cloudwatch-cross-account-share
+          - modules/cloudwatch-log-metric
+          - modules/cloudwatch-metrics
+          - modules/cloudwatch
+          - modules/cognito-identitiy-pool
+          - modules/cognito-identity-pool-final
+          - modules/cognito-identity
+          - modules/cognito-user-pool
+          - modules/complete-eks-cluster
+          - modules/ecr
+          - modules/eks-iam-user-constrain
+          - modules/eks
+          - modules/elastic-search
+          - modules/external-secret-store
+          - modules/external-secrets
+          - modules/fluent-bit-logs-s3-to-cloudwatch
+          - modules/fluent-bit-to-s3
+          - modules/fluent-bit
+          - modules/goldilocks
+          - modules/iam-account-password-policy
+          - modules/iam-group
+          - modules/ingress
+          - modules/metric-filter
+          - modules/metrics-filter-multiple
+          - modules/metrics-server
+          - modules/mongodb-atlas
+          - modules/mongodb
+          - modules/rabbitmq
+          - modules/rds
+          - modules/route53-alerts-notify
+          - modules/route53
+          - modules/s3
+          - modules/secret
+          - modules/service-alerts
+          - modules/sns-cronjob
+          - modules/sqs
+          - modules/ssl-certificate
+          - modules/vpc-flow-logs-to-s3-to-cloudwatch
+          - modules/vpc
+          - modules/waf
+     
+    steps:
+    - uses: dasmeta/reusable-actions-workflows/checkov@main
+      with:
+        fetch-depth: 0
+        directory: ${{ matrix.path }}
+      continue-on-error: true
