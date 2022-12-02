@@ -1,0 +1,23 @@
+name: Pre-Commit
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+jobs:
+  terraform-validate:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      id-token: write
+    steps:
+    - name: Pre-Commit
+      uses: dasmeta/reusable-actions-workflows/pre-commit@main
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        path: modules/${{ matrix.path }}
+      continue-on-error: true
