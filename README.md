@@ -12,7 +12,7 @@ Using terraform-docs and terraform fmt and pre-commit hooks
 This modules now are separated in other repositories below are the links of that modules.
 
 1. aws-load-balancer-controller -> https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/aws-load-balancer-controller
-2. cloudwatch-metrics -> (https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/cloudwatch-metrics
+2. cloudwatch-metrics -> https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/cloudwatch-metrics
 3. eks ->  https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/eks
 4. external-secrets -> https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/external-secrets
 5. fluent-bit -> https://github.com/dasmeta/terraform-aws-eks/tree/main/modules/fluent-bit
