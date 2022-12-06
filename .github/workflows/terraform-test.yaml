@@ -5,75 +5,82 @@ on:
     branches: [main, master]
 jobs:
   terraform-validate:
+    permissions:
+      actions: write
+      contents: write
+      discussions: write
+      pull-requests: write
+      id-token: write
     runs-on: ubuntu-latest
     strategy:
       matrix:
         path:
-          - alb-logs-to-s3-to-cloudwatch
-          - api-gateway
-          - api-gateway-account-settings
-          - aws-alb-to-cloudwatch-lambda
-          - aws-cloudfront-security-headers
-          - aws-cloudwatch-prometheus-metrics
-          - aws-iam-user
-          - aws-load-balancer-controller
-          - aws-multi-vpc-peering
-          - aws-network
-          - aws-rds-postgres
-          - aws-vpc-peering
-          - aws-vpn-vpnendpoint
-          - budgets
-          - cloudfront-ssl-hsts
-          - cloudfront-to-s3-to-cloudwatch
-          - cloudfront
-          - cloudtrail-s3-to-cloudwatch
-          - cloudtrail
-          - cloudwatch-alarm-notify
-          - cloudwatch-log-metric
-          - cloudwatch-metrics
-          - cloudwatch
-          - cognito-identitiy-pool
-          - cognito-identity-pool-final
-          - cognito-identity
-          - cognito-user-pool
-          - complete-eks-cluster
-          - ecr
-          - eks-iam-user-constrain
-          - eks
-          - elastic-search
-          - external-secret-store
-          - external-secrets
-          - fluent-bit-logs-s3-to-cloudwatch
-          - fluent-bit-to-s3
-          - fluent-bit
-          - goldilocks
-          - iam-account-password-policy
-          - iam-group
-          - ingress
-          - metric-filter
-          - metrics-filter-multiple
-          - metrics-server
-          - mongodb-atlas
-          - mongodb
-          - rabbitmq
-          - rds
-          - route53-alerts-notify
-          - route53
-          - s3
-          - secret
-          - service-alerts
-          - sns-cronjob
-          - sqs
-          - ssl-certificate
-          - vpc-flow-logs-to-s3-to-cloudwatch
-          - vpc
-          - waf
-    permissions: write-all
+          - modules/api-gateway
+          - modules/alb-logs-to-s3-to-cloudwatch
+          - modules/api-gateway-account-settings
+          - modules/aws-alb-to-cloudwatch-lambda
+          - modules/aws-cloudfront-security-headers
+          - modules/aws-cloudwatch-prometheus-metrics
+          - modules/aws-iam-user
+          - modules/aws-load-balancer-controller
+          - modules/aws-multi-vpc-peering
+          - modules/aws-network
+          - modules/aws-rds-postgres
+          - modules/aws-vpc-peering
+          - modules/aws-vpn-vpnendpoint
+          - modules/budgets
+          - modules/cloudfront-ssl-hsts
+          - modules/cloudfront-to-s3-to-cloudwatch
+          - modules/cloudfront
+          - modules/cloudtrail-s3-to-cloudwatch
+          - modules/cloudtrail
+          - modules/cloudwatch-alarm-notify
+          - modules/cloudwatch-cross-account-share
+          - modules/cloudwatch-log-metric
+          - modules/cloudwatch-metrics
+          - modules/cloudwatch
+          - modules/cognito-identitiy-pool
+          - modules/cognito-identity-pool-final
+          - modules/cognito-identity
+          - modules/cognito-user-pool
+          - modules/complete-eks-cluster
+          - modules/ecr
+          - modules/eks-iam-user-constrain
+          - modules/eks
+          - modules/elastic-search
+          - modules/external-secret-store
+          - modules/external-secrets
+          - modules/fluent-bit-logs-s3-to-cloudwatch
+          - modules/fluent-bit-to-s3
+          - modules/fluent-bit
+          - modules/goldilocks
+          - modules/iam-account-password-policy
+          - modules/iam-group
+          - modules/ingress
+          - modules/metric-filter
+          - modules/metrics-filter-multiple
+          - modules/metrics-server
+          - modules/mongodb-atlas
+          - modules/mongodb
+          - modules/rabbitmq
+          - modules/rds
+          - modules/route53-alerts-notify
+          - modules/route53
+          - modules/s3
+          - modules/secret
+          - modules/service-alerts
+          - modules/sns-cronjob
+          - modules/sqs
+          - modules/ssl-certificate
+          - modules/vpc-flow-logs-to-s3-to-cloudwatch
+          - modules/vpc
+          - modules/waf
+     
     steps:
     - uses: dasmeta/reusable-actions-workflows/terraform-test@main
       with:
         aws-region: ${{ secrets.AWS_REGION}}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        path: modules/${{ matrix.path }}
+        path: ${{ matrix.path }}
       continue-on-error: true
