@@ -54,7 +54,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::${local.s3_bucket_name}"
+            "Resource": "${aws_s3_bucket.s3[0].arn}"
         },
         {
             "Sid": "AWSCloudTrailWrite",
@@ -63,7 +63,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::${local.s3_bucket_name}/${local.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+            "Resource": "${aws_s3_bucket.s3[0].arn}/${local.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"
