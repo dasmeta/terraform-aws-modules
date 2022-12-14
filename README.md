@@ -7,7 +7,7 @@ Modules to quickly spin up fully functional eks setup with right subnets and alb
 Using terraform-docs and terraform fmt and pre-commit hooks
 
 # NOTE
-## WE have some updates in this module 
+## WE have some updates in this module
 
 This modules now are separated in other repositories below are the links of that modules.
 

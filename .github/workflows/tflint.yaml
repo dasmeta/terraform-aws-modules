@@ -77,7 +77,7 @@ jobs:
           - modules/vpc-flow-logs-to-s3-to-cloudwatch
           - modules/vpc
           - modules/waf
-     
+
     steps:
     - uses: dasmeta/reusable-actions-workflows/tflint@main
       with:

@@ -28,7 +28,10 @@ module "ecr" {
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.22.0 |
 
 ## Providers
 
@@ -38,7 +41,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.32.2 |
+| <a name="module_ecr"></a> [ecr](#module\_ecr) | cloudposse/ecr/aws | 0.35.0 |
 
 ## Resources
 
@@ -48,9 +51,11 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_repos"></a> [repos](#input\_repos) | 0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes. | `list(any)` | <pre>[<br>  "repo1",<br>  "repo2",<br>  "repo3"<br>]</pre> | no |
+| <a name="input_repos"></a> [repos](#input\_repos) | 0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes. | `list(string)` | `[]` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_results"></a> [results](#output\_results) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
