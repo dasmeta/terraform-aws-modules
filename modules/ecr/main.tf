@@ -1,12 +1,8 @@
 module "ecr" {
-  source   = "cloudposse/ecr/aws"
-  version  = "0.32.2"
-  for_each = { for x in var.repos : x => x }
-  name     = each.value
-}
+  source  = "cloudposse/ecr/aws"
+  version = "0.35.0"
 
-variable "repos" {
-  description = "0 out of 256 characters maximum (2 minimum). The name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes."
-  type        = list(any)
-  default     = ["repo1", "repo2", "repo3"] # Please insert the repository names, then run the script.
+  for_each = { for repo in var.repos : repo => repo }
+
+  name = each.value
 }
