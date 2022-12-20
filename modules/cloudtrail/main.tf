@@ -2,7 +2,6 @@ data "aws_caller_identity" "current" {}
 
 locals {
   s3_bucket_name = "${var.name}-cloud-trail-bucket"
-  s3_key_prefix  = "cloudtrial"
 }
 resource "aws_cloudtrail" "cloudtrail" {
   name                          = var.name
@@ -54,7 +53,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "${aws_s3_bucket.s3[0].arn}"
+            "Resource": "arn:aws:s3:::${local.s3_bucket_name}"
         },
         {
             "Sid": "AWSCloudTrailWrite",
@@ -63,7 +62,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "${aws_s3_bucket.s3[0].arn}/${local.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+            "Resource": "arn:aws:s3:::${local.s3_bucket_name}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"
