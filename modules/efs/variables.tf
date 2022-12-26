@@ -53,6 +53,12 @@ variable "throughput_mode" {
   default = null
 }
 
+variable "mount_target_subnets" {
+  description = "Subnet in which to create mount target"
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   type = map(any)
   default = {
