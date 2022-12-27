@@ -12,13 +12,11 @@ resource "aws_efs_file_system" "efs" {
 }
 
 resource "aws_efs_mount_target" "mount_target" {
-  #for_each = {for subnet in var.mount_target_subnets : subnet => value}
   for_each       = toset(var.mount_target_subnets)
   file_system_id = aws_efs_file_system.efs.id
   subnet_id      = each.value
 }
 
 locals {
-  # az_name = format("%s%s", data.aws_region.current.name, var.availability_zone_prefix)
   az_name = var.availability_zone_prefix != "" ? format("%s%s", data.aws_region.current.name, var.availability_zone_prefix) : null
 }
