@@ -33,7 +33,7 @@ variable "endpoint_config_type" {
 }
 
 variable "security_policy" {
-  type = string
-  default = null
+  type        = string
+  default     = null
   description = "(Optional) Transport Layer Security (TLS) version + cipher suite for this DomainName. Valid values are TLS_1_0 and TLS_1_2. Must be configured to perform drift detection."
 }
