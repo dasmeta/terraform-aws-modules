@@ -98,6 +98,8 @@ variable "monitoring_settings" {
     "logging_level"          = "INFO"
     "throttling_rate_limit"  = 100
     "throttling_burst_limit" = 50
+    "caching_enabled"        = true
+    "cache_data_encrypted "  = true
   }
 }
 
@@ -129,4 +131,28 @@ variable "create_cloudwatch_log_role" {
   type        = bool
   default     = false
   description = "This allows to create cloudwatch role which is one per aws account and is not region specific"
+}
+
+variable "kms_key_id" {
+  type        = string
+  default     = null
+  description = "The ARN of the KMS Key to use when encrypting log data. Please note, after the AWS KMS CMK is disassociated from the log group, AWS CloudWatch Logs stops encrypting newly ingested data for the log group. All previously ingested data remains encrypted, and AWS CloudWatch Logs requires permissions for the CMK whenever the encrypted data is requested." 
+}
+
+variable "retention_in_days" {
+  type = number
+  default = 90
+  description = "retention_in_days - (Optional) Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 2192, 2557, 2922, 3288, 3653, and 0. If you select 0, the events in the log group are always retained and never expire."
+}
+
+variable "xray_tracing_enabled" {
+  type = bool
+  default = true
+  description = "Whether active tracing with X-ray is enabled. Defaults to false"
+}
+
+variable "cache_cluster_enabled" {
+  type = bool
+  default = true
+  description = "Whether a cache cluster is enabled for the stage"
 }
