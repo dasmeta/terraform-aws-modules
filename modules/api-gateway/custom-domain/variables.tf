@@ -34,6 +34,12 @@ variable "endpoint_config_type" {
 
 variable "security_policy" {
   type        = string
-  default     = null
+  default     = "TLS_1_2"
   description = "(Optional) Transport Layer Security (TLS) version + cipher suite for this DomainName. Valid values are TLS_1_0 and TLS_1_2. Must be configured to perform drift detection."
+}
+
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "(Optional, Deprecated) A configuration of the S3 bucket versioning state. See Versioning below for details. Terraform will only perform drift detection if a configuration value is provided. Use the resource aws_s3_bucket_versioning instead."
 }
