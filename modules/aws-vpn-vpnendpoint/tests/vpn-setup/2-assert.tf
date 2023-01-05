@@ -1,5 +1,5 @@
 resource "test_assertions" "dummy" {
-  component = "monitoring-modules-cloudwatch-alarm-actions"
+  component = "vpn"
 
   equal "scheme" {
     description = "As module does not have any output and data just make sure the case runs. Probably can be thrown away."
