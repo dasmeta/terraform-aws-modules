@@ -90,7 +90,8 @@ variable "vpn_port" {
   default = 443
 }
 
-variable "dns_server" {
-  type    = list(string)
-  default = []
+variable "dns_servers" {
+  type        = list(string)
+  description = "Ip address DNS servers to be used for DNS resolution"
+  default     = []
 }
