@@ -38,6 +38,7 @@ variable "endpoint_name" {
 variable "authorization_ingress" {
   description = "Add authorization rules to grant clients access to the networks."
   type        = list(string)
+  default     = ["0.0.0.0/0"]
 }
 variable "additional_routes" {
   description = "A map where the key is a subnet ID of endpoint subnet for network association and value is a cidr to where traffic should be routed from that subnet. Useful in cases if you need to route beyond the VPC subnet, for instance peered VPC"
@@ -89,7 +90,8 @@ variable "vpn_port" {
   default = 443
 }
 
-variable "dns_server" {
-  type    = string
-  default = "8.8.8.8"
+variable "dns_servers" {
+  type        = list(string)
+  description = "Ip address DNS servers to be used for DNS resolution"
+  default     = []
 }

@@ -1,3 +1,7 @@
+locals {
+  dns_servers = length(var.dns_servers) == 0 ? [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)] : concat([cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)], var.dns_servers)
+}
+
 data "aws_vpc" "my-vpn" {
   id = var.vpc_id
 }
@@ -32,7 +36,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   client_cidr_block      = var.endpoint_client_cidr_block
   split_tunnel           = var.split_tunnel
   transport_protocol     = "udp"
-  dns_servers            = [var.dns_server, cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
+  dns_servers            = local.dns_servers
   vpn_port               = var.vpn_port
   security_group_ids     = [aws_security_group.my-vpn.id]
   vpc_id                 = var.vpc_id
