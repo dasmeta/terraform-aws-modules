@@ -75,3 +75,8 @@ variable "bucket_name" {
   type    = string
   default = null
 }
+
+variable "s3_key_prefix" {
+  type    = string
+  default = "cloudtrail"
+}
