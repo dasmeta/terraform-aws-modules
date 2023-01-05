@@ -2,12 +2,12 @@ data "aws_caller_identity" "current" {}
 
 locals {
   s3_bucket_name = "${var.name}-cloud-trail-bucket"
-  s3_key_prefix  = "cloudtrial"
 }
+
 resource "aws_cloudtrail" "cloudtrail" {
   name                          = var.name
   s3_bucket_name                = var.create_s3_bucket ? local.s3_bucket_name : var.bucket_name
-  s3_key_prefix                 = local.s3_key_prefix
+  s3_key_prefix                 = var.s3_key_prefix
   include_global_service_events = var.include_global_service_events
   enable_log_file_validation    = var.enable_log_file_validation
   is_organization_trail         = var.is_organization_trail
@@ -32,16 +32,22 @@ resource "aws_cloudtrail" "cloudtrail" {
       }
     }
   }
+
+  depends_on = [
+    aws_s3_bucket.s3
+  ]
 }
 
 resource "aws_s3_bucket" "s3" {
-  count         = var.create_s3_bucket ? 1 : 0
+  count = var.create_s3_bucket ? 1 : 0
+
   bucket        = local.s3_bucket_name
   force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "s3" {
-  count  = var.create_s3_bucket ? 1 : 0
+  count = var.create_s3_bucket ? 1 : 0
+
   bucket = aws_s3_bucket.s3[0].id
   policy = <<POLICY
 {
@@ -54,7 +60,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::${local.s3_bucket_name}"
+            "Resource": "${aws_s3_bucket.s3[0].arn}"
         },
         {
             "Sid": "AWSCloudTrailWrite",
@@ -63,7 +69,7 @@ resource "aws_s3_bucket_policy" "s3" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::${local.s3_bucket_name}/${local.s3_key_prefix}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+            "Resource": "${aws_s3_bucket.s3[0].arn}/${var.s3_key_prefix}/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"
@@ -72,5 +78,6 @@ resource "aws_s3_bucket_policy" "s3" {
         }
     ]
 }
+
 POLICY
 }
