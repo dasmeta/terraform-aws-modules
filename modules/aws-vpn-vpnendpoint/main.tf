@@ -1,5 +1,5 @@
 locals {
-  dns_servers = var.dns_server == [] ? [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)] : concat([cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)], var.dns_server)
+  dns_servers = length(var.dns_server) == 0 ? [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)] : concat([cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)], var.dns_server)
 }
 
 data "aws_vpc" "my-vpn" {
