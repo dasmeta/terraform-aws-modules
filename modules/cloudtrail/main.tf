@@ -12,8 +12,8 @@ resource "aws_cloudtrail" "cloudtrail" {
   enable_log_file_validation    = var.enable_log_file_validation
   is_organization_trail         = var.is_organization_trail
   is_multi_region_trail         = var.is_multi_region_trail
-  cloud_watch_logs_group_arn    = var.cloud_watch_logs_group_arn
-  cloud_watch_logs_role_arn     = var.cloud_watch_logs_role_arn
+  cloud_watch_logs_group_arn    = var.enable_cloudwatch_logs ? "${aws_cloudwatch_log_group.logs[0].arn}:*" : var.cloud_watch_logs_group_arn
+  cloud_watch_logs_role_arn     = var.enable_cloudwatch_logs ? aws_iam_role.cloudtrail_roles[0].arn : var.cloud_watch_logs_role_arn
   enable_logging                = var.enable_logging
   sns_topic_name                = var.sns_topic_name
 

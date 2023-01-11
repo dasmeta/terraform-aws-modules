@@ -27,6 +27,12 @@ variable "enable_logging" {
   description = "Enable logging for the trail"
 }
 
+variable "enable_cloudwatch_logs" {
+  type        = bool
+  default     = false
+  description = "Enable sending logs to CloudWatch"
+}
+
 variable "cloud_watch_logs_role_arn" {
   type        = string
   description = "Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group"
@@ -37,6 +43,12 @@ variable "cloud_watch_logs_group_arn" {
   type        = string
   description = "Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered"
   default     = ""
+}
+
+variable "cloud_watch_logs_group_name" {
+  type        = string
+  description = "Specifies a log group name that will be created to which CloudTrail logs will be delivered"
+  default     = "aws-cloudtrail-logs"
 }
 
 variable "event_selector" {
@@ -79,4 +91,23 @@ variable "bucket_name" {
 variable "s3_key_prefix" {
   type    = string
   default = "cloudtrail"
+}
+
+variable "cloudtrail_assume_role_policy_document" {
+  type        = string
+  description = "Assume role policy document."
+  default     = <<-EOF
+   {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "sts:AssumeRole",
+          "Principal": {
+            "Service": "cloudtrail.amazonaws.com"
+          },
+          "Effect": "Allow"
+        }
+      ]
+   }
+  EOF
 }
