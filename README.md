@@ -20,7 +20,7 @@ This modules now are separated in other repositories below are the links of that
 7. rabbitmq -> https://github.com/dasmeta/terraform-aws-rabbitmq
 8. rds ->  https://github.com/dasmeta/terraform-aws-rds
 9. complete-eks-cluster -> https://github.com/dasmeta/terraform-aws-eks
-
+10. cloudwatch-log-metric -> https://github.com/dasmeta/terraform-aws-monitoring/tree/main/modules/cloudwatch-log-based-metrics
 
 ## Requirements for pre-commit hooks
 for Run our pre-commit hooks you need to install
