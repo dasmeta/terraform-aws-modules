@@ -29,7 +29,7 @@ jobs:
           - cloudfront
           - cloudtrail-s3-to-cloudwatch
           - cloudtrail
-          - cloudwatch-alarm-notify 
+          - cloudwatch-alarm-notify
           - cloudwatch-cross-account-share
           - cloudwatch-log-metric
           - cloudwatch-metrics
@@ -77,6 +77,6 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION}}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        path: modules/${{ matrix.path }}  
+        path: modules/${{ matrix.path }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
       continue-on-error: true

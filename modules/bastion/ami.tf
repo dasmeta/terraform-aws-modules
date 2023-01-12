@@ -1,0 +1,3 @@
+module "ami" {
+  source = "../ami"
+}

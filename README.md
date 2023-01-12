@@ -16,7 +16,7 @@ for Run our pre-commit hooks you need to install
 ```bash
 git config core.hooksPath githooks
 ```
-## NOTE you must install 
+## NOTE you must install
 
 ```bash
 npm install --global git-conventional-commits
