@@ -37,7 +37,7 @@ resource "aws_cloudtrail" "cloudtrail" {
     for_each = var.insight_selectors
 
     content {
-      insight_type = insight_selectors.value
+      insight_type = insight_selector.value
     }
   }
 
