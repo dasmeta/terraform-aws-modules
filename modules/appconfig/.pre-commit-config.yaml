@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.17 # Get the latest from: https://github.com/gruntwork-io/pre-commit/releases
+    hooks:
+      - id: terraform-fmt
+      - id: terraform-validate
+      - id: tflint
+      - id: shellcheck
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: "v0.16.0"             # e.g. "v0.11.2"
+    hooks:
+      - id: terraform-docs-go
+        args: ["markdown", "table", "--output-file", "README.md", "."]
