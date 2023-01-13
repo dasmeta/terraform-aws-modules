@@ -66,7 +66,7 @@ variable "event_selector" {
   default     = []
 }
 
-variable "insight_selector" {
+variable "insight_selectors" {
   type        = list(string)
   default     = []
   description = "Configuration block for identifying unusual operational activity."
