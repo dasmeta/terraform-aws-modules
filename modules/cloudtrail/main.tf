@@ -33,6 +33,14 @@ resource "aws_cloudtrail" "cloudtrail" {
     }
   }
 
+  dynamic "insight_selector" {
+    for_each = var.insight_selector
+
+    content {
+      insight_type = insight_selector.value
+    }
+  }
+
   depends_on = [
     aws_s3_bucket.s3
   ]
