@@ -66,6 +66,12 @@ variable "event_selector" {
   default     = []
 }
 
+variable "insight_selectors" {
+  type        = list(string)
+  default     = []
+  description = "Configuration block for identifying unusual operational activity."
+}
+
 variable "is_organization_trail" {
   type        = bool
   default     = false
