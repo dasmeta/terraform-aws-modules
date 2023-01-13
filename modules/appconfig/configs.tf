@@ -48,8 +48,4 @@ resource "aws_appconfig_hosted_configuration_version" "main" {
       )
     }
   })
-
-  # lifecycle {
-  #   create_before_destroy = true
-  # }
 }
