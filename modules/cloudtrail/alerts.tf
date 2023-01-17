@@ -2,7 +2,7 @@ module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
   version = "1.3.8"
 
-  count = var.log_metrics.enabled ? 1 : 0
+  count = var.log_metrics.alerts.enabled ? 1 : 0
 
   sns_topic = var.alarm_actions.enabled ? var.alarm_actions.topic_name : var.log_metrics.sns_topic
   alerts = [
