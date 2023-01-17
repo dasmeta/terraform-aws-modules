@@ -75,3 +75,20 @@ variable "bucket_name" {
   type    = string
   default = null
 }
+
+variable "kms_key_id" {
+  type        = string
+  default     = ""
+  description = "(Optional) KMS key ARN to use to encrypt the logs delivered by CloudTrail."
+}
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "(Required) Boolean which indicates if this criteria is enabled."
+}
+
+variable "sse_algorithm" {
+  type        = string
+  default     = null
+  description = "(Required) The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
+}

@@ -42,7 +42,8 @@ data "aws_iam_policy_document" "execution_role" {
     sid = "AllowCloudWatchLogs"
     actions = [
       "logs:CreateLogGroup",
-      "logs:CreateLogStream",
+      "logs:Cre
+      ateLogStream",
       "logs:PutLogEvents"
     ]
     effect = "Allow"

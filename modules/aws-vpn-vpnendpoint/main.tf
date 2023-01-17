@@ -53,7 +53,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
 
 resource "aws_security_group" "my-vpn" {
   name        = "client-vpn-endpoint-${var.endpoint_name}"
-  description = "Egress All. Used for other groups where VPN access is required. "
+  description = "Egress All. Used for other groups where VPN access is required."
   vpc_id      = var.vpc_id
   egress {
     from_port   = 0

@@ -16,6 +16,7 @@ resource "aws_cloudtrail" "cloudtrail" {
   cloud_watch_logs_role_arn     = var.cloud_watch_logs_role_arn
   enable_logging                = var.enable_logging
   sns_topic_name                = var.sns_topic_name
+  kms_key_id                    = var.kms_key_id
 
   dynamic "event_selector" {
     for_each = var.event_selector
@@ -38,6 +39,33 @@ resource "aws_s3_bucket" "s3" {
   count         = var.create_s3_bucket ? 1 : 0
   bucket        = local.s3_bucket_name
   force_destroy = true
+  versioning {
+    enabled = var.enabled
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = var.sse_algorithm
+      }
+    }
+  }
+
+  dynamic "logging" {
+    for_each = var.logging
+    content {
+      target_bucket = logging.value["target_bucket"]
+      target_prefix = "log/${local.s3_bucket_name}"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "access" {
+  bucket = aws_s3_bucket.s3.id
+
+  block_public_acls       = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+  block_public_policy     = true
 }
 
 resource "aws_s3_bucket_policy" "s3" {
