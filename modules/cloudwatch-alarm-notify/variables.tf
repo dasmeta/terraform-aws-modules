@@ -152,3 +152,9 @@ variable "cloudwatch_log_group_retention_in_days" {
   type        = number
   default     = 0
 }
+
+variable "kms_master_key_id" {
+  type        = string
+  default     = "alias/aws/sns"
+  description = "(Optional) The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK. For more information, see Key Terms"
+}

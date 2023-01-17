@@ -4,6 +4,7 @@ resource "aws_sns_topic" "this" {
   http_success_feedback_role_arn    = aws_iam_role.logger.arn
   http_failure_feedback_role_arn    = aws_iam_role.logger.arn
   http_success_feedback_sample_rate = var.success_sample_percentage
+  kms_master_key_id                 = var.kms_master_key_id
 }
 
 resource "aws_sns_topic_subscription" "this" {
@@ -30,6 +31,8 @@ resource "aws_cloudwatch_event_target" "this" {
 }
 
 resource "aws_sqs_queue" "dead_letter_queue" {
-  name                      = "${var.name}-cron-dlq"
-  message_retention_seconds = 1209600 #  14 days, TODO: check we maybe will need this under input and event under control whether to have dead-letter-queue
+  name                              = "${var.name}-cron-dlq"
+  kms_master_key_id                 = var.kms_master_key_id
+  kms_data_key_reuse_period_seconds = var.kms_data_key_reuse_period_seconds
+  message_retention_seconds         = 1209600 #  14 days, TODO: check we maybe will need this under input and event under control whether to have dead-letter-queue
 }

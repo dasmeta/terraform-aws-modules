@@ -2,9 +2,9 @@
 resource "aws_sns_topic" "k8s-alerts-notify-email" {
   count = length(var.sns_subscription_email_address_list) > 0 ? 1 : 0
 
-  name = "${replace(var.alarm_name, ".", "-")}-email"
-
-  delivery_policy = <<EOF
+  name              = "${replace(var.alarm_name, ".", "-")}-email"
+  kms_master_key_id = var.kms_master_key_id
+  delivery_policy   = <<EOF
 {
   "http": {
     "defaultHealthyRetryPolicy": {

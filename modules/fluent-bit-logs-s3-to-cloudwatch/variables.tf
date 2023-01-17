@@ -18,3 +18,9 @@ variable "assume_role_arn" {
   description = "AWS Acounts Assume roles arn which access bucket write"
   default     = ["arn:aws:iam::*:role/eks-cluster-fluent-bit-role"]
 }
+
+variable "sse_algorithm" {
+  type        = string
+  default     = null
+  description = "sse_algorithm - (Required) The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
+}

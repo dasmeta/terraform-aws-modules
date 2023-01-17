@@ -6,43 +6,43 @@ variable "allow_users_to_change_password" {
 }
 
 variable "minimum_password_length" {
-  default     = 8
+  default     = 14
   type        = number
   description = "Minimum length to require for user passwords."
 }
 
 variable "require_lowercase_characters" {
-  default     = false
+  default     = true
   type        = bool
   description = "Whether to require lowercase characters for user passwords."
 }
 
 variable "require_numbers" {
-  default     = false
+  default     = true
   type        = bool
   description = "Whether to require numbers for user passwords."
 }
 
 variable "require_symbols" {
-  default     = false
+  default     = true
   type        = bool
   description = "Whether to require symbols for user passwords."
 }
 
 variable "require_uppercase_characters" {
-  default     = false
+  default     = true
   type        = bool
   description = "Whether to require uppercase characters for user passwords."
 }
 
 variable "max_password_age" {
-  default     = 0
+  default     = 90
   type        = number
   description = "The number of days that an user password is valid. If specify 0, then passwords never expire."
 }
 
 variable "hard_expiry" {
-  default     = false
+  default     = true
   type        = bool
   description = "Whether users are prevented from setting a new password after their password has expired."
 }

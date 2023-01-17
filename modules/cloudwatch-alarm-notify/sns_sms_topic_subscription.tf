@@ -2,9 +2,9 @@
 resource "aws_sns_topic" "k8s-alerts-notify-sms" {
   count = length(var.sns_subscription_phone_number_list) > 0 ? 1 : 0
 
-  name = "${replace(var.alarm_name, ".", "-")}-sms"
-
-  delivery_policy = <<EOF
+  name              = "${replace(var.alarm_name, ".", "-")}-sms"
+  kms_master_key_id = var.kms_master_key_id
+  delivery_policy   = <<EOF
 {
   "http": {
     "defaultHealthyRetryPolicy": {
