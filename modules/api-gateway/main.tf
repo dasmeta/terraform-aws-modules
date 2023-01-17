@@ -13,6 +13,9 @@ resource "aws_api_gateway_rest_api" "this" {
   endpoint_configuration {
     types = [var.endpoint_config_type]
   }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # root resource methods configs
@@ -65,8 +68,10 @@ resource "aws_api_gateway_integration_response" "root_methods_integration_respon
 resource "aws_api_gateway_stage" "stage" {
   stage_name = var.stage_name
 
-  deployment_id = aws_api_gateway_deployment.deployment.id
-  rest_api_id   = aws_api_gateway_rest_api.this.id
+  deployment_id         = aws_api_gateway_deployment.deployment.id
+  rest_api_id           = aws_api_gateway_rest_api.this.id
+  xray_tracing_enabled  = var.xray_tracing_enabled
+  cache_cluster_enabled = var.cache_cluster_enabled
 
   dynamic "access_log_settings" {
     for_each = aws_cloudwatch_log_group.access_logs
@@ -133,8 +138,10 @@ resource "aws_api_gateway_method_settings" "general_settings" {
     # Limit the rate of calls to prevent abuse and unwanted charges
     throttling_rate_limit  = var.monitoring_settings.throttling_rate_limit
     throttling_burst_limit = var.monitoring_settings.throttling_burst_limit
-  }
 
+    caching_enabled      = var.monitoring_settings.caching_enabled
+    cache_data_encrypted = var.monitoring_settings.cache_data_encrypted
+  }
   depends_on = [
     module.account_settings,
     aws_api_gateway_stage.stage

@@ -81,17 +81,21 @@ data "archive_file" "this" {
 }
 
 resource "aws_lambda_function" "this" {
-  function_name    = var.name
-  description      = var.description
-  filename         = data.archive_file.this.output_path
-  source_code_hash = data.archive_file.this.output_base64sha256
-  handler          = "index.handler"
-  runtime          = var.runtime
-  role             = aws_iam_role.execution_role.arn
-  timeout          = var.timeout
-  memory_size      = var.memory_size
-  publish          = true
-  tags             = var.tags
+  function_name                  = var.name
+  description                    = var.description
+  filename                       = data.archive_file.this.output_path
+  source_code_hash               = data.archive_file.this.output_base64sha256
+  handler                        = "index.handler"
+  runtime                        = var.runtime
+  role                           = aws_iam_role.execution_role.arn
+  timeout                        = var.timeout
+  memory_size                    = var.memory_size
+  publish                        = true
+  tags                           = var.tags
+  reserved_concurrent_executions = 100
+  tracing_config {
+    mode = "Active"
+  }
 
   depends_on = [
     data.archive_file.this

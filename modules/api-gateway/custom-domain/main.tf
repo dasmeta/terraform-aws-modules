@@ -4,7 +4,7 @@ resource "aws_api_gateway_domain_name" "custom_domains" {
   regional_certificate_arn = try(module.certificate_regional[each.key].arn, null)
   certificate_arn          = try(module.certificate_edge[each.key].arn, null)
   domain_name              = each.key
-
+  security_policy          = var.security_policy
   endpoint_configuration {
     types = [var.endpoint_config_type]
   }
