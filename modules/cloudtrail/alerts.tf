@@ -4,7 +4,7 @@ module "alerts" {
 
   count = var.log_metrics.alerts.enabled ? 1 : 0
 
-  sns_topic = var.alarm_actions.enabled ? var.alarm_actions.topic_name : var.log_metrics.sns_topic
+  sns_topic = var.sns_topic_name
   alerts = [
     for name in var.log_metrics.enabled_metrics : {
       name : "${local.metrics_patterns_mapping[name]["name"]} alarm"

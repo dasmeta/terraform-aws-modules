@@ -6,17 +6,8 @@ module "this" {
   enable_cloudwatch_logs      = true
   cloud_watch_logs_group_name = "audit-project-cloudtrail-logs"
 
-  alarm_actions = {
-    enabled         = true
-    topic_name      = "cloudtrail-test"
-    email_addresses = ["test@dasmeta.com"]
-  }
-
   log_metrics = {
     enabled         = true
     enabled_metrics = ["iam-user", "elb"]
-    alarm_alerts = {
-      enabled = true
-    }
   }
 }

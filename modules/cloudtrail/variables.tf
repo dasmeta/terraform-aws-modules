@@ -130,26 +130,3 @@ variable "log_metrics" {
   default     = { enabled : false }
   description = "Provide CloudWatch Log Metric filters"
 }
-
-variable "alarm_actions" {
-  type = object({
-    enabled         = optional(bool, false)
-    topic_name      = optional(string, "account-alarms-handling")
-    email_addresses = optional(list(string), [])
-    phone_numbers   = optional(list(string), [])
-    web_endpoints   = optional(list(string), [])
-    slack_webhooks = optional(list(object({
-      hook_url = string
-      channel  = string
-      username = string
-    })), [])
-    servicenow_webhooks = optional(list(object({
-      domain = string
-      path   = string
-      user   = string
-      pass   = string
-    })), [])
-  })
-  default     = { enabled = false }
-  description = "Whether to enable/create regional(TODO: add also us-east-1 region alarm also for health-check alarms) SNS topic/subscribers"
-}
