@@ -75,7 +75,11 @@ No requirements.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.3.8 |
+| <a name="module_cloudwatch_alarm_actions"></a> [cloudwatch\_alarm\_actions](#module\_cloudwatch\_alarm\_actions) | dasmeta/monitoring/aws//modules/cloudwatch-alarm-actions | 1.3.8 |
+| <a name="module_log_metric_filter"></a> [log\_metric\_filter](#module\_log\_metric\_filter) | dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics | 1.3.9 |
 
 ## Resources
 
@@ -94,6 +98,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alarm_actions"></a> [alarm\_actions](#input\_alarm\_actions) | Whether to enable/create regional(TODO: add also us-east-1 region alarm also for health-check alarms) SNS topic/subscribers | <pre>object({<br>    enabled         = optional(bool, false)<br>    topic_name      = optional(string, "account-alarms-handling")<br>    email_addresses = optional(list(string), [])<br>    phone_numbers   = optional(list(string), [])<br>    web_endpoints   = optional(list(string), [])<br>    slack_webhooks = optional(list(object({<br>      hook_url = string<br>      channel  = string<br>      username = string<br>    })), [])<br>    servicenow_webhooks = optional(list(object({<br>      domain = string<br>      path   = string<br>      user   = string<br>      pass   = string<br>    })), [])<br>  })</pre> | <pre>{<br>  "enabled": false<br>}</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `null` | no |
 | <a name="input_cloud_watch_logs_group_arn"></a> [cloud\_watch\_logs\_group\_arn](#input\_cloud\_watch\_logs\_group\_arn) | Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered | `string` | `""` | no |
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
@@ -108,6 +113,7 @@ No modules.
 | <a name="input_insight_selectors"></a> [insight\_selectors](#input\_insight\_selectors) | Configuration block for identifying unusual operational activity. | `list(string)` | `[]` | no |
 | <a name="input_is_multi_region_trail"></a> [is\_multi\_region\_trail](#input\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
 | <a name="input_is_organization_trail"></a> [is\_organization\_trail](#input\_is\_organization\_trail) | The trail is an AWS Organizations trail | `bool` | `false` | no |
+| <a name="input_log_metrics"></a> [log\_metrics](#input\_log\_metrics) | Provide CloudWatch Log Metric filters | <pre>object({<br>    enabled           = optional(bool, false)<br>    metrics_namespace = optional(string, "LogBasedMetrics")<br>    enabled_metrics   = optional(list(string), []) # Possible values are: iam-user, iam-role, iam-policy, s3, root-account, elastic-ip, elastic-network, rds, cdn, lambda, elasticache, sns, sqs, ec2, elasticsearch, elb.<br>    alerts = optional(object({<br>      enabled = optional(bool, false)<br>    }))<br>  })</pre> | <pre>{<br>  "enabled": false<br>}</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | Name CloudTrail | `string` | n/a | yes |
 | <a name="input_s3_key_prefix"></a> [s3\_key\_prefix](#input\_s3\_key\_prefix) | n/a | `string` | `"cloudtrail"` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Specifies the name of the Amazon SNS topic defined for notification of log file delivery | `string` | `null` | no |

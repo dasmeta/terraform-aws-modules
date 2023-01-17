@@ -117,3 +117,39 @@ variable "cloudtrail_assume_role_policy_document" {
    }
   EOF
 }
+
+variable "log_metrics" {
+  type = object({
+    enabled           = optional(bool, false)
+    metrics_namespace = optional(string, "LogBasedMetrics")
+    enabled_metrics   = optional(list(string), []) # Possible values are: iam-user, iam-role, iam-policy, s3, root-account, elastic-ip, elastic-network, rds, cdn, lambda, elasticache, sns, sqs, ec2, elasticsearch, elb.
+    alerts = optional(object({
+      enabled = optional(bool, false)
+    }))
+  })
+  default     = { enabled : false }
+  description = "Provide CloudWatch Log Metric filters"
+}
+
+variable "alarm_actions" {
+  type = object({
+    enabled         = optional(bool, false)
+    topic_name      = optional(string, "account-alarms-handling")
+    email_addresses = optional(list(string), [])
+    phone_numbers   = optional(list(string), [])
+    web_endpoints   = optional(list(string), [])
+    slack_webhooks = optional(list(object({
+      hook_url = string
+      channel  = string
+      username = string
+    })), [])
+    servicenow_webhooks = optional(list(object({
+      domain = string
+      path   = string
+      user   = string
+      pass   = string
+    })), [])
+  })
+  default     = { enabled = false }
+  description = "Whether to enable/create regional(TODO: add also us-east-1 region alarm also for health-check alarms) SNS topic/subscribers"
+}
