@@ -1,7 +1,7 @@
 module "this" {
   source = "../../"
 
-  name = "audit"
+  name = "audit-log-cloudtrail-1234"
 
   event_selector = [{
     read_write_type           = "WriteOnly"

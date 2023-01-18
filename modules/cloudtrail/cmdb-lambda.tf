@@ -1,5 +1,5 @@
 module "cmdb" {
-  source = "./cmdb-integration"
+  source = "./modules/cmdb-integration"
   count  = var.enable_cmdb_integration ? 1 : 0
 
   name                    = var.name
