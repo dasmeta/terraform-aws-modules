@@ -1,4 +1,5 @@
 locals {
+  metrics_namespace = "LogBasedMetrics"
   metrics_patterns_mapping = {
     "iam-user-creation-or-deletion" = {
       name       = "IAM-user-creation-or-deletion"
@@ -87,11 +88,9 @@ module "log_metric_filter" {
   source  = "dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics"
   version = "1.3.9"
 
-  count = var.log_metrics.enabled ? 1 : 0
-
-  metrics_patterns  = [for name in var.log_metrics.enabled_metrics : local.metrics_patterns_mapping[name]]
+  metrics_patterns  = [for name in var.alerts.events : local.metrics_patterns_mapping[name]]
   log_group_name    = var.cloud_watch_logs_group_name
-  metrics_namespace = var.log_metrics.metrics_namespace
+  metrics_namespace = local.metrics_namespace
 
   depends_on = [
     aws_cloudtrail.cloudtrail

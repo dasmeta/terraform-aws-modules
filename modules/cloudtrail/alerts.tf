@@ -2,13 +2,11 @@ module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
   version = "1.3.8"
 
-  count = var.log_metrics.alerts.enabled ? 1 : 0
-
-  sns_topic = var.sns_topic_name
+  sns_topic = var.alerts.sns_topic_name
   alerts = [
-    for name in var.log_metrics.enabled_metrics : {
+    for name in var.alerts.events : {
       name : "${local.metrics_patterns_mapping[name]["name"]} alarm"
-      source : "${var.log_metrics.metrics_namespace}/${local.metrics_patterns_mapping[name]["name"]}"
+      source : "${local.metrics_namespace}/${local.metrics_patterns_mapping[name]["name"]}"
       statistic : "sum"
       filters : {}
       equation : "gte"

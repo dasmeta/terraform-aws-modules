@@ -97,6 +97,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alerts"></a> [alerts](#input\_alerts) | Provide CloudWatch Log Metric filters | <pre>object({<br>    sns_topic_name = optional(string, "alerts-sns-topic")<br>    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.<br>  })</pre> | <pre>{<br>  "enabled": false<br>}</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `null` | no |
 | <a name="input_cloud_watch_logs_group_arn"></a> [cloud\_watch\_logs\_group\_arn](#input\_cloud\_watch\_logs\_group\_arn) | Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered | `string` | `""` | no |
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
@@ -111,7 +112,6 @@ No requirements.
 | <a name="input_insight_selectors"></a> [insight\_selectors](#input\_insight\_selectors) | Configuration block for identifying unusual operational activity. | `list(string)` | `[]` | no |
 | <a name="input_is_multi_region_trail"></a> [is\_multi\_region\_trail](#input\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
 | <a name="input_is_organization_trail"></a> [is\_organization\_trail](#input\_is\_organization\_trail) | The trail is an AWS Organizations trail | `bool` | `false` | no |
-| <a name="input_log_metrics"></a> [log\_metrics](#input\_log\_metrics) | Provide CloudWatch Log Metric filters | <pre>object({<br>    enabled           = optional(bool, false)<br>    metrics_namespace = optional(string, "LogBasedMetrics")<br>    enabled_metrics   = optional(list(string), []) # Possible values are: iam-user, iam-role, iam-policy, s3, root-account, elastic-ip, elastic-network, rds, cdn, lambda, elasticache, sns, sqs, ec2, elasticsearch, elb.<br>    alerts = optional(object({<br>      enabled = optional(bool, false)<br>    }))<br>  })</pre> | <pre>{<br>  "enabled": false<br>}</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | Name CloudTrail | `string` | n/a | yes |
 | <a name="input_s3_key_prefix"></a> [s3\_key\_prefix](#input\_s3\_key\_prefix) | n/a | `string` | `"cloudtrail"` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | Specifies the name of the Amazon SNS topic defined for notification of log file delivery | `string` | `null` | no |

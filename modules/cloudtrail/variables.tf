@@ -118,14 +118,10 @@ variable "cloudtrail_assume_role_policy_document" {
   EOF
 }
 
-variable "log_metrics" {
+variable "alerts" {
   type = object({
-    enabled           = optional(bool, false)
-    metrics_namespace = optional(string, "LogBasedMetrics")
-    enabled_metrics   = optional(list(string), []) # Possible values are: iam-user, iam-role, iam-policy, s3, root-account, elastic-ip, elastic-network, rds, cdn, lambda, elasticache, sns, sqs, ec2, elasticsearch, elb.
-    alerts = optional(object({
-      enabled = optional(bool, false)
-    }))
+    sns_topic_name = optional(string, "alerts-sns-topic")
+    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.
   })
   default     = { enabled : false }
   description = "Provide CloudWatch Log Metric filters"
