@@ -117,3 +117,12 @@ variable "cloudtrail_assume_role_policy_document" {
    }
   EOF
 }
+
+variable "alerts" {
+  type = object({
+    sns_topic_name = optional(string, "alerts-sns-topic")
+    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.
+  })
+  default     = { enabled : false }
+  description = "Provide CloudWatch Log Metric filters"
+}

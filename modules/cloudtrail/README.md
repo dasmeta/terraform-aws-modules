@@ -75,7 +75,10 @@ No requirements.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.3.8 |
+| <a name="module_log_metric_filter"></a> [log\_metric\_filter](#module\_log\_metric\_filter) | dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics | 1.3.9 |
 
 ## Resources
 
@@ -94,6 +97,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alerts"></a> [alerts](#input\_alerts) | Provide CloudWatch Log Metric filters | <pre>object({<br>    sns_topic_name = optional(string, "alerts-sns-topic")<br>    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.<br>  })</pre> | <pre>{<br>  "enabled": false<br>}</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `null` | no |
 | <a name="input_cloud_watch_logs_group_arn"></a> [cloud\_watch\_logs\_group\_arn](#input\_cloud\_watch\_logs\_group\_arn) | Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered | `string` | `""` | no |
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
