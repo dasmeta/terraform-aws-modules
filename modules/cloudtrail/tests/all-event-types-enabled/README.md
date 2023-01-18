@@ -1,4 +1,4 @@
-# all-events-enabled
+# all-event-types-enabled
 
 ## How to Use
 There are 3 types of CloudTrail events: Management events, Data events and Insights events.
