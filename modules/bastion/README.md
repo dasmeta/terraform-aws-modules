@@ -2,6 +2,12 @@
 - make sure default vpc has internet gateway attached to
 - make sure route tables have 0.0.0.0/0 pointing to internet gateway
 
+## ToDo
+- consider using Amazon Linux 2 AMI
+- consider using nano instance
+- consider adding dns record to access instance via domain name
+
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

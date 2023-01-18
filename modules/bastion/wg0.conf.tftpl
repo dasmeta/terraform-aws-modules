@@ -1,0 +1,29 @@
+# local settings for WireGuard Server
+[Interface]
+PrivateKey = ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBFA=
+Address = 10.0.0.2/32
+ListenPort = 51820
+
+# IP forwarding
+PreUp = sysctl -w net.ipv4.ip_forward=1
+# IP masquerading
+PreUp = iptables -t mangle -A PREROUTING -i wg0 -j MARK --set-mark 0x30
+PreUp = iptables -t nat -A POSTROUTING ! -o wg0 -m mark --mark 0x30 -j MASQUERADE
+PostDown = iptables -t mangle -D PREROUTING -i wg0 -j MARK --set-mark 0x30
+PostDown = iptables -t nat -D POSTROUTING ! -o wg0 -m mark --mark 0x30 -j MASQUERADE
+
+# firewall local host from wg peers
+PreUp = iptables -A INPUT -i wg0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+PreUp = iptables -A INPUT -i wg0 -j REJECT
+PostDown = iptables -D INPUT -i wg0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+PostDown = iptables -D INPUT -i wg0 -j REJECT
+# firewall wg peers from other hosts
+PreUp = iptables -A FORWARD -o wg0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+PreUp = iptables -A FORWARD -o wg0 -j REJECT
+PostDown = iptables -D FORWARD -o wg0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+PostDown = iptables -D FORWARD -o wg0 -j REJECT
+
+# remote settings for Justin's Workstation
+[Peer]
+PublicKey = /TOE4TKtAqVsePRVR+5AA43HkAK5DSntkOCO7nYq5xU=
+AllowedIPs = 10.0.0.1/32

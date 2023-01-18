@@ -4,7 +4,7 @@ module "ec2_instance" {
 
   name = "bastion"
 
-  ami                    = module.ami.ubuntu
+  ami                    = module.ami.amazon-linux-2
   instance_type          = "t2.micro"
   key_name               = var.key_name
   monitoring             = false
