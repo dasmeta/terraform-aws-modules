@@ -121,7 +121,7 @@ variable "cloudtrail_assume_role_policy_document" {
 
 variable "enable_cmdb_integration" {
   type        = bool
-  default     = true
+  default     = false
   description = "Enable cmdb integration"
 }
 
