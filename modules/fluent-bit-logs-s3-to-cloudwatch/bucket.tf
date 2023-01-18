@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_bucket_public_access_block" "access" {
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.bucket[0].id
 
   block_public_acls       = true
   ignore_public_acls      = true

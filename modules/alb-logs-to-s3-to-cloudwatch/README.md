@@ -73,7 +73,9 @@ module "alb-logs-lambda" {
 | <a name="input_alb_log_bucket_prefix"></a> [alb\_log\_bucket\_prefix](#input\_alb\_log\_bucket\_prefix) | n/a | `string` | `""` | no |
 | <a name="input_create_alb_log_bucket"></a> [create\_alb\_log\_bucket](#input\_create\_alb\_log\_bucket) | wether or no to create alb s3 logs bucket | `bool` | `true` | no |
 | <a name="input_create_lambda"></a> [create\_lambda](#input\_create\_lambda) | n/a | `bool` | `true` | no |
+| <a name="input_enabled"></a> [enabled](#input\_enabled) | enabled | `bool` | `false` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | (Optional) The ARN of the KMS Key to use when encrypting log data. Please note, after the AWS KMS CMK is disassociated from the log group, AWS CloudWatch Logs stops encrypting newly ingested data for the log group. All previously ingested data remains encrypted, and AWS CloudWatch Logs requires permissions for the CMK whenever the encrypted data is requested. | `string` | `null` | no |
+| <a name="input_logging"></a> [logging](#input\_logging) | logging | `list(any)` | `[]` | no |
 | <a name="input_region"></a> [region](#input\_region) | Default region | `string` | `"us-east-1"` | no |
 | <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | sse\_algorithm - (Required) The server-side encryption algorithm to use. Valid values are AES256 and aws:kms | `string` | `null` | no |
 

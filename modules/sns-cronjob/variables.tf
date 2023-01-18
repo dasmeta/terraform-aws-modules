@@ -39,7 +39,7 @@ variable "kms_master_key_id" {
 }
 
 variable "kms_data_key_reuse_period_seconds" {
-  type         = number
-  default      = 300
-  descrription = "(Optional) The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours). The default is 300 (5 minutes)."
+  type        = number
+  default     = 300
+  description = "(Optional) The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours). The default is 300 (5 minutes)."
 }

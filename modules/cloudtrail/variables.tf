@@ -89,6 +89,12 @@ variable "enabled" {
 
 variable "sse_algorithm" {
   type        = string
-  default     = null
+  default     = "aws:kms"
   description = "(Required) The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
+}
+
+variable "logging" {
+  type        = list(any)
+  default     = []
+  description = "logging"
 }

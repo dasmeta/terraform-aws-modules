@@ -99,7 +99,7 @@ variable "monitoring_settings" {
     "throttling_rate_limit"  = 100
     "throttling_burst_limit" = 50
     "caching_enabled"        = true
-    "cache_data_encrypted "  = true
+    "cache_data_encrypted"   = true
   }
 }
 

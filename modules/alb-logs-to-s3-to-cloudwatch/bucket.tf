@@ -24,18 +24,17 @@ resource "aws_s3_bucket" "bucket" {
       }
     }
   }
-
   dynamic "logging" {
     for_each = var.logging
     content {
       target_bucket = logging.value["target_bucket"]
-      target_prefix = "log/${var.s3_bucket_name}"
+      target_prefix = "log/${var.alb_log_bucket_name}"
     }
   }
 }
 
 resource "aws_s3_bucket_public_access_block" "access" {
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.bucket[0].id
 
   block_public_acls       = true
   ignore_public_acls      = true
