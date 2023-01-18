@@ -1,4 +1,4 @@
-# all-events-enabled
+## log-metrics-enabled
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
