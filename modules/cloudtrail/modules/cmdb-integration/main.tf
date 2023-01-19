@@ -8,6 +8,5 @@ module "lambda" {
   publish       = true
   source_path   = "${path.module}/src/"
 
-  role_name             = var.name
-  environment_variables = var.cmdb_integration_config.environment_variables
+  role_name = var.name
 }

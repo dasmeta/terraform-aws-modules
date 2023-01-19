@@ -71,7 +71,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.50.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
@@ -104,10 +104,9 @@ No requirements.
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
 | <a name="input_cloud_watch_logs_role_arn"></a> [cloud\_watch\_logs\_role\_arn](#input\_cloud\_watch\_logs\_role\_arn) | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group | `string` | `""` | no |
 | <a name="input_cloudtrail_assume_role_policy_document"></a> [cloudtrail\_assume\_role\_policy\_document](#input\_cloudtrail\_assume\_role\_policy\_document) | Assume role policy document. | `string` | `"{\n   \"Version\": \"2012-10-17\",\n   \"Statement\": [\n     {\n       \"Action\": \"sts:AssumeRole\",\n       \"Principal\": {\n         \"Service\": \"cloudtrail.amazonaws.com\"\n       },\n       \"Effect\": \"Allow\"\n     }\n   ]\n}\n"` | no |
-| <a name="input_cmdb_integration_config"></a> [cmdb\_integration\_config](#input\_cmdb\_integration\_config) | CMDB Integration Config | <pre>object({<br>    subscriptions = optional(list(object({<br>      protocol               = optional(string, null)<br>      endpoint               = optional(string, null)<br>      endpoint_auto_confirms = optional(bool, false)<br>    dead_letter_queue_arn = optional(string) })), [])<br>    environment_variables = optional(map(any), {})<br>  })</pre> | `{}` | no |
+| <a name="input_cmdb_integration"></a> [cmdb\_integration](#input\_cmdb\_integration) | CMDB Integration Configs | <pre>object({<br>    enabled = optional(bool, true)<br>    config = optional(object({<br>      subscriptions = optional(list(object({<br>        protocol               = optional(string, null)<br>        endpoint               = optional(string, null)<br>        endpoint_auto_confirms = optional(bool, false)<br>      dead_letter_queue_arn = optional(string) })), [])<br>    }), {})<br>  })</pre> | `{}` | no |
 | <a name="input_create_s3_bucket"></a> [create\_s3\_bucket](#input\_create\_s3\_bucket) | n/a | `bool` | `true` | no |
 | <a name="input_enable_cloudwatch_logs"></a> [enable\_cloudwatch\_logs](#input\_enable\_cloudwatch\_logs) | Enable sending logs to CloudWatch | `bool` | `false` | no |
-| <a name="input_enable_cmdb_integration"></a> [enable\_cmdb\_integration](#input\_enable\_cmdb\_integration) | Enable cmdb integration | `bool` | `false` | no |
 | <a name="input_enable_log_file_validation"></a> [enable\_log\_file\_validation](#input\_enable\_log\_file\_validation) | Specifies whether log file integrity validation is enabled. Creates signed digest for validated contents of logs | `bool` | `true` | no |
 | <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | Enable logging for the trail | `bool` | `true` | no |
 | <a name="input_event_selector"></a> [event\_selector](#input\_event\_selector) | Specifies an event selector for enabling data event logging. See: https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for details on this variable | <pre>list(object({<br>    include_management_events = bool<br>    read_write_type           = string<br><br>    data_resource = list(object({<br>      type   = string<br>      values = list(string)<br>    }))<br>  }))</pre> | `[]` | no |

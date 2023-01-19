@@ -8,5 +8,4 @@ module "this" {
     include_management_events = true
     data_resource             = []
   }]
-  enable_cmdb_integration = true
 }

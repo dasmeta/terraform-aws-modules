@@ -118,25 +118,19 @@ variable "cloudtrail_assume_role_policy_document" {
   EOF
 }
 
-
-variable "enable_cmdb_integration" {
-  type        = bool
-  default     = false
-  description = "Enable cmdb integration"
-}
-
-
-variable "cmdb_integration_config" {
+variable "cmdb_integration" {
   type = object({
-    subscriptions = optional(list(object({
-      protocol               = optional(string, null)
-      endpoint               = optional(string, null)
-      endpoint_auto_confirms = optional(bool, false)
-    dead_letter_queue_arn = optional(string) })), [])
-    environment_variables = optional(map(any), {})
+    enabled = optional(bool, true)
+    config = optional(object({
+      subscriptions = optional(list(object({
+        protocol               = optional(string, null)
+        endpoint               = optional(string, null)
+        endpoint_auto_confirms = optional(bool, false)
+      dead_letter_queue_arn = optional(string) })), [])
+    }), {})
   })
   default     = {}
-  description = "CMDB Integration Config"
+  description = "CMDB Integration Configs"
 }
 
 variable "alerts" {

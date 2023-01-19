@@ -4,5 +4,5 @@ module "topic" {
 
   name = var.name
   # email/sms/endpoint(https) subscriptions
-  subscriptions = var.cmdb_integration_config.subscriptions
+  subscriptions = var.cmdb_integration.config.subscriptions
 }
