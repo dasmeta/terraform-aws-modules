@@ -65,6 +65,16 @@ resource "aws_cloudfront_distribution" "main" {
         include_body = var.lambda_function_body
       }
     }
+
+    dynamic "function_association" {
+      for_each = var.function_associations
+
+      content {
+        event_type   = function_association.value.event_type
+        function_arn = function_association.value.function_arn
+      }
+    }
+
   }
 
   dynamic "ordered_cache_behavior" {

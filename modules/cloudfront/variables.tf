@@ -11,6 +11,15 @@ variable "origins" {
   type        = list(any)
 }
 
+variable "function_associations" {
+  description = "A list of Cloudfront function associations."
+  type = list(object({
+    event_type   = string
+    function_arn = string
+  }))
+  default = []
+}
+
 variable "create_lambda_security_headers" {
   type        = bool
   default     = false
