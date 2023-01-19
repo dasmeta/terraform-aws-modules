@@ -75,7 +75,6 @@ jobs:
           - modules/vpc-flow-logs-to-s3-to-cloudwatch
           - modules/vpc
           - modules/waf
-
     steps:
     - uses: dasmeta/reusable-actions-workflows/terraform-test@main
       with:
@@ -83,4 +82,3 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         path: ${{ matrix.path }}
-      continue-on-error: true

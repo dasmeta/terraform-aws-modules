@@ -86,4 +86,3 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         path: ${{ matrix.path }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-      continue-on-error: true

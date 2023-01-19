@@ -76,10 +76,8 @@ jobs:
           - modules/vpc-flow-logs-to-s3-to-cloudwatch
           - modules/vpc
           - modules/waf
-
     steps:
     - uses: dasmeta/reusable-actions-workflows/checkov@main
       with:
         fetch-depth: 0
         directory: ${{ matrix.path }}
-      continue-on-error: true
