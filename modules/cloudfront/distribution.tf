@@ -108,10 +108,11 @@ resource "aws_cloudfront_distribution" "main" {
     for_each = local.origins
 
     content {
-      connection_attempts = var.connection_attempts
-      connection_timeout  = var.connection_timeout
-      domain_name         = origin.value.target
-      origin_id           = origin.value.target
+      connection_attempts      = var.connection_attempts
+      connection_timeout       = var.connection_timeout
+      domain_name              = origin.value.target
+      origin_id                = origin.value.target
+      origin_access_control_id = lookup(origin.value, "origin_access_control_id", null)
 
       dynamic "custom_origin_config" {
         for_each = origin.value.custom_origin_config
