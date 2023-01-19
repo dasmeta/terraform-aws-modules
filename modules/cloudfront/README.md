@@ -18,6 +18,33 @@ module "cf" {
 }
 ```
 
+## example using AWS origin access control
+
+```
+module "cf" {
+    source = "dasmeta/modules/aws//modules/cloudfront"
+    origins = [
+        {
+          target = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
+          type = "bucket"
+          origin_access_control_id = aws_cloudfront_origin_access_control.some.id
+          custom_origin_config = []
+        }
+    ]
+    use_default_cert = true
+    default_target_origin_id = "some-s3-bucket-name.s3.us-east-1.amazonaws.com"
+    domain_names = ["example.com"]
+}
+
+resource "aws_cloudfront_origin_access_control" "some" {
+  name                              = "access_some_s3_bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+```
+
+
 ## example to create cloudfront and enable security headers lambda and set custom certificate
 
 ```
@@ -113,13 +140,13 @@ module "cloudfront" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.43 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.50 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.43 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.50 |
 
 ## Modules
 
@@ -155,6 +182,7 @@ module "cloudfront" {
 | <a name="input_default_viewer_protocol_policy"></a> [default\_viewer\_protocol\_policy](#input\_default\_viewer\_protocol\_policy) | Use this element to specify the protocol that users can use to access the files in the origin specified by TargetOriginId when a request matches the path pattern in PathPattern. One of allow-all, https-only, or redirect-to-https. | `string` | `"allow-all"` | no |
 | <a name="input_domain_names"></a> [domain\_names](#input\_domain\_names) | The list of domain names (aliases) for which cloudfront will used for | `list(string)` | n/a | yes |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Whether the distribution is enabled to accept end user requests for content. | `bool` | `true` | no |
+| <a name="input_function_associations"></a> [function\_associations](#input\_function\_associations) | A list of Cloudfront function associations. | <pre>list(object({<br>    event_type   = string<br>    function_arn = string<br>  }))</pre> | `[]` | no |
 | <a name="input_http_port"></a> [http\_port](#input\_http\_port) | The HTTP port the custom origin listens on. | `number` | `80` | no |
 | <a name="input_https_port"></a> [https\_port](#input\_https\_port) | The HTTPS port the custom origin listens on. | `number` | `443` | no |
 | <a name="input_is_ipv6_enabled"></a> [is\_ipv6\_enabled](#input\_is\_ipv6\_enabled) | Whether the IPv6 is enabled for the distribution. | `bool` | `true` | no |
@@ -186,6 +214,7 @@ module "cloudfront" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_distribution_id"></a> [distribution\_id](#output\_distribution\_id) | CDN distribution id to be used with AWS CLI or API calls. |
 | <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | CDN domain name to be aliasd in Route53 or used somewhere else. |
 | <a name="output_hosted_zone_id"></a> [hosted\_zone\_id](#output\_hosted\_zone\_id) | CDN hosted zone id to be aliasd in Route53 or used somewhere else. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
