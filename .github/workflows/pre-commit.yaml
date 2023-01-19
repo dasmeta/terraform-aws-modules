@@ -75,6 +75,7 @@ jobs:
           - modules/vpc-flow-logs-to-s3-to-cloudwatch
           - modules/vpc
           - modules/waf
+          
     steps:
     - name: Pre-Commit
       uses: dasmeta/reusable-actions-workflows/pre-commit@main
