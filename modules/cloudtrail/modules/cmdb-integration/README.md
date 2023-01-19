@@ -33,7 +33,7 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | S3 bucket for s3 subscription | `string` | n/a | yes |
-| <a name="input_cmdb_integration"></a> [cmdb\_integration](#input\_cmdb\_integration) | CMDB Integration Configs | <pre>object({<br>    config = optional(object({<br>      subscriptions = optional(list(object({<br>        protocol               = optional(string, null)<br>        endpoint               = optional(string, null)<br>        endpoint_auto_confirms = optional(bool, false)<br>      dead_letter_queue_arn = optional(string) })), [])<br>    }), {})<br>  })</pre> | `{}` | no |
+| <a name="input_configs"></a> [configs](#input\_configs) | CMDB Integration Configs | <pre>object({<br>    subscriptions = optional(list(object({ protocol = optional(string, null)<br>      endpoint               = optional(string, null)<br>      endpoint_auto_confirms = optional(bool, false)<br>    dead_letter_queue_arn = optional(string) })), [])<br>  })</pre> | `{}` | no |
 | <a name="input_name"></a> [name](#input\_name) | Lambda name | `string` | n/a | yes |
 
 ## Outputs

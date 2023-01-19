@@ -120,8 +120,8 @@ variable "cloudtrail_assume_role_policy_document" {
 
 variable "cmdb_integration" {
   type = object({
-    enabled = optional(bool, true)
-    config = optional(object({
+    enabled = optional(bool, false)
+    configs = optional(object({
       subscriptions = optional(list(object({
         protocol               = optional(string, null)
         endpoint               = optional(string, null)
