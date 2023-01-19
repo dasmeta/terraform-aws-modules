@@ -78,6 +78,7 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.3.8 |
+| <a name="module_cmdb"></a> [cmdb](#module\_cmdb) | ./modules/cmdb-integration | n/a |
 | <a name="module_log_metric_filter"></a> [log\_metric\_filter](#module\_log\_metric\_filter) | dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics | 1.3.9 |
 
 ## Resources
@@ -103,6 +104,7 @@ No requirements.
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
 | <a name="input_cloud_watch_logs_role_arn"></a> [cloud\_watch\_logs\_role\_arn](#input\_cloud\_watch\_logs\_role\_arn) | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group | `string` | `""` | no |
 | <a name="input_cloudtrail_assume_role_policy_document"></a> [cloudtrail\_assume\_role\_policy\_document](#input\_cloudtrail\_assume\_role\_policy\_document) | Assume role policy document. | `string` | `"{\n   \"Version\": \"2012-10-17\",\n   \"Statement\": [\n     {\n       \"Action\": \"sts:AssumeRole\",\n       \"Principal\": {\n         \"Service\": \"cloudtrail.amazonaws.com\"\n       },\n       \"Effect\": \"Allow\"\n     }\n   ]\n}\n"` | no |
+| <a name="input_cmdb_integration"></a> [cmdb\_integration](#input\_cmdb\_integration) | CMDB Integration Configs | <pre>object({<br>    enabled = optional(bool, false)<br>    configs = optional(object({<br>      subscriptions = optional(list(object({<br>        protocol               = optional(string, null)<br>        endpoint               = optional(string, null)<br>        endpoint_auto_confirms = optional(bool, false)<br>      dead_letter_queue_arn = optional(string) })), [])<br>    }), {})<br>  })</pre> | `{}` | no |
 | <a name="input_create_s3_bucket"></a> [create\_s3\_bucket](#input\_create\_s3\_bucket) | n/a | `bool` | `true` | no |
 | <a name="input_enable_cloudwatch_logs"></a> [enable\_cloudwatch\_logs](#input\_enable\_cloudwatch\_logs) | Enable sending logs to CloudWatch | `bool` | `false` | no |
 | <a name="input_enable_log_file_validation"></a> [enable\_log\_file\_validation](#input\_enable\_log\_file\_validation) | Specifies whether log file integrity validation is enabled. Creates signed digest for validated contents of logs | `bool` | `true` | no |

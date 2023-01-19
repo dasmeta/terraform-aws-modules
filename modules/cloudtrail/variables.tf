@@ -118,6 +118,21 @@ variable "cloudtrail_assume_role_policy_document" {
   EOF
 }
 
+variable "cmdb_integration" {
+  type = object({
+    enabled = optional(bool, false)
+    configs = optional(object({
+      subscriptions = optional(list(object({
+        protocol               = optional(string, null)
+        endpoint               = optional(string, null)
+        endpoint_auto_confirms = optional(bool, false)
+      dead_letter_queue_arn = optional(string) })), [])
+    }), {})
+  })
+  default     = {}
+  description = "CMDB Integration Configs"
+}
+
 variable "alerts" {
   type = object({
     sns_topic_name = optional(string, "alerts-sns-topic")
