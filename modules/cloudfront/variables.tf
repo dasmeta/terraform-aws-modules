@@ -256,6 +256,14 @@ variable "minimum_protocol_version" {
 }
 
 variable "logging_config" {
-  type    = any
-  default = {}
+  type = object({
+    enabled         = optional(bool, false)
+    bucket          = string
+    prefix          = optional(string, "/")
+    include_cookies = optional(bool, false)
+  })
+  default = {
+    enable = false
+    bucket = null
+  }
 }
