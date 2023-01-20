@@ -27,7 +27,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   dynamic "logging_config" {
-    for_each = var.logging_config.enable ? [1] : []
+    for_each = var.logging_config.enabled ? [1] : []
     content {
       bucket          = var.logging_config.bucket
       prefix          = var.logging_config.prefix
