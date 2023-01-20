@@ -113,13 +113,13 @@ module "cloudfront" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.43 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.50 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.43 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.50 |
 
 ## Modules
 
@@ -159,7 +159,7 @@ module "cloudfront" {
 | <a name="input_https_port"></a> [https\_port](#input\_https\_port) | The HTTPS port the custom origin listens on. | `number` | `443` | no |
 | <a name="input_is_ipv6_enabled"></a> [is\_ipv6\_enabled](#input\_is\_ipv6\_enabled) | Whether the IPv6 is enabled for the distribution. | `bool` | `true` | no |
 | <a name="input_lambda_function_body"></a> [lambda\_function\_body](#input\_lambda\_function\_body) | When set to true it exposes the request body to the lambda function. Valid values: true, false. | `bool` | `false` | no |
-| <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | n/a | `any` | `{}` | no |
+| <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | n/a | <pre>object({<br>    enable          = optional(bool, false)<br>    bucket          = string<br>    prefix          = optional(string, "/")<br>    include_cookies = optional(bool, false)<br>  })</pre> | <pre>{<br>  "bucket": null,<br>  "enable": false<br>}</pre> | no |
 | <a name="input_minimum_protocol_version"></a> [minimum\_protocol\_version](#input\_minimum\_protocol\_version) | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. | `string` | `"TLSv1"` | no |
 | <a name="input_ordered_allowed_methods"></a> [ordered\_allowed\_methods](#input\_ordered\_allowed\_methods) | n/a | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD",<br>  "OPTIONS"<br>]</pre> | no |
 | <a name="input_ordered_cached_methods"></a> [ordered\_cached\_methods](#input\_ordered\_cached\_methods) | n/a | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]</pre> | no |

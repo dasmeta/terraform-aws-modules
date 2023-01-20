@@ -26,8 +26,15 @@ resource "aws_cloudfront_distribution" "main" {
     Name = var.tags_name
   }
 
-  logging_config = var.logging_config
+  dynamic "logging_config" {
+    for_each = var.logging_config.enable ? [1] : []
 
+    content {
+      bucket          = var.logging_config.bucket
+      prefix          = var.logging_config.prefix
+      include_cookies = var.logging_config.include_cookies
+    }
+  }
 
   wait_for_deployment = var.wait_for_deployment
 
