@@ -3,12 +3,12 @@ locals {
   metrics_patterns_mapping = {
     "iam-user-creation-or-deletion" = {
       name       = "IAM-user-creation-or-deletion"
-      pattern    = "{ ($.eventName = CreateUser) || ($.eventName = DeleteUser)}"
+      pattern    = "{ $.eventName = CreateUser || $.eventName = DeleteUser }"
       dimensions = {}
     },
     "iam-role-creation-or-deletion" = {
       name       = "IAM-role-creation-or-deletion"
-      pattern    = "{ ($.eventName = CreateRole) || { ($.eventName = DeleteRole) }"
+      pattern    = "{ $.eventName = CreateRole || $.eventName = DeleteRole }"
       dimensions = {}
     },
     "iam-policy-changes" = {
