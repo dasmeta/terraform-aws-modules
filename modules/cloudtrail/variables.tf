@@ -51,6 +51,12 @@ variable "cloud_watch_logs_group_name" {
   default     = "aws-cloudtrail-logs"
 }
 
+variable "cloud_watch_logs_group_retention" {
+  type        = number
+  description = "Specifies the number of days you want to retain log events in the specified log group."
+  default     = 90
+}
+
 variable "event_selector" {
   type = list(object({
     include_management_events = bool
