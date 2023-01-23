@@ -75,9 +75,8 @@ jobs:
           - modules/vpc-flow-logs-to-s3-to-cloudwatch
           - modules/vpc
           - modules/waf
-          
     steps:
-    - uses: dasmeta/reusable-actions-workflows/terraform-test@main
+    - uses: dasmeta/reusable-actions-workflows/terraform-test@4.2.0
       with:
         aws-region: ${{ secrets.AWS_REGION}}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}

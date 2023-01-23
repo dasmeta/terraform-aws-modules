@@ -78,10 +78,7 @@ jobs:
           - modules/vpc
           - modules/waf
     steps:
-    - uses: dasmeta/reusable-actions-workflows/tflint@main
+    - uses: dasmeta/reusable-actions-workflows/tflint@4.2.0
       with:
-        aws-region: ${{ secrets.AWS_REGION}}
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         path: ${{ matrix.path }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}

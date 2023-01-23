@@ -13,8 +13,7 @@ jobs:
       pull-requests: write
       id-token: write
       security-events: write
-      
     steps:
-    - uses: dasmeta/reusable-actions-workflows/tfsec@main
+    - uses: dasmeta/reusable-actions-workflows/tfsec@4.2.0
       with:
         fetch-depth: 0
