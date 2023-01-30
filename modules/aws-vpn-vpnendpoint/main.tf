@@ -59,10 +59,12 @@ resource "aws_security_group" "my-vpn" {
   name        = "client-vpn-endpoint-${var.endpoint_name}"
   description = "Egress All. Used for other groups where VPN access is required. "
   vpc_id      = var.vpc_id
+  #checkov:skip=CKV2_AWS_5:Ensure that Security Groups are attached to another resource
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "Egress access"
     cidr_blocks = ["0.0.0.0/0"] # TODO: why we have egress on global enabled hardcoded, maybe we have to move this under variable with this values as default?
   }
   tags = var.tags
