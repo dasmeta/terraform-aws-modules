@@ -9,7 +9,7 @@ jobs:
       discussions: write
       pull-requests: write
       id-token: write
-      
+
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
