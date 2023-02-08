@@ -42,5 +42,5 @@ variable "policy" {
 variable "create_policy" {
   description = "Whether create a policy or not."
   type        = bool
-  default     = true
+  default     = false
 }
