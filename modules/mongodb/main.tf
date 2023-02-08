@@ -101,7 +101,7 @@ resource "helm_release" "mongodb" {
   }
 
   set {
-    name = "high-priority"
+    name  = "priority_class_name"
     value = var.priority_class_name
   }
 
