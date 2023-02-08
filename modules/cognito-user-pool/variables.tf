@@ -327,3 +327,9 @@ variable "create_route53_record" {
   default     = true
   description = "Create Route53 Record"
 }
+
+variable "allow_admin_create_user_only" {
+  type        = bool
+  default     = false
+  description = "(Optional) Set to True if only the administrator is allowed to create user profiles. Set to False if users can sign themselves up via an app."
+}
