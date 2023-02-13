@@ -144,7 +144,7 @@ No modules.
 | <a name="input_cert_arn"></a> [cert\_arn](#input\_cert\_arn) | The ARN of an ISSUED ACM certificate in us-east-1 for a custom domain. | `string` | `""` | no |
 | <a name="input_challenge_required_on_new_device"></a> [challenge\_required\_on\_new\_device](#input\_challenge\_required\_on\_new\_device) | Whether a challenge is required on a new device. Only applicable to a new device. | `bool` | `null` | no |
 | <a name="input_clients"></a> [clients](#input\_clients) | List of client names | `list(string)` | `[]` | no |
-| <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Create Route53 Record | `bool` | `true` | no |
+| <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Create Route53 Record for custom domain | `bool` | `false` | no |
 | <a name="input_device_only_remembered_on_user_prompt"></a> [device\_only\_remembered\_on\_user\_prompt](#input\_device\_only\_remembered\_on\_user\_prompt) | Whether a device is only remembered on user prompt. | `bool` | `null` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain string. | `string` | `""` | no |
 | <a name="input_email_verification_message"></a> [email\_verification\_message](#input\_email\_verification\_message) | String representing the email verification message. | `string` | `"Some message {####}"` | no |
