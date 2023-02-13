@@ -324,8 +324,8 @@ variable "supported_identity_providers" {
 
 variable "create_route53_record" {
   type        = bool
-  default     = true
-  description = "Create Route53 Record"
+  default     = false
+  description = "Create Route53 Record for custom domain"
 }
 
 variable "allow_admin_create_user_only" {

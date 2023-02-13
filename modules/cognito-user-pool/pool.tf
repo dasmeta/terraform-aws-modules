@@ -44,9 +44,16 @@ resource "aws_cognito_user_pool" "pool" {
     }
   }
 
-  device_configuration {
-    challenge_required_on_new_device      = var.challenge_required_on_new_device
-    device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
+  dynamic "device_configuration" {
+    for_each = (var.challenge_required_on_new_device != null || var.device_only_remembered_on_user_prompt != null) ? [{
+      challenge_required_on_new_device      = var.challenge_required_on_new_device
+      device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
+    }] : []
+
+    content {
+      challenge_required_on_new_device      = device_configuration.value.challenge_required_on_new_device
+      device_only_remembered_on_user_prompt = device_configuration.value.device_only_remembered_on_user_prompt
+    }
   }
 
   dynamic "lambda_config" {
@@ -63,7 +70,7 @@ resource "aws_cognito_user_pool" "pool" {
   }
 
   dynamic "schema" {
-    for_each = var.schema
+    for_each = [for item in var.schema : item if(try(item.string_attribute_constraints.max_length, null) != null && try(item.string_attribute_constraints.min_length, null) != null)]
 
     content {
       attribute_data_type      = schema.value.attribute_data_type
@@ -76,6 +83,20 @@ resource "aws_cognito_user_pool" "pool" {
         max_length = schema.value.string_attribute_constraints.max_length
         min_length = schema.value.string_attribute_constraints.min_length
       }
+    }
+  }
+
+  dynamic "schema" {
+    for_each = [for item in var.schema : item if(try(item.string_attribute_constraints.max_length, null) == null || try(item.string_attribute_constraints.min_length, null) == null)]
+
+    content {
+      attribute_data_type      = schema.value.attribute_data_type
+      developer_only_attribute = schema.value.developer_only_attribute
+      mutable                  = schema.value.mutable
+      name                     = schema.value.name
+      required                 = schema.value.required
+
+      string_attribute_constraints {}
     }
   }
 
