@@ -4,7 +4,9 @@ This module creates an "example-pool" and a "main" client. Both of them have def
 
 ```
 module "cognito" {
-  source = "git::https://github.com/dasmeta/terraform.git//modules/cognito?ref=0.5.0"
+  source  = "dasmeta/modules/aws//modules/cognito-user-pool"
+  version = "x.y.z" # set latest stabile release version
+
 
   name = "example-pool"
   clients = ["main"]
