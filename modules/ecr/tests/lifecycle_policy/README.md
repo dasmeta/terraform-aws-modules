@@ -1,9 +1,13 @@
-# basic
+# lifecycle_policy
 
-This example creates 2 repositories and applies default lifecycle policies for them, that is:
-1. Remove untagged images.
-2. Rotate images when reach 500 images stored.
+This example creates 1 repository and changes lifecycle policy for it, that is:
+1. Protects images tagged with `prod`.
+2. Protects images tagged with `stage`.
+3. Remove untagged images.
+4. Rotate images when reach 100 images stored.
 
+To change limit of images with unprotected tags, change `max_image_count` value.
+To change tags for imgaes, change `protected_tags` value.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

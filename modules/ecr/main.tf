@@ -4,5 +4,7 @@ module "ecr" {
 
   for_each = { for repo in var.repos : repo => repo }
 
-  name = each.value
+  name            = each.value
+  max_image_count = var.max_image_count
+  protected_tags  = var.protected_tags
 }
