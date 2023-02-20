@@ -15,3 +15,9 @@ variable "protected_tags" {
   description = "Name of image tags prefixes that should not be destroyed. Useful if you tag images with names like `dev`, `staging`, and `prod`"
   default     = []
 }
+
+variable "image_tag_mutability" {
+  type = string
+  description = "The tag mutability setting for the repository. Must be one of: MUTABLE or IMMUTABLE"
+  default = "MUTABLE"
+}

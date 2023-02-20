@@ -7,4 +7,5 @@ module "ecr" {
   name            = each.value
   max_image_count = var.max_image_count
   protected_tags  = var.protected_tags
+  image_tag_mutability = var.image_tag_mutability
 }
