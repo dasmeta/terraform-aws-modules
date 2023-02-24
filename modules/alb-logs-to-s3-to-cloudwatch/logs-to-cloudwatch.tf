@@ -4,10 +4,11 @@ data "aws_s3_bucket" "selected" {
 }
 
 resource "aws_cloudwatch_log_group" "log" {
-  count             = var.create_lambda ? 1 : 0
-  name              = "alb-${var.alb_log_bucket_name}"
-  kms_key_id        = var.kms_key_id
-  retention_in_days = 365
+  count                  = var.create_lambda ? 1 : 0
+  name                   = "alb-${var.alb_log_bucket_name}"
+  kms_encryption_enabled = true
+  kms_key_id             = var.kms_key_id
+  retention_in_days      = 365
 }
 
 module "alb_logs_to_cloudwatch" {
