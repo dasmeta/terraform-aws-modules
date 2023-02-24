@@ -72,6 +72,9 @@ resource "aws_api_gateway_stage" "stage" {
   rest_api_id           = aws_api_gateway_rest_api.this.id
   xray_tracing_enabled  = var.xray_tracing_enabled
   cache_cluster_enabled = var.cache_cluster_enabled
+  cache_cluster_size    = var.cache_cluster_size
+
+  tracing_enabled = true
 
   dynamic "access_log_settings" {
     for_each = aws_cloudwatch_log_group.access_logs

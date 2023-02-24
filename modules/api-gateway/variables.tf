@@ -156,3 +156,9 @@ variable "cache_cluster_enabled" {
   default     = true
   description = "Whether a cache cluster is enabled for the stage"
 }
+
+variable "cache_cluster_size" {
+  type = string
+  default = "0.5"
+  description = "(Optional) Size of the cache cluster for the stage, if enabled. Allowed values include 0.5, 1.6, 6.1, 13.5, 28.4, 58.2, 118 and 237"
+}
