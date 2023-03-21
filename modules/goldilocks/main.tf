@@ -1,5 +1,6 @@
 resource "helm_release" "vpa" {
-  count      = var.create_vpa_server ? 1 : 0
+  count = var.create_vpa_server ? 1 : 0
+
   name       = "goldilocks"
   version    = "1.6.1"
   repository = "https://charts.fairwinds.com/stable"

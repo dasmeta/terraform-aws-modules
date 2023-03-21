@@ -3,7 +3,8 @@ locals {
 }
 
 module "ingress" {
-  count   = var.create_dashboard_ingress ? 1 : 0
+  count = var.create_dashboard_ingress ? 1 : 0
+
   source  = "dasmeta/modules/aws//modules/ingress"
   version = "1.0.0"
 
@@ -32,6 +33,7 @@ module "ingress" {
     "alb.ingress.kubernetes.io/auth-idp-cognito"   = local.auth
     "alb.ingress.kubernetes.io/listen-ports"       = "[{\"HTTPS\":443}]"
   }
+
   depends_on = [
     kubernetes_manifest.create_namespace
   ]

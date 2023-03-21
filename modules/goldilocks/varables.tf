@@ -29,13 +29,15 @@ variable "alb_certificate_arn" {
 }
 
 variable "alb_name" {
-  type    = string
-  default = "goldilocks-dashboard"
+  type        = string
+  default     = "goldilocks-dashboard"
+  description = "ALB name"
 }
 
 variable "hostname" {
-  type    = string
-  default = "goldilocks.example.com"
+  type        = string
+  default     = "goldilocks.example.com"
+  description = "Hostname"
 }
 
 variable "auth" {
@@ -49,6 +51,7 @@ variable "auth" {
     userPoolClientID = ""
     userPoolDomain   = ""
   }
+  description = "Cognito User pool info(userPoolARN,userPoolClientID,userPoolDomain)"
 }
 
 variable "alb_subnet" {
