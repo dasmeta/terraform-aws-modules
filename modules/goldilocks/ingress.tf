@@ -35,6 +35,6 @@ module "ingress" {
   }
 
   depends_on = [
-    kubernetes_manifest.create_namespace
+    kubernetes_manifest.namespace
   ]
 }

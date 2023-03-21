@@ -13,16 +13,10 @@ The module create Goldilocks installation prerequisites. The module default crea
 
 ```
 module "goldilocks" {
-  source               = "dasmeta/modules/aws//modules/goldilocks"
-  namespaces           = ["default"]
-  create_metric_server = false
-  zone_name            = "example.com"
-  hostname             = "goldilock.example.com"
-  alb_certificate_arn  = "arn:aws:acm:us-east-1:5********68:certificate/1125ea15-****32d1b"
-  alb_subnet           = "subnet-0db50f385c*, subnet-0a*, subnet-08eac866b7bfe*3"
-  userpoolarn          = "arn:aws:cognito-idp:us-east-1:5*******68:userpool/us-eat-1_nr*y6"
-  userpoolclientid     = "4k1n0gag*fvqa1g"
-  userpooldomain       = "goldilock.auth.us-east-1.amazoncognito.com"
+  source                   =  "dasmeta/modules/aws//modules/goldilocks"
+  namespaces               = ["default"]
+  create_metric_server     = false
+  create_dashboard_ingress = false
 }
 ```
 
@@ -52,7 +46,7 @@ No requirements.
 | [helm_release.goldilocks_deploy](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.metric_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.vpa](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_manifest.create_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
+| [kubernetes_manifest.namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [null_resource.vpa_configure](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 
 ## Inputs
