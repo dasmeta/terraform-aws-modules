@@ -19,6 +19,7 @@ variable "create_vpa_server" {
 variable "zone_name" {
   type        = string
   description = "Domain Name"
+  default     = null
 }
 
 variable "alb_certificate_arn" {
@@ -26,10 +27,12 @@ variable "alb_certificate_arn" {
   default     = ""
   description = "Domain Certificate ARN"
 }
+
 variable "alb_name" {
   type    = string
   default = "goldilocks-dashboard"
 }
+
 variable "hostname" {
   type    = string
   default = "goldilocks.example.com"
@@ -41,6 +44,11 @@ variable "auth" {
     userPoolClientID = string,
     userPoolDomain   = string
   })
+  default = {
+    userPoolARN      = ""
+    userPoolClientID = ""
+    userPoolDomain   = ""
+  }
 }
 
 variable "alb_subnet" {
@@ -48,6 +56,7 @@ variable "alb_subnet" {
   default     = ""
   description = "Ingress Annotations Add  EKS Public Subnet"
 }
+
 variable "create_dashboard_ingress" {
   type        = bool
   default     = true
