@@ -24,8 +24,8 @@ variable "alias_attributes" {
 
 variable "auto_verified_attributes" {
   type        = list(string)
-  default     = ["email", "phone_number"]
-  description = "Attributes to be auto-verified."
+  default     = []
+  description = "Attributes to be auto-verified, can be email and phone_number."
 }
 
 variable "email_verification_message" {
@@ -112,14 +112,8 @@ variable "device_only_remembered_on_user_prompt" {
 }
 
 variable "lambda_config" {
-  default = {
-    kms_key_id = ""
-
-    custom_email_sender = {
-      lambda_arn     = ""
-      lambda_version = ""
-    }
-  }
+  type    = any # TODO: add description for each field in this config and also add all of them into pool resource
+  default = {}
 }
 
 variable "schema" {

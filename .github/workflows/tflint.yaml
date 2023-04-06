@@ -67,7 +67,6 @@ jobs:
           - modules/rabbitmq
           - modules/rds
           - modules/route53-alerts-notify
-          - modules/route53
           - modules/s3
           - modules/secret
           - modules/service-alerts
