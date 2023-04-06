@@ -66,10 +66,11 @@ resource "aws_cognito_user_pool" "pool" {
       verify_auth_challenge_response = try(var.lambda_config.verify_auth_challenge_response, null)
 
       dynamic "custom_email_sender" {
-        for_each = []
+        for_each = (try(var.lambda_config.custom_email_sender.lambda_arn, null) != null && try(var.lambda_config.custom_email_sender.lambda_version, null) != null) ? [1] : []
+
         content {
-          lambda_arn     = try(var.lambda_config.custom_email_sender.lambda_arn, null)
-          lambda_version = try(var.lambda_config.custom_email_sender.lambda_version, null)
+          lambda_arn     = var.lambda_config.custom_email_sender.lambda_arn
+          lambda_version = var.lambda_config.custom_email_sender.lambda_version
         }
       }
     }
