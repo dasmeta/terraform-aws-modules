@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 0.1.9
+description: A Base Helm chart for Kubernetes CronJob
+name: base-cronjob
+type: application
+version: 0.1.9

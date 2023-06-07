@@ -1,0 +1,100 @@
+{{- range $job := .Values.jobs }}
+{{- $registry := $job.image.registry }}
+{{- $tag := $job.image.tag }}
+{{- $image := print $registry "/" $job.image.repository ":" $tag }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ $job.name | quote}}
+  annotations:
+      {{- with $job.annotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+spec:
+  schedule: {{ $job.schedule | quote}}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ $job.serviceAccount.name }}
+          restartPolicy: {{ $job.restartPolicy }}
+          containers:
+            - name: {{ $job.name | quote }}
+              {{ if $.Values.globals.image }}
+                {{- $globalsrepository := $.Values.globals.image.repository }}
+                {{- $globalsregistry := $.Values.globals.image.registry }}
+                {{- $globalstag := $.Values.globals.image.tag }}
+                {{- $globalsImage := print $globalsregistry "/" $globalsrepository ":" $globalstag }}
+              image: {{  $globalsImage | quote}}
+              {{ else }}
+              image: {{ $image | quote}}
+              {{ end }}
+              imagePullPolicy: IfNotPresent
+              {{ if $job.securityContext }}
+              securityContext:
+                privileged: {{ $job.securityContext.privileged }}
+              {{ end }}
+              {{- if $job.command }}
+              command:
+                {{- range $cmd := $job.command }}
+                - {{ $cmd }}
+                {{- end }}
+              {{- end }}
+              {{- if $job.args }}
+              args:
+                {{- range $args := $job.args }}
+                - {{ $args }}
+                {{- end }}
+              {{- end }}
+              {{ if $job.resources }}
+              resources:
+                requests:
+                  cpu: {{ $job.resources.requests.cpu }}
+                  memory: {{ $job.resources.requests.memory }}
+                limits:
+                  cpu: {{ $job.resources.limits.cpu }}
+                  memory: {{ $job.resources.limits.memory }}
+              {{ end }}
+              envFrom:
+                  {{- range $configMapRef := $job.configMapRefs }}
+                  - configMapRef:
+                        name: {{ $configMapRef }}
+                  {{ end }}
+              env:
+              {{- range $env := $job.env }}
+                - name: {{ $env.name | quote}}
+                  value: {{ $env.value | quote }}
+              {{- end }}
+              volumeMounts:
+            {{- range $index, $element := $job.volumes }}
+                - name: {{ coalesce $element.name (add $index 1) }}
+                  mountPath: {{ $element.mountPath }}
+                  readOnly: {{ $element.readOnly | default false }}
+            {{- end }}
+          {{- with $job.nodeSelector }}
+          nodeSelector:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with $job.affinity }}
+          affinity:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+          {{- with $job.tolerations }}
+          tolerations:
+{{ toYaml . | indent 12 }}
+          {{- end }}
+      {{- if $job.volumes }}
+          volumes:
+        {{- range $index, $element := $job.volumes }}
+            - name: {{ coalesce $element.name (add $index 1) }}
+          {{- if $element.persistentVolumeClaim }}
+              persistentVolumeClaim:
+            {{- if $element.persistentVolumeClaim.claimName }}
+                claimName: {{ $element.persistentVolumeClaim.claimName }}
+            {{- end }}
+          {{- end }}
+          {{- end }}
+{{- end }}
+{{- end }}
+---
