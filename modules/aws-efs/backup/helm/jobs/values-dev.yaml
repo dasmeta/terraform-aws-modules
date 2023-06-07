@@ -1,11 +1,11 @@
-awg-efs-backup:
+aws-efs-backup:
   jobs:
     - name: efs-backup
       schedule: "0 0 * * 0"
       restartPolicy: OnFailure
       serviceAccount:
         create: true
-        name: "awg-efs-backup"
+        name: "aws-efs-backup"
       nodeSelector:
         nodetype: "regular"
       resources:

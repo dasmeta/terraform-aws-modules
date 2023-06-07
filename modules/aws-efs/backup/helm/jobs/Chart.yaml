@@ -1,6 +1,6 @@
 apiVersion: v2
-name: awg-efs-backup
-description: A Helm chart for awg-efs-backup
+name: aws-efs-backup
+description: A Helm chart for aws-efs-backup
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -28,7 +28,3 @@ dependencies:
     version: 0.1.9
     repository: https://dasmeta.github.io/helm
     alias: awg-efs-backup
-#   - name: base-cronjob
-#     version: 0.1.8
-#     repository: "file:///Users/vahagn/Documents/terraform/dasmeta/helm/charts/base-cronjob"
-#     alias: awg-jobs
