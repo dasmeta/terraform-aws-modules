@@ -27,4 +27,4 @@ dependencies:
   - name: base-cronjob
     version: 0.1.9
     repository: https://dasmeta.github.io/helm
-    alias: awg-efs-backup
+    alias: aws-efs-backup
