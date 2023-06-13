@@ -337,7 +337,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 3.8.1 |
+| <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 4.6.1 |
 
 ## Resources
 
