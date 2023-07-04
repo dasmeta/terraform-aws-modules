@@ -62,6 +62,26 @@ module "cloudtrail" {
 }
 ```
 
+# Example 5: Use KMS key for security
+```
+module "cloudtrail" {
+  source = "dasmeta/modules/aws//modules/cloudtrail/"
+
+  name                   = "infra-cloudtrail"
+  kms_key_arn            = ""
+  enable_cloudwatch_logs = true
+
+  event_selector = [{
+    read_write_type           = "All"
+    include_management_events = true
+
+    data_resource = [{
+      type   = "AWS::S3::Object"
+      values = ["arn:aws:s3"]
+    }]
+  }]
+}
+```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -92,6 +112,7 @@ No requirements.
 | [aws_iam_role_policy_attachment.cloudtrail_roles_policies](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_s3_bucket.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_policy.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
