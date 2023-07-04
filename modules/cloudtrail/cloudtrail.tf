@@ -16,6 +16,7 @@ resource "aws_cloudtrail" "cloudtrail" {
   cloud_watch_logs_role_arn     = var.enable_cloudwatch_logs ? aws_iam_role.cloudtrail_roles[0].arn : var.cloud_watch_logs_role_arn
   enable_logging                = var.enable_logging
   sns_topic_name                = var.sns_topic_name
+  kms_key_id                    = var.kms_key_arn
 
   dynamic "event_selector" {
     for_each = var.event_selector
