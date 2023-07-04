@@ -63,7 +63,6 @@ module "cloudtrail" {
 ```
 
 # Example 5: Use KMS key for security
-
 ```
 module "cloudtrail" {
   source = "dasmeta/modules/aws//modules/cloudtrail/"
