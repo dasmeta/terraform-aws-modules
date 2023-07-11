@@ -16,7 +16,8 @@ locals {
       }
     }]
     : [],
-    var.enable_default_rule ? local.default_rules : var.rules
+    var.enable_default_rule ? local.default_rules : [],
+    var.rules
   )
 }
 
