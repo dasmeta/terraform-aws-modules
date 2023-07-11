@@ -16,7 +16,7 @@ locals {
       }
     }]
     : [],
-    var.rules
+    var.enable_default_role ? local.default_rules : var.rules
   )
 }
 

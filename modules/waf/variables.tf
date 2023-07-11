@@ -62,3 +62,9 @@ variable "enable_whitelist" {
   description = "An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist_ids list, as it will fail to remove in use resources"
   default     = true
 }
+
+variable "enable_default_role" {
+  type        = bool
+  description = "Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet)"
+  default     = true
+}
