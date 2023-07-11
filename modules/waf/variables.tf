@@ -63,7 +63,7 @@ variable "enable_whitelist" {
   default     = true
 }
 
-variable "enable_default_role" {
+variable "enable_default_rule" {
   type        = bool
   description = "Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet)"
   default     = true
