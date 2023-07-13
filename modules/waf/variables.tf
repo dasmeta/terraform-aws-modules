@@ -68,3 +68,15 @@ variable "enable_default_rule" {
   description = "Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet)"
   default     = true
 }
+
+variable "create_alerts" {
+  type        = bool
+  default     = true
+  description = "Create Alert"
+}
+
+variable "sns_topic_name" {
+  type        = string
+  default     = "cloudwatch-alarm"
+  description = "SNS topic name"
+}
