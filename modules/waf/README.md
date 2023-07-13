@@ -338,6 +338,7 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.6.0 |
+| <a name="module_monitoring_dashboard"></a> [monitoring\_dashboard](#module\_monitoring\_dashboard) | dasmeta/monitoring/aws//modules/dashboard | 1.7.0 |
 | <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 4.6.1 |
 
 ## Resources
@@ -356,6 +357,7 @@ No requirements.
 | <a name="input_allow_default_action"></a> [allow\_default\_action](#input\_allow\_default\_action) | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default. | `bool` | `true` | no |
 | <a name="input_create_alb_association"></a> [create\_alb\_association](#input\_create\_alb\_association) | Whether to create alb association with WAF web acl | `bool` | `false` | no |
 | <a name="input_create_alerts"></a> [create\_alerts](#input\_create\_alerts) | Create Alert | `bool` | `true` | no |
+| <a name="input_create_dashboard"></a> [create\_dashboard](#input\_create\_dashboard) | Create dashboard for WAF | `bool` | `true` | no |
 | <a name="input_enable_default_rule"></a> [enable\_default\_rule](#input\_enable\_default\_rule) | Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet) | `bool` | `true` | no |
 | <a name="input_enable_whitelist"></a> [enable\_whitelist](#input\_enable\_whitelist) | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist\_ids list, as it will fail to remove in use resources | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name | `string` | n/a | yes |

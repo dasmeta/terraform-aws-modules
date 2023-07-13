@@ -80,3 +80,9 @@ variable "sns_topic_name" {
   default     = "cloudwatch-alarm"
   description = "SNS topic name"
 }
+
+variable "create_dashboard" {
+  type        = bool
+  default     = true
+  description = "Create dashboard for WAF"
+}

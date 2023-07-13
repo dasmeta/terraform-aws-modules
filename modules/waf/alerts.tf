@@ -7,11 +7,83 @@ module "alerts" {
   sns_topic = var.sns_topic_name
   alerts = [
     {
-      name   = "WAF Blocked request count"
+      name   = "WAF ALL Blocked request count"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
         Rule   = "ALL",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 100
+    },
+    {
+      name   = "WAF Blocked request with AWSManagedRulesKnownBadInputsRuleSet rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesKnownBadInputsRuleSet",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 15
+    },
+    {
+      name   = "WAF Blocked request with AWSManagedRulesLinuxRuleSet rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesLinuxRuleSet",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 15
+    },
+    {
+      name   = "WAF Blocked request with AWS-AWSManagedRulesAmazonIpReputationList rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesAmazonIpReputationList",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 15
+    },
+    {
+      name   = "WAF Blocked request with AWS-AWSManagedRulesCommonRuleSet rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesCommonRuleSet",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 15
+    },
+    {
+      name   = "WAF Blocked request with AWS-AWSManagedRulesSQLiRuleSet rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesSQLiRuleSet",
+        Region = data.aws_region.current.name
+      }
+      period    = 60
+      statistic = "sum"
+      threshold = 15
+    },
+    {
+      name   = "WAF Blocked request with AWS-AWSManagedRulesUnixRuleSet rule"
+      source = "AWS/WAFV2/BlockedRequests"
+      filters = {
+        WebACL = var.name,
+        Rule   = "AWS-AWSManagedRulesUnixRuleSet",
         Region = data.aws_region.current.name
       }
       period    = 60
