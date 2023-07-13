@@ -12,10 +12,11 @@ module "alerts" {
       filters = {
         WebACL = var.name,
         Rule   = "ALL",
+        Region = data.aws_region.current.name
       }
-      period    = 86400
+      period    = 60
       statistic = "sum"
-      threshold = 2
+      threshold = 15
     },
   ]
   enable_insufficient_data_actions = false

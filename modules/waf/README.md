@@ -345,6 +345,7 @@ No requirements.
 | Name | Type |
 |------|------|
 | [aws_wafv2_ip_set.whitelist_ip_set](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_ip_set) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
