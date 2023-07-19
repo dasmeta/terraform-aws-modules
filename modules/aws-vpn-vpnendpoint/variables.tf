@@ -95,3 +95,28 @@ variable "dns_servers" {
   description = "Ip address DNS servers to be used for DNS resolution"
   default     = []
 }
+
+variable "security_group_rule" {
+  type        = any
+  description = "Security group inbound and outbound rules"
+  default = {
+    ingress = {
+      1 = {
+        description = "Ingress access"
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    }
+    egress = {
+      1 = {
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        description = "Egress access"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    }
+  }
+}
