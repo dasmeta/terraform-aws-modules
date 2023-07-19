@@ -43,4 +43,32 @@ module "vpn" {
     aws      = aws
     aws.peer = aws
   }
+
+  security_group_rule = {
+    ingress = {
+      1 = {
+        description = "HTTP Access"
+        from_port   = 80
+        to_port     = 80
+        protocol    = "http"
+        cidr_blocks = ["0.0.0.0/0"]
+      },
+      2 = {
+        description = "HTTPS Access"
+        from_port   = 443
+        to_port     = 443
+        protocol    = "https"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    }
+    egress = {
+      1 = {
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        description = "Egress access"
+        cidr_blocks = ["0.0.0.0/0"]
+      }
+    }
+  }
 }

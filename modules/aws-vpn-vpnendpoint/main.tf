@@ -60,12 +60,26 @@ resource "aws_security_group" "my-vpn" {
   description = "Egress All. Used for other groups where VPN access is required. "
   vpc_id      = var.vpc_id
   #checkov:skip=CKV2_AWS_5:Ensure that Security Groups are attached to another resource
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    description = "Egress access"
-    cidr_blocks = ["0.0.0.0/0"] # TODO: why we have egress on global enabled hardcoded, maybe we have to move this under variable with this values as default?
+  dynamic "ingress" {
+    for_each = var.security_group_rule.ingress
+    content {
+      description = ingress.value["description"]
+      from_port   = ingress.value["from_port"]
+      to_port     = ingress.value["to_port"]
+      protocol    = ingress.value["protocol"]
+      cidr_blocks = ingress.value["cidr_blocks"]
+    }
+  }
+
+  dynamic "egress" {
+    for_each = var.security_group_rule.egress
+    content {
+      description = egress.value["description"]
+      from_port   = egress.value["from_port"]
+      to_port     = egress.value["to_port"]
+      protocol    = egress.value["protocol"]
+      cidr_blocks = egress.value["cidr_blocks"]
+    }
   }
   tags = var.tags
 }
