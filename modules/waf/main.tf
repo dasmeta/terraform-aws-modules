@@ -23,7 +23,7 @@ locals {
 
 module "waf" {
   source  = "umotif-public/waf-webaclv2/aws"
-  version = "4.6.1"
+  version = "5.1.2"
 
   name_prefix  = var.name
   alb_arn      = var.alb_arn
