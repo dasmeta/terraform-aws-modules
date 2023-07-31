@@ -22,7 +22,8 @@ locals {
 }
 
 module "waf" {
-  source = "git::https://github.com/dasmeta/terraform-aws-waf-webaclv2?ref=main"
+  source  = "dasmeta/waf-webaclv2/aws"
+  version = "0.0.1"
 
   name_prefix  = var.name
   alb_arn      = var.alb_arn
