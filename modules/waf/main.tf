@@ -22,20 +22,14 @@ locals {
 }
 
 module "waf" {
-  source  = "umotif-public/waf-webaclv2/aws"
-  version = "4.6.1"
+  source = "cloudposse/waf/aws"
 
-  name_prefix  = var.name
-  alb_arn      = var.alb_arn
-  alb_arn_list = var.alb_arn_list
-  scope        = var.scope
+  name = var.name
 
-  create_alb_association = var.create_alb_association
-  allow_default_action   = var.allow_default_action # set to allow if not specified
-  visibility_config      = var.visibility_config
-  rules                  = local.rules
+  managed_rule_group_statement_rules = local.rules
+  association_resource_arns          = var.alb_arn_list
 
-  tags = var.tags
+  visibility_config = var.visibility_config
 }
 
 resource "aws_wafv2_ip_set" "whitelist_ip_set" {

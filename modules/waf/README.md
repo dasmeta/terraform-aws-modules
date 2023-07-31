@@ -337,9 +337,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.6.0 |
-| <a name="module_monitoring_dashboard"></a> [monitoring\_dashboard](#module\_monitoring\_dashboard) | dasmeta/monitoring/aws//modules/dashboard | 1.7.0 |
-| <a name="module_waf"></a> [waf](#module\_waf) | umotif-public/waf-webaclv2/aws | 4.6.1 |
+| <a name="module_waf"></a> [waf](#module\_waf) | cloudposse/waf/aws | n/a |
 
 ## Resources
 
