@@ -22,14 +22,19 @@ locals {
 }
 
 module "waf" {
-  source = "cloudposse/waf/aws"
+  source = "git::https://github.com/dasmeta/terraform-aws-waf-webaclv2?ref=main"
 
-  name = var.name
+  name_prefix  = var.name
+  alb_arn      = var.alb_arn
+  alb_arn_list = var.alb_arn_list
+  scope        = var.scope
 
-  managed_rule_group_statement_rules = local.rules
-  association_resource_arns          = var.alb_arn_list
+  create_alb_association = var.create_alb_association
+  allow_default_action   = var.allow_default_action # set to allow if not specified
+  visibility_config      = var.visibility_config
+  rules                  = local.rules
 
-  visibility_config = var.visibility_config
+  tags = var.tags
 }
 
 resource "aws_wafv2_ip_set" "whitelist_ip_set" {
