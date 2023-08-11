@@ -15,7 +15,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 100
     },
     {
@@ -27,7 +27,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
     {
@@ -39,7 +39,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
     {
@@ -51,7 +51,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
     {
@@ -63,7 +63,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
     {
@@ -75,7 +75,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
     {
@@ -87,7 +87,7 @@ module "alerts" {
         Region = data.aws_region.current.name
       }
       period    = 60
-      statistic = "sum"
+      statistic = "count"
       threshold = 15
     },
   ]
