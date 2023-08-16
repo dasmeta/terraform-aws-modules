@@ -27,7 +27,7 @@ variable "tags" {
   default     = {}
 }
 
-variable "validate_in_aws" {
+variable "validate" {
   type        = bool
   description = "Whether validate the certificate in R53 zone or not."
   default     = true

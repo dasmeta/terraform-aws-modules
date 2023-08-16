@@ -70,7 +70,7 @@ module ssl-certificate-auth {
 module "this" {
   source = "dasmeta/modules/aws//modules/ssl-certificate"
 
-  validate_in_aws = false
+  validate = false
   domain          = "*.dasmeta.com"
 }
 ```
@@ -107,7 +107,7 @@ No modules.
 | <a name="input_alternative_zones"></a> [alternative\_zones](#input\_alternative\_zones) | This variable use route53. Must equal to alternative\_domains. (Note. When you use wildcard must be equal to main zone) | `list(string)` | `[]` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Main domain name ssl certificate. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | tags | `any` | `{}` | no |
-| <a name="input_validate_in_aws"></a> [validate\_in\_aws](#input\_validate\_in\_aws) | Whether validate the certificate in R53 zone or not. | `bool` | `true` | no |
+| <a name="input_validate"></a> [validate](#input\_validate) | Whether validate the certificate in R53 zone or not. | `bool` | `true` | no |
 | <a name="input_zone"></a> [zone](#input\_zone) | This variable use route53. Can equal to main domain name. | `string` | `""` | no |
 
 ## Outputs
