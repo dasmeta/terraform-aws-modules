@@ -115,4 +115,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | SSL Certificate ARN to be used in ingress controllers |
+| <a name="output_cname_records"></a> [cname\_records](#output\_cname\_records) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

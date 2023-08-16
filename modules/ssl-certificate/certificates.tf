@@ -25,6 +25,12 @@ resource "aws_acm_certificate" "main" {
 }
 
 resource "aws_acm_certificate_validation" "cert" {
+  count = var.validate == true ? 1 : 0
+
   certificate_arn         = aws_acm_certificate.main.arn
   validation_record_fqdns = aws_acm_certificate.main.domain_validation_options[*].resource_record_name
+
+  timeouts {
+    create = "1m"
+  }
 }
