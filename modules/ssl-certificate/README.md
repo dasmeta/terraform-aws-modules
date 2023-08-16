@@ -1,23 +1,17 @@
 # How To
+This module creates SSL Certificates and can validate them in R53.
 
-This module you can use , when create domain certificate
-
-### Example 1: You can use this case when create a wildcard certificate or other subdomain certificate.
-
+### Example 1: Basic
 ```
-# Domain "The main domain"
-# Alternative_domains "Subdomain or other main domain or wildcard domain"
-# Zone "The main zone and equal to main domain"
-# Alternative_zone "When you create alternative_domains, you must specify a zone of the same name, if you create wildcard can you use main domain."
-
 module "ssl-certificate-auth" {
   source = "dasmeta/modules/aws//modules/ssl-certificate"
   domain              = "example.com"
   zone                = "example.com"
 }
+```
 
-or
-
+### Example 2: Domain and Subdomain
+```
 module "ssl-certificate-auth" {
 
   source = "dasmeta/modules/aws//modules/ssl-certificate"
@@ -29,18 +23,10 @@ module "ssl-certificate-auth" {
       value   = "ssl"
   }
 }
-
-
 ```
 
-### Example 2: You can use this case when you create a single certificate և add different subdomains or another domain name
-
+### Example 3: Single Certificate with Another Domain Name
 ```
-# Domain "The main domain"
-# Alternative_domains "Subdomain or other main domain or wildcard domain"
-# Zone "The main zone and equal to main domain"
-# Alternative_zone "When you create alternative_domains, you must specify a zone of the same name, if you create wildcard can you use main domain."
-
 module ssl-certificate-auth {
   source = "dasmeta/modules/aws//modules/ssl-certificate"
   domain              = "example.com"
@@ -52,16 +38,16 @@ module ssl-certificate-auth {
       value   = "ssl"
   }
 }
-
 ```
 
-### Example 3: You can use this case when you create certificate different region.
+### Example 4: Certificate in a Different Region
 
 ```
 provider "aws" {
   alias  = "virginia"
   region = "us-east-1"
 }
+
 module ssl-certificate-auth {
   source = "dasmeta/modules/aws//modules/ssl-certificate"
   domain              = "test.devops.dasmeta.com"
@@ -76,6 +62,16 @@ module ssl-certificate-auth {
   providers {
     aws = aws.virginia
   }
+}
+```
+
+### Example 5: Certificate without Validating it in R53
+```
+module "this" {
+  source = "dasmeta/modules/aws//modules/ssl-certificate"
+
+  validate_in_aws = false
+  domain          = "*.dasmeta.com"
 }
 ```
 
@@ -111,7 +107,8 @@ No modules.
 | <a name="input_alternative_zones"></a> [alternative\_zones](#input\_alternative\_zones) | This variable use route53. Must equal to alternative\_domains. (Note. When you use wildcard must be equal to main zone) | `list(string)` | `[]` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | Main domain name ssl certificate. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | tags | `any` | `{}` | no |
-| <a name="input_zone"></a> [zone](#input\_zone) | This variable use route53. Can equal to main domain name. | `string` | n/a | yes |
+| <a name="input_validate_in_aws"></a> [validate\_in\_aws](#input\_validate\_in\_aws) | Whether validate the certificate in R53 zone or not. | `bool` | `true` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | This variable use route53. Can equal to main domain name. | `string` | `""` | no |
 
 ## Outputs
 
