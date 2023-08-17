@@ -12,6 +12,7 @@ variable "alternative_domains" {
 variable "zone" {
   type        = string
   description = "This variable use route53. Can equal to main domain name."
+  default     = ""
 }
 
 variable "alternative_zones" {
@@ -24,4 +25,10 @@ variable "tags" {
   type        = any
   description = "tags"
   default     = {}
+}
+
+variable "validate" {
+  type        = bool
+  description = "Whether validate the certificate in R53 zone or not."
+  default     = true
 }
