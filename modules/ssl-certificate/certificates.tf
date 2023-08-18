@@ -7,7 +7,7 @@ locals {
   all_domains = { for index, domain in concat([var.domain], var.alternative_domains) :
     domain => {
       domain = domain
-      zone   = local.domains_union[index]
+      zone   = var.validate == true ? local.domains_union[index] : ""
     }
   }
 }
