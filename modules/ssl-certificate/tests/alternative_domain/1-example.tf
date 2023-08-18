@@ -3,5 +3,5 @@ module "this" {
 
   validate            = false
   domain              = "*.devops.dasmeta.com"
-  alternative_domains = ["dm.example.io"]
+  alternative_domains = ["dm.example.io", "dm.example.am"]
 }
