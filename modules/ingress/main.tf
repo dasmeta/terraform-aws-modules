@@ -2,12 +2,27 @@ locals {
   group_name = var.name
 
   //dummy_path has to he specified by default otherwise ingress can't be built
-  dummy_path = [{
-    name        = "response-static"
-    port        = null
-    path        = "/Pto48SjdzKBclyL5"
-    static_port = "use-annotation"
-  }]
+  dummy_path = var.ssl_redirect == true ? [
+    {
+      name        = "response-static"
+      port        = null
+      path        = "/Pto48SjdzKBclyL5"
+      static_port = "use-annotation"
+    },
+    {
+      name        = "ssl-redirect"
+      port        = null
+      path        = "/*"
+      static_port = "use-annotation"
+    }
+    ] : [
+    {
+      name        = "response-static"
+      port        = null
+      path        = "/Pto48SjdzKBclyL5"
+      static_port = "use-annotation"
+    }
+  ]
 
   annotations = {
     "alb.ingress.kubernetes.io/load-balancer-name"       = var.name
