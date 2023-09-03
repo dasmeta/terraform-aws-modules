@@ -18,7 +18,7 @@ variable "zone" {
 variable "alternative_zones" {
   type        = list(string)
   description = "This variable uses route53. Must equal to alternative_domains. (Note. When you use wildcard must be equal to main zone)"
-  default     = [""]
+  default     = []
 }
 
 variable "tags" {

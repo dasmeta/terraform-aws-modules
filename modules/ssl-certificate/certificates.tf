@@ -1,13 +1,14 @@
 locals {
-  domains_union = concat([var.zone], var.alternative_zones)
-  all_zones = { for index, zone in toset(local.domains_union) :
+  zones_union = concat([var.zone], var.alternative_zones)
+  all_zones = { for index, zone in toset(local.zones_union) :
     zone => zone
   }
 
-  all_domains = { for index, domain in concat([var.domain], var.alternative_domains) :
+  all_domains = {
+    for index, domain in concat([var.domain], var.alternative_domains) :
     domain => {
       domain = domain
-      zone   = var.validate == true ? local.domains_union[index] : ""
+      zone   = var.validate == true ? local.zones_union[index] : ""
     }
   }
 }
