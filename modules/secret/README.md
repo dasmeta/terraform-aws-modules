@@ -3,7 +3,7 @@
 
 ## Example usage 1 (when the secret is a value)
 module test-secret {
-  source  = "dasmeta/modules/aws//modules/cloudwatch"
+  source  = "dasmeta/modules/aws//modules/secret"
 
   name = "test-secret"
   value = "test-secret-value"
@@ -12,7 +12,7 @@ module test-secret {
 
 ## Example usage 2 (when the secret is a key-value pair)
 module test-secret {
-  source  = "dasmeta/modules/aws//modules/cloudwatch"
+  source  = "dasmeta/modules/aws//modules/secret"
 
   name = "test-secret"
   value = {
@@ -23,6 +23,19 @@ module test-secret {
 }
 ```
 
+## Example usage 3 (when the secret is a key-value pair)
+module test-secret {
+  source  = "dasmeta/modules/aws//modules/secret"
+
+  name = "test-secret"
+  value = {
+    "key1": "value1"
+    "key2": "value2"
+    "key3": "value3"
+  }
+  kms_key_id = "arn:aws:kms:us-east-1:<account_id>:key/<kms_key_id>"
+}
+```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
