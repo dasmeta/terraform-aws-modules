@@ -9,6 +9,12 @@ variable "value" {
   description = "Secret value"
 }
 
+variable "kms_key_id" {
+  type        = any
+  default     = null
+  description = "ARN or Id of the AWS KMS key to be used to encrypt the secret values in the versions stored in this secret."
+}
+
 variable "recovery_window_in_days" {
   type        = number
   default     = 30
