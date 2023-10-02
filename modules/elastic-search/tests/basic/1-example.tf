@@ -7,6 +7,7 @@ module "this" {
   vpc_options_security_group_whitelist_cidr = ["10.16.0.0/16"]
   ebs_options_volume_size                   = 10
 
+  encrypt_at_rest_enabled                                  = true
   advanced_security_options_enabled                        = true
   advanced_security_options_internal_user_database_enabled = true
   advanced_security_options_master_user_username           = "admin"
