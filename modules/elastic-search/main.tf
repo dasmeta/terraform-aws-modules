@@ -42,12 +42,12 @@ module "elastic_search" {
 
 
   advanced_security_options_enabled                        = var.advanced_security_options_enabled
-  advanced_security_options_internal_user_database_enabled = var.advanced_security_options_internal_user_database_enabled
-  advanced_security_options_master_user_arn                = var.advanced_security_options_master_user_arn
-  advanced_security_options_master_user_username           = var.advanced_security_options_master_user_username
-  advanced_security_options_master_user_password           = var.advanced_security_options_master_user_password
-  advanced_security_options_create_random_master_password  = var.advanced_security_options_create_random_master_password
-  advanced_security_options_random_master_password_length  = var.advanced_security_options_random_master_password_length
+  advanced_security_options_internal_user_database_enabled = var.internal_user_database_enabled
+  advanced_security_options_master_user_arn                = var.master_user_arn
+  advanced_security_options_master_user_username           = var.master_user_username
+  advanced_security_options_master_user_password           = var.master_user_password
+  advanced_security_options_create_random_master_password  = var.create_random_master_password
+  advanced_security_options_random_master_password_length  = var.random_master_password_length
 
 }
 

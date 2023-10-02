@@ -117,37 +117,37 @@ variable "advanced_security_options_enabled" {
   default     = false
 }
 
-variable "advanced_security_options_internal_user_database_enabled" {
+variable "internal_user_database_enabled" {
   description = "Whether the internal user database is enabled. If not set, defaults to false by the AWS API."
   type        = bool
   default     = false
 }
 
-variable "advanced_security_options_master_user_arn" {
+variable "master_user_arn" {
   description = "ARN for the master user. Only specify if `internal_user_database_enabled` is not set or set to `false`)"
   type        = string
   default     = null
 }
 
-variable "advanced_security_options_master_user_username" {
+variable "master_user_username" {
   description = "The master user's username, which is stored in the Amazon Elasticsearch Service domain's internal database. Only specify if `internal_user_database_enabled` is set to `true`."
   type        = string
   default     = null
 }
 
-variable "advanced_security_options_master_user_password" {
+variable "master_user_password" {
   description = "The master user's password, which is stored in the Amazon Elasticsearch Service domain's internal database. Only specify if `internal_user_database_enabled` is set to `true`."
   type        = string
   default     = null
 }
 
-variable "advanced_security_options_create_random_master_password" {
+variable "create_random_master_password" {
   description = "Whether to create random master password for Elasticsearch master user"
   type        = bool
   default     = false
 }
 
-variable "advanced_security_options_random_master_password_length" {
+variable "random_master_password_length" {
   description = "Length of random master password to create"
   type        = number
   default     = 16
