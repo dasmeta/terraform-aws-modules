@@ -55,6 +55,7 @@ module "elastic-search" {
 | <a name="input_create_random_master_password"></a> [create\_random\_master\_password](#input\_create\_random\_master\_password) | Whether to create random master password for Elasticsearch master user | `bool` | `false` | no |
 | <a name="input_create_service_link_role"></a> [create\_service\_link\_role](#input\_create\_service\_link\_role) | Create service link role for AWS Elasticsearch Service | `bool` | `true` | no |
 | <a name="input_dedicated_master_enabled"></a> [dedicated\_master\_enabled](#input\_dedicated\_master\_enabled) | Have dedicated master or not for ES | `bool` | `false` | no |
+| <a name="input_domain_endpoint_options_enforce_https"></a> [domain\_endpoint\_options\_enforce\_https](#input\_domain\_endpoint\_options\_enforce\_https) | Whether or not to require HTTPS | `bool` | `false` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name of ES | `string` | n/a | yes |
 | <a name="input_ebs_options_ebs_enabled"></a> [ebs\_options\_ebs\_enabled](#input\_ebs\_options\_ebs\_enabled) | Whether enable EBS for ES | `bool` | `true` | no |
 | <a name="input_ebs_options_volume_size"></a> [ebs\_options\_volume\_size](#input\_ebs\_options\_volume\_size) | Storage volume size in GB | `number` | `10` | no |

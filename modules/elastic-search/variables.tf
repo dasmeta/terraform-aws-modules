@@ -129,6 +129,12 @@ variable "master_user_arn" {
   default     = null
 }
 
+variable "domain_endpoint_options_enforce_https" {
+  description = "Whether or not to require HTTPS"
+  type        = bool
+  default     = false
+}
+
 variable "master_user_username" {
   description = "The master user's username, which is stored in the Amazon Elasticsearch Service domain's internal database. Only specify if `internal_user_database_enabled` is set to `true`."
   type        = string

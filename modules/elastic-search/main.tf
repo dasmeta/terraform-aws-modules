@@ -48,7 +48,7 @@ module "elastic_search" {
   advanced_security_options_master_user_password           = var.master_user_password
   advanced_security_options_create_random_master_password  = var.create_random_master_password
   advanced_security_options_random_master_password_length  = var.random_master_password_length
-
+  domain_endpoint_options_enforce_https                    = var.domain_endpoint_options_enforce_https
 }
 
 
