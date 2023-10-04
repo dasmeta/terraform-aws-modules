@@ -53,7 +53,7 @@ variable "load_balancer_attributes" {
 
 variable "healthcheck_success_codes" {
   type        = string
-  default     = "200"
+  default     = "200-399"
   description = "Specifies the HTTP status code that should be expected when doing health checks against the specified health check path."
 }
 
