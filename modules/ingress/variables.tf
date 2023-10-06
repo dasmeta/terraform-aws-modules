@@ -41,7 +41,7 @@ variable "healthcheck_path" {
 
 variable "ssl_policy" {
   type        = string
-  default     = "ELBSecurityPolicy-2016-08"
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   description = "Specifies the Security Policy that should be assigned to the ALB."
 }
 

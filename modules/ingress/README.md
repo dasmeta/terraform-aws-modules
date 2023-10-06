@@ -127,7 +127,7 @@ No modules.
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | K8s namespace where the Ingress will be created. | `string` | `"default"` | no |
 | <a name="input_path"></a> [path](#input\_path) | Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend. | <pre>list(object({<br>    name = string<br>    port = string<br>    path = string<br>  }))</pre> | `null` | no |
 | <a name="input_scheme"></a> [scheme](#input\_scheme) | Specifies whether your LoadBalancer will be internet facing. | `string` | `"internet-facing"` | no |
-| <a name="input_ssl_policy"></a> [ssl\_policy](#input\_ssl\_policy) | Specifies the Security Policy that should be assigned to the ALB. | `string` | `"ELBSecurityPolicy-2016-08"` | no |
+| <a name="input_ssl_policy"></a> [ssl\_policy](#input\_ssl\_policy) | Specifies the Security Policy that should be assigned to the ALB. | `string` | `"ELBSecurityPolicy-TLS13-1-2-2021-06"` | no |
 | <a name="input_ssl_redirect"></a> [ssl\_redirect](#input\_ssl\_redirect) | Redirects HTTP traffic into HTTPs if set true. | `bool` | `true` | no |
 | <a name="input_tls_hosts"></a> [tls\_hosts](#input\_tls\_hosts) | Hosts are a list of hosts included in the TLS certificate. | `list(string)` | `null` | no |
 
