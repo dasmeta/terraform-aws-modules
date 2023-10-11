@@ -89,3 +89,9 @@ variable "architecture" {
   type    = string
   default = "replicaset"
 }
+
+variable "priority_class_name" {
+  type        = string
+  description = "Allows to set priority on a node"
+  default     = "high-priority"
+}
