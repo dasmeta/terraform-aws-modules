@@ -1,32 +1,34 @@
 # Terraform AWS Client VPN Endpoint
 
-## example with SSO
+## Example with SSO
 
 ### How to create Application for VPN in AWS Single Sign-On
 
-- Create private certificate in AWS Certificate Manager. Copy arn and use in module
-- Open AWS SSO service page. Select Applications from the sidebar
-- Choose Add a new application
-- Select Add a custom SAML 2.0 application
+- Create Public certificate in AWS Certificate Manager If there is no one. Copy arn and use in module
+- Open **AWS SSO** service page. Select Applications from the sidebar
+- Choose **Add application**
+- Select **Add a custom SAML 2.0 application**
+- Download **AWS SSO SAML** metadata file.
 - Fill Display name and Description
 - Set session duration (VPN session duration) - 12h
-- Select "If you don't have a metadata file, you can manually type your metadata values."
-- Application ACS URL: http://127.0.0.1:35001
-- Application SAML audience: urn:amazon:webservices:clientvpn
+- Select **If you don't have a metadata file, you can manually type your metadata values**.
+- Application ACS URL:  `http://127.0.0.1:35001`
+- Application SAML audience: `urn:amazon:webservices:clientvpn`
 - Save changes
-- Download AWS SSO SAML metadata file.
-- Select tab "Attribute mappings":
+- **Details** section → **Actions** →  **Edit Attribute Mappings**
+- Add this mappings
   - Subject -> ${user:subject} -> emailAddress
   - NameID -> ${user:email} -> basic
   - FirstName -> ${user:name} -> basic
   - LastName -> ${user:familyName} -> basic
-- Select tab "Assigned users", if you haven't user you should be create in SSO.
+- Choose **Save Changes**
+- Select  **Assign users**, if you don't have user, you should create in **SSO**.
 - Assign users or groups created on previous step
-- You add AWS Account in AWS SSO, and add create Permission sets.
-- Go to IAM Service -> "Identity Providers" and create "Add provider" choose configure provider "SAML", add provider name and upload SSO SAML metadata file.
-- Copy saml arn and use in module.
-- When module completely create you can download aws client vpn. https://aws.amazon.com/vpn/client-vpn-download/
-- Add vpn profile and add ovpn file.
+- Create **Permission Sets** (Left side)
+- Go to **AWS Accounts** select your Management account then choose **Assign Users and Groups**
+- Select SSO user you have created → **Next** → Choose Permission set you have created and which is **Compliant** to that user → **Next** → **Submit**
+- Go to **IAM Service** -> **Identity Providers** -> **Add provider** choose  **Provider Type** `SAML`, fill **Provider** name and upload SSO SAML metadata file you have download during SSO setup.
+- Copy **SAML arn** and use in module.
 
 ### module setup for SSO
 
@@ -36,6 +38,11 @@ module network {
     version = "0.36.4"
 
     # If you connect many vpc in vpn you should create vpc peering
+    # Also Need to properly configure provider block if there is some error related
+#  providers = {
+#    aws = aws
+#    aws.peer = aws
+#  }
     peering_vpc_ids               = ["vpc-0bdf97ed6f2d42f37","vpc-063637d7c4597b4cf"]
 
     # VPN vpc Id
@@ -62,12 +69,12 @@ module network {
 }
 ```
 
-## example with client certificate
+## Example with client certificate
 
 In order to use VPN with client certificate one have to instal openvpn and easy-rsa
 here is simple steps for
 
-### how to create CA certificate server and client keys using easy-rsa tool
+### How to create CA certificate server and client keys using easy-rsa tool
 
 ```sh
 git clone https://github.com/OpenVPN/easy-rsa.git
@@ -86,14 +93,14 @@ cd ./custom_folder/
 
 ```
 
-### upload generated server and client certificates into aws CM (it will output certificate arm)
+### Upload generated server and client certificates into aws CM (it will output certificate arm)
 
 ```sh
 aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
 aws acm import-certificate --certificate fileb://client1.domain.tld.crt --private-key fileb://client1.domain.tld.key --certificate-chain fileb://ca.crt
 ```
 
-### download .ovpn from vpn endpoint and edit it by adding the following in end of file
+### Download .ovpn from vpn endpoint and edit it by adding the following in end of file
 
 cert /path/client1.domain.tld.crt
 key /path/client1.domain.tld.key
