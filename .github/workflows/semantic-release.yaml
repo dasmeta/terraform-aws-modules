@@ -9,11 +9,10 @@ jobs:
       discussions: write
       pull-requests: write
       id-token: write
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Semantic Release
