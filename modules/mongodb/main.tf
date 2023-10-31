@@ -99,4 +99,9 @@ resource "helm_release" "mongodb" {
     name  = "architecture"
     value = var.architecture
   }
+
+  set {
+    name  = "priorityClassName"
+    value = var.priority_class_name
+  }
 }

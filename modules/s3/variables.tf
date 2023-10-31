@@ -5,7 +5,7 @@ variable "name" {
 
 variable "acl" {
   type        = string
-  default     = "private"
+  default     = null # "private"
   description = "The acl config for bucket, NOTE: 'acl' conflicts with 'grant' and 'owner'."
 }
 
@@ -47,7 +47,7 @@ variable "owner" {
 
 variable "create_iam_user" {
   type        = bool
-  default     = true
+  default     = false
   description = "Whether to create specific api access user to this created bucket."
 }
 

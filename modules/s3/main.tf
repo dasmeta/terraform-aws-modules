@@ -2,12 +2,13 @@ module "bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.1.0"
 
-  bucket                  = var.name
-  acl                     = var.acl
-  ignore_public_acls      = var.ignore_public_acls
-  restrict_public_buckets = var.restrict_public_buckets
-  block_public_acls       = var.block_public_acls
-  block_public_policy     = var.block_public_policy
+  bucket                   = var.name
+  acl                      = var.acl
+  ignore_public_acls       = var.ignore_public_acls
+  restrict_public_buckets  = var.restrict_public_buckets
+  block_public_acls        = var.block_public_acls
+  block_public_policy      = var.block_public_policy
+  control_object_ownership = var.acl != null ? true : false
 
   versioning = var.versioning
 
