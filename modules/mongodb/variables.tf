@@ -89,3 +89,9 @@ variable "architecture" {
   type    = string
   default = "replicaset"
 }
+
+variable "priority_class_name" {
+  type        = string
+  default     = ""
+  description = "Priority class name for pods. Useful if mongodb is co-located with other resources and consumes lot of memory."
+}
