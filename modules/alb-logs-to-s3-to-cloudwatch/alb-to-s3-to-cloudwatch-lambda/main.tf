@@ -1,5 +1,4 @@
 data "aws_caller_identity" "current" {}
-
 data "aws_region" "current" {}
 
 module "lambda" {
@@ -8,7 +7,7 @@ module "lambda" {
 
   function_name = coalesce(var.function_name, "${substr(var.bucket_name, 0, 45)}-to-cloudwatch-logs")
   handler       = "lambda.handler"
-  runtime       = "python3.7"
+  runtime       = "python3.11"
   memory_size   = var.memory_size
   timeout       = var.timeout
 
