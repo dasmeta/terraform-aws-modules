@@ -2,12 +2,16 @@ version: 2
 
 updates:
 
-  - package-ecosystem: github-actions
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: feat
 
-  - package-ecosystem: terraform
+  - package-ecosystem: "terraform"
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: feat
