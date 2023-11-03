@@ -23,6 +23,8 @@ This modules now are separated in other repositories below are the links of that
 10. cloudwatch-log-metric -> https://github.com/dasmeta/terraform-aws-monitoring/tree/main/modules/cloudwatch-log-based-metrics
 10. module source: dasmeta/modules/aws//modules/route53 -> dasmeta/dns/aws//modules/route53
     code sources: ./modules/route53 -> https://github.com/dasmeta/terraform-aws-dns/tree/main/modules/route53
+11. module source: dasmeta/modules/aws//modules/s3 -> dasmeta/s3/aws
+    code sources: ./modules/s3 -> https://github.com/dasmeta/terraform-aws-s3/
 
 ## Requirements for pre-commit hooks
 for Run our pre-commit hooks you need to install
