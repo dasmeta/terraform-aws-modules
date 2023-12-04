@@ -21,3 +21,9 @@ variable "image_tag_mutability" {
   description = "The tag mutability setting for the repository. Must be one of: MUTABLE or IMMUTABLE"
   default     = "MUTABLE"
 }
+
+variable "principals_readonly_access" {
+  type        = list(string)
+  description = "Principal ARNs to provide with readonly access to the ECR"
+  default     = []
+}
