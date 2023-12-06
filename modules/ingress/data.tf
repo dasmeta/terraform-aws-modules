@@ -3,4 +3,8 @@ data "kubernetes_ingress_v1" "ingress" {
     name      = var.name
     namespace = var.namespace
   }
+
+  depends_on = [
+    kubernetes_ingress_v1.this_v1
+  ]
 }
