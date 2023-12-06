@@ -138,5 +138,6 @@ No modules.
 | <a name="output_annotations"></a> [annotations](#output\_annotations) | Ingress resource's annotations. |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The Ingress group name. |
 | <a name="output_ingress_hostname"></a> [ingress\_hostname](#output\_ingress\_hostname) | Load Balancer DNS name. |
+| <a name="output_ingress_zone_id"></a> [ingress\_zone\_id](#output\_ingress\_zone\_id) | Load Balancer all info. |
 | <a name="output_name"></a> [name](#output\_name) | The name of Ingress. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

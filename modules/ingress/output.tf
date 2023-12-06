@@ -20,5 +20,5 @@ output "ingress_hostname" {
 
 output "ingress_zone_id" {
   value       = data.kubernetes_ingress_v1.ingress
-  description = "Load Balancer DNS name."
+  description = "Load Balancer all info."
 }
