@@ -7,7 +7,7 @@ module "lambda" {
 
   function_name = coalesce(var.function_name, "${substr(var.bucket_name, 0, 45)}-to-cloudwatch-logs")
   handler       = "lambda.handler"
-  runtime       = "python3.11"
+  runtime       = "python3.9"
   memory_size   = var.memory_size
   timeout       = var.timeout
 
