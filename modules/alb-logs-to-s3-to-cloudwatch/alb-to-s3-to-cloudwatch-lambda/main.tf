@@ -2,32 +2,21 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 module "lambda" {
-  source  = "raymondbutcher/lambda-builder/aws"
-  version = "1.1.0"
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "4.7.1"
 
   function_name = coalesce(var.function_name, "${substr(var.bucket_name, 0, 45)}-to-cloudwatch-logs")
   handler       = "lambda.handler"
   runtime       = "python3.9"
-  memory_size   = var.memory_size
-  timeout       = var.timeout
+  publish       = true
+  source_path   = "${path.module}/src"
 
-  # Build the package from the source directory and write it to the specified
-  # filename. The function has no dependencies and no build steps so this
-  # build mode is suitable; it just zips up the directory into the filename.
-  build_mode = "FILENAME"
-  source_dir = "${path.module}/src"
-  filename   = "${path.module}/package.zip"
+  attach_policy_json = true
+  policy_json        = data.aws_iam_policy_document.lambda.json
+  role_name          = var.function_name
 
-  # Create and use an IAM role which can log function output to CloudWatch,
-  # plus the custom policy which can copy ALB logs from S3 to CloudWatch.
-  role_cloudwatch_logs       = true
-  role_custom_policies       = [data.aws_iam_policy_document.lambda.json]
-  role_custom_policies_count = 1
-
-  environment = {
-    variables = {
-      LOG_GROUP_NAME = var.log_group_name
-    }
+  environment_variables = {
+    LOG_GROUP_NAME = var.log_group_name
   }
 }
 
@@ -47,14 +36,14 @@ data "aws_iam_policy_document" "lambda" {
 resource "aws_cloudwatch_metric_alarm" "errors" {
   count = var.create_alarm ? 1 : 0
 
-  alarm_name        = "${module.lambda.function_name}-errors"
-  alarm_description = "${module.lambda.function_name} invocation errors"
+  alarm_name        = "${module.lambda.lambda_function_name}-errors"
+  alarm_description = "${module.lambda.lambda_function_name} invocation errors"
 
   namespace   = "AWS/Lambda"
   metric_name = "Errors"
 
   dimensions = {
-    FunctionName = module.lambda.function_name
+    FunctionName = module.lambda.lambda_function_name
   }
 
   statistic           = "Sum"
