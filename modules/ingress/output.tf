@@ -18,6 +18,11 @@ output "ingress_hostname" {
   description = "Load Balancer DNS name."
 }
 
+output "ingress_all" {
+  value       = try(data.aws_lb.ingress, null)
+  description = "Load Balancer all info."
+}
+
 output "ingress_zone_id" {
   value       = data.kubernetes_ingress_v1.ingress
   description = "Load Balancer all info."

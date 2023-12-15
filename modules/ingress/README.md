@@ -99,26 +99,38 @@ spec:
 
 | Name | Version |
 |------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_alb-to-cloudwatch"></a> [alb-to-cloudwatch](#module\_alb-to-cloudwatch) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.9.2 |
+| <a name="module_cw_alerts"></a> [cw\_alerts](#module\_cw\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.3.5 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [kubernetes_ingress_v1.this_v1](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) | resource |
+| [null_resource.previous](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [aws_lb.ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [kubernetes_ingress_v1.ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/ingress_v1) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for ALB | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
 | <a name="input_backend_protocol"></a> [backend\_protocol](#input\_backend\_protocol) | Specifies the protocol used when route traffic to pods. | `string` | `"HTTP"` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule. | `string` | `""` | no |
 | <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br>    service_name = string<br>    service_port = string<br>  })</pre> | <pre>{<br>  "service_name": null,<br>  "service_port": null<br>}</pre> | no |
+| <a name="input_enable_send_alb_logs_to_cloudwatch"></a> [enable\_send\_alb\_logs\_to\_cloudwatch](#input\_enable\_send\_alb\_logs\_to\_cloudwatch) | Send ALB logs to Cloudwatch | `bool` | `false` | no |
 | <a name="input_healthcheck_path"></a> [healthcheck\_path](#input\_healthcheck\_path) | Specifies the HTTP path when performing health check on targets. | `string` | `"/"` | no |
 | <a name="input_healthcheck_success_codes"></a> [healthcheck\_success\_codes](#input\_healthcheck\_success\_codes) | Specifies the HTTP status code that should be expected when doing health checks against the specified health check path. | `string` | `"200-399"` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Host is the fully qualified domain name of a network host. | `string` | `null` | no |
@@ -137,6 +149,7 @@ No modules.
 |------|-------------|
 | <a name="output_annotations"></a> [annotations](#output\_annotations) | Ingress resource's annotations. |
 | <a name="output_group_name"></a> [group\_name](#output\_group\_name) | The Ingress group name. |
+| <a name="output_ingress_all"></a> [ingress\_all](#output\_ingress\_all) | Load Balancer all info. |
 | <a name="output_ingress_hostname"></a> [ingress\_hostname](#output\_ingress\_hostname) | Load Balancer DNS name. |
 | <a name="output_ingress_zone_id"></a> [ingress\_zone\_id](#output\_ingress\_zone\_id) | Load Balancer all info. |
 | <a name="output_name"></a> [name](#output\_name) | The name of Ingress. |
