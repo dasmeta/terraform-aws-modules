@@ -8,7 +8,7 @@ module "cw_alerts" {
 
   alerts = [
     {
-      name   = "ALB ${var.name} have too many 5xx error"
+      name   = "ALB ${var.name} has too many 5xx error"
       source = "AWS/ApplicationELB/HTTPCode_Target_5XX_Count"
       filters = {
         LoadBalancer = data.aws_lb.ingress.arn_suffix
