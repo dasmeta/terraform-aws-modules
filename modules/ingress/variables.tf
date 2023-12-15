@@ -51,6 +51,21 @@ variable "load_balancer_attributes" {
   description = "Specifies Load Balancer Attributes that should be applied to the ALB."
 }
 
+variable "enable_send_alb_logs_to_cloudwatch" {
+  type        = bool
+  default     = false
+  description = "Send ALB logs to Cloudwatch"
+}
+
+variable "alarms" {
+  type = object({
+    enabled       = optional(bool, true)
+    sns_topic     = string
+    custom_values = optional(any, {})
+  })
+  description = "Alarms for ALB"
+}
+
 variable "healthcheck_success_codes" {
   type        = string
   default     = "200-399"

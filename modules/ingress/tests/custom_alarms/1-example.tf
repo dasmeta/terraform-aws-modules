@@ -19,6 +19,19 @@ module "ingress" {
 
   alarms = {
     sns_topic = "Default"
+    # If you want overwrite existing values
+    custom_values = {
+      error_5xx = {
+        statistic = "sum"
+        threshold = "10"
+        period    = "60"
+      },
+      response_time = {
+        period    = "60"
+        threshold = "10"
+        statistic = "avg"
+      }
+    }
   }
 }
 
@@ -35,6 +48,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.example.certificate_authority[0].data)
   token                  = data.aws_eks_cluster_auth.example.token
 }
+
 
 
 output "ingress_all" {
