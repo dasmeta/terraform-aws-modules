@@ -7,7 +7,7 @@ module "ingress" {
   source = "../.."
 
   name      = "dev"
-  hostname  = "test.dasmeta.com"
+  hostnames = ["test.dasmeta.com"]
   scheme    = "internal"
   namespace = "default"
 
@@ -23,22 +23,6 @@ module "ingress" {
     sns_topic = "Default"
   }
 }
-
-data "aws_eks_cluster" "example" {
-  name = "test-eks-spot-instances"
-}
-
-data "aws_eks_cluster_auth" "example" {
-  name = "test-eks-spot-instances"
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.example.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.example.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.example.token
-}
-
-
 
 output "ingress_all" {
   value       = module.ingress.ingress_all

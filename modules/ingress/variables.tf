@@ -3,8 +3,8 @@ variable "name" {
   description = "Name of the Ingress, must be unique."
 }
 
-variable "hostname" {
-  type        = string
+variable "hostnames" {
+  type        = list(string)
   default     = null
   description = "Host is the fully qualified domain name of a network host."
 }

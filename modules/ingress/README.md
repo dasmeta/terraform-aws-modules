@@ -133,7 +133,7 @@ spec:
 | <a name="input_enable_send_alb_logs_to_cloudwatch"></a> [enable\_send\_alb\_logs\_to\_cloudwatch](#input\_enable\_send\_alb\_logs\_to\_cloudwatch) | Send ALB logs to Cloudwatch | `bool` | `false` | no |
 | <a name="input_healthcheck_path"></a> [healthcheck\_path](#input\_healthcheck\_path) | Specifies the HTTP path when performing health check on targets. | `string` | `"/"` | no |
 | <a name="input_healthcheck_success_codes"></a> [healthcheck\_success\_codes](#input\_healthcheck\_success\_codes) | Specifies the HTTP status code that should be expected when doing health checks against the specified health check path. | `string` | `"200-399"` | no |
-| <a name="input_hostname"></a> [hostname](#input\_hostname) | Host is the fully qualified domain name of a network host. | `string` | `null` | no |
+| <a name="input_hostnames"></a> [hostnames](#input\_hostnames) | Host is the fully qualified domain name of a network host. | `list(string)` | `null` | no |
 | <a name="input_load_balancer_attributes"></a> [load\_balancer\_attributes](#input\_load\_balancer\_attributes) | Specifies Load Balancer Attributes that should be applied to the ALB. | `string` | `""` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Ingress, must be unique. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | K8s namespace where the Ingress will be created. | `string` | `"default"` | no |

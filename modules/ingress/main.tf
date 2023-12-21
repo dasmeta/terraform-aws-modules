@@ -23,7 +23,7 @@ locals {
       static_port = "use-annotation"
     }
   ]
-  alb_log_bucket_name = "alb-${var.name}-backet"
+  alb_log_bucket_name = "alb-${var.name}-bucket"
 
   annotations = {
     "alb.ingress.kubernetes.io/load-balancer-name"       = var.name
@@ -63,23 +63,26 @@ resource "kubernetes_ingress_v1" "this_v1" {
         }
       }
     }
-    rule {
-      host = var.hostname
-      http {
+    dynamic "rule" {
+      for_each = var.hostnames
+      content {
+        host = rule.value # Here, each hostname is assigned individually.
 
-        dynamic "path" {
-          for_each = var.path != null ? var.path : local.dummy_path
-          content {
-            backend {
-              service {
-                name = path.value["name"]
-                port {
-                  number = path.value["port"]
-                  name   = var.path != null ? null : path.value["static_port"]
+        http {
+          dynamic "path" {
+            for_each = var.path != null ? var.path : local.dummy_path
+            content {
+              backend {
+                service {
+                  name = path.value["name"]
+                  port {
+                    number = path.value["port"]
+                    name   = var.path != null ? null : path.value["static_port"]
+                  }
                 }
               }
+              path = path.value["path"]
             }
-            path = path.value["path"]
           }
         }
       }
@@ -92,8 +95,4 @@ resource "kubernetes_ingress_v1" "this_v1" {
       }
     }
   }
-
-  depends_on = [
-    module.alb-to-cloudwatch
-  ]
 }

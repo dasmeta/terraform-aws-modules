@@ -6,7 +6,7 @@ terraform {
 
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.41"
+      version = "~> 4.0"
     }
 
     kubernetes = {
@@ -25,7 +25,7 @@ terraform {
  export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
 */
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-east-1"
 }
 
 data "aws_eks_cluster" "example" {
