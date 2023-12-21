@@ -64,7 +64,7 @@ resource "kubernetes_ingress_v1" "this_v1" {
       }
     }
     dynamic "rule" {
-      for_each = var.hostnames
+      for_each = var.additional_hostnames != [] ? concat([var.hostname], var.additional_hostnames) : [var.hostname]
       content {
         host = rule.value # Here, each hostname is assigned individually.
 

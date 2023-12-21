@@ -3,10 +3,16 @@ variable "name" {
   description = "Name of the Ingress, must be unique."
 }
 
-variable "hostnames" {
-  type        = list(string)
+variable "hostname" {
+  type        = string
   default     = null
   description = "Host is the fully qualified domain name of a network host."
+}
+
+variable "additional_hostnames" {
+  type        = list(string)
+  default     = []
+  description = "Additional hosts besides the main one: for example, if hostname is dasmeta.com, an additional hostname can be *.dasmeta.com"
 }
 
 variable "scheme" {

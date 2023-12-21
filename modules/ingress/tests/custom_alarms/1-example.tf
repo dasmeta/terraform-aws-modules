@@ -7,7 +7,7 @@ module "ingress" {
   source = "../.."
 
   name      = "dev"
-  hostnames = ["test.dasmeta.com"]
+  hostname  = "test.dasmeta.com"
   scheme    = "internal"
   namespace = "default"
 

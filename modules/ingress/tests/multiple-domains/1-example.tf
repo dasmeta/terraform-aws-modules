@@ -6,8 +6,9 @@ data "aws_acm_certificate" "issued" {
 module "this" {
   source = "../.."
 
-  name      = "test"
-  hostnames = ["test.dasmeta.com", "*.test.dasmeta.com"]
+  name                 = "test"
+  hostname             = "test.dasmeta.com"
+  additional_hostnames = ["*.test.dasmeta.com"]
 
   certificate_arn           = data.aws_acm_certificate.issued.arn
   healthcheck_path          = "/health"
