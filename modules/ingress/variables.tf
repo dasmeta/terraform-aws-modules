@@ -9,6 +9,12 @@ variable "hostname" {
   description = "Host is the fully qualified domain name of a network host."
 }
 
+variable "additional_hostnames" {
+  type        = list(string)
+  default     = []
+  description = "Additional hosts besides the main one: for example, if hostname is dasmeta.com, an additional hostname can be *.dasmeta.com"
+}
+
 variable "scheme" {
   type        = string
   default     = "internet-facing"

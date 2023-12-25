@@ -126,6 +126,7 @@ spec:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_hostnames"></a> [additional\_hostnames](#input\_additional\_hostnames) | Additional hosts besides the main one: for example, if hostname is dasmeta.com, an additional hostname can be *.dasmeta.com | `list(string)` | `[]` | no |
 | <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for ALB | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
 | <a name="input_backend_protocol"></a> [backend\_protocol](#input\_backend\_protocol) | Specifies the protocol used when route traffic to pods. | `string` | `"HTTP"` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule. | `string` | `""` | no |

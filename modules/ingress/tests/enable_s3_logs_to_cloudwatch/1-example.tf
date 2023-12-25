@@ -24,22 +24,6 @@ module "ingress" {
   }
 }
 
-data "aws_eks_cluster" "example" {
-  name = "test-eks-spot-instances"
-}
-
-data "aws_eks_cluster_auth" "example" {
-  name = "test-eks-spot-instances"
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.example.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.example.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.example.token
-}
-
-
-
 output "ingress_all" {
   value       = module.ingress.ingress_all
   description = "Load Balancer All."
