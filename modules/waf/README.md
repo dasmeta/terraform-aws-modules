@@ -360,6 +360,7 @@ No requirements.
 | <a name="input_create_dashboard"></a> [create\_dashboard](#input\_create\_dashboard) | Create dashboard for WAF | `bool` | `true` | no |
 | <a name="input_enable_default_rule"></a> [enable\_default\_rule](#input\_enable\_default\_rule) | Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet) | `bool` | `true` | no |
 | <a name="input_enable_whitelist"></a> [enable\_whitelist](#input\_enable\_whitelist) | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist\_ids list, as it will fail to remove in use resources | `bool` | `true` | no |
+| <a name="input_mode"></a> [mode](#input\_mode) | The mode on which WAF Rule groups work: either Count or Block | `string` | `"block"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name | `string` | n/a | yes |
 | <a name="input_rules"></a> [rules](#input\_rules) | List of WAF rules. | `any` | `[]` | no |
 | <a name="input_scope"></a> [scope](#input\_scope) | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string` | `"REGIONAL"` | no |

@@ -5,7 +5,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesCommonRuleSet"
       priority        = "0"
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       visibility_config = {
         cloudwatch_metrics_enabled = true
         metric_name                = "AWS-AWSManagedRulesCommonRuleSet"
@@ -21,7 +21,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesAmazonIpReputationList"
       priority        = 1
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       managed_rule_group_statement = {
         name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
@@ -37,7 +37,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
       priority        = 2
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       managed_rule_group_statement = {
         name        = "AWSManagedRulesKnownBadInputsRuleSet"
         vendor_name = "AWS"
@@ -53,7 +53,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesLinuxRuleSet"
       priority        = 3
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       managed_rule_group_statement = {
         name        = "AWSManagedRulesLinuxRuleSet"
         vendor_name = "AWS"
@@ -69,7 +69,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesSQLiRuleSet"
       priority        = 4
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       managed_rule_group_statement = {
         name        = "AWSManagedRulesSQLiRuleSet"
         vendor_name = "AWS"
@@ -85,7 +85,7 @@ locals {
     {
       name            = "AWS-AWSManagedRulesUnixRuleSet"
       priority        = 5
-      override_action = "none"
+      override_action = var.mode == "block" ? "none" : "count"
       managed_rule_group_statement = {
         name        = "AWSManagedRulesUnixRuleSet"
         vendor_name = "AWS"
