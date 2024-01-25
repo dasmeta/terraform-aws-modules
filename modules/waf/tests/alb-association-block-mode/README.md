@@ -9,9 +9,7 @@
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_test"></a> [test](#provider\_test) | n/a |
+No providers.
 
 ## Modules
 
@@ -21,9 +19,7 @@
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| test_assertions.dummy | resource |
+No resources.
 
 ## Inputs
 

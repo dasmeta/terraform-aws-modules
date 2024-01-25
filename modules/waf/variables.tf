@@ -86,3 +86,9 @@ variable "create_dashboard" {
   default     = true
   description = "Create dashboard for WAF"
 }
+
+variable "mode" {
+  type        = string
+  description = "The mode on which WAF Rule groups work: either Count or Block"
+  default     = "block"
+}
