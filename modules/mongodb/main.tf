@@ -2,7 +2,7 @@ resource "helm_release" "mongodb" {
   name = var.name
 
   chart      = "mongodb"
-  repository = "https://charts.bitnami.com/bitnami"
+  repository = "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
   version    = "10.30.12"
 
   set {
