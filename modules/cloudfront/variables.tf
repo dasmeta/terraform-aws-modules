@@ -11,6 +11,15 @@ variable "origins" {
   type        = list(any)
 }
 
+variable "function_associations" {
+  description = "A list of Cloudfront function associations."
+  type = list(object({
+    event_type   = string
+    function_arn = string
+  }))
+  default = []
+}
+
 variable "create_lambda_security_headers" {
   type        = bool
   default     = false
@@ -247,6 +256,14 @@ variable "minimum_protocol_version" {
 }
 
 variable "logging_config" {
-  type    = any
-  default = {}
+  type = object({
+    enabled         = optional(bool, false)
+    bucket          = string
+    prefix          = optional(string, "/")
+    include_cookies = optional(bool, false)
+  })
+  default = {
+    enable = false
+    bucket = null
+  }
 }

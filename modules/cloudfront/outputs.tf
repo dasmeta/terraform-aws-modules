@@ -7,3 +7,8 @@ output "domain_name" {
   value       = aws_cloudfront_distribution.main.domain_name
   description = "CDN domain name to be aliasd in Route53 or used somewhere else."
 }
+
+output "distribution_id" {
+  value       = aws_cloudfront_distribution.main.id
+  description = "CDN distribution id to be used with AWS CLI or API calls."
+}

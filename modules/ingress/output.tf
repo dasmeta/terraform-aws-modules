@@ -17,3 +17,13 @@ output "ingress_hostname" {
   value       = try(data.kubernetes_ingress_v1.ingress.status.0.load_balancer.0.ingress.0.hostname, null)
   description = "Load Balancer DNS name."
 }
+
+output "ingress_all" {
+  value       = try(data.aws_lb.ingress, null)
+  description = "Load Balancer all info."
+}
+
+output "ingress_zone_id" {
+  value       = data.kubernetes_ingress_v1.ingress
+  description = "Load Balancer all info."
+}

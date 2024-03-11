@@ -62,3 +62,33 @@ variable "enable_whitelist" {
   description = "An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist_ids list, as it will fail to remove in use resources"
   default     = true
 }
+
+variable "enable_default_rule" {
+  type        = bool
+  description = "Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet)"
+  default     = true
+}
+
+variable "create_alerts" {
+  type        = bool
+  default     = true
+  description = "Create Alert"
+}
+
+variable "sns_topic_name" {
+  type        = string
+  default     = "cloudwatch-alarm"
+  description = "SNS topic name"
+}
+
+variable "create_dashboard" {
+  type        = bool
+  default     = true
+  description = "Create dashboard for WAF"
+}
+
+variable "mode" {
+  type        = string
+  description = "The mode on which WAF Rule groups work: either Count or Block"
+  default     = "block"
+}

@@ -1,0 +1,97 @@
+globals:
+  image: {}
+#     registry: "registry"
+#     repository: "repo"
+#     pullPolicy: IfNotPresent
+#     tag: "override"
+
+jobs:
+  - name: cronjob1
+    schedule: "0 * * * *"
+    restartPolicy: OnFailure
+    serviceAccountName:
+      create: true
+      name: "sa-1"
+    image:
+      registry: docker.io
+      repository: busybox
+      pullPolicy: IfNotPresent
+      tag: latest
+    env:
+      - name: key3
+        value: value3
+      - name: key4
+        value: value4
+    volumes: {}
+#      - name: persistent-storage
+#        mountPath: /path
+#        persistentVolumeClaim:
+#          claimName: claim
+    storage: {}
+#      persistentVolumeClaimName: claim
+#      accessModes:
+#        - ReadWriteMany
+#      className: claim
+#      requestedSize: 5Gi
+#      enableDataSource: false
+
+    resources: {}
+#      request:
+#        cpu: 500m
+#        memory: 5Gi
+#      limits:
+#        cpu: 500m
+#        memory: 5Gi
+
+  - name: cronjob2
+    schedule: "* * * * *"
+    restartPolicy: OnFailure
+    serviceAccountName:
+      create: false
+      name: "sa-2"
+    image:
+      registry: docker.io
+      repository: busybox
+      pullPolicy: IfNotPresent
+      tag: latest
+    env:
+      - name: key3
+        value: value3
+      - name: key4
+        value: value4
+    volumes: {}
+#      - name: persistent-storage
+#        mountPath: /path
+#        persistentVolumeClaim:
+#          claimName: claim
+    storage: {}
+#      persistentVolumeClaimName: claim
+#      accessModes:
+#        - ReadWriteMany
+#      className: efs-sc
+#      requestedSize: 5Gi
+#      enableDataSource: false
+
+    nodeSelector: {}
+#     nodeSelector:
+#       nodetype: "spot"
+
+
+    affinity: {}
+#     affinity:
+#       nodeAffinity:
+#         requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#           - matchExpressions:
+#             - key: topology.kubernetes.io/zone
+#               operator: In
+#               values:
+#               - antarctica-east1
+#               - antarctica-west1
+
+
+    tolerations: {}
+#     tolerations:
+#     - key: "example-key"
+#     operator: "Exists"
+#     effect: "NoSchedule"

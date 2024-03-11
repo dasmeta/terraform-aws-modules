@@ -55,6 +55,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | Release name. | `string` | `"mongodb"` | no |
 | <a name="input_persistence_annotations"></a> [persistence\_annotations](#input\_persistence\_annotations) | n/a | `any` | `null` | no |
 | <a name="input_persistence_size"></a> [persistence\_size](#input\_persistence\_size) | n/a | `string` | `"8Gi"` | no |
+| <a name="input_priority_class_name"></a> [priority\_class\_name](#input\_priority\_class\_name) | Priority class name for pods. Useful if mongodb is co-located with other resources and consumes lot of memory. | `string` | `""` | no |
 | <a name="input_readinessprobe_initialdelayseconds"></a> [readinessprobe\_initialdelayseconds](#input\_readinessprobe\_initialdelayseconds) | n/a | `string` | `"5"` | no |
 | <a name="input_replicaset_key"></a> [replicaset\_key](#input\_replicaset\_key) | n/a | `string` | n/a | yes |
 | <a name="input_resources"></a> [resources](#input\_resources) | Allows to set cpu/memory resources Limits/Requests for deployment. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | <pre>{<br>  "limits": {<br>    "cpu": "300m",<br>    "memory": "500Mi"<br>  },<br>  "requests": {<br>    "cpu": "300m",<br>    "memory": "500Mi"<br>  }<br>}</pre> | no |

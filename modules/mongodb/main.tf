@@ -2,7 +2,7 @@ resource "helm_release" "mongodb" {
   name = var.name
 
   chart      = "mongodb"
-  repository = "https://charts.bitnami.com/bitnami"
+  repository = "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
   version    = "10.30.12"
 
   set {
@@ -98,5 +98,10 @@ resource "helm_release" "mongodb" {
   set {
     name  = "architecture"
     value = var.architecture
+  }
+
+  set {
+    name  = "priorityClassName"
+    value = var.priority_class_name
   }
 }

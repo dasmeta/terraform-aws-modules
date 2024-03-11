@@ -16,13 +16,14 @@ locals {
       }
     }]
     : [],
+    var.enable_default_rule ? local.default_rules : [],
     var.rules
   )
 }
 
 module "waf" {
-  source  = "umotif-public/waf-webaclv2/aws"
-  version = "3.8.1"
+  source  = "dasmeta/waf-webaclv2/aws"
+  version = "0.0.1"
 
   name_prefix  = var.name
   alb_arn      = var.alb_arn

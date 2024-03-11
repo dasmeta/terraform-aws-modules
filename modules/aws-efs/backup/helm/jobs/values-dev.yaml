@@ -1,0 +1,28 @@
+aws-efs-backup:
+  jobs:
+    - name: efs-backup
+      schedule: "0 0 * * 0"
+      restartPolicy: OnFailure
+      serviceAccount:
+        create: true
+        name: "aws-efs-backup"
+      nodeSelector:
+        nodetype: "regular"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      securityContext:
+        privileged: true
+      image:
+        registry: <repo>
+        repository: aws-cli-nfs
+        pullPolicy: Always
+        tag: 0.1
+      env:
+        - name: ENV
+          value: dev
+      command: ["./start.sh"]

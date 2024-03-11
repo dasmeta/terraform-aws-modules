@@ -1,3 +1,7 @@
+locals {
+  dns_servers = length(var.dns_servers) == 0 ? [cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)] : concat([cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)], var.dns_servers)
+}
+
 data "aws_vpc" "my-vpn" {
   id = var.vpc_id
 }
@@ -32,7 +36,7 @@ resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
   client_cidr_block      = var.endpoint_client_cidr_block
   split_tunnel           = var.split_tunnel
   transport_protocol     = "udp"
-  dns_servers            = [var.dns_server, cidrhost(data.aws_vpc.my-vpn.cidr_block, 2)]
+  dns_servers            = local.dns_servers
   vpn_port               = var.vpn_port
   security_group_ids     = [aws_security_group.my-vpn.id]
   vpc_id                 = var.vpc_id
@@ -55,11 +59,27 @@ resource "aws_security_group" "my-vpn" {
   name        = "client-vpn-endpoint-${var.endpoint_name}"
   description = "Egress All. Used for other groups where VPN access is required. "
   vpc_id      = var.vpc_id
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"] # TODO: why we have egress on global enabled hardcoded, maybe we have to move this under variable with this values as default?
+  #checkov:skip=CKV2_AWS_5:Ensure that Security Groups are attached to another resource
+  dynamic "ingress" {
+    for_each = var.security_group_rule.ingress
+    content {
+      description = ingress.value["description"]
+      from_port   = ingress.value["from_port"]
+      to_port     = ingress.value["to_port"]
+      protocol    = ingress.value["protocol"]
+      cidr_blocks = ingress.value["cidr_blocks"]
+    }
+  }
+
+  dynamic "egress" {
+    for_each = var.security_group_rule.egress
+    content {
+      description = egress.value["description"]
+      from_port   = egress.value["from_port"]
+      to_port     = egress.value["to_port"]
+      protocol    = egress.value["protocol"]
+      cidr_blocks = egress.value["cidr_blocks"]
+    }
   }
   tags = var.tags
 }

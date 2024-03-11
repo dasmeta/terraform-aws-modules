@@ -24,8 +24,8 @@ variable "alias_attributes" {
 
 variable "auto_verified_attributes" {
   type        = list(string)
-  default     = ["email", "phone_number"]
-  description = "Attributes to be auto-verified."
+  default     = []
+  description = "Attributes to be auto-verified, can be email and phone_number."
 }
 
 variable "email_verification_message" {
@@ -112,14 +112,8 @@ variable "device_only_remembered_on_user_prompt" {
 }
 
 variable "lambda_config" {
-  default = {
-    kms_key_id = ""
-
-    custom_email_sender = {
-      lambda_arn     = ""
-      lambda_version = ""
-    }
-  }
+  type    = any # TODO: add description for each field in this config and also add all of them into pool resource
+  default = {}
 }
 
 variable "schema" {
@@ -324,6 +318,12 @@ variable "supported_identity_providers" {
 
 variable "create_route53_record" {
   type        = bool
-  default     = true
-  description = "Create Route53 Record"
+  default     = false
+  description = "Create Route53 Record for custom domain"
+}
+
+variable "allow_admin_create_user_only" {
+  type        = bool
+  default     = false
+  description = "(Optional) Set to True if only the administrator is allowed to create user profiles. Set to False if users can sign themselves up via an app."
 }

@@ -106,13 +106,16 @@ module "cognito" {
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.31 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.31 |
 
 ## Modules
 
@@ -134,16 +137,17 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_token_validity"></a> [access\_token\_validity](#input\_access\_token\_validity) | Time limit, between 5 minutes and 1 day, after which the access token is no longer valid and cannot be used. This value will be overridden if you have entered a value in token\_validity\_units. | `number` | `120` | no |
 | <a name="input_alias_attributes"></a> [alias\_attributes](#input\_alias\_attributes) | Attributes supported as an alias for this user pool. | `list(string)` | <pre>[<br>  "email",<br>  "phone_number"<br>]</pre> | no |
+| <a name="input_allow_admin_create_user_only"></a> [allow\_admin\_create\_user\_only](#input\_allow\_admin\_create\_user\_only) | (Optional) Set to True if only the administrator is allowed to create user profiles. Set to False if users can sign themselves up via an app. | `bool` | `false` | no |
 | <a name="input_allowed_oauth_flows"></a> [allowed\_oauth\_flows](#input\_allowed\_oauth\_flows) | List of allowed OAuth flows (code, implicit, client\_credentials). | `list(string)` | `[]` | no |
 | <a name="input_allowed_oauth_flows_user_pool_client"></a> [allowed\_oauth\_flows\_user\_pool\_client](#input\_allowed\_oauth\_flows\_user\_pool\_client) | Whether the client is allowed to follow the OAuth protocol when interacting with Cognito user pools. | `bool` | `false` | no |
 | <a name="input_allowed_oauth_scopes"></a> [allowed\_oauth\_scopes](#input\_allowed\_oauth\_scopes) | List of allowed OAuth scopes (phone, email, openid, profile, and aws.cognito.signin.user.admin). | `list(string)` | `[]` | no |
-| <a name="input_auto_verified_attributes"></a> [auto\_verified\_attributes](#input\_auto\_verified\_attributes) | Attributes to be auto-verified. | `list(string)` | <pre>[<br>  "email",<br>  "phone_number"<br>]</pre> | no |
+| <a name="input_auto_verified_attributes"></a> [auto\_verified\_attributes](#input\_auto\_verified\_attributes) | Attributes to be auto-verified, can be email and phone\_number. | `list(string)` | `[]` | no |
 | <a name="input_callback_urls"></a> [callback\_urls](#input\_callback\_urls) | List of allowed callback URLs for the identity providers. | `list(string)` | `[]` | no |
 | <a name="input_case_sensitive"></a> [case\_sensitive](#input\_case\_sensitive) | Whether username case sensitivity will be applied for all users in the user pool through Cognito APIs. | `bool` | `null` | no |
 | <a name="input_cert_arn"></a> [cert\_arn](#input\_cert\_arn) | The ARN of an ISSUED ACM certificate in us-east-1 for a custom domain. | `string` | `""` | no |
 | <a name="input_challenge_required_on_new_device"></a> [challenge\_required\_on\_new\_device](#input\_challenge\_required\_on\_new\_device) | Whether a challenge is required on a new device. Only applicable to a new device. | `bool` | `null` | no |
 | <a name="input_clients"></a> [clients](#input\_clients) | List of client names | `list(string)` | `[]` | no |
-| <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Create Route53 Record | `bool` | `true` | no |
+| <a name="input_create_route53_record"></a> [create\_route53\_record](#input\_create\_route53\_record) | Create Route53 Record for custom domain | `bool` | `false` | no |
 | <a name="input_device_only_remembered_on_user_prompt"></a> [device\_only\_remembered\_on\_user\_prompt](#input\_device\_only\_remembered\_on\_user\_prompt) | Whether a device is only remembered on user prompt. | `bool` | `null` | no |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain string. | `string` | `""` | no |
 | <a name="input_email_verification_message"></a> [email\_verification\_message](#input\_email\_verification\_message) | String representing the email verification message. | `string` | `"Some message {####}"` | no |
@@ -153,7 +157,7 @@ No modules.
 | <a name="input_generate_secret"></a> [generate\_secret](#input\_generate\_secret) | Should an application secret be generated. | `bool` | `false` | no |
 | <a name="input_id_token_validity"></a> [id\_token\_validity](#input\_id\_token\_validity) | Time limit, between 5 minutes and 1 day, after which the ID token is no longer valid and cannot be used. This value will be overridden if you have entered a value in token\_validity\_units. | `number` | `120` | no |
 | <a name="input_invite_message_template"></a> [invite\_message\_template](#input\_invite\_message\_template) | email\_message is a message template for email messages. Must contain {username} and {####} placeholders, for username and temporary password, respectively. email\_subject is a subject line for email messages. sms\_message is a message template for SMS messages. Must contain {username} and {####} placeholders, for username and temporary password, respectively. | `map` | <pre>{<br>  "email_message": "Your username is {username} and temporary password is {####}. ",<br>  "email_subject": "Your temporary password",<br>  "sms_message": "Your username is {username} and temporary password is {####}. "<br>}</pre> | no |
-| <a name="input_lambda_config"></a> [lambda\_config](#input\_lambda\_config) | n/a | `map` | <pre>{<br>  "custom_email_sender": {<br>    "lambda_arn": "",<br>    "lambda_version": ""<br>  },<br>  "kms_key_id": ""<br>}</pre> | no |
+| <a name="input_lambda_config"></a> [lambda\_config](#input\_lambda\_config) | n/a | `any` | `{}` | no |
 | <a name="input_logout_urls"></a> [logout\_urls](#input\_logout\_urls) | List of allowed logout URLs for the identity providers. | `list(string)` | `[]` | no |
 | <a name="input_mfa_configuration"></a> [mfa\_configuration](#input\_mfa\_configuration) | Multi-Factor Authentication (MFA) configuration for the User Pool. | `string` | `"OPTIONAL"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the pool that will be created | `string` | `"Pool name"` | no |

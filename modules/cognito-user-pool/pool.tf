@@ -35,7 +35,7 @@ resource "aws_cognito_user_pool" "pool" {
   }
 
   admin_create_user_config {
-    allow_admin_create_user_only = false
+    allow_admin_create_user_only = var.allow_admin_create_user_only
 
     invite_message_template {
       email_message = var.invite_message_template.email_message
@@ -44,26 +44,40 @@ resource "aws_cognito_user_pool" "pool" {
     }
   }
 
-  device_configuration {
-    challenge_required_on_new_device      = var.challenge_required_on_new_device
-    device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
+  dynamic "device_configuration" {
+    for_each = (var.challenge_required_on_new_device != null || var.device_only_remembered_on_user_prompt != null) ? [{
+      challenge_required_on_new_device      = var.challenge_required_on_new_device
+      device_only_remembered_on_user_prompt = var.device_only_remembered_on_user_prompt
+    }] : []
+
+    content {
+      challenge_required_on_new_device      = device_configuration.value.challenge_required_on_new_device
+      device_only_remembered_on_user_prompt = device_configuration.value.device_only_remembered_on_user_prompt
+    }
   }
 
   dynamic "lambda_config" {
-    for_each = (var.lambda_config.kms_key_id != "" && var.lambda_config.custom_email_sender.lambda_arn != "" && var.lambda_config.custom_email_sender.lambda_version != "") ? [1] : []
+    for_each = length(keys(var.lambda_config)) != 0 ? [1] : []
 
     content {
-      kms_key_id = var.lambda_config.kms_key_id
+      kms_key_id                     = try(var.lambda_config.kms_key_id, null)
+      create_auth_challenge          = try(var.lambda_config.create_auth_challenge, null)
+      define_auth_challenge          = try(var.lambda_config.define_auth_challenge, null)
+      verify_auth_challenge_response = try(var.lambda_config.verify_auth_challenge_response, null)
 
-      custom_email_sender {
-        lambda_arn     = var.lambda_config.custom_email_sender.lambda_arn
-        lambda_version = var.lambda_config.custom_email_sender.lambda_version
+      dynamic "custom_email_sender" {
+        for_each = (try(var.lambda_config.custom_email_sender.lambda_arn, null) != null && try(var.lambda_config.custom_email_sender.lambda_version, null) != null) ? [1] : []
+
+        content {
+          lambda_arn     = var.lambda_config.custom_email_sender.lambda_arn
+          lambda_version = var.lambda_config.custom_email_sender.lambda_version
+        }
       }
     }
   }
 
   dynamic "schema" {
-    for_each = var.schema
+    for_each = [for item in var.schema : item if(try(item.string_attribute_constraints.max_length, null) != null && try(item.string_attribute_constraints.min_length, null) != null)]
 
     content {
       attribute_data_type      = schema.value.attribute_data_type
@@ -76,6 +90,20 @@ resource "aws_cognito_user_pool" "pool" {
         max_length = schema.value.string_attribute_constraints.max_length
         min_length = schema.value.string_attribute_constraints.min_length
       }
+    }
+  }
+
+  dynamic "schema" {
+    for_each = [for item in var.schema : item if(try(item.string_attribute_constraints.max_length, null) == null || try(item.string_attribute_constraints.min_length, null) == null)]
+
+    content {
+      attribute_data_type      = schema.value.attribute_data_type
+      developer_only_attribute = schema.value.developer_only_attribute
+      mutable                  = schema.value.mutable
+      name                     = schema.value.name
+      required                 = schema.value.required
+
+      string_attribute_constraints {}
     }
   }
 

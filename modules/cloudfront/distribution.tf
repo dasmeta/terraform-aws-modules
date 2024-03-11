@@ -26,8 +26,14 @@ resource "aws_cloudfront_distribution" "main" {
     Name = var.tags_name
   }
 
-  logging_config = var.logging_config
-
+  dynamic "logging_config" {
+    for_each = var.logging_config.enabled ? [1] : []
+    content {
+      bucket          = var.logging_config.bucket
+      prefix          = var.logging_config.prefix
+      include_cookies = var.logging_config.include_cookies
+    }
+  }
 
   wait_for_deployment = var.wait_for_deployment
 
@@ -61,6 +67,16 @@ resource "aws_cloudfront_distribution" "main" {
         include_body = var.lambda_function_body
       }
     }
+
+    dynamic "function_association" {
+      for_each = var.function_associations
+
+      content {
+        event_type   = function_association.value.event_type
+        function_arn = function_association.value.function_arn
+      }
+    }
+
   }
 
   dynamic "ordered_cache_behavior" {
@@ -94,10 +110,11 @@ resource "aws_cloudfront_distribution" "main" {
     for_each = local.origins
 
     content {
-      connection_attempts = var.connection_attempts
-      connection_timeout  = var.connection_timeout
-      domain_name         = origin.value.target
-      origin_id           = origin.value.target
+      connection_attempts      = var.connection_attempts
+      connection_timeout       = var.connection_timeout
+      domain_name              = origin.value.target
+      origin_id                = origin.value.target
+      origin_access_control_id = lookup(origin.value, "origin_access_control_id", null)
 
       dynamic "custom_origin_config" {
         for_each = origin.value.custom_origin_config

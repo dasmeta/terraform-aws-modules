@@ -1,5 +1,7 @@
 resource "aws_secretsmanager_secret" "secret" {
-  name = var.name
+  name                    = var.name
+  recovery_window_in_days = var.recovery_window_in_days
+  kms_key_id              = var.kms_key_id
 }
 
 resource "aws_secretsmanager_secret_version" "value" {

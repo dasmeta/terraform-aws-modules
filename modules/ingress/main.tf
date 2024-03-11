@@ -2,12 +2,28 @@ locals {
   group_name = var.name
 
   //dummy_path has to he specified by default otherwise ingress can't be built
-  dummy_path = [{
-    name        = "response-static"
-    port        = null
-    path        = "/Pto48SjdzKBclyL5"
-    static_port = "use-annotation"
-  }]
+  dummy_path = var.ssl_redirect == true ? [
+    {
+      name        = "response-static"
+      port        = null
+      path        = "/Pto48SjdzKBclyL5"
+      static_port = "use-annotation"
+    },
+    {
+      name        = "ssl-redirect"
+      port        = null
+      path        = "/*"
+      static_port = "use-annotation"
+    }
+    ] : [
+    {
+      name        = "response-static"
+      port        = null
+      path        = "/Pto48SjdzKBclyL5"
+      static_port = "use-annotation"
+    }
+  ]
+  alb_log_bucket_name = "alb-${var.name}-bucket"
 
   annotations = {
     "alb.ingress.kubernetes.io/load-balancer-name"       = var.name
@@ -20,7 +36,7 @@ locals {
     "alb.ingress.kubernetes.io/group.name"               = local.group_name
     "alb.ingress.kubernetes.io/ssl-policy"               = var.ssl_policy
     "alb.ingress.kubernetes.io/success-codes"            = var.healthcheck_success_codes
-    "alb.ingress.kubernetes.io/load-balancer-attributes" = var.load_balancer_attributes
+    "alb.ingress.kubernetes.io/load-balancer-attributes" = var.enable_send_alb_logs_to_cloudwatch ? "access_logs.s3.enabled=true,access_logs.s3.bucket=${local.alb_log_bucket_name}" : var.load_balancer_attributes
     "alb.ingress.kubernetes.io/healthcheck-path"         = var.healthcheck_path
     "kubernetes.io/ingress.class"                        = "alb"
   }
@@ -47,23 +63,26 @@ resource "kubernetes_ingress_v1" "this_v1" {
         }
       }
     }
-    rule {
-      host = var.hostname
-      http {
+    dynamic "rule" {
+      for_each = concat([var.hostname], var.additional_hostnames)
+      content {
+        host = rule.value # Here, each hostname is assigned individually.
 
-        dynamic "path" {
-          for_each = var.path != null ? var.path : local.dummy_path
-          content {
-            backend {
-              service {
-                name = path.value["name"]
-                port {
-                  number = path.value["port"]
-                  name   = var.path != null ? null : path.value["static_port"]
+        http {
+          dynamic "path" {
+            for_each = var.path != null ? var.path : local.dummy_path
+            content {
+              backend {
+                service {
+                  name = path.value["name"]
+                  port {
+                    number = path.value["port"]
+                    name   = var.path != null ? null : path.value["static_port"]
+                  }
                 }
               }
+              path = path.value["path"]
             }
-            path = path.value["path"]
           }
         }
       }

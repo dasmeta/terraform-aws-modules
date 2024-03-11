@@ -27,6 +27,12 @@ variable "enable_logging" {
   description = "Enable logging for the trail"
 }
 
+variable "enable_cloudwatch_logs" {
+  type        = bool
+  default     = false
+  description = "Enable sending logs to CloudWatch"
+}
+
 variable "cloud_watch_logs_role_arn" {
   type        = string
   description = "Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group"
@@ -37,6 +43,18 @@ variable "cloud_watch_logs_group_arn" {
   type        = string
   description = "Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered"
   default     = ""
+}
+
+variable "cloud_watch_logs_group_name" {
+  type        = string
+  description = "Specifies a log group name that will be created to which CloudTrail logs will be delivered"
+  default     = "aws-cloudtrail-logs"
+}
+
+variable "cloud_watch_logs_group_retention" {
+  type        = number
+  description = "Specifies the number of days you want to retain log events in the specified log group."
+  default     = 90
 }
 
 variable "event_selector" {
@@ -52,6 +70,12 @@ variable "event_selector" {
 
   description = "Specifies an event selector for enabling data event logging. See: https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for details on this variable"
   default     = []
+}
+
+variable "insight_selectors" {
+  type        = list(string)
+  default     = []
+  description = "Configuration block for identifying unusual operational activity."
 }
 
 variable "is_organization_trail" {
@@ -74,4 +98,58 @@ variable "create_s3_bucket" {
 variable "bucket_name" {
   type    = string
   default = null
+}
+
+variable "s3_key_prefix" {
+  type    = string
+  default = "cloudtrail"
+}
+
+variable "cloudtrail_assume_role_policy_document" {
+  type        = string
+  description = "Assume role policy document."
+  default     = <<-EOF
+   {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "sts:AssumeRole",
+          "Principal": {
+            "Service": "cloudtrail.amazonaws.com"
+          },
+          "Effect": "Allow"
+        }
+      ]
+   }
+  EOF
+}
+
+variable "cmdb_integration" {
+  type = object({
+    enabled = optional(bool, false)
+    configs = optional(object({
+      subscriptions = optional(list(object({
+        protocol               = optional(string, null)
+        endpoint               = optional(string, null)
+        endpoint_auto_confirms = optional(bool, false)
+      dead_letter_queue_arn = optional(string) })), [])
+    }), {})
+  })
+  default     = {}
+  description = "CMDB Integration Configs"
+}
+
+variable "alerts" {
+  type = object({
+    sns_topic_name = optional(string, "alerts-sns-topic")
+    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.
+  })
+  default     = { enabled : false }
+  description = "Provide CloudWatch Log Metric filters"
+}
+
+variable "kms_key_arn" {
+  description = "The ARN of the KMS key to use for encryption of cloudtrail. If no ARN is provided cloudtrail won't be encrypted."
+  type        = string
+  default     = null
 }

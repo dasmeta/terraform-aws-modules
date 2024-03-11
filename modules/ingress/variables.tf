@@ -9,6 +9,12 @@ variable "hostname" {
   description = "Host is the fully qualified domain name of a network host."
 }
 
+variable "additional_hostnames" {
+  type        = list(string)
+  default     = []
+  description = "Additional hosts besides the main one: for example, if hostname is dasmeta.com, an additional hostname can be *.dasmeta.com"
+}
+
 variable "scheme" {
   type        = string
   default     = "internet-facing"
@@ -41,7 +47,7 @@ variable "healthcheck_path" {
 
 variable "ssl_policy" {
   type        = string
-  default     = "ELBSecurityPolicy-2016-08"
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   description = "Specifies the Security Policy that should be assigned to the ALB."
 }
 
@@ -51,9 +57,24 @@ variable "load_balancer_attributes" {
   description = "Specifies Load Balancer Attributes that should be applied to the ALB."
 }
 
+variable "enable_send_alb_logs_to_cloudwatch" {
+  type        = bool
+  default     = false
+  description = "Send ALB logs to Cloudwatch"
+}
+
+variable "alarms" {
+  type = object({
+    enabled       = optional(bool, true)
+    sns_topic     = string
+    custom_values = optional(any, {})
+  })
+  description = "Alarms for ALB"
+}
+
 variable "healthcheck_success_codes" {
   type        = string
-  default     = "200"
+  default     = "200-399"
   description = "Specifies the HTTP status code that should be expected when doing health checks against the specified health check path."
 }
 
