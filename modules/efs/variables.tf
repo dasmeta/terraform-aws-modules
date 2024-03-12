@@ -43,14 +43,14 @@ variable "provisioned_throughput_in_mibps" {
 }
 
 variable "throughput_mode" {
-  description = "Throughput mode for EFS, when set to provisioned also need to set `provisioned_throughput_in_mibps`"
+  description = "Throughput mode for the file system. Valid values: bursting, provisioned, or elastic. When using 'provisioned', also set 'provisioned_throughput_in_mibps'."
   type        = string
+  default     = "elastic"
 
   validation {
-    condition     = contains(["bursting", "provisioned"], coalesce(var.throughput_mode, "bursting"))
-    error_message = "Valid attributes are [bursting, provisioned]"
+    condition     = contains(["bursting", "provisioned", "elastic"], var.throughput_mode)
+    error_message = "The throughput_mode must be 'bursting', 'provisioned', or 'elastic'."
   }
-  default = null
 }
 
 variable "mount_target_subnets" {
@@ -63,5 +63,15 @@ variable "tags" {
   type = map(any)
   default = {
     Provisioner = "DasMeta"
+  }
+}
+
+variable "lifecycle_policy" {
+  description = "A block representing the lifecycle policy for the file system."
+  type        = any
+  default = {
+    transition_to_ia                    = "AFTER_30_DAYS"
+    transition_to_archive               = "AFTER_60_DAYS"
+    transition_to_primary_storage_class = null // Can be set to AFTER_1_ACCESS
   }
 }
