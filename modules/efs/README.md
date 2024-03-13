@@ -1,5 +1,18 @@
 ### Module to provision `AWS EFS Filesystem`
 
+### How to Optimize EFS Cost
+[AWS Docs](https://docs.aws.amazon.com/efs/latest/ug/availability-durability.html#storage-classes) tells:
+Amazon EFS offers different storage classes that are designed for the most effective storage depending on use cases.
+- EFS Standard
+- EFS Infrequent Access (IA)
+- EFS Archive
+
+The IA and Archive storage classes are cost-optimized for files that don’t require the latency performance of the Standard storage. First byte latency when reading from either of the infrequently accessed storage classes is higher than that for the Standard storage class.
+
+Using lifecycle management, you can optimize storage costs by automatically tiering data between storage classes based on your workload's access patterns.
+
+This module supports lifecycle management which is enabled by default. Check `/tests/lifecycle-policy-changed` and see how the default values can be modified.
+
 #### Minimal usage
 ```
 module "efs" {
