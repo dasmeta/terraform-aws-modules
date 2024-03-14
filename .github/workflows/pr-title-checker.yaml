@@ -1,0 +1,16 @@
+name: 'PR Title Checker'
+on:
+  pull_request:
+    types: [edited, opened, synchronize, reopened]
+
+jobs:
+  title-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: deepakputhraya/action-pr-title@v1.0.2
+        with:
+          regex: 'DMVP-[0-9]*:' # Regex the title should match.
+          allowed_prefixes: 'DMVP-' # title should start with the given prefix
+          prefix_case_sensitive: false # title prefix are case insensitive
+          min_length: 5 # Min length of the title
+          max_length: -1 # Max length of the title
