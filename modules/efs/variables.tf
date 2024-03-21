@@ -83,14 +83,8 @@ variable "lifecycle_policy" {
   }
 }
 
-variable "enable_access_to_eks" {
-  description = "Boolean flag to enable access to EKS"
-  type        = bool
-  default     = true
-}
-
-variable "eks_vpc_id" {
-  description = "VPC ID for the EKS cluster"
+variable "vpc_id" {
+  description = "VPC ID to which EFS will have access"
   type        = string
   default     = ""
 }

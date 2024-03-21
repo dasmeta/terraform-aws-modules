@@ -1,8 +1,8 @@
 data "aws_region" "current" {}
 data "aws_vpc" "selected" {
-  count = var.eks_vpc_id != "" ? 1 : 0
+  count = var.vpc_id != "" ? 1 : 0
 
-  id = var.eks_vpc_id
+  id = var.vpc_id
 }
 
 locals {
@@ -42,14 +42,14 @@ resource "aws_efs_mount_target" "mount_target" {
 }
 
 resource "aws_security_group" "efs_kube_sg" {
-  count = var.enable_access_to_eks && var.eks_vpc_id != "" ? 1 : 0
+  count = var.vpc_id != "" ? 1 : 0
 
-  name        = "EFS to Kubernetes"
-  description = "Allow EFS traffic to Kubernetes"
-  vpc_id      = var.eks_vpc_id
+  name        = "EFS to ${var.vpc_id} VPC"
+  description = "Allow EFS traffic to VPC"
+  vpc_id      = data.aws_vpc.selected[0].id
 
   ingress {
-    description = "EFS to Kube"
+    description = "EFS to VPC"
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
@@ -65,6 +65,6 @@ resource "aws_security_group" "efs_kube_sg" {
   }
 
   tags = {
-    Name = "efs-to-kube"
+    Name = "efs-to-vpc"
   }
 }
