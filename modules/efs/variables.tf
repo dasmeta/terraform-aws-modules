@@ -1,6 +1,13 @@
+variable "name" {
+  type        = string
+  description = "EFS name"
+  default     = "EFS"
+}
+
 variable "creation_token" {
   description = "Creation token, same as unique name"
   type        = string
+  default     = "EFS-creation-token"
 }
 
 variable "availability_zone_prefix" {
@@ -74,4 +81,16 @@ variable "lifecycle_policy" {
     transition_to_archive               = "AFTER_60_DAYS"
     transition_to_primary_storage_class = null // Can be set to AFTER_1_ACCESS
   }
+}
+
+variable "enable_access_to_eks" {
+  description = "Boolean flag to enable access to EKS"
+  type        = bool
+  default     = true
+}
+
+variable "eks_vpc_id" {
+  description = "VPC ID for the EKS cluster"
+  type        = string
+  default     = ""
 }
