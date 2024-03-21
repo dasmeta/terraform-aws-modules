@@ -21,8 +21,8 @@ module "efs" {
 }
 ```
 
-#### Integrated with EKS
-This example supports to integrate EFS with EKS. You just need to pass EKS VPC ID to `eks_vpc_id` variable to open access to EKS cluster.
+#### Integrated with a VPC
+This example enables EFS access to a VPC. For example, it can be the VPC of EKS cluster.
 ```
 module "efs" {
   source = "dasmeta/modules/aws//modules/efs"
@@ -99,8 +99,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_availability_zone_prefix"></a> [availability\_zone\_prefix](#input\_availability\_zone\_prefix) | Availability zone prefix, concat later to region code | `string` | `""` | no |
 | <a name="input_creation_token"></a> [creation\_token](#input\_creation\_token) | Creation token, same as unique name | `string` | `"EFS-creation-token"` | no |
-| <a name="input_eks_vpc_id"></a> [eks\_vpc\_id](#input\_eks\_vpc\_id) | VPC ID for the EKS cluster | `string` | `""` | no |
-| <a name="input_enable_access_to_eks"></a> [enable\_access\_to\_eks](#input\_enable\_access\_to\_eks) | Boolean flag to enable access to EKS | `bool` | `true` | no |
 | <a name="input_encrypted"></a> [encrypted](#input\_encrypted) | Weather make encrypted or not | `bool` | `false` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | AWS kms key arn | `string` | `null` | no |
 | <a name="input_lifecycle_policy"></a> [lifecycle\_policy](#input\_lifecycle\_policy) | A block representing the lifecycle policy for the file system. | `any` | <pre>{<br>  "transition_to_archive": "AFTER_60_DAYS",<br>  "transition_to_ia": "AFTER_30_DAYS",<br>  "transition_to_primary_storage_class": null<br>}</pre> | no |
@@ -110,6 +108,7 @@ No modules.
 | <a name="input_provisioned_throughput_in_mibps"></a> [provisioned\_throughput\_in\_mibps](#input\_provisioned\_throughput\_in\_mibps) | Throughput mibps for EFS, Only compliant when throughput mode is set to provisioned | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(any)` | <pre>{<br>  "Provisioner": "DasMeta"<br>}</pre> | no |
 | <a name="input_throughput_mode"></a> [throughput\_mode](#input\_throughput\_mode) | Throughput mode for the file system. Valid values: bursting, provisioned, or elastic. When using 'provisioned', also set 'provisioned\_throughput\_in\_mibps'. | `string` | `"elastic"` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID to which EFS will have access | `string` | `""` | no |
 
 ## Outputs
 
