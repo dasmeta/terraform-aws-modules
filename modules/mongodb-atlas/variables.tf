@@ -197,16 +197,10 @@ variable "policy_item_monthly" {
   }
 }
 
-variable "use_cloud_provider_snapshot_backup_policy" {
-  type        = bool
-  default     = false
-  description = "mongodbatlas_cloud_provider_snapshot_backup_policy is deprecated, but make use_cloud_provider_snapshot_backup_policy true to use this resource."
-}
-
 variable "use_cloud_backup_schedule" {
   type        = bool
   default     = false
-  description = "As use_cloud_provider_snapshot_backup_policy is deprecated, this resource should be used, but it can't be used with the other one, so only one of these must be true."
+  description = "Whether to enable automated backups."
 }
 
 variable "cloud_backup" {
