@@ -73,14 +73,14 @@ mongodbatlas_cloud_provider_snapshot_backup_policy resource requires access thro
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 0.15.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72 |
-| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | >= 1.2 |
+| <a name="requirement_mongodbatlas"></a> [mongodbatlas](#requirement\_mongodbatlas) | ~> 1.15.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.72 |
-| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | >= 1.2 |
+| <a name="provider_mongodbatlas"></a> [mongodbatlas](#provider\_mongodbatlas) | ~> 1.15.2 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
@@ -96,7 +96,6 @@ No modules.
 | [mongodbatlas_alert_configuration.main](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/alert_configuration) | resource |
 | [mongodbatlas_auditing.audit](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/auditing) | resource |
 | [mongodbatlas_cloud_backup_schedule.backup](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/cloud_backup_schedule) | resource |
-| [mongodbatlas_cloud_provider_snapshot_backup_policy.backup](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/cloud_provider_snapshot_backup_policy) | resource |
 | [mongodbatlas_cluster.main](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/cluster) | resource |
 | [mongodbatlas_database_user.user](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/database_user) | resource |
 | [mongodbatlas_network_peering.mongo_peers](https://registry.terraform.io/providers/mongodb/mongodbatlas/latest/docs/resources/network_peering) | resource |
@@ -146,8 +145,7 @@ No modules.
 | <a name="input_provider_region_name"></a> [provider\_region\_name](#input\_provider\_region\_name) | Cloud service provider on which the server for a multi-tenant cluster is provisioned, valid for only when instanceSizeName is M2 or M5. | `string` | `null` | no |
 | <a name="input_schedule_restore_window_days"></a> [schedule\_restore\_window\_days](#input\_schedule\_restore\_window\_days) | Number of days back in time you can restore to with point-in-time accuracy. | `number` | `1` | no |
 | <a name="input_teams"></a> [teams](#input\_teams) | n/a | <pre>list(object({<br>    team_id    = string<br>    role_names = list(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_use_cloud_backup_schedule"></a> [use\_cloud\_backup\_schedule](#input\_use\_cloud\_backup\_schedule) | As use\_cloud\_provider\_snapshot\_backup\_policy is deprecated, this resource should be used, but it can't be used with the other one, so only one of these must be true. | `bool` | `false` | no |
-| <a name="input_use_cloud_provider_snapshot_backup_policy"></a> [use\_cloud\_provider\_snapshot\_backup\_policy](#input\_use\_cloud\_provider\_snapshot\_backup\_policy) | mongodbatlas\_cloud\_provider\_snapshot\_backup\_policy is deprecated, but make use\_cloud\_provider\_snapshot\_backup\_policy true to use this resource. | `bool` | `false` | no |
+| <a name="input_use_cloud_backup_schedule"></a> [use\_cloud\_backup\_schedule](#input\_use\_cloud\_backup\_schedule) | Whether to enable automated backups. | `bool` | `false` | no |
 | <a name="input_users"></a> [users](#input\_users) | MongoDB Atlas users list, roles and scopes. | `list` | <pre>[<br>  {<br>    "roles": [<br>      {<br>        "database_name": "development",<br>        "role_name": "readWrite"<br>      }<br>    ],<br>    "scopes": [<br>      {<br>        "name": "cluster",<br>        "type": "CLUSTER"<br>      }<br>    ],<br>    "username": "alice"<br>  }<br>]</pre> | no |
 | <a name="input_with_default_alerts_settings"></a> [with\_default\_alerts\_settings](#input\_with\_default\_alerts\_settings) | It allows users to disable the creation of the default alert settings. | `bool` | `true` | no |
 
