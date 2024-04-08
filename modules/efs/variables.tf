@@ -1,6 +1,13 @@
+variable "name" {
+  type        = string
+  description = "EFS name"
+  default     = "EFS"
+}
+
 variable "creation_token" {
   description = "Creation token, same as unique name"
   type        = string
+  default     = "EFS-creation-token"
 }
 
 variable "availability_zone_prefix" {
@@ -74,4 +81,10 @@ variable "lifecycle_policy" {
     transition_to_archive               = "AFTER_60_DAYS"
     transition_to_primary_storage_class = null // Can be set to AFTER_1_ACCESS
   }
+}
+
+variable "vpc_id" {
+  description = "VPC ID to which EFS will have access"
+  type        = string
+  default     = ""
 }
