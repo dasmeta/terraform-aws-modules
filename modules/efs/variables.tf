@@ -88,3 +88,27 @@ variable "vpc_id" {
   type        = string
   default     = ""
 }
+
+variable "ingress_with_cidr_blocks" {
+  description = "Additional CIDR blocks for ingress"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "egress_with_cidr_blocks" {
+  description = "Additional CIDR blocks for egress"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "security_group_name" {
+  description = "Security group name for EFS"
+  type        = string
+  default     = ""
+}
+
+variable "security_group_description" {
+  description = "Security group description for EFS"
+  type        = string
+  default     = ""
+}
