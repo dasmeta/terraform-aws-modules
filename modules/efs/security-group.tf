@@ -19,11 +19,11 @@ locals {
   ]
   combined_egress_rules = concat(
     local.default_egress_rule,
-    var.ingress_with_cidr_blocks
+    var.egress_with_cidr_blocks
   )
   combined_ingress_rules = concat(
     local.default_ingress_rule,
-    var.egress_with_cidr_blocks
+    var.ingress_with_cidr_blocks
   )
 }
 
