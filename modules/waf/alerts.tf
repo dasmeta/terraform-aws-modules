@@ -2,9 +2,9 @@ module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
   version = "1.6.0"
 
-  count = var.create_alerts ? 1 : 0
+  count = var.alarms.enabled ? 1 : 0
 
-  sns_topic = var.sns_topic_name
+  sns_topic = var.alarms.sns_topic
   alerts = [
     {
       name   = "WAF ALL Blocked request count"
@@ -14,9 +14,9 @@ module "alerts" {
         Rule   = "ALL",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 100
+      period    = try(var.alarms.custom_values.all.period, 60)
+      statistic = try(var.alarms.custom_values.all.statistic, "count")
+      threshold = try(var.alarms.custom_values.all.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWSManagedRulesKnownBadInputsRuleSet rule"
@@ -26,9 +26,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesKnownBadInputsRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.knownbadinputsruleset.period, 60)
+      statistic = try(var.alarms.custom_values.knownbadinputsruleset.statistic, "count")
+      threshold = try(var.alarms.custom_values.knownbadinputsruleset.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWSManagedRulesLinuxRuleSet rule"
@@ -38,9 +38,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesLinuxRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.linuxrulesset.period, 60)
+      statistic = try(var.alarms.custom_values.linuxrulesset.statistic, "count")
+      threshold = try(var.alarms.custom_values.linuxrulesset.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWS-AWSManagedRulesAmazonIpReputationList rule"
@@ -50,9 +50,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesAmazonIpReputationList",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.ipreputationlist.period, 60)
+      statistic = try(var.alarms.custom_values.ipreputationlist.statistic, "count")
+      threshold = try(var.alarms.custom_values.ipreputationlist.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWS-AWSManagedRulesCommonRuleSet rule"
@@ -62,9 +62,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesCommonRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.commonruleset.period, 60)
+      statistic = try(var.alarms.custom_values.commonruleset.statistic, "count")
+      threshold = try(var.alarms.custom_values.commonruleset.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWS-AWSManagedRulesSQLiRuleSet rule"
@@ -74,9 +74,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesSQLiRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.sqliruleset.period, 60)
+      statistic = try(var.alarms.custom_values.sqliruleset.statistic, "count")
+      threshold = try(var.alarms.custom_values.sqliruleset.threshold, 100)
     },
     {
       name   = "WAF Blocked request with AWS-AWSManagedRulesUnixRuleSet rule"
@@ -86,9 +86,9 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesUnixRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = 60
-      statistic = "count"
-      threshold = 15
+      period    = try(var.alarms.custom_values.unixruleset.period, 60)
+      statistic = try(var.alarms.custom_values.unixruleset.statistic, "count")
+      threshold = try(var.alarms.custom_values.unixruleset.threshold, 100)
     },
   ]
   enable_insufficient_data_actions = false
