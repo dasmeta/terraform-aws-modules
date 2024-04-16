@@ -69,16 +69,12 @@ variable "enable_default_rule" {
   default     = true
 }
 
-variable "create_alerts" {
-  type        = bool
-  default     = true
-  description = "Create Alert"
-}
-
-variable "sns_topic_name" {
-  type        = string
-  default     = "cloudwatch-alarm"
-  description = "SNS topic name"
+variable "alarms" {
+  type = object({
+    enabled       = optional(bool, true)
+    sns_topic     = string
+    custom_values = optional(any, {})
+  })
 }
 
 variable "create_dashboard" {
