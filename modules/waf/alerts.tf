@@ -7,7 +7,7 @@ module "alerts" {
   sns_topic = var.alarms.sns_topic
   alerts = [
     {
-      name   = "WAF ALL Blocked request count"
+      name   = "WAF: High Volume of Blocked Requests Across All Rules on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -19,7 +19,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.all.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWSManagedRulesKnownBadInputsRuleSet rule"
+      name   = "WAF: High Blocks for Known Bad Inputs on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -31,7 +31,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.knownbadinputsruleset.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWSManagedRulesLinuxRuleSet rule"
+      name   = "WAF: Increased Blocking Activity for Linux Rules on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -43,7 +43,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.linuxrulesset.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWS-AWSManagedRulesAmazonIpReputationList rule"
+      name   = "WAF: High Block Rate for Poor IP Reputation on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -55,7 +55,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.ipreputationlist.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWS-AWSManagedRulesCommonRuleSet rule"
+      name   = "WAF: Consistent Blocking Activity for Common Rules on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -67,7 +67,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.commonruleset.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWS-AWSManagedRulesSQLiRuleSet rule"
+      name   = "WAF: Elevated Blocking for SQL Injection Attacks on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,
@@ -79,7 +79,7 @@ module "alerts" {
       threshold = try(var.alarms.custom_values.sqliruleset.threshold, 100)
     },
     {
-      name   = "WAF Blocked request with AWS-AWSManagedRulesUnixRuleSet rule"
+      name   = "WAF: Rising Blocking Activity for Unix Rules on ${var.name}"
       source = "AWS/WAFV2/BlockedRequests"
       filters = {
         WebACL = var.name,

@@ -352,11 +352,11 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_alarms"></a> [alarms](#input\_alarms) | n/a | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
 | <a name="input_alb_arn"></a> [alb\_arn](#input\_alb\_arn) | Application Load Balancer ARN | `string` | `""` | no |
 | <a name="input_alb_arn_list"></a> [alb\_arn\_list](#input\_alb\_arn\_list) | Application Load Balancer ARN list | `list(string)` | `[]` | no |
 | <a name="input_allow_default_action"></a> [allow\_default\_action](#input\_allow\_default\_action) | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default. | `bool` | `true` | no |
 | <a name="input_create_alb_association"></a> [create\_alb\_association](#input\_create\_alb\_association) | Whether to create alb association with WAF web acl | `bool` | `false` | no |
-| <a name="input_create_alerts"></a> [create\_alerts](#input\_create\_alerts) | Create Alert | `bool` | `true` | no |
 | <a name="input_create_dashboard"></a> [create\_dashboard](#input\_create\_dashboard) | Create dashboard for WAF | `bool` | `true` | no |
 | <a name="input_enable_default_rule"></a> [enable\_default\_rule](#input\_enable\_default\_rule) | Enabled default protection rules(AWSManagedRulesCommonRuleSet,AWSManagedRulesAmazonIpReputationList,AWSManagedRulesKnownBadInputsRuleSet,AWSManagedRulesLinuxRuleSet,AWSManagedRulesSQLiRuleSet,AWSManagedRulesUnixRuleSet) | `bool` | `true` | no |
 | <a name="input_enable_whitelist"></a> [enable\_whitelist](#input\_enable\_whitelist) | An temporary solution for case when one want to remove/disable IP whitelist without removing whitelist\_ids list, as it will fail to remove in use resources | `bool` | `true` | no |
@@ -364,7 +364,6 @@ No requirements.
 | <a name="input_name"></a> [name](#input\_name) | Name | `string` | n/a | yes |
 | <a name="input_rules"></a> [rules](#input\_rules) | List of WAF rules. | `any` | `[]` | no |
 | <a name="input_scope"></a> [scope](#input\_scope) | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string` | `"REGIONAL"` | no |
-| <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | SNS topic name | `string` | `"cloudwatch-alarm"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of WAF rules. | `any` | `{}` | no |
 | <a name="input_visibility_config"></a> [visibility\_config](#input\_visibility\_config) | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration | `any` | <pre>{<br>  "metric_name": "test-waf-setup-waf-main-metrics"<br>}</pre> | no |
 | <a name="input_whitelist_ips"></a> [whitelist\_ips](#input\_whitelist\_ips) | List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule | `list(string)` | `[]` | no |
