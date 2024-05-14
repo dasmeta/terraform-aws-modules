@@ -1,6 +1,6 @@
 module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
-  version = "1.6.0"
+  version = "1.17.0"
 
   count = var.alarms.enabled ? 1 : 0
 
@@ -14,9 +14,10 @@ module "alerts" {
         Rule   = "ALL",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.all.period, 60)
-      statistic = try(var.alarms.custom_values.all.statistic, "count")
-      threshold = try(var.alarms.custom_values.all.threshold, 100)
+      period                 = try(var.alarms.custom_values.all.period, 60)
+      statistic              = try(var.alarms.custom_values.all.statistic, "count")
+      threshold              = try(var.alarms.custom_values.all.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.all.fill_insufficient_data, true)
     },
     {
       name   = "WAF: High Blocks for Known Bad Inputs on ${var.name}"
@@ -26,9 +27,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesKnownBadInputsRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.knownbadinputsruleset.period, 60)
-      statistic = try(var.alarms.custom_values.knownbadinputsruleset.statistic, "count")
-      threshold = try(var.alarms.custom_values.knownbadinputsruleset.threshold, 100)
+      period                 = try(var.alarms.custom_values.knownbadinputsruleset.period, 60)
+      statistic              = try(var.alarms.custom_values.knownbadinputsruleset.statistic, "count")
+      threshold              = try(var.alarms.custom_values.knownbadinputsruleset.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.knownbadinputsruleset.fill_insufficient_data, true)
     },
     {
       name   = "WAF: Increased Blocking Activity for Linux Rules on ${var.name}"
@@ -38,9 +40,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesLinuxRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.linuxrulesset.period, 60)
-      statistic = try(var.alarms.custom_values.linuxrulesset.statistic, "count")
-      threshold = try(var.alarms.custom_values.linuxrulesset.threshold, 100)
+      period                 = try(var.alarms.custom_values.linuxrulesset.period, 60)
+      statistic              = try(var.alarms.custom_values.linuxrulesset.statistic, "count")
+      threshold              = try(var.alarms.custom_values.linuxrulesset.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.linuxrulesset.fill_insufficient_data, true)
     },
     {
       name   = "WAF: High Block Rate for Poor IP Reputation on ${var.name}"
@@ -50,9 +53,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesAmazonIpReputationList",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.ipreputationlist.period, 60)
-      statistic = try(var.alarms.custom_values.ipreputationlist.statistic, "count")
-      threshold = try(var.alarms.custom_values.ipreputationlist.threshold, 100)
+      period                 = try(var.alarms.custom_values.ipreputationlist.period, 60)
+      statistic              = try(var.alarms.custom_values.ipreputationlist.statistic, "count")
+      threshold              = try(var.alarms.custom_values.ipreputationlist.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.ipreputationlist.fill_insufficient_data, true)
     },
     {
       name   = "WAF: Consistent Blocking Activity for Common Rules on ${var.name}"
@@ -62,9 +66,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesCommonRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.commonruleset.period, 60)
-      statistic = try(var.alarms.custom_values.commonruleset.statistic, "count")
-      threshold = try(var.alarms.custom_values.commonruleset.threshold, 100)
+      period                 = try(var.alarms.custom_values.commonruleset.period, 60)
+      statistic              = try(var.alarms.custom_values.commonruleset.statistic, "count")
+      threshold              = try(var.alarms.custom_values.commonruleset.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.commonruleset.fill_insufficient_data, true)
     },
     {
       name   = "WAF: Elevated Blocking for SQL Injection Attacks on ${var.name}"
@@ -74,9 +79,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesSQLiRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.sqliruleset.period, 60)
-      statistic = try(var.alarms.custom_values.sqliruleset.statistic, "count")
-      threshold = try(var.alarms.custom_values.sqliruleset.threshold, 100)
+      period                 = try(var.alarms.custom_values.sqliruleset.period, 60)
+      statistic              = try(var.alarms.custom_values.sqliruleset.statistic, "count")
+      threshold              = try(var.alarms.custom_values.sqliruleset.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.sqliruleset.fill_insufficient_data, true)
     },
     {
       name   = "WAF: Rising Blocking Activity for Unix Rules on ${var.name}"
@@ -86,9 +92,10 @@ module "alerts" {
         Rule   = "AWS-AWSManagedRulesUnixRuleSet",
         Region = data.aws_region.current.name
       }
-      period    = try(var.alarms.custom_values.unixruleset.period, 60)
-      statistic = try(var.alarms.custom_values.unixruleset.statistic, "count")
-      threshold = try(var.alarms.custom_values.unixruleset.threshold, 100)
+      period                 = try(var.alarms.custom_values.unixruleset.period, 60)
+      statistic              = try(var.alarms.custom_values.unixruleset.statistic, "count")
+      threshold              = try(var.alarms.custom_values.unixruleset.threshold, 100)
+      fill_insufficient_data = try(var.alarms.custom_values.unixruleset.fill_insufficient_data, true)
     },
   ]
   enable_insufficient_data_actions = false
