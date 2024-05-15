@@ -1,13 +1,13 @@
 resource "aws_iam_role" "cloudtrail_roles" {
   count              = var.enable_cloudwatch_logs ? 1 : 0
-  name               = "CloudTrailToCloudWatchRole"
+  name               = "CloudTrailToCloudWatchRole-${var.name}"
   assume_role_policy = var.cloudtrail_assume_role_policy_document
 }
 
 resource "aws_iam_policy" "cloudtrail_policy" {
   count = var.enable_cloudwatch_logs ? 1 : 0
 
-  name        = "send-cloudtrail-to-cloudwatch"
+  name        = "send-cloudtrail-to-cloudwatch-${var.name}"
   description = "Policy for trail to send events to cloudwatch log groups."
   policy      = <<-EOF
     {

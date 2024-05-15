@@ -337,7 +337,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.6.0 |
+| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.17.0 |
 | <a name="module_monitoring_dashboard"></a> [monitoring\_dashboard](#module\_monitoring\_dashboard) | dasmeta/monitoring/aws//modules/dashboard | 1.7.0 |
 | <a name="module_waf"></a> [waf](#module\_waf) | dasmeta/waf-webaclv2/aws | 0.0.1 |
 
