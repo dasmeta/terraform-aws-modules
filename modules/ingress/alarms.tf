@@ -2,7 +2,7 @@ module "cw_alerts" {
   count = var.alarms.enabled ? 1 : 0
 
   source  = "dasmeta/monitoring/aws//modules/alerts"
-  version = "1.3.5"
+  version = "1.18.0"
 
   sns_topic = var.alarms.sns_topic
 
