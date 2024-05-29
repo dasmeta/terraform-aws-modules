@@ -13,9 +13,10 @@ module "cw_alerts" {
       filters = {
         LoadBalancer = data.aws_lb.ingress.arn_suffix
       }
-      period    = try(var.alarms.custom_values.error_5xx.period, "60")
-      statistic = try(var.alarms.custom_values.error_5xx.statistic, "sum")
-      threshold = try(var.alarms.custom_values.error_5xx.threshold, "10")
+      period                 = try(var.alarms.custom_values.error_5xx.period, "60")
+      statistic              = try(var.alarms.custom_values.error_5xx.statistic, "sum")
+      threshold              = try(var.alarms.custom_values.error_5xx.threshold, "10")
+      fill_insufficient_data = try(var.alarms.custom_values.error_5xx.fill_insufficient_data, true)
     },
     {
       name   = "ALB ${var.name} response time greater than 10sec."
@@ -23,9 +24,10 @@ module "cw_alerts" {
       filters = {
         LoadBalancer = data.aws_lb.ingress.arn_suffix
       }
-      period    = try(var.alarms.custom_values.response_time.period, "60")
-      statistic = try(var.alarms.custom_values.response_time.statistic, "avg")
-      threshold = try(var.alarms.custom_values.response_time.threshold, "10")
+      period                 = try(var.alarms.custom_values.response_time.period, "60")
+      statistic              = try(var.alarms.custom_values.response_time.statistic, "avg")
+      threshold              = try(var.alarms.custom_values.response_time.threshold, "10")
+      fill_insufficient_data = try(var.alarms.custom_values.response_time.fill_insufficient_data, true)
     },
   ]
 
