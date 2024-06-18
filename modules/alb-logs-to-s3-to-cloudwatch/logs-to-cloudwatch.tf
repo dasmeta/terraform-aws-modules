@@ -26,7 +26,7 @@ resource "aws_lambda_permission" "bucket" {
   action        = "lambda:InvokeFunction"
   function_name = module.alb_logs_to_cloudwatch[0].function_name
   principal     = "s3.amazonaws.com"
-  source_arn    = var.create_alb_log_bucket ? aws_s3_bucket.bucket[0].arn : data.aws_s3_bucket.selected[0].arn
+  source_arn    = var.create_alb_log_bucket ? module.s3_log_bucket[0].arn : data.aws_s3_bucket.selected[0].arn
 }
 
 resource "aws_s3_bucket_notification" "logs" {
