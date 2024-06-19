@@ -36,7 +36,7 @@ locals {
     "alb.ingress.kubernetes.io/group.name"               = local.group_name
     "alb.ingress.kubernetes.io/ssl-policy"               = var.ssl_policy
     "alb.ingress.kubernetes.io/success-codes"            = var.healthcheck_success_codes
-    "alb.ingress.kubernetes.io/load-balancer-attributes" = var.enable_send_alb_logs_to_cloudwatch ? "access_logs.s3.enabled=true,access_logs.s3.bucket=${local.alb_log_bucket_name}" : var.load_balancer_attributes
+    "alb.ingress.kubernetes.io/load-balancer-attributes" = var.enable_send_alb_logs_to_s3 || var.enable_send_alb_logs_to_cloudwatch ? "access_logs.s3.enabled=true,access_logs.s3.bucket=${local.alb_log_bucket_name}" : var.load_balancer_attributes
     "alb.ingress.kubernetes.io/healthcheck-path"         = var.healthcheck_path
     "kubernetes.io/ingress.class"                        = "alb"
   }

@@ -108,8 +108,10 @@ spec:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alb-to-cloudwatch"></a> [alb-to-cloudwatch](#module\_alb-to-cloudwatch) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.9.2 |
+| <a name="module_alb-to-cloudwatch"></a> [alb-to-cloudwatch](#module\_alb-to-cloudwatch) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.14.8 |
+| <a name="module_alb-to-s3"></a> [alb-to-s3](#module\_alb-to-s3) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.14.8 |
 | <a name="module_cw_alerts"></a> [cw\_alerts](#module\_cw\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.18.0 |
+
 
 ## Resources
 
@@ -131,11 +133,13 @@ spec:
 | <a name="input_backend_protocol"></a> [backend\_protocol](#input\_backend\_protocol) | Specifies the protocol used when route traffic to pods. | `string` | `"HTTP"` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule. | `string` | `""` | no |
 | <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br>    service_name = string<br>    service_port = string<br>  })</pre> | <pre>{<br>  "service_name": null,<br>  "service_port": null<br>}</pre> | no |
-| <a name="input_enable_send_alb_logs_to_cloudwatch"></a> [enable\_send\_alb\_logs\_to\_cloudwatch](#input\_enable\_send\_alb\_logs\_to\_cloudwatch) | Send ALB logs to Cloudwatch | `bool` | `false` | no |
+| <a name="input_enable_send_alb_logs_to_cloudwatch"></a> [enable\_send\_alb\_logs\_to\_cloudwatch](#input\_enable\_send\_alb\_logs\_to\_cloudwatch) | Send ALB logs to Cloudwatch if you enable enable\_send\_alb\_logs\_to\_s3 you should desable it will enable automaticlly | `bool` | `false` | no |
+| <a name="input_enable_send_alb_logs_to_s3"></a> [enable\_send\_alb\_logs\_to\_s3](#input\_enable\_send\_alb\_logs\_to\_s3) | Send ALB logs to s3 if you enable enable\_send\_alb\_logs\_to\_cloudwatch you don't need enable this it will enable automaticlly | `bool` | `false` | no |
 | <a name="input_healthcheck_path"></a> [healthcheck\_path](#input\_healthcheck\_path) | Specifies the HTTP path when performing health check on targets. | `string` | `"/"` | no |
 | <a name="input_healthcheck_success_codes"></a> [healthcheck\_success\_codes](#input\_healthcheck\_success\_codes) | Specifies the HTTP status code that should be expected when doing health checks against the specified health check path. | `string` | `"200-399"` | no |
 | <a name="input_hostname"></a> [hostname](#input\_hostname) | Host is the fully qualified domain name of a network host. | `string` | `null` | no |
 | <a name="input_load_balancer_attributes"></a> [load\_balancer\_attributes](#input\_load\_balancer\_attributes) | Specifies Load Balancer Attributes that should be applied to the ALB. | `string` | `""` | no |
+| <a name="input_log_retention_days"></a> [log\_retention\_days](#input\_log\_retention\_days) | Log Retention days for s3 | `number` | `7` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Ingress, must be unique. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | K8s namespace where the Ingress will be created. | `string` | `"default"` | no |
 | <a name="input_path"></a> [path](#input\_path) | Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend. | <pre>list(object({<br>    name = string<br>    port = string<br>    path = string<br>  }))</pre> | `null` | no |

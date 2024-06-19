@@ -60,7 +60,19 @@ variable "load_balancer_attributes" {
 variable "enable_send_alb_logs_to_cloudwatch" {
   type        = bool
   default     = false
-  description = "Send ALB logs to Cloudwatch"
+  description = "Send ALB logs to Cloudwatch if you enable enable_send_alb_logs_to_s3 you should desable it will enable automaticlly"
+}
+
+variable "enable_send_alb_logs_to_s3" {
+  type        = bool
+  default     = false
+  description = "Send ALB logs to s3 if you enable enable_send_alb_logs_to_cloudwatch you don't need enable this it will enable automaticlly"
+}
+
+variable "log_retention_days" {
+  type        = number
+  default     = 7
+  description = "Log Retention days for s3"
 }
 
 variable "alarms" {

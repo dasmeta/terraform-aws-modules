@@ -23,7 +23,14 @@ variable "region" {
   default     = "us-east-1"
   description = "Default region"
 }
+
 variable "account_id" {
   type    = string
   default = ""
+}
+
+variable "log_retention_days" {
+  type        = number
+  default     = 7
+  description = "Log Retention days for s3"
 }
