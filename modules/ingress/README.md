@@ -110,7 +110,8 @@ spec:
 |------|--------|---------|
 | <a name="module_alb-to-cloudwatch"></a> [alb-to-cloudwatch](#module\_alb-to-cloudwatch) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.14.8 |
 | <a name="module_alb-to-s3"></a> [alb-to-s3](#module\_alb-to-s3) | dasmeta/modules/aws//modules/alb-logs-to-s3-to-cloudwatch | 2.14.8 |
-| <a name="module_cw_alerts"></a> [cw\_alerts](#module\_cw\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.3.5 |
+| <a name="module_cw_alerts"></a> [cw\_alerts](#module\_cw\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.18.0 |
+
 
 ## Resources
 

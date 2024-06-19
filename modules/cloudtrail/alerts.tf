@@ -1,6 +1,6 @@
 module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
-  version = "1.3.8"
+  version = "1.18.0"
 
   sns_topic = var.alerts.sns_topic_name
   alerts = [
@@ -10,6 +10,7 @@ module "alerts" {
       statistic : "sum"
       filters : {}
       equation : "gte"
+      fill_insufficient_data : true
       threshold : 1
       period : 10
     }
