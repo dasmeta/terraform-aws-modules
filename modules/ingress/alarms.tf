@@ -29,6 +29,17 @@ module "cw_alerts" {
       threshold              = try(var.alarms.custom_values.response_time.threshold, "10")
       fill_insufficient_data = try(var.alarms.custom_values.response_time.fill_insufficient_data, true)
     },
+    {
+      name   = "ALB ${var.name} request count increased"
+      source = "AWS/ApplicationELB/RequestCount"
+      filters = {
+        LoadBalancer = data.aws_lb.ingress.arn_suffix
+      }
+      period                 = try(var.alarms.custom_values.response_time.period, "60")
+      statistic              = try(var.alarms.custom_values.response_time.statistic, "avg")
+      threshold              = try(var.alarms.custom_values.response_time.threshold, "50")
+      fill_insufficient_data = try(var.alarms.custom_values.response_time.fill_insufficient_data, true)
+    },
   ]
 
   depends_on = [
