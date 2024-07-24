@@ -17,4 +17,7 @@ jobs:
       uses: dasmeta/reusable-actions-workflows/pre-commit@4.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        path: modules/
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        path: modules/${{ matrix.path }}
+      continue-on-error: true

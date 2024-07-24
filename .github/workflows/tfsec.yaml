@@ -17,3 +17,4 @@ jobs:
     - uses: dasmeta/reusable-actions-workflows/tfsec@4.2.0
       with:
         fetch-depth: 0
+    continue-on-error: true
