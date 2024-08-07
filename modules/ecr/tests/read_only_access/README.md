@@ -14,9 +14,7 @@ This example creates 2 repositories and applies default lifecycle policies for t
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_test"></a> [test](#provider\_test) | n/a |
+No providers.
 
 ## Modules
 
@@ -26,9 +24,7 @@ This example creates 2 repositories and applies default lifecycle policies for t
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| test_assertions.dummy | resource |
+No resources.
 
 ## Inputs
 

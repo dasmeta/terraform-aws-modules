@@ -1,6 +1,6 @@
 module "ecr" {
   source  = "cloudposse/ecr/aws"
-  version = "0.35.0"
+  version = "0.41.1"
 
   for_each = { for repo in var.repos : repo => repo }
 

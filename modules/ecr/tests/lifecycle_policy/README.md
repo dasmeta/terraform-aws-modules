@@ -18,9 +18,7 @@ To change tags for imgaes, change `protected_tags` value.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_test"></a> [test](#provider\_test) | n/a |
+No providers.
 
 ## Modules
 
@@ -30,9 +28,7 @@ To change tags for imgaes, change `protected_tags` value.
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| test_assertions.dummy | resource |
+No resources.
 
 ## Inputs
 

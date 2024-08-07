@@ -13,7 +13,10 @@ variable "max_image_count" {
 variable "protected_tags" {
   type        = set(string)
   description = "Name of image tags prefixes that should not be destroyed. Useful if you tag images with names like `dev`, `staging`, and `prod`"
-  default     = []
+  default = [
+    "prod",
+    "image-keep"
+  ]
 }
 
 variable "image_tag_mutability" {
