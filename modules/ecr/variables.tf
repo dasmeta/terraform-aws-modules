@@ -12,8 +12,13 @@ variable "max_image_count" {
 
 variable "protected_tags" {
   type        = set(string)
-  description = "Name of image tags prefixes that should not be destroyed. Useful if you tag images with names like `dev`, `staging`, and `prod`"
-  default     = []
+  description = "Image tags patterns (prefixes and wildcards) that should not be destroyed. If item contains asterisk symbol('*') it considered as wildcard, overwise as prefix matching"
+  default = [
+    "latest",
+    "image-keep",
+    "*prod*",
+    "*.*.*"
+  ]
 }
 
 variable "image_tag_mutability" {
