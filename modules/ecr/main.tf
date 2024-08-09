@@ -1,6 +1,8 @@
 module "ecr" {
-  source  = "cloudposse/ecr/aws"
-  version = "0.41.1"
+  source = "git::https://github.com/dasmeta/terraform-aws-ecr.git?ref=main"
+  # TODO: we module with direct github repo source because there was need some ability, please check PR: https://github.com/cloudposse/terraform-aws-ecr/issues/133 and uncomment source to tf registry
+  # source  = "cloudposse/ecr/aws"
+  # version = "0.41.1"
 
   for_each = { for repo in var.repos : repo => repo }
 
