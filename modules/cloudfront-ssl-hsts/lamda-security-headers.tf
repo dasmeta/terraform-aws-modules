@@ -6,4 +6,5 @@ module "aws-cloudfront-security-headers" {
 
   name                    = "${substr(replace(var.aliases[0], ".", "-"), 0, 32)}-security-headers"
   override_custom_headers = var.override_custom_headers
+  runtime                 = "nodejs18.x"
 }
