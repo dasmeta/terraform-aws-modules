@@ -114,6 +114,7 @@ resource "aws_cloudfront_distribution" "main" {
       connection_timeout       = var.connection_timeout
       domain_name              = try(origin.value.domain_name, origin.value.target)
       origin_id                = try(origin.value.origin_id, origin.value.target)
+      origin_path              = lookup(origin.value, "origin_path", "")
       origin_access_control_id = lookup(origin.value, "origin_access_control_id", null)
 
       dynamic "custom_origin_config" {
