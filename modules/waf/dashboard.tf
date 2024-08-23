@@ -1,6 +1,6 @@
 module "monitoring_dashboard" {
   source  = "dasmeta/monitoring/aws//modules/dashboard"
-  version = "1.7.0"
+  version = "1.19.0"
 
   count = var.create_dashboard ? 1 : 0
 

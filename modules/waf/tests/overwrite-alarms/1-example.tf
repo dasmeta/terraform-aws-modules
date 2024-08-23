@@ -7,8 +7,8 @@ module "waf_alb" {
   create_alb_association = true
 
   alb_arn_list = [
-    "arn:aws:elasticloadbalancing:eu-central-1:xxxxxx:loadbalancer/app/alb/13812613g187est87t",
-    "arn:aws:elasticloadbalancing:eu-central-1:xxxxxx:loadbalancer/app/alb2/132812613g17est87t"
+    aws_lb.test1.arn,
+    aws_lb.test2.arn
   ]
 
   visibility_config = {

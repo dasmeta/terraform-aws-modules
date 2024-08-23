@@ -1,6 +1,6 @@
 module "alerts" {
   source  = "dasmeta/monitoring/aws//modules/alerts"
-  version = "1.17.0"
+  version = "1.19.0"
 
   count = var.alarms.enabled ? 1 : 0
 

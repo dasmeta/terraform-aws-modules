@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.52"
+      version = "~> 5.0"
     }
   }
 }
@@ -25,8 +25,15 @@ data "aws_subnets" "default" {
 }
 
 # create test alb
-resource "aws_lb" "test" {
-  name     = "test-waf-alb-association-bm"
+resource "aws_lb" "test1" {
+  name     = "test-waf-alb-association-1"
+  provider = aws
+  subnets  = data.aws_subnets.default.ids
+}
+
+# create test alb
+resource "aws_lb" "test2" {
+  name     = "test-waf-alb-association-2"
   provider = aws
   subnets  = data.aws_subnets.default.ids
 }
