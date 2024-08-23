@@ -1,12 +1,14 @@
+# module to setup/attach aws waf on alb or cdn
+
 ### Example 1. Simple example create waf. This example not set roles and doesn't have association.
 
 ```
 module "waf_alb" {
-  source                 = "dasmeta/modules/aws//modules/waf/"
-  name                   = "test"
+  source = "dasmeta/modules/aws//modules/waf/"
+  name   = "test"
 
   visibility_config = {
-    metric_name                = "test-waf"
+    metric_name = "test-waf"
   }
 }
 ```
@@ -18,7 +20,7 @@ module "waf_cloudfront" {
   source = "dasmeta/modules/aws//modules/waf/"
   name   = "test_cloudfront"
 
-  scope                  = "CLOUDFRONT"
+  scope = "CLOUDFRONT"
   visibility_config = {
     cloudwatch_metrics_enabled = true
     metric_name                = "test-waf"
@@ -325,20 +327,23 @@ module "waf_alb" {
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.50, < 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.50, < 6.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.17.0 |
-| <a name="module_monitoring_dashboard"></a> [monitoring\_dashboard](#module\_monitoring\_dashboard) | dasmeta/monitoring/aws//modules/dashboard | 1.7.0 |
+| <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.19.0 |
+| <a name="module_monitoring_dashboard"></a> [monitoring\_dashboard](#module\_monitoring\_dashboard) | dasmeta/monitoring/aws//modules/dashboard | 1.19.0 |
 | <a name="module_waf"></a> [waf](#module\_waf) | dasmeta/waf-webaclv2/aws | 0.0.1 |
 
 ## Resources
