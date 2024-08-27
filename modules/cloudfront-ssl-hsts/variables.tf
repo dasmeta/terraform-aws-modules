@@ -1,7 +1,7 @@
-variable "create_hsts" {
+variable "create_hsts" { # TODO: this variable was created for allowing to have security headers set in lambda layer, but there is way to have header policy for this, please check and remove this param and related ability
   description = "create hsts"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "create_certificate" {
@@ -97,7 +97,7 @@ variable "tags" {
   default     = null
 }
 
-variable "origin" {
+variable "origins" {
   description = "One or more origins for this distribution (multiples allowed)."
   type        = any
   default     = null
