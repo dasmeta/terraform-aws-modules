@@ -1,60 +1,43 @@
+# Module to create aws cloudfront(CDN) resource with related resources and options.The var.origins is a list of origins with their behaviors, so that for each origin it creates the behavior also. The default behavior/origin is the last one from var.origins listing. For non default behaviors origin_object.behavior.path_pattern required, this defines the routing path for behavior.
+
 # example with ALB default and 2 more cache behaviors:
+## it creates
 
 ```hcl
 provider "aws" {
+  region = "eu-central-1"
+}
+provider "aws" {
   region = "us-east-1"
+  alias = "virginia"
 }
 
 module "cdn" {
   source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
-  version = "0.19.5"
+  version = "2.16.0"
 
   zone    = ["devops.dasmeta.com"]
   aliases = ["cdn.devops.dasmeta.com"]
   comment             = "My CloudFront"
-  create_origin_access_identity = true
-  origin_access_identities = {
-    s3_bucket_one = "My awesome CloudFront can access"
-  }
 
   logging_config = {
     bucket = "logs-my-cdn.s3.amazonaws.com"
   }
 
-  origin = {
-    something = {
-      domain_name = "something.example.com"
-      custom_origin_config = {
-        http_port              = 80
-        https_port             = 443
-        origin_protocol_policy = "match-viewer"
-        origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-      }
-    }
-
-    s3_one = {
-      domain_name = "my-s3-bycket.s3.amazonaws.com"
-      s3_origin_config = {
-        origin_access_identity = "s3_bucket_one"
-      }
-    }
-  }
-
-  default_cache_behavior = {
-    target_origin_id           = "alb"
-  }
-
-  ordered_cache_behavior = [
+  origins = [
     {
-      path_pattern           = "/alb"
-      target_origin_id       = "alb"
+      id = "first"
+      domain_name = "something.example.com"
+      behavior = {
+        path_pattern = "/api"
+      }
     },
     {
-      path_pattern           = "/alb2"
-      target_origin_id       = "alb"
+      id = "default"
+      domain_name = "my-s3-bucket"
+      type = "bucket"
     }
   ]
-
 }
 ```
 
@@ -67,25 +50,18 @@ provider "aws" {
 
 module "cdn" {
  source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
- version = "0.19.5"
+ version = "2.16.0"
 
  zone    = ["devops.dasmeta.com"]
  aliases = ["cdn.devops.dasmeta.com"]
  comment = "My CloudFront"
 
- origin = {
-   s3 = {
-     domain_name = "S3 website URL" # you need to enable S3 website to have this
-     custom_origin_config = {
-       origin_protocol_policy = "http-only"
-     }
+ origins = [
+   {
+     id = "s3"
+     type = "bucket"
+     domain_name = "the-s3-bucket-name" # you need to enable S3 website to have this
    }
- }
-
- default_cache_behavior = {
-   target_origin_id = "s3"
-   use_forwarded_values = true
-   headers = [] # the default value is ["*"] and S3 origin do not support it, so we just need to disable it
  }
 }
 ```
@@ -103,6 +79,7 @@ module "cdn" {
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.64 |
+| <a name="provider_aws.virginia"></a> [aws.virginia](#provider\_aws.virginia) | >= 3.64 |
 
 ## Modules
 
@@ -118,6 +95,9 @@ module "cdn" {
 | [aws_cloudfront_distribution.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_cloudfront_monitoring_subscription.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_monitoring_subscription) | resource |
 | [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
+| [aws_s3_bucket_policy.cdn_access_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_iam_policy_document.s3_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_s3_bucket.origins](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) | data source |
 
 ## Inputs
 
@@ -127,7 +107,7 @@ module "cdn" {
 | <a name="input_comment"></a> [comment](#input\_comment) | Any comments you want to include about the distribution. | `string` | `null` | no |
 | <a name="input_create_certificate"></a> [create\_certificate](#input\_create\_certificate) | create certificate | `bool` | `true` | no |
 | <a name="input_create_distribution"></a> [create\_distribution](#input\_create\_distribution) | Controls if CloudFront distribution should be created | `bool` | `true` | no |
-| <a name="input_create_hsts"></a> [create\_hsts](#input\_create\_hsts) | create hsts | `bool` | `true` | no |
+| <a name="input_create_hsts"></a> [create\_hsts](#input\_create\_hsts) | create hsts | `bool` | `false` | no |
 | <a name="input_create_monitoring_subscription"></a> [create\_monitoring\_subscription](#input\_create\_monitoring\_subscription) | If enabled, the resource for monitoring subscription will created. | `bool` | `false` | no |
 | <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Controls if CloudFront origin access identity should be created | `bool` | `false` | no |
 | <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | One or more custom error response elements | `any` | `{}` | no |
@@ -139,9 +119,9 @@ module "cdn" {
 | <a name="input_is_ipv6_enabled"></a> [is\_ipv6\_enabled](#input\_is\_ipv6\_enabled) | Whether the IPv6 is enabled for the distribution. | `bool` | `true` | no |
 | <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | The logging configuration that controls how logs are written to your distribution (maximum one). | `any` | `{}` | no |
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0. | `any` | `[]` | no |
-| <a name="input_origin"></a> [origin](#input\_origin) | One or more origins for this distribution (multiples allowed). | `any` | `null` | no |
 | <a name="input_origin_access_identities"></a> [origin\_access\_identities](#input\_origin\_access\_identities) | Map of CloudFront origin access identities (value as a comment) | `map(string)` | `{}` | no |
 | <a name="input_origin_group"></a> [origin\_group](#input\_origin\_group) | One or more origin\_group for this distribution (multiples allowed). | `any` | `{}` | no |
+| <a name="input_origins"></a> [origins](#input\_origins) | One or more origins for this distribution (multiples allowed). | `any` | `null` | no |
 | <a name="input_override_custom_headers"></a> [override\_custom\_headers](#input\_override\_custom\_headers) | Allows to override-default/disable-default/have-additional security headers | `any` | `{}` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. One of PriceClass\_All, PriceClass\_200, PriceClass\_100 | `string` | `"PriceClass_All"` | no |
 | <a name="input_realtime_metrics_subscription_status"></a> [realtime\_metrics\_subscription\_status](#input\_realtime\_metrics\_subscription\_status) | A flag that indicates whether additional CloudWatch metrics are enabled for a given CloudFront distribution. Valid values are `Enabled` and `Disabled`. | `string` | `"Enabled"` | no |

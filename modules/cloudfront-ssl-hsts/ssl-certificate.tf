@@ -8,4 +8,8 @@ module "ssl-certificate-auth" {
   zone                = element(var.zone, 0)
   alternative_zones   = slice(var.zone, 1, length(var.zone))
   tags                = var.tags
+
+  providers = {
+    aws = aws.virginia
+  }
 }
