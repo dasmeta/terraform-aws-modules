@@ -1,7 +1,6 @@
 # Module to create aws cloudfront(CDN) resource with related resources and options.The var.origins is a list of origins with their behaviors, so that for each origin it creates the behavior also. The default behavior/origin is the last one from var.origins listing. For non default behaviors origin_object.behavior.path_pattern required, this defines the routing path for behavior.
 
-# example with ALB default and 2 more cache behaviors:
-## it creates
+## example with s3 default and 1 more alb cache behaviors:
 
 ```hcl
 provider "aws" {
@@ -38,31 +37,45 @@ module "cdn" {
       type = "bucket"
     }
   ]
+
+  providers = {
+    aws          = aws
+    aws.virginia = aws.virginia
+  }
 }
 ```
 
-# sample with S3 default cache behavior
+## sample with S3 default cache behavior
 
 ```hcl
 provider "aws" {
- region = "us-east-1"
+  region = "eu-central-1"
+}
+provider "aws" {
+  region = "us-east-1"
+  alias = "virginia"
 }
 
 module "cdn" {
- source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
- version = "2.16.0"
+  source = "dasmeta/modules/aws//modules/cloudfront-ssl-hsts"
+  version = "2.16.0"
 
- zone    = ["devops.dasmeta.com"]
- aliases = ["cdn.devops.dasmeta.com"]
- comment = "My CloudFront"
+  zone    = ["devops.dasmeta.com"]
+  aliases = ["cdn.devops.dasmeta.com"]
+  comment = "My CloudFront"
 
- origins = [
-   {
-     id = "s3"
-     type = "bucket"
-     domain_name = "the-s3-bucket-name" # you need to enable S3 website to have this
-   }
- }
+  origins = [
+    {
+      id = "s3"
+      type = "bucket"
+      domain_name = "the-s3-bucket-name" # you need to enable S3 website to have this
+    }
+  }
+
+  providers = {
+    aws          = aws
+    aws.virginia = aws.virginia
+  }
 }
 ```
 
@@ -72,14 +85,14 @@ module "cdn" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.64 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.64, < 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.64 |
-| <a name="provider_aws.virginia"></a> [aws.virginia](#provider\_aws.virginia) | >= 3.64 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.64, < 6.0 |
+| <a name="provider_aws.virginia"></a> [aws.virginia](#provider\_aws.virginia) | >= 3.64, < 6.0 |
 
 ## Modules
 
