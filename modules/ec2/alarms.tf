@@ -15,7 +15,7 @@ module "cw_alerts" {
 
   alerts = [
     {
-      name   = "EC2 ${var.name} CPUUtilization"
+      name   = "EC2: High CPU Utilization Alert on Instance ${var.name}"
       source = "AWS/EC2/CPUUtilization"
       filters = {
         InstanceId = data.aws_instances.this.ids[0]
