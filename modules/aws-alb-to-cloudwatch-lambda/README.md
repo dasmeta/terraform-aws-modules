@@ -187,11 +187,11 @@ If a `role` is not provided then one will be created automatically. There are va
 | <a name="input_codebuild_queued_timeout_in_minutes"></a> [codebuild\_queued\_timeout\_in\_minutes](#input\_codebuild\_queued\_timeout\_in\_minutes) | The number of minutes CodeBuild is allowed to be queued before it times out. | `number` | `15` | no |
 | <a name="input_codebuild_timeout_in_minutes"></a> [codebuild\_timeout\_in\_minutes](#input\_codebuild\_timeout\_in\_minutes) | The number of minutes CodeBuild is allowed to run before it times out. | `number` | `60` | no |
 | <a name="input_create_role"></a> [create\_role](#input\_create\_role) | Create an IAM role for the function. Only required when `role` is a computed/unknown value. | `bool` | `null` | no |
-| <a name="input_dead_letter_config"></a> [dead\_letter\_config](#input\_dead\_letter\_config) | Nested block to configure the function's dead letter queue. See details below. | <pre>object({<br>    target_arn = string<br>  })</pre> | `null` | no |
+| <a name="input_dead_letter_config"></a> [dead\_letter\_config](#input\_dead\_letter\_config) | Nested block to configure the function's dead letter queue. See details below. | <pre>object({<br/>    target_arn = string<br/>  })</pre> | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of what your Lambda Function does. | `string` | `null` | no |
 | <a name="input_empty_dirs"></a> [empty\_dirs](#input\_empty\_dirs) | Include empty directories in the Lambda package. | `bool` | `false` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Create resources. | `bool` | `true` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The Lambda environment's configuration settings. | <pre>object({<br>    variables = map(string)<br>  })</pre> | `null` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | The Lambda environment's configuration settings. | <pre>object({<br/>    variables = map(string)<br/>  })</pre> | `null` | no |
 | <a name="input_filename"></a> [filename](#input\_filename) | The path to the function's deployment package within the local filesystem. If defined, The s3\_-prefixed options cannot be used. | `string` | `null` | no |
 | <a name="input_function_name"></a> [function\_name](#input\_function\_name) | A unique name for your Lambda Function. | `string` | n/a | yes |
 | <a name="input_handler"></a> [handler](#input\_handler) | The function entrypoint in your code. | `string` | n/a | yes |
@@ -216,8 +216,8 @@ If a `role` is not provided then one will be created automatically. There are va
 | <a name="input_source_dir"></a> [source\_dir](#input\_source\_dir) | Local source directory for the Lambda package. This will be zipped and uploaded to the S3 bucket. Requires `s3_bucket`. Conflicts with `s3_key`, `s3_object_version` and `filename`. | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the object. | `map(string)` | `null` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | The amount of time your Lambda Function has to run in seconds. | `number` | `null` | no |
-| <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | Provide this to configure tracing. | <pre>object({<br>    mode = string<br>  })</pre> | `null` | no |
-| <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | Provide this to allow your function to access your VPC. | <pre>object({<br>    security_group_ids = list(string)<br>    subnet_ids         = list(string)<br>  })</pre> | `null` | no |
+| <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | Provide this to configure tracing. | <pre>object({<br/>    mode = string<br/>  })</pre> | `null` | no |
+| <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | Provide this to allow your function to access your VPC. | <pre>object({<br/>    security_group_ids = list(string)<br/>    subnet_ids         = list(string)<br/>  })</pre> | `null` | no |
 
 ## Outputs
 
