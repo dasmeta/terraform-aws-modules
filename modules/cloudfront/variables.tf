@@ -277,7 +277,7 @@ variable "create_response_headers_policy" {
     })
   })
   default = {
-    enable           = false
+    enabled          = false
     name             = "custome_response_headers"
     security_headers = {}
   }
