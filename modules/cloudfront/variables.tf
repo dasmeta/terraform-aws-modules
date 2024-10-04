@@ -267,3 +267,18 @@ variable "logging_config" {
     bucket = null
   }
 }
+
+variable "create_response_headers_policy" {
+  type = object({
+    enabled = optional(bool, false)
+    name    = string
+    security_headers = object({
+      frame_options = optional(string)
+    })
+  })
+  default = {
+    enable           = false
+    bucket           = null
+    security_headers = {}
+  }
+}
