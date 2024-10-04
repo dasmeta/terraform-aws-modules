@@ -25,6 +25,7 @@ This modules now are separated in other repositories below are the links of that
     code sources: ./modules/route53 -> https://github.com/dasmeta/terraform-aws-dns/tree/main/modules/route53
 11. module source: dasmeta/modules/aws//modules/s3 -> dasmeta/s3/aws
     code sources: ./modules/s3 -> https://github.com/dasmeta/terraform-aws-s3/
+12. aws-iam-user -> https://github.com/dasmeta/terraform-aws-iam/user/modules/user
 
 ## Requirements for pre-commit hooks
 for Run our pre-commit hooks you need to install
