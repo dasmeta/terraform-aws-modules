@@ -1,5 +1,5 @@
 module "this" {
-  count = var.create_response_headers_policy ? 1 : 0
+  count = var.create_response_headers_policy.enable ? 1 : 0
 
   source           = "./modules/response_headers/"
   name             = var.create_response_headers_policy.name
