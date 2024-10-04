@@ -271,14 +271,14 @@ variable "logging_config" {
 variable "create_response_headers_policy" {
   type = object({
     enabled = optional(bool, false)
-    name    = string
+    name    = optional(string, "custome_response_headers")
     security_headers = object({
       frame_options = optional(string)
     })
   })
   default = {
     enable           = false
-    bucket           = null
+    name             = "custome_response_headers"
     security_headers = {}
   }
 }
