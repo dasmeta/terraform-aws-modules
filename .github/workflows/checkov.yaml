@@ -22,7 +22,6 @@ jobs:
           - modules/aws-alb-to-cloudwatch-lambda
           - modules/aws-cloudfront-security-headers
           - modules/aws-cloudwatch-prometheus-metrics
-          - modules/aws-iam-user
           - modules/aws-load-balancer-controller
           - modules/aws-multi-vpc-peering
           - modules/aws-network
