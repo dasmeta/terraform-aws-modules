@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "main" {
     min_ttl                    = var.default_min_ttl
     smooth_streaming           = var.default_smooth_streaming
     target_origin_id           = var.default_target_origin_id
-    response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy.id : null
+    response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy[0].id : null
     viewer_protocol_policy     = var.default_viewer_protocol_policy
 
     dynamic "lambda_function_association" {
