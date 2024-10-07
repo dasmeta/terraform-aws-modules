@@ -99,11 +99,12 @@ resource "aws_cloudfront_distribution" "main" {
         }
       }
 
-      min_ttl                = var.ordered_min_ttl
-      path_pattern           = ordered_cache_behavior.value.pattern
-      smooth_streaming       = var.ordered_smooth_streaming
-      target_origin_id       = ordered_cache_behavior.value.target
-      viewer_protocol_policy = var.ordered_viewer_protocol_policy
+      min_ttl                    = var.ordered_min_ttl
+      path_pattern               = ordered_cache_behavior.value.pattern
+      smooth_streaming           = var.ordered_smooth_streaming
+      target_origin_id           = ordered_cache_behavior.value.target
+      viewer_protocol_policy     = var.ordered_viewer_protocol_policy
+      response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy[0].id : null
     }
   }
 
