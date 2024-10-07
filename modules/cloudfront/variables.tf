@@ -55,12 +55,6 @@ variable "cache_policy_id" {
   description = "Unique identifier of the cache policy that is attached to the cache behavior"
 }
 
-variable "response_headers_policy_id" {
-  type        = string
-  default     = null
-  description = "Identifier for a response headers policy."
-}
-
 variable "targets" {
   default     = []
   description = "Targets and patterns needed to create new behaviours."
@@ -306,14 +300,15 @@ variable "logging_config" {
 variable "create_response_headers_policy" {
   type = object({
     enabled = optional(bool, false)
-    name    = optional(string, "custome_response_headers")
+    name    = optional(string, "custom_response_headers")
     security_headers = object({
       frame_options = optional(string)
     })
   })
   default = {
     enabled          = false
-    name             = "custome_response_headers"
+    name             = "custom_response_headers"
     security_headers = {}
   }
+  description = "Create cloudfront custom header policy"
 }
