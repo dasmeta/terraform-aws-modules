@@ -105,6 +105,14 @@ resource "aws_cloudfront_distribution" "main" {
       target_origin_id           = ordered_cache_behavior.value.target
       viewer_protocol_policy     = var.ordered_viewer_protocol_policy
       response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy[0].id : null
+      dynamic "function_association" {
+        for_each = var.function_associations
+
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
+        }
+      }
     }
   }
 
