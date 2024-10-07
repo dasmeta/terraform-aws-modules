@@ -93,6 +93,7 @@ resource "aws_cloudfront_distribution" "main" {
       compress        = var.ordered_compress
       default_ttl     = var.ordered_default_ttl
       max_ttl         = var.ordered_max_ttl
+      cache_policy_id = var.cache_policy_id
 
       dynamic "forwarded_values" {
         for_each = var.create_response_headers_policy.enabled ? [] : [var.forwarded_values]
