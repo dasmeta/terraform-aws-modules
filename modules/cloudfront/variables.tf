@@ -26,6 +26,18 @@ variable "create_lambda_security_headers" {
   description = "Whether to create and attach a labda function to the distribution or not."
 }
 
+variable "cache_policy_id" {
+  type        = string
+  default     = null
+  description = "Unique identifier of the cache policy that is attached to the cache behavior"
+}
+
+variable "response_headers_policy_id" {
+  type        = string
+  default     = null
+  description = "Identifier for a response headers policy."
+}
+
 variable "targets" {
   default     = []
   description = "Targets and patterns needed to create new behaviours."

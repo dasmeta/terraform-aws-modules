@@ -1,4 +1,4 @@
-module "this" {
+module "aws-cloudfront-security-headers-policy" {
   count = var.create_response_headers_policy.enabled ? 1 : 0
 
   source           = "./modules/response_headers/"

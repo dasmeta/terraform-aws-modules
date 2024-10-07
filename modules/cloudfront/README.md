@@ -153,7 +153,7 @@ module "cloudfront" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_aws-cloudfront-security-headers"></a> [aws-cloudfront-security-headers](#module\_aws-cloudfront-security-headers) | ../aws-cloudfront-security-headers | n/a |
-| <a name="module_this"></a> [this](#module\_this) | ./modules/response_headers/ | n/a |
+| <a name="module_aws-cloudfront-security-headers-policy"></a> [aws-cloudfront-security-headers-policy](#module\_aws-cloudfront-security-headers-policy) | ./modules/response_headers/ | n/a |
 
 ## Resources
 
@@ -166,6 +166,7 @@ module "cloudfront" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_acm_cert_arn"></a> [acm\_cert\_arn](#input\_acm\_cert\_arn) | ACM certificate arn. | `string` | `""` | no |
+| <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | Unique identifier of the cache policy that is attached to the cache behavior | `string` | `null` | no |
 | <a name="input_cloudfront_default_certificate"></a> [cloudfront\_default\_certificate](#input\_cloudfront\_default\_certificate) | true if you want viewers to use HTTPS to request your objects and you're using the CloudFront domain name for your distribution. | `bool` | `true` | no |
 | <a name="input_connection_attempts"></a> [connection\_attempts](#input\_connection\_attempts) | The number of times that CloudFront attempts to connect to the origin. | `number` | `3` | no |
 | <a name="input_connection_timeout"></a> [connection\_timeout](#input\_connection\_timeout) | The number of seconds that CloudFront waits when trying to establish a connection to the origin. | `number` | `10` | no |
@@ -205,6 +206,7 @@ module "cloudfront" {
 | <a name="input_origin_ssl_protocols"></a> [origin\_ssl\_protocols](#input\_origin\_ssl\_protocols) | The SSL/TLS protocols that you want CloudFront to use when communicating with your origin over HTTPS. | `list(string)` | <pre>[<br>  "TLSv1",<br>  "TLSv1.1",<br>  "TLSv1.2"<br>]</pre> | no |
 | <a name="input_origins"></a> [origins](#input\_origins) | Targets, types and custom\_origin\_config block are needed to create new origins. | `list(any)` | n/a | yes |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. | `string` | `"PriceClass_All"` | no |
+| <a name="input_response_headers_policy_id"></a> [response\_headers\_policy\_id](#input\_response\_headers\_policy\_id) | Identifier for a response headers policy. | `string` | `null` | no |
 | <a name="input_restriction_type"></a> [restriction\_type](#input\_restriction\_type) | The method that you want to use to restrict distribution of your content by country: none, whitelist, or blacklist. | `string` | `"none"` | no |
 | <a name="input_retain_on_delete"></a> [retain\_on\_delete](#input\_retain\_on\_delete) | Disables the distribution instead of deleting it when destroying the resource through Terraform. | `bool` | `false` | no |
 | <a name="input_tags_name"></a> [tags\_name](#input\_tags\_name) | n/a | `string` | `"terraform testing"` | no |

@@ -42,6 +42,7 @@ resource "aws_cloudfront_distribution" "main" {
     cached_methods  = var.default_cached_methods
     compress        = var.default_compress
     default_ttl     = var.default_default_ttl
+    cache_policy_id = var.cache_policy_id
 
     forwarded_values {
       query_string = false
@@ -52,11 +53,12 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    max_ttl                = var.default_max_ttl
-    min_ttl                = var.default_min_ttl
-    smooth_streaming       = var.default_smooth_streaming
-    target_origin_id       = var.default_target_origin_id
-    viewer_protocol_policy = var.default_viewer_protocol_policy
+    max_ttl                    = var.default_max_ttl
+    min_ttl                    = var.default_min_ttl
+    smooth_streaming           = var.default_smooth_streaming
+    target_origin_id           = var.default_target_origin_id
+    response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy.id : null
+    viewer_protocol_policy     = var.default_viewer_protocol_policy
 
     dynamic "lambda_function_association" {
       for_each = module.aws-cloudfront-security-headers
@@ -76,7 +78,6 @@ resource "aws_cloudfront_distribution" "main" {
         function_arn = function_association.value.function_arn
       }
     }
-
   }
 
   dynamic "ordered_cache_behavior" {
