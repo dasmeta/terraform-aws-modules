@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "main" {
     cache_policy_id = var.cache_policy_id
 
     dynamic "forwarded_values" {
-      for_each = var.cache_policy_id == "" ? [] : [var.forwarded_values]
+      for_each = var.cache_policy_id == "" ? [] : [] # var.forwarded_values]
 
       content {
         query_string = forwarded_values.value.query_string
@@ -96,7 +96,7 @@ resource "aws_cloudfront_distribution" "main" {
       cache_policy_id = var.cache_policy_id
 
       dynamic "forwarded_values" {
-        for_each = var.cache_policy_id == "" ? [] : [var.forwarded_values]
+        for_each = var.cache_policy_id == "" ? [] : [] # [var.forwarded_values]
 
         content {
           query_string = forwarded_values.value.query_string
