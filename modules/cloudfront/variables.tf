@@ -43,7 +43,7 @@ variable "forwarded_values" {
 
 variable "cache_policy_id" {
   type        = string
-  default     = null
+  default     = ""
   description = "Unique identifier of the cache policy that is attached to the cache behavior"
 }
 

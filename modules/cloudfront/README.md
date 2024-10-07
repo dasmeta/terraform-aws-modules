@@ -166,7 +166,7 @@ module "cloudfront" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_acm_cert_arn"></a> [acm\_cert\_arn](#input\_acm\_cert\_arn) | ACM certificate arn. | `string` | `""` | no |
-| <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | Unique identifier of the cache policy that is attached to the cache behavior | `string` | `null` | no |
+| <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | Unique identifier of the cache policy that is attached to the cache behavior | `string` | `""` | no |
 | <a name="input_cloudfront_default_certificate"></a> [cloudfront\_default\_certificate](#input\_cloudfront\_default\_certificate) | true if you want viewers to use HTTPS to request your objects and you're using the CloudFront domain name for your distribution. | `bool` | `true` | no |
 | <a name="input_connection_attempts"></a> [connection\_attempts](#input\_connection\_attempts) | The number of times that CloudFront attempts to connect to the origin. | `number` | `3` | no |
 | <a name="input_connection_timeout"></a> [connection\_timeout](#input\_connection\_timeout) | The number of seconds that CloudFront waits when trying to establish a connection to the origin. | `number` | `10` | no |
@@ -185,6 +185,7 @@ module "cloudfront" {
 | <a name="input_default_viewer_protocol_policy"></a> [default\_viewer\_protocol\_policy](#input\_default\_viewer\_protocol\_policy) | Use this element to specify the protocol that users can use to access the files in the origin specified by TargetOriginId when a request matches the path pattern in PathPattern. One of allow-all, https-only, or redirect-to-https. | `string` | `"allow-all"` | no |
 | <a name="input_domain_names"></a> [domain\_names](#input\_domain\_names) | The list of domain names (aliases) for which cloudfront will used for | `list(string)` | n/a | yes |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Whether the distribution is enabled to accept end user requests for content. | `bool` | `true` | no |
+| <a name="input_forwarded_values"></a> [forwarded\_values](#input\_forwarded\_values) | Origin Forwarded value | <pre>object({<br>    query_string = optional(bool, false)<br>    headers      = optional(list(string), ["Origin"])<br>    forward      = optional(string, "none")<br>  })</pre> | <pre>{<br>  "forward": "none",<br>  "headers": [<br>    "Origin"<br>  ],<br>  "query_string": false<br>}</pre> | no |
 | <a name="input_function_associations"></a> [function\_associations](#input\_function\_associations) | A list of Cloudfront function associations. | <pre>list(object({<br>    event_type   = string<br>    function_arn = string<br>  }))</pre> | `[]` | no |
 | <a name="input_http_port"></a> [http\_port](#input\_http\_port) | The HTTP port the custom origin listens on. | `number` | `80` | no |
 | <a name="input_https_port"></a> [https\_port](#input\_https\_port) | The HTTPS port the custom origin listens on. | `number` | `443` | no |
