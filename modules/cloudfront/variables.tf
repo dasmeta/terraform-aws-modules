@@ -26,6 +26,21 @@ variable "create_lambda_security_headers" {
   description = "Whether to create and attach a labda function to the distribution or not."
 }
 
+variable "forwarded_values" {
+  type = object({
+    query_string = optional(bool, false)
+    headers      = optional(list(string), ["Origin"])
+    forward      = optional(string, "none")
+  })
+
+  default = {
+    query_string = false
+    headers      = ["Origin"]
+    forward      = "none"
+  }
+  description = "Origin Forwarded value"
+}
+
 variable "cache_policy_id" {
   type        = string
   default     = null

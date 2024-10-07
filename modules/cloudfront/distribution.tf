@@ -90,12 +90,16 @@ resource "aws_cloudfront_distribution" "main" {
       default_ttl     = var.ordered_default_ttl
       max_ttl         = var.ordered_max_ttl
 
-      forwarded_values {
-        query_string = false
-        headers      = ["Origin"]
+      dynamic "forwarded_values" {
+        for_each = var.create_response_headers_policy.enabled ? {} : var.forwarded_values
 
-        cookies {
-          forward = "none"
+        content {
+          query_string = var.forwarded_values.query_string
+          headers      = var.forwarded_values.headers
+
+          cookies {
+            forward = var.forwarded_values.forward
+          }
         }
       }
 
