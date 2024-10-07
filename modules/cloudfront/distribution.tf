@@ -16,6 +16,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "main" {
   aliases             = var.domain_names
+  comment             = var.comment
   enabled             = var.enabled
   is_ipv6_enabled     = var.is_ipv6_enabled
   price_class         = var.price_class
@@ -42,21 +43,27 @@ resource "aws_cloudfront_distribution" "main" {
     cached_methods  = var.default_cached_methods
     compress        = var.default_compress
     default_ttl     = var.default_default_ttl
+    cache_policy_id = var.cache_policy_id
 
-    forwarded_values {
-      query_string = false
-      headers      = ["Origin"]
+    dynamic "forwarded_values" {
+      for_each = var.cache_policy_id == "" ? [var.forwarded_values] : []
 
-      cookies {
-        forward = "none"
+      content {
+        query_string = forwarded_values.value.query_string
+        headers      = forwarded_values.value.headers
+
+        cookies {
+          forward = forwarded_values.value.forward
+        }
       }
     }
 
-    max_ttl                = var.default_max_ttl
-    min_ttl                = var.default_min_ttl
-    smooth_streaming       = var.default_smooth_streaming
-    target_origin_id       = var.default_target_origin_id
-    viewer_protocol_policy = var.default_viewer_protocol_policy
+    max_ttl                    = var.default_max_ttl
+    min_ttl                    = var.default_min_ttl
+    smooth_streaming           = var.default_smooth_streaming
+    target_origin_id           = var.default_target_origin_id
+    response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy[0].id : null
+    viewer_protocol_policy     = var.default_viewer_protocol_policy
 
     dynamic "lambda_function_association" {
       for_each = module.aws-cloudfront-security-headers
@@ -76,7 +83,6 @@ resource "aws_cloudfront_distribution" "main" {
         function_arn = function_association.value.function_arn
       }
     }
-
   }
 
   dynamic "ordered_cache_behavior" {
@@ -88,21 +94,35 @@ resource "aws_cloudfront_distribution" "main" {
       compress        = var.ordered_compress
       default_ttl     = var.ordered_default_ttl
       max_ttl         = var.ordered_max_ttl
+      cache_policy_id = var.cache_policy_id
 
-      forwarded_values {
-        query_string = false
-        headers      = ["Origin"]
+      dynamic "forwarded_values" {
+        for_each = var.cache_policy_id == "" ? [var.forwarded_values] : []
 
-        cookies {
-          forward = "none"
+        content {
+          query_string = forwarded_values.value.query_string
+          headers      = forwarded_values.value.headers
+
+          cookies {
+            forward = forwarded_values.value.forward
+          }
         }
       }
 
-      min_ttl                = var.ordered_min_ttl
-      path_pattern           = ordered_cache_behavior.value.pattern
-      smooth_streaming       = var.ordered_smooth_streaming
-      target_origin_id       = ordered_cache_behavior.value.target
-      viewer_protocol_policy = var.ordered_viewer_protocol_policy
+      min_ttl                    = var.ordered_min_ttl
+      path_pattern               = ordered_cache_behavior.value.pattern
+      smooth_streaming           = var.ordered_smooth_streaming
+      target_origin_id           = ordered_cache_behavior.value.target
+      viewer_protocol_policy     = var.ordered_viewer_protocol_policy
+      response_headers_policy_id = var.create_response_headers_policy.enabled ? module.aws-cloudfront-security-headers-policy[0].id : null
+      dynamic "function_association" {
+        for_each = var.function_associations
+
+        content {
+          event_type   = function_association.value.event_type
+          function_arn = function_association.value.function_arn
+        }
+      }
     }
   }
 

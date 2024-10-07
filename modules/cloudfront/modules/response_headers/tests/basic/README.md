@@ -1,11 +1,9 @@
-# default
+# tests
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.33 |
+No requirements.
 
 ## Providers
 
@@ -15,7 +13,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_this"></a> [this](#module\_this) | ../../ | n/a |
+| <a name="module_this"></a> [this](#module\_this) | ../ | n/a |
 
 ## Resources
 

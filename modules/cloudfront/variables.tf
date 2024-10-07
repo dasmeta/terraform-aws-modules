@@ -2,10 +2,18 @@ variable "domain_names" {
   description = "The list of domain names (aliases) for which cloudfront will used for"
   type        = list(string)
 }
+
 variable "default_target_origin_id" {
   description = "The value of ID for the origin that you want CloudFront to route requests to when a request matches the path pattern either for a cache behavior or for the default cache behavior."
   type        = string
 }
+
+variable "comment" {
+  description = "Comment for CloudFront"
+  type        = string
+  default     = ""
+}
+
 variable "origins" {
   description = "Targets, types and custom_origin_config block are needed to create new origins."
   type        = list(any)
@@ -24,6 +32,27 @@ variable "create_lambda_security_headers" {
   type        = bool
   default     = false
   description = "Whether to create and attach a labda function to the distribution or not."
+}
+
+variable "forwarded_values" {
+  type = object({
+    query_string = optional(bool, false)
+    headers      = optional(list(string), ["Origin"])
+    forward      = optional(string, "none")
+  })
+
+  default = {
+    query_string = false
+    headers      = ["Origin"]
+    forward      = "none"
+  }
+  description = "Origin Forwarded value"
+}
+
+variable "cache_policy_id" {
+  type        = string
+  default     = ""
+  description = "Unique identifier of the cache policy that is attached to the cache behavior"
 }
 
 variable "targets" {
@@ -70,7 +99,7 @@ variable "retain_on_delete" {
 
 variable "default_root_object" {
   type        = string
-  default     = "/index.html"
+  default     = "index.html"
   description = "The object that you want CloudFront to return (for example, index.html) when an end user requests the root URL."
 }
 
@@ -266,4 +295,20 @@ variable "logging_config" {
     enable = false
     bucket = null
   }
+}
+
+variable "create_response_headers_policy" {
+  type = object({
+    enabled = optional(bool, false)
+    name    = optional(string, "custom_response_headers")
+    security_headers = object({
+      frame_options = optional(string)
+    })
+  })
+  default = {
+    enabled          = false
+    name             = "custom_response_headers"
+    security_headers = {}
+  }
+  description = "Create cloudfront custom header policy"
 }
