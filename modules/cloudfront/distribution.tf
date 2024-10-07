@@ -44,12 +44,16 @@ resource "aws_cloudfront_distribution" "main" {
     default_ttl     = var.default_default_ttl
     cache_policy_id = var.cache_policy_id
 
-    forwarded_values {
-      query_string = false
-      headers      = ["Origin"]
+    dynamic "forwarded_values" {
+      for_each = var.create_response_headers_policy.enabled ? [] : [var.forwarded_values]
 
-      cookies {
-        forward = "none"
+      content {
+        query_string = forwarded_values.value.query_string
+        headers      = forwarded_values.value.headers
+
+        cookies {
+          forward = forwarded_values.value.forward
+        }
       }
     }
 
