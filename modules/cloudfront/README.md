@@ -168,6 +168,7 @@ module "cloudfront" {
 | <a name="input_acm_cert_arn"></a> [acm\_cert\_arn](#input\_acm\_cert\_arn) | ACM certificate arn. | `string` | `""` | no |
 | <a name="input_cache_policy_id"></a> [cache\_policy\_id](#input\_cache\_policy\_id) | Unique identifier of the cache policy that is attached to the cache behavior | `string` | `""` | no |
 | <a name="input_cloudfront_default_certificate"></a> [cloudfront\_default\_certificate](#input\_cloudfront\_default\_certificate) | true if you want viewers to use HTTPS to request your objects and you're using the CloudFront domain name for your distribution. | `bool` | `true` | no |
+| <a name="input_comment"></a> [comment](#input\_comment) | Comment for CloudFront | `string` | `""` | no |
 | <a name="input_connection_attempts"></a> [connection\_attempts](#input\_connection\_attempts) | The number of times that CloudFront attempts to connect to the origin. | `number` | `3` | no |
 | <a name="input_connection_timeout"></a> [connection\_timeout](#input\_connection\_timeout) | The number of seconds that CloudFront waits when trying to establish a connection to the origin. | `number` | `10` | no |
 | <a name="input_create_lambda_security_headers"></a> [create\_lambda\_security\_headers](#input\_create\_lambda\_security\_headers) | Whether to create and attach a labda function to the distribution or not. | `bool` | `false` | no |
