@@ -23,6 +23,16 @@ resource "aws_cloudfront_distribution" "main" {
   retain_on_delete    = var.retain_on_delete
   default_root_object = var.default_root_object
 
+  dynamic "custom_error_response" {
+    for_each = var.custom_error_response.enabled ? [1] : []
+    content {
+      error_caching_min_ttl = var.custom_error_response.error_caching_min_ttl
+      error_code            = var.custom_error_response.error_code
+      response_code         = var.custom_error_response.response_code
+      response_page_path    = var.custom_error_response.response_page_path
+    }
+  }
+
   tags = {
     Name = var.tags_name
   }
