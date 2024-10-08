@@ -312,3 +312,21 @@ variable "create_response_headers_policy" {
   }
   description = "Create cloudfront custom header policy"
 }
+
+variable "custom_error_response" {
+  type = object({
+    enabled               = optional(bool, false)
+    error_caching_min_ttl = optional(number, 10)
+    error_code            = optional(number, 404)
+    response_code         = optional(number, 200)
+    response_page_path    = optional(string, "/index.html")
+  })
+  default = {
+    enabled               = false
+    error_caching_min_ttl = 10
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+  description = "Cloudfront custom error response"
+}
