@@ -24,7 +24,7 @@ variable "availability_zone_prefix" {
 variable "encrypted" {
   description = "Weather make encrypted or not"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "kms_key_id" {
