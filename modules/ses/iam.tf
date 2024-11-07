@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "ses_policy" {
 }
 
 resource "aws_iam_group" "ses_group" {
-  name = "ses_users"
+  name = "${var.prefix}ses_users"
   path = "/"
 }
 

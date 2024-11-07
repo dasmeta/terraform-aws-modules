@@ -9,6 +9,12 @@ variable "email_domain" {
   description = "For which sender domain SES should be configured."
 }
 
+variable "prefix" {
+  type        = string
+  description = "Prefix for ses greoup be unique."
+  default     = ""
+}
+
 variable "mail_users" {
   type        = list(string)
   description = "User names for mail to create."
