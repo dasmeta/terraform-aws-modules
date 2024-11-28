@@ -86,7 +86,7 @@ module "healthcheck" {
 | <a name="input_period"></a> [period](#input\_period) | Period. | `string` | `"60"` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port number of checking service. | `number` | `443` | no |
 | <a name="input_reference_name"></a> [reference\_name](#input\_reference\_name) | Reference name of health check. | `string` | `""` | no |
-| <a name="input_regions"></a> [regions](#input\_regions) | (Optional) A list of AWS regions that you want Amazon Route 53 health checkers to check the specified endpoint from. | `list(string)` | <pre>[<br/>  "us-east-1",<br/>  "eu-west-1",<br/>  "ap-northeast-1"<br/>]</pre> | no |
+| <a name="input_regions"></a> [regions](#input\_regions) | (Optional) A list of AWS regions that you want Amazon Route 53 health checkers to check the specified endpoint from. | `list(string)` | <pre>[<br>  "us-east-1",<br>  "eu-west-1",<br>  "ap-northeast-1"<br>]</pre> | no |
 | <a name="input_request_interval"></a> [request\_interval](#input\_request\_interval) | The number of seconds between the time that Amazon Route 53 gets a response from your endpoint and the time that it sends the next health-check request. | `string` | `"30"` | no |
 | <a name="input_resource_path"></a> [resource\_path](#input\_resource\_path) | Path name coming after fqdn. | `string` | `""` | no |
 | <a name="input_slack_channel"></a> [slack\_channel](#input\_slack\_channel) | Slack Channel | `string` | `null` | no |

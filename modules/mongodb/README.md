@@ -48,7 +48,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_arbiter_resources"></a> [arbiter\_resources](#input\_arbiter\_resources) | Allows to set cpu/memory resources Limits/Requests for arbiter. | <pre>object({<br/>    limits = object({<br/>      cpu    = string<br/>      memory = string<br/>    })<br/>    requests = object({<br/>      cpu    = string<br/>      memory = string<br/>    })<br/>  })</pre> | <pre>{<br/>  "limits": {<br/>    "cpu": "",<br/>    "memory": ""<br/>  },<br/>  "requests": {<br/>    "cpu": "",<br/>    "memory": ""<br/>  }<br/>}</pre> | no |
+| <a name="input_arbiter_resources"></a> [arbiter\_resources](#input\_arbiter\_resources) | Allows to set cpu/memory resources Limits/Requests for arbiter. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | <pre>{<br>  "limits": {<br>    "cpu": "",<br>    "memory": ""<br>  },<br>  "requests": {<br>    "cpu": "",<br>    "memory": ""<br>  }<br>}</pre> | no |
 | <a name="input_architecture"></a> [architecture](#input\_architecture) | n/a | `string` | `"replicaset"` | no |
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | n/a | `string` | `"4.4.11-debian-10-r5"` | no |
 | <a name="input_livenessprobe_initialdelayseconds"></a> [livenessprobe\_initialdelayseconds](#input\_livenessprobe\_initialdelayseconds) | n/a | `string` | `"30"` | no |
@@ -58,7 +58,7 @@ No modules.
 | <a name="input_priority_class_name"></a> [priority\_class\_name](#input\_priority\_class\_name) | Priority class name for pods. Useful if mongodb is co-located with other resources and consumes lot of memory. | `string` | `""` | no |
 | <a name="input_readinessprobe_initialdelayseconds"></a> [readinessprobe\_initialdelayseconds](#input\_readinessprobe\_initialdelayseconds) | n/a | `string` | `"5"` | no |
 | <a name="input_replicaset_key"></a> [replicaset\_key](#input\_replicaset\_key) | n/a | `string` | n/a | yes |
-| <a name="input_resources"></a> [resources](#input\_resources) | Allows to set cpu/memory resources Limits/Requests for deployment. | <pre>object({<br/>    limits = object({<br/>      cpu    = string<br/>      memory = string<br/>    })<br/>    requests = object({<br/>      cpu    = string<br/>      memory = string<br/>    })<br/>  })</pre> | <pre>{<br/>  "limits": {<br/>    "cpu": "300m",<br/>    "memory": "500Mi"<br/>  },<br/>  "requests": {<br/>    "cpu": "300m",<br/>    "memory": "500Mi"<br/>  }<br/>}</pre> | no |
+| <a name="input_resources"></a> [resources](#input\_resources) | Allows to set cpu/memory resources Limits/Requests for deployment. | <pre>object({<br>    limits = object({<br>      cpu    = string<br>      memory = string<br>    })<br>    requests = object({<br>      cpu    = string<br>      memory = string<br>    })<br>  })</pre> | <pre>{<br>  "limits": {<br>    "cpu": "300m",<br>    "memory": "500Mi"<br>  },<br>  "requests": {<br>    "cpu": "300m",<br>    "memory": "500Mi"<br>  }<br>}</pre> | no |
 | <a name="input_root_password"></a> [root\_password](#input\_root\_password) | n/a | `string` | n/a | yes |
 
 ## Outputs
