@@ -128,10 +128,10 @@ spec:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_hostnames"></a> [additional\_hostnames](#input\_additional\_hostnames) | Additional hosts besides the main one: for example, if hostname is dasmeta.com, an additional hostname can be *.dasmeta.com | `list(string)` | `[]` | no |
-| <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for ALB | <pre>object({<br/>    enabled       = optional(bool, true)<br/>    sns_topic     = string<br/>    custom_values = optional(any, {})<br/>  })</pre> | n/a | yes |
+| <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for ALB | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
 | <a name="input_backend_protocol"></a> [backend\_protocol](#input\_backend\_protocol) | Specifies the protocol used when route traffic to pods. | `string` | `"HTTP"` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | Specifies the ARN of one or more certificate managed by AWS Certificate Manager. If the alb.ingress.kubernetes.io/certificate-arn annotation is not specified, the controller will attempt to add certificates to listeners that require it by matching available certs from ACM with the host field in each listener's ingress rule. | `string` | `""` | no |
-| <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br/>    service_name = string<br/>    service_port = string<br/>  })</pre> | <pre>{<br/>  "service_name": null,<br/>  "service_port": null<br/>}</pre> | no |
+| <a name="input_default_backend"></a> [default\_backend](#input\_default\_backend) | n/a | <pre>object({<br>    service_name = string<br>    service_port = string<br>  })</pre> | <pre>{<br>  "service_name": null,<br>  "service_port": null<br>}</pre> | no |
 | <a name="input_enable_send_alb_logs_to_cloudwatch"></a> [enable\_send\_alb\_logs\_to\_cloudwatch](#input\_enable\_send\_alb\_logs\_to\_cloudwatch) | Send ALB logs to Cloudwatch if you enable enable\_send\_alb\_logs\_to\_s3 you should desable it will enable automaticlly | `bool` | `false` | no |
 | <a name="input_enable_send_alb_logs_to_s3"></a> [enable\_send\_alb\_logs\_to\_s3](#input\_enable\_send\_alb\_logs\_to\_s3) | Send ALB logs to s3 if you enable enable\_send\_alb\_logs\_to\_cloudwatch you don't need enable this it will enable automaticlly | `bool` | `false` | no |
 | <a name="input_healthcheck_path"></a> [healthcheck\_path](#input\_healthcheck\_path) | Specifies the HTTP path when performing health check on targets. | `string` | `"/"` | no |
@@ -141,7 +141,7 @@ spec:
 | <a name="input_log_retention_days"></a> [log\_retention\_days](#input\_log\_retention\_days) | Log Retention days for s3 | `number` | `7` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Ingress, must be unique. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | K8s namespace where the Ingress will be created. | `string` | `"default"` | no |
-| <a name="input_path"></a> [path](#input\_path) | Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend. | <pre>list(object({<br/>    name = string<br/>    port = string<br/>    path = string<br/>  }))</pre> | `null` | no |
+| <a name="input_path"></a> [path](#input\_path) | Path array of path regex associated with a backend. Incoming urls matching the path are forwarded to the backend. | <pre>list(object({<br>    name = string<br>    port = string<br>    path = string<br>  }))</pre> | `null` | no |
 | <a name="input_scheme"></a> [scheme](#input\_scheme) | Specifies whether your LoadBalancer will be internet facing. | `string` | `"internet-facing"` | no |
 | <a name="input_ssl_policy"></a> [ssl\_policy](#input\_ssl\_policy) | Specifies the Security Policy that should be assigned to the ALB. | `string` | `"ELBSecurityPolicy-TLS13-1-2-2021-06"` | no |
 | <a name="input_ssl_redirect"></a> [ssl\_redirect](#input\_ssl\_redirect) | Redirects HTTP traffic into HTTPs if set true. | `bool` | `true` | no |

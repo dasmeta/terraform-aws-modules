@@ -357,7 +357,7 @@ module "waf_alb" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alarms"></a> [alarms](#input\_alarms) | n/a | <pre>object({<br/>    enabled       = optional(bool, true)<br/>    sns_topic     = string<br/>    custom_values = optional(any, {})<br/>  })</pre> | n/a | yes |
+| <a name="input_alarms"></a> [alarms](#input\_alarms) | n/a | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
 | <a name="input_alb_arn"></a> [alb\_arn](#input\_alb\_arn) | Application Load Balancer ARN | `string` | `""` | no |
 | <a name="input_alb_arn_list"></a> [alb\_arn\_list](#input\_alb\_arn\_list) | Application Load Balancer ARN list | `list(string)` | `[]` | no |
 | <a name="input_allow_default_action"></a> [allow\_default\_action](#input\_allow\_default\_action) | Set to true for WAF to allow requests by default. Set to false for WAF to block requests by default. | `bool` | `true` | no |
@@ -370,7 +370,7 @@ module "waf_alb" {
 | <a name="input_rules"></a> [rules](#input\_rules) | List of WAF rules. | `any` | `[]` | no |
 | <a name="input_scope"></a> [scope](#input\_scope) | Specifies whether this is for an AWS CloudFront distribution or for a regional application. Valid values are CLOUDFRONT or REGIONAL. To work with CloudFront, you must also specify the region us-east-1 (N. Virginia) on the AWS provider. | `string` | `"REGIONAL"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of WAF rules. | `any` | `{}` | no |
-| <a name="input_visibility_config"></a> [visibility\_config](#input\_visibility\_config) | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration | `any` | <pre>{<br/>  "metric_name": "test-waf-setup-waf-main-metrics"<br/>}</pre> | no |
+| <a name="input_visibility_config"></a> [visibility\_config](#input\_visibility\_config) | Visibility config for WAFv2 web acl. https://www.terraform.io/docs/providers/aws/r/wafv2_web_acl.html#visibility-configuration | `any` | <pre>{<br>  "metric_name": "test-waf-setup-waf-main-metrics"<br>}</pre> | no |
 | <a name="input_whitelist_ips"></a> [whitelist\_ips](#input\_whitelist\_ips) | List of IPs to whitelist. NOTE that this is going to priority 1 so when you pass this list make sure that var.rules list do not contain priority=1 rule | `list(string)` | `[]` | no |
 
 ## Outputs

@@ -56,7 +56,7 @@ module "s3-to-cloudwatch" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_assume_role_arn"></a> [assume\_role\_arn](#input\_assume\_role\_arn) | AWS Acounts Assume roles arn which access bucket write | `list(string)` | <pre>[<br/>  "arn:aws:iam::*:role/eks-cluster-fluent-bit-role"<br/>]</pre> | no |
+| <a name="input_assume_role_arn"></a> [assume\_role\_arn](#input\_assume\_role\_arn) | AWS Acounts Assume roles arn which access bucket write | `list(string)` | <pre>[<br>  "arn:aws:iam::*:role/eks-cluster-fluent-bit-role"<br>]</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `"test-fluent-bit-bla"` | no |
 | <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | n/a | `bool` | `true` | no |
 | <a name="input_create_lambda_s3_to_cloudwatch"></a> [create\_lambda\_s3\_to\_cloudwatch](#input\_create\_lambda\_s3\_to\_cloudwatch) | n/a | `bool` | `true` | no |
