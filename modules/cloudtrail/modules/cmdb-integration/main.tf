@@ -1,10 +1,10 @@
 module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "4.7.1"
+  version = "6.8.0"
 
   function_name = var.name
   handler       = "lambda.handler"
-  runtime       = "nodejs14.x"
+  runtime       = "nodejs20.x"
   publish       = true
   source_path   = "${path.module}/src/"
 
