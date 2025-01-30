@@ -86,7 +86,7 @@ locals {
     lambda_builder_code                 = file("${path.module}/codebuild_builder/lambda.py")
     lambda_builder_handler              = "index.handler"
     lambda_builder_memory_size          = 128
-    lambda_builder_runtime              = "python3.7"
+    lambda_builder_runtime              = "python3.11"
     lambda_builder_timeout              = 60
   }) : null
   lambda_builder_filenames = {

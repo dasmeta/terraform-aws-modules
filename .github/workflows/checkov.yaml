@@ -76,7 +76,7 @@ jobs:
           - modules/waf
 
     steps:
-    - uses: dasmeta/reusable-actions-workflows/checkov@4.2.0
+    - uses: dasmeta/reusable-actions-workflows/checkov@4.2.1
       with:
         fetch-depth: 0
         directory: ${{ matrix.path }}
