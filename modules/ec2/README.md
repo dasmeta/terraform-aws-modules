@@ -27,7 +27,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for EC2 | <pre>object({<br>    enabled       = optional(bool, true)<br>    sns_topic     = string<br>    custom_values = optional(any, {})<br>  })</pre> | n/a | yes |
+| <a name="input_alarms"></a> [alarms](#input\_alarms) | Alarms for EC2 | <pre>object({<br/>    enabled       = optional(bool, true)<br/>    sns_topic     = string<br/>    custom_values = optional(any, {})<br/>  })</pre> | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | EC2 Instance name | `string` | n/a | yes |
 
 ## Outputs

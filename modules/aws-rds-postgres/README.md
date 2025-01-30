@@ -54,7 +54,7 @@ No requirements.
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_password"></a> [password](#input\_password) | n/a | `string` | `""` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Bool to control if instance is publicly accessible | `bool` | `false` | no |
-| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group name | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group name | `list(string)` | <pre>[<br/>  ""<br/>]</pre> | no |
 | <a name="input_storage"></a> [storage](#input\_storage) | Storage voluem size - cannot be decreased after creation | `number` | `20` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | n/a | `list(string)` | n/a | yes |
 | <a name="input_username"></a> [username](#input\_username) | n/a | `string` | n/a | yes |

@@ -32,3 +32,4 @@ override.tf.json
 
 .DS_Store
 .tool-versions
+**/*.zip

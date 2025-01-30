@@ -25,9 +25,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_custom_headers"></a> [custom\_headers](#input\_custom\_headers) | List of custom headers with header name, value, and override flag | <pre>list(object({<br>    header   = string<br>    value    = string<br>    override = bool<br>  }))</pre> | `[]` | no |
+| <a name="input_custom_headers"></a> [custom\_headers](#input\_custom\_headers) | List of custom headers with header name, value, and override flag | <pre>list(object({<br/>    header   = string<br/>    value    = string<br/>    override = bool<br/>  }))</pre> | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | Cloudfront response headers polic | `string` | n/a | yes |
-| <a name="input_security_headers"></a> [security\_headers](#input\_security\_headers) | n/a | <pre>object({<br>    frame_options = optional(string)<br>  })</pre> | `{}` | no |
+| <a name="input_security_headers"></a> [security\_headers](#input\_security\_headers) | n/a | <pre>object({<br/>    frame_options = optional(string)<br/>  })</pre> | `{}` | no |
 
 ## Outputs
 
