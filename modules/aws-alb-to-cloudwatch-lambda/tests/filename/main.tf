@@ -10,7 +10,7 @@ module "build_and_upload_directly" {
   filename      = "${path.module}/package.zip"
   function_name = "terraform-aws-lambda-builder-filename1"
   handler       = "lambda.handler"
-  runtime       = "python3.6"
+  runtime       = "python3.10"
   source_dir    = "${path.module}/src"
 }
 
@@ -19,6 +19,6 @@ module "upload_directly" {
 
   function_name = "terraform-aws-lambda-builder-filename2"
   handler       = "lambda.handler"
-  runtime       = "python3.6"
+  runtime       = "python3.10"
   filename      = "${path.module}/test2.zip"
 }

@@ -1,7 +1,7 @@
 module "this" {
   source = "../../"
 
-  name = "audit-project-test"
+  name = "audit-project-test-dasmeta"
 
   enable_cloudwatch_logs      = true
   cloud_watch_logs_group_name = "audit-project-cloudtrail-logs-test"

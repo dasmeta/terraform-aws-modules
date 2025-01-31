@@ -9,9 +9,7 @@ lambda_client = session.client("lambda")
 
 
 FUNCTION_NAMES = [
-    "terraform-aws-lambda-builder-python-36",
-    "terraform-aws-lambda-builder-python-37",
-    "terraform-aws-lambda-builder-python-38",
+    "terraform-aws-lambda-builder-python-310",
 ]
 
 

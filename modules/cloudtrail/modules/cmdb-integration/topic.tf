@@ -1,8 +1,7 @@
 module "topic" {
   source  = "dasmeta/sns/aws//modules/topic"
-  version = "1.0.0"
+  version = "1.2.8"
 
-  name = var.name
-  # email/sms/endpoint(https) subscriptions
+  name          = var.name
   subscriptions = var.configs.subscriptions
 }

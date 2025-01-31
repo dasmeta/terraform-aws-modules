@@ -16,9 +16,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_lambda_function_36"></a> [lambda\_function\_36](#module\_lambda\_function\_36) | ../../ | n/a |
-| <a name="module_lambda_function_37"></a> [lambda\_function\_37](#module\_lambda\_function\_37) | ../../ | n/a |
-| <a name="module_lambda_function_38"></a> [lambda\_function\_38](#module\_lambda\_function\_38) | ../../ | n/a |
+| <a name="module_lambda_function_310"></a> [lambda\_function\_310](#module\_lambda\_function\_310) | ../../ | n/a |
 
 ## Resources
 

@@ -86,7 +86,7 @@ locals {
 
 module "log_metric_filter" {
   source  = "dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics"
-  version = "1.3.9"
+  version = "1.20.0"
 
   metrics_patterns  = [for name in var.alerts.events : local.metrics_patterns_mapping[name]]
   log_group_name    = var.cloud_watch_logs_group_name
