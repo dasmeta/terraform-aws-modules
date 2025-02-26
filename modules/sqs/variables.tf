@@ -9,10 +9,10 @@ variable "create" {
   default     = true
 }
 
-variable "name_prefix" {
-  description = "A unique name beginning with the specified prefix."
-  type        = string
-  default     = null
+variable "use_name_prefix" {
+  description = "Determines whether `name` is used as a prefix"
+  type        = bool
+  default     = false
 }
 
 variable "visibility_timeout_seconds" {
@@ -53,14 +53,14 @@ variable "policy" {
 
 variable "redrive_policy" {
   description = "The JSON policy to set up the Dead Letter Queue, see AWS docs. Note: when specifying maxReceiveCount, you must specify it as an integer (5), and not a string (\"5\")"
-  type        = string
-  default     = ""
+  type        = any
+  default     = {}
 }
 
 variable "redrive_allow_policy" {
   description = "The JSON policy to set up the Dead Letter Queue redrive permission, see AWS docs."
-  type        = string
-  default     = ""
+  type        = any
+  default     = {}
 }
 
 variable "fifo_queue" {
