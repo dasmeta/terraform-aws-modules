@@ -5,17 +5,17 @@ output "queue_name" {
 
 output "queue_id" {
   description = "The URL for the created Amazon SQS queue"
-  value       = module.sqs.sqs_queue_id
+  value       = module.sqs.queue_id
 }
 
 output "queue_arn" {
   description = "The ARN of the SQS queue"
-  value       = module.sqs.sqs_queue_arn
+  value       = module.sqs.queue_arn
 }
 
 output "queue_url" {
   description = "The url of the SQS queue"
-  value       = module.sqs.sqs_queue_arn
+  value       = module.sqs.queue_url
 }
 
 output "username" {
