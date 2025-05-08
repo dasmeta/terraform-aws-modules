@@ -72,15 +72,11 @@ No modules.
 | <a name="input_from_peer"></a> [from\_peer](#input\_from\_peer) | If traffic FROM peer vpc (to this) should be allowed | `bool` | `true` | no |
 | <a name="input_from_this"></a> [from\_this](#input\_from\_this) | If traffic TO peer vpc (from this) should be allowed | `bool` | `true` | no |
 | <a name="input_peer_dns_resolution"></a> [peer\_dns\_resolution](#input\_peer\_dns\_resolution) | Indicates whether a local VPC can resolve public DNS hostnames to private IP addresses when queried from instances in a peer VPC | `bool` | `false` | no |
-| <a name="input_peer_link_to_local_classic"></a> [peer\_link\_to\_local\_classic](#input\_peer\_link\_to\_local\_classic) | Indicates whether a local VPC can communicate with a ClassicLink connection in the peer VPC over the VPC Peering Connection | `bool` | `false` | no |
-| <a name="input_peer_link_to_peer_classic"></a> [peer\_link\_to\_peer\_classic](#input\_peer\_link\_to\_peer\_classic) | Indicates whether a local ClassicLink connection can communicate with the peer VPC over the VPC Peering Connection | `bool` | `false` | no |
 | <a name="input_peer_rts_ids"></a> [peer\_rts\_ids](#input\_peer\_rts\_ids) | Allows to explicitly specify route tables for peer VPC | `list(string)` | `[]` | no |
 | <a name="input_peer_subnets_ids"></a> [peer\_subnets\_ids](#input\_peer\_subnets\_ids) | If communication can only go to some specific subnets of peer vpc. If empty whole vpc cidr is allowed | `list(string)` | `[]` | no |
 | <a name="input_peer_vpc_id"></a> [peer\_vpc\_id](#input\_peer\_vpc\_id) | Peer VPC ID: string | `string` | `""` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags: map | `map(string)` | `{}` | no |
 | <a name="input_this_dns_resolution"></a> [this\_dns\_resolution](#input\_this\_dns\_resolution) | Indicates whether a local VPC can resolve public DNS hostnames to private IP addresses when queried from instances in a this VPC | `bool` | `false` | no |
-| <a name="input_this_link_to_local_classic"></a> [this\_link\_to\_local\_classic](#input\_this\_link\_to\_local\_classic) | Indicates whether a local VPC can communicate with a ClassicLink connection in the this VPC over the VPC Peering Connection | `bool` | `false` | no |
-| <a name="input_this_link_to_peer_classic"></a> [this\_link\_to\_peer\_classic](#input\_this\_link\_to\_peer\_classic) | Indicates whether a local ClassicLink connection can communicate with the this VPC over the VPC Peering Connection | `bool` | `false` | no |
 | <a name="input_this_rts_ids"></a> [this\_rts\_ids](#input\_this\_rts\_ids) | Allows to explicitly specify route tables for this VPC | `list(string)` | `[]` | no |
 | <a name="input_this_subnets_ids"></a> [this\_subnets\_ids](#input\_this\_subnets\_ids) | If communication can only go to some specific subnets of this vpc. If empty whole vpc cidr is allowed | `list(string)` | `[]` | no |
 | <a name="input_this_vpc_id"></a> [this\_vpc\_id](#input\_this\_vpc\_id) | This VPC ID: string | `string` | `""` | no |
