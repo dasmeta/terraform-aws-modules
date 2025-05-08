@@ -120,3 +120,15 @@ variable "security_group_rule" {
     }
   }
 }
+
+variable "disconnect_on_session_timeout" {
+  type        = bool
+  default     = true
+  description = "Indicates whether the client VPN session is disconnected after the maximum session_timeout_hours is reached. If true, users are prompted to reconnect client VPN. If false, client VPN attempts to reconnect automatically."
+}
+
+variable "session_timeout_hours -" {
+  type        = number
+  description = "The maximum session duration is a trigger by which end-users are required to re-authenticate prior to establishing a VPN session. Default value is 24 - Valid values: 8 | 10 | 12 | 24"
+  default     = 24
+}

@@ -31,15 +31,17 @@ resource "aws_cloudwatch_log_stream" "my-vpn" {
 }
 
 resource "aws_ec2_client_vpn_endpoint" "my-vpn_sso" {
-  description            = var.endpoint_name
-  server_certificate_arn = var.certificate_arn
-  client_cidr_block      = var.endpoint_client_cidr_block
-  split_tunnel           = var.split_tunnel
-  transport_protocol     = "udp"
-  dns_servers            = local.dns_servers
-  vpn_port               = var.vpn_port
-  security_group_ids     = [aws_security_group.my-vpn.id]
-  vpc_id                 = var.vpc_id
+  description                   = var.endpoint_name
+  server_certificate_arn        = var.certificate_arn
+  client_cidr_block             = var.endpoint_client_cidr_block
+  split_tunnel                  = var.split_tunnel
+  transport_protocol            = "udp"
+  dns_servers                   = local.dns_servers
+  vpn_port                      = var.vpn_port
+  security_group_ids            = [aws_security_group.my-vpn.id]
+  vpc_id                        = var.vpc_id
+  disconnect_on_session_timeout = var.disconnect_on_session_timeout
+  session_timeout_hours         = var.session_timeout_hours
 
   authentication_options {
     type                       = var.saml_provider_arn != "" ? "federated-authentication" : "certificate-authentication"
