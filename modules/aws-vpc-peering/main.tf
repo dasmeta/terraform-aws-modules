@@ -29,8 +29,6 @@ resource "aws_vpc_peering_connection_options" "this" {
 
   requester {
     allow_remote_vpc_dns_resolution = var.this_dns_resolution
-    # allow_classic_link_to_remote_vpc = var.this_link_to_peer_classic
-    # allow_vpc_to_remote_classic_link = var.this_link_to_local_classic
   }
 }
 
@@ -42,8 +40,6 @@ resource "aws_vpc_peering_connection_options" "accepter" {
 
   accepter {
     allow_remote_vpc_dns_resolution = var.peer_dns_resolution
-    # allow_classic_link_to_remote_vpc = var.peer_link_to_peer_classic
-    # allow_vpc_to_remote_classic_link = var.peer_link_to_local_classic
   }
 }
 
