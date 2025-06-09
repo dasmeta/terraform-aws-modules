@@ -49,3 +49,9 @@ variable "external_secrets_api_version" {
   default     = "external-secrets.io/v1alpha1" # TODO: the new version external-secrets.io/v1beta1 is available in external-secret operator, please update to new version as soon as you upgrade operator(the new dasmeta eks module already uses the new one)
   description = "The external-secrets resource apiVersion to use when creating the resource"
 }
+
+variable "kind" {
+  type        = string
+  default     = "SecretStore"
+  description = "kind can be SecretStore or ClusterSecretStore ,SecretStore for each namespace and ClusterSecretStore for Cluster"
+}
