@@ -165,3 +165,9 @@ variable "override_custom_headers" {
   default     = {}
   description = "Allows to override-default/disable-default/have-additional security headers"
 }
+
+variable "certificate_validate" {
+  type        = bool
+  description = "Whether validate the certificate in R53 zone or not."
+  default     = true
+}
