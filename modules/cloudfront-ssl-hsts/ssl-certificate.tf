@@ -1,8 +1,9 @@
 module "ssl-certificate-auth" {
   count = var.create_certificate ? 1 : 0
 
-  source              = "dasmeta/modules/aws//modules/ssl-certificate"
-  version             = "2.18.6"
+  source  = "dasmeta/modules/aws//modules/ssl-certificate"
+  version = "2.18.8"
+
   domain              = element(var.aliases, 0)
   alternative_domains = slice(var.aliases, 1, length(var.aliases))
   zone                = element(var.zone, 0)
