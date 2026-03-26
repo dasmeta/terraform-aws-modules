@@ -56,6 +56,14 @@ variable "tunnel_options" {
     tunnel2_phase2_encryption_algorithms = optional(list(string), null)
     tunnel1_phase2_integrity_algorithms  = optional(list(string), null)
     tunnel2_phase2_integrity_algorithms  = optional(list(string), null)
+    tunnel1_phase1_encryption_algorithms = optional(list(string), null)
+    tunnel1_phase1_integrity_algorithms  = optional(list(string), null)
+    tunnel1_phase2_dh_group_numbers      = optional(list(string), null)
+    tunnel1_rekey_margin_time_seconds    = optional(number, null)
+    tunnel2_phase1_encryption_algorithms = optional(list(string), null)
+    tunnel2_phase1_integrity_algorithms  = optional(list(string), null)
+    tunnel2_phase2_dh_group_numbers      = optional(list(string), null)
+    tunnel2_rekey_margin_time_seconds    = optional(number, null)
   })
   default     = {}
   description = "Tunnel options: pre-shared keys, inside CIDRs (/30), and optional IKE/phase algorithms."
