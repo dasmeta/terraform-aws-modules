@@ -61,11 +61,19 @@ resource "aws_vpn_connection" "this" {
   tunnel1_ike_versions                 = try(var.tunnel_options.tunnel1_ike_versions, null)
   tunnel2_ike_versions                 = try(var.tunnel_options.tunnel2_ike_versions, null)
   tunnel1_phase1_dh_group_numbers      = try(var.tunnel_options.tunnel1_phase1_dh_group_numbers, null)
-  tunnel2_phase1_dh_group_numbers      = try(var.tunnel_options.tunnel2_phase1_dh_group_numbers, null)
-  tunnel1_phase2_encryption_algorithms = try(var.tunnel_options.tunnel1_phase2_encryption_algorithms, null)
-  tunnel2_phase2_encryption_algorithms = try(var.tunnel_options.tunnel2_phase2_encryption_algorithms, null)
+  tunnel1_phase1_encryption_algorithms = try(var.tunnel_options.tunnel1_phase1_encryption_algorithms, null)
+  tunnel1_phase1_integrity_algorithms  = try(var.tunnel_options.tunnel1_phase1_integrity_algorithms, null)
+  tunnel1_rekey_margin_time_seconds    = try(var.tunnel_options.tunnel1_rekey_margin_time_seconds, null)
+  tunnel1_phase2_dh_group_numbers      = try(var.tunnel_options.tunnel1_phase2_dh_group_numbers, null)
   tunnel1_phase2_integrity_algorithms  = try(var.tunnel_options.tunnel1_phase2_integrity_algorithms, null)
+  tunnel1_phase2_encryption_algorithms = try(var.tunnel_options.tunnel1_phase2_encryption_algorithms, null)
+  tunnel2_phase1_encryption_algorithms = try(var.tunnel_options.tunnel2_phase1_encryption_algorithms, null)
+  tunnel2_phase1_integrity_algorithms  = try(var.tunnel_options.tunnel2_phase1_integrity_algorithms, null)
+  tunnel2_phase1_dh_group_numbers      = try(var.tunnel_options.tunnel2_phase1_dh_group_numbers, null)
+  tunnel2_phase2_dh_group_numbers      = try(var.tunnel_options.tunnel2_phase2_dh_group_numbers, null)
+  tunnel2_phase2_encryption_algorithms = try(var.tunnel_options.tunnel2_phase2_encryption_algorithms, null)
   tunnel2_phase2_integrity_algorithms  = try(var.tunnel_options.tunnel2_phase2_integrity_algorithms, null)
+  tunnel2_rekey_margin_time_seconds    = try(var.tunnel_options.tunnel2_rekey_margin_time_seconds, null)
 
   tags = merge(var.tags, {
     Name = "${var.name}-vpn"
