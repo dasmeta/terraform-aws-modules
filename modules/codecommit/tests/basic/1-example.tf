@@ -1,7 +1,3 @@
-resource "random_id" "suffix" {
-  byte_length = 4
-}
-
 module "this" {
   source = "../../"
 
@@ -11,5 +7,3 @@ module "this" {
     Purpose = "terraform-module-test"
   }
 }
-
-

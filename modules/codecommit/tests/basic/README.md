@@ -1,10 +1,8 @@
 # basic
 
-Creates a CodeCommit repository with a random name suffix so repeated applies in the same account do not hit a name conflict.
+Creates a single CodeCommit repository named **`tf-test-codecommit`** for manual integration checks. The name is fixed: destroy before switching AWS accounts, or change the name if it already exists where you run the test.
 
 ## Credentials (local)
-
-Configure the AWS provider the same way as the CLI, for example:
 
 ```bash
 export AWS_PROFILE=
@@ -16,10 +14,10 @@ aws sts get-caller-identity
 
 ```bash
 cd modules/codecommit/tests/basic
-terraform init 
+terraform init -upgrade
 terraform validate
 terraform apply
 terraform destroy
 ```
 
-If your lock file was generated with AWS provider 6.x, run `terraform init -upgrade` once so it matches `~> 5.0` in this folder and in the parent module.
+Use `terraform init -upgrade` if the lock file still pins AWS provider 6.x but this folder requires `~> 5.0`.
