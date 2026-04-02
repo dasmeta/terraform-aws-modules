@@ -7,8 +7,8 @@ Creates a CodeCommit repository with a random name suffix so repeated applies in
 Configure the AWS provider the same way as the CLI, for example:
 
 ```bash
-export AWS_PROFILE=payconomy-dev
-export AWS_REGION=eu-central-1
+export AWS_PROFILE=
+export AWS_REGION=
 aws sts get-caller-identity
 ```
 
@@ -16,7 +16,7 @@ aws sts get-caller-identity
 
 ```bash
 cd modules/codecommit/tests/basic
-terraform init -upgrade
+terraform init 
 terraform validate
 terraform apply
 terraform destroy
