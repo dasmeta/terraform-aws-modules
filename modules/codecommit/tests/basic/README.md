@@ -1,34 +1,25 @@
 # basic
 
-Creates a CodeCommit repository with a random name suffix and validates outputs using Terraform `check` blocks (requires Terraform >= 1.5).
+Creates a CodeCommit repository with a random name suffix so repeated applies in the same account do not hit a name conflict.
 
 ## Credentials (local)
 
-The AWS provider reads credentials the same way as the AWS CLI:
-
-| Method | How |
-|--------|-----|
-| Profile | Files `~/.aws/credentials` and `~/.aws/config` — pass `-var="aws_profile=YOUR_PROFILE"` or set `export AWS_PROFILE=YOUR_PROFILE` (when `aws_profile` is null, `AWS_PROFILE` is still used by the SDK default chain). |
-| Keys in env | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, optional `AWS_SESSION_TOKEN` |
-
-Confirm the account Terraform will use:
+Configure the AWS provider the same way as the CLI, for example:
 
 ```bash
-aws sts get-caller-identity --profile YOUR_PROFILE   # if using a profile
-# or without --profile if you rely on env vars / default profile
+export AWS_PROFILE=payconomy-dev
+export AWS_REGION=eu-central-1
+aws sts get-caller-identity
 ```
 
 ## Run
 
 ```bash
 cd modules/codecommit/tests/basic
-terraform init
+terraform init -upgrade
 terraform validate
-
-# Example: fixed region + named profile
-terraform apply -var="aws_profile=payconomy-dev" -var="aws_region=eu-central-1"
-
-terraform destroy -var="aws_profile=payconomy-dev" -var="aws_region=eu-central-1"
+terraform apply
+terraform destroy
 ```
 
-Checks that depend on created resources run once outputs are known (after a successful apply).
+If your lock file was generated with AWS provider 6.x, run `terraform init -upgrade` once so it matches `~> 5.0` in this folder and in the parent module.
