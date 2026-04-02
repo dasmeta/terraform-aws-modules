@@ -1,24 +1,24 @@
 output "repository_id" {
   description = "ID of the CodeCommit repository."
-  value       = try(aws_codecommit_repository.this[0].repository_id, null)
+  value       = aws_codecommit_repository.this.repository_id
 }
 
 output "repository_arn" {
   description = "ARN of the CodeCommit repository."
-  value       = try(aws_codecommit_repository.this[0].arn, null)
+  value       = aws_codecommit_repository.this.arn
 }
 
 output "repository_name" {
   description = "Name of the CodeCommit repository."
-  value       = try(aws_codecommit_repository.this[0].repository_name, null)
+  value       = aws_codecommit_repository.this.repository_name
 }
 
 output "clone_url_http" {
   description = "HTTP URL to clone the repository for IAM or root users."
-  value       = try(aws_codecommit_repository.this[0].clone_url_http, null)
+  value       = aws_codecommit_repository.this.clone_url_http
 }
 
 output "clone_url_ssh" {
   description = "SSH URL to clone the repository for IAM users configuring SSH public keys."
-  value       = try(aws_codecommit_repository.this[0].clone_url_ssh, null)
+  value       = aws_codecommit_repository.this.clone_url_ssh
 }

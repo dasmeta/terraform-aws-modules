@@ -1,9 +1,3 @@
-variable "create" {
-  type        = bool
-  default     = true
-  description = "Whether to create the CodeCommit repository."
-}
-
 variable "repository_name" {
   type        = string
   description = "Name of the repository. Must be unique within the AWS account."
