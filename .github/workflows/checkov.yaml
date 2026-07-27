@@ -62,6 +62,7 @@ jobs:
           - modules/metrics-server
           - modules/mongodb-atlas
           - modules/mongodb
+          - modules/nlb
           - modules/rabbitmq
           - modules/rds
           - modules/route53-alerts-notify
