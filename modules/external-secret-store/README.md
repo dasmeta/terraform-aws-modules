@@ -1,65 +1,45 @@
-# How to use
+# external-secret-store
 
-```
-module "secret-store" {
-  source = "dasmeta/terraform/modules/external-secret-store"
+Creates an External Secrets `SecretStore` (or `ClusterSecretStore`) backed by AWS Secrets
+Manager, plus the least-privilege IAM role it uses.
 
-  name = "store-name"
+```hcl
+module "secret_store" {
+  source = "./modules/external-secret-store"
+
+  name                = "app/prod"
+  controller_role_arn = module.external_secrets.controller_role_arn
+  kind                = "SecretStore"
+  namespace           = "kube-system"
 }
 ```
 
-This is going to create AWS IAM User and restric access to Secret Manager keys starting with store-name (e.g. store-name-\*).
-Any secret created in Secret Manager matching the prefix can be requested via that External Secret Store and be populated as a Secret.
+## Auth model (no static credentials)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+This module has been adapted from the upstream dasmeta module to **remove the IAM user +
+static access-key mechanism**. Instead:
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.7.0 |
+- It creates a per-store IAM **role** (`<store_role_name_prefix><prefix><name>`) whose trust
+  policy allows only the external-secrets controller's base role (`controller_role_arn`) to
+  assume it.
+- The role is granted read-only access (`secretsmanager:GetSecretValue`, `GetResourcePolicy`,
+  `DescribeSecret`, `ListSecretVersionIds`) scoped to `secret:<name>*`.
+- The generated `SecretStore` sets `spec.provider.aws.role = <role_arn>`, so the controller
+  (running with EKS Pod Identity / IRSA credentials) assumes this role to read the store's
+  secrets. No `secretRef`, no IAM user, no access keys.
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.7.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_iam-user"></a> [iam-user](#module\_iam-user) | terraform-aws-modules/iam/aws//modules/iam-user | 4.6.0 |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_iam_policy.policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_user_policy_attachment.test-attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment) | resource |
-| [kubectl_manifest.main](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [kubernetes_secret.store-secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+The controller module grants its base role `sts:AssumeRole` on `role/<store_role_name_prefix>*`,
+so `store_role_name_prefix` here must match the controller's.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_aws_access_key_id"></a> [aws\_access\_key\_id](#input\_aws\_access\_key\_id) | The key store will be using to pull secrets from AWS Secret Manager. | `string` | `""` | no |
-| <a name="input_aws_access_secret"></a> [aws\_access\_secret](#input\_aws\_access\_secret) | The secret store will be using to pull secrets from AWS Secret Manager. | `string` | `""` | no |
-| <a name="input_aws_role_arn"></a> [aws\_role\_arn](#input\_aws\_role\_arn) | Role ARN used to pull secrets from Secret Manager. | `string` | `""` | no |
-| <a name="input_controller"></a> [controller](#input\_controller) | Not sure what is this for yet. | `string` | `"dev"` | no |
-| <a name="input_create_user"></a> [create\_user](#input\_create\_user) | Create IAM user to read credentials or aws\_access\_key\_id / aws\_access\_secret combination should be used. | `bool` | `true` | no |
-| <a name="input_external_secrets_api_version"></a> [external\_secrets\_api\_version](#input\_external\_secrets\_api\_version) | The external-secrets resource apiVersion to use when creating the resource | `string` | `"external-secrets.io/v1alpha1"` | no |
-| <a name="input_kind"></a> [kind](#input\_kind) | kind can be SecretStore or ClusterSecretStore ,SecretStore for each namespace and ClusterSecretStore for Cluster | `string` | `"SecretStore"` | no |
-| <a name="input_name"></a> [name](#input\_name) | Secret store name. | `string` | n/a | yes |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | n/a | `string` | `"default"` | no |
-| <a name="input_prefix"></a> [prefix](#input\_prefix) | This value is going be used as uniq prefix for secret store AWS resources like iam policy/user as for multi region setups we having collision | `string` | `""` | no |
-
-## Outputs
-
-No outputs.
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Description | Default | Required |
+|------|-------------|---------|:--------:|
+| `name` | Store name; IAM scope is `secret:<name>*`. | — | yes |
+| `controller_role_arn` | Controller base role ARN the store role trusts. | — | yes |
+| `kind` | `SecretStore` or `ClusterSecretStore`. | `SecretStore` | no |
+| `namespace` | Namespace for a `SecretStore`. | `kube-system` | no |
+| `region` | Provider region. | current region | no |
+| `external_secrets_api_version` | Store resource apiVersion. | `external-secrets.io/v1` | no |
+| `prefix` | Per-region uniqueness prefix for the global IAM role name. | `""` | no |
+| `store_role_name_prefix` | Role-name prefix (must match the controller grant). | `external-secrets-store-` | no |
