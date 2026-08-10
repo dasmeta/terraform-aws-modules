@@ -1,41 +1,55 @@
-```
-# How to use
+# secret
 
-## Example usage 1 (when the secret is a value)
-module test-secret {
+Creates an AWS Secrets Manager secret. `value` accepts either a plain string or a map, which is
+stored as a JSON object so consumers (for example External Secrets) can read individual keys.
+
+## Basic usage
+
+```hcl
+module "test_secret" {
   source  = "dasmeta/modules/aws//modules/secret"
+  version = "2.20.0"
 
-  name = "test-secret"
+  name  = "test-secret"
   value = "test-secret-value"
 }
+```
 
+## Key-value secret
 
-## Example usage 2 (when the secret is a key-value pair)
-module test-secret {
+```hcl
+module "test_secret" {
   source  = "dasmeta/modules/aws//modules/secret"
+  version = "2.20.0"
 
   name = "test-secret"
   value = {
-    "key1": "value1"
-    "key2": "value2"
-    "key3": "value3"
+    key1 = "value1"
+    key2 = "value2"
+    key3 = "value3"
   }
 }
 ```
 
-## Example usage 3 (when the secret is a key-value pair)
-module test-secret {
+## Customer-managed KMS key and immediate deletion
+
+`recovery_window_in_days = 0` deletes the secret immediately instead of holding it for the
+default 30-day recovery window - useful for throwaway and test secrets.
+
+```hcl
+module "test_secret" {
   source  = "dasmeta/modules/aws//modules/secret"
+  version = "2.20.0"
 
   name = "test-secret"
   value = {
-    "key1": "value1"
-    "key2": "value2"
-    "key3": "value3"
+    key1 = "value1"
   }
-  kms_key_id = "arn:aws:kms:us-east-1:<account_id>:key/<kms_key_id>"
+  kms_key_id              = "arn:aws:kms:us-east-1:<account_id>:key/<kms_key_id>"
+  recovery_window_in_days = 0
 }
 ```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

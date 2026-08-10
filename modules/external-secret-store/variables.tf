@@ -1,57 +1,50 @@
 variable "name" {
   type        = string
-  description = "Secret store name."
+  description = "Secret store name. The store's IAM role is scoped to AWS Secrets Manager secrets whose name starts with this value (e.g. \"app/prod\" -> \"app/prod*\")."
 }
 
-variable "controller" {
+variable "controller_role_arn" {
   type        = string
-  default     = "dev"
-  description = "Not sure what is this for yet."
-}
-
-variable "aws_access_key_id" {
-  type        = string
-  default     = ""
-  description = "The key store will be using to pull secrets from AWS Secret Manager."
-}
-
-variable "aws_access_secret" {
-  type        = string
-  default     = ""
-  description = "The secret store will be using to pull secrets from AWS Secret Manager."
-}
-
-variable "aws_role_arn" {
-  type        = string
-  default     = ""
-  description = "Role ARN used to pull secrets from Secret Manager."
-}
-
-variable "create_user" {
-  type        = bool
-  default     = true
-  description = "Create IAM user to read credentials or aws_access_key_id / aws_access_secret combination should be used."
-}
-
-variable "namespace" {
-  type    = string
-  default = "default"
-}
-
-variable "prefix" {
-  type        = string
-  default     = ""
-  description = "This value is going be used as uniq prefix for secret store AWS resources like iam policy/user as for multi region setups we having collision"
-}
-
-variable "external_secrets_api_version" {
-  type        = string
-  default     = "external-secrets.io/v1alpha1" # TODO: the new version external-secrets.io/v1beta1 is available in external-secret operator, please update to new version as soon as you upgrade operator(the new dasmeta eks module already uses the new one)
-  description = "The external-secrets resource apiVersion to use when creating the resource"
+  description = "ARN of the external-secrets controller's base IAM role. The store role trusts this principal so the controller can assume it (role chaining via spec.provider.aws.role). No static credentials are used."
 }
 
 variable "kind" {
   type        = string
   default     = "SecretStore"
-  description = "kind can be SecretStore or ClusterSecretStore ,SecretStore for each namespace and ClusterSecretStore for Cluster"
+  description = "SecretStore (namespaced) or ClusterSecretStore (cluster-wide)."
+
+  validation {
+    condition     = contains(["SecretStore", "ClusterSecretStore"], var.kind)
+    error_message = "kind must be SecretStore or ClusterSecretStore."
+  }
+}
+
+variable "namespace" {
+  type        = string
+  default     = "kube-system"
+  description = "Namespace for a SecretStore (ignored for ClusterSecretStore)."
+}
+
+variable "region" {
+  type        = string
+  default     = ""
+  description = "AWS region for the SecretsManager provider; defaults to the current region when empty."
+}
+
+variable "external_secrets_api_version" {
+  type        = string
+  default     = "external-secrets.io/v1"
+  description = "apiVersion for the SecretStore/ClusterSecretStore resource (chart 2.8.0 ships external-secrets.io/v1)."
+}
+
+variable "prefix" {
+  type        = string
+  default     = ""
+  description = "Uniqueness prefix for the store's global IAM role name (needed for multi-region setups since IAM is global)."
+}
+
+variable "store_role_name_prefix" {
+  type        = string
+  default     = "external-secrets-store-"
+  description = "Naming prefix for the store IAM role. Must match the controller's store_role_name_prefix so the controller's sts:AssumeRole grant covers it."
 }
