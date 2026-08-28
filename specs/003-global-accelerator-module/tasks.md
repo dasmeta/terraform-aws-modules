@@ -18,13 +18,13 @@
 
 ## Phase 3: Minimal Wrapper Implementation
 
-- [ ] T008 Add `versions.tf` with Terraform `>= 1.3.0` and AWS provider `~> 5.0`.
-- [ ] T009 Add the typed top-level and listener input contract in `variables.tf`.
-- [ ] T010 Add all input-only validation rules, including interval and port-override checks.
-- [ ] T011 Add `locals.tf` to normalize grouped inputs into the upstream v3 shape.
-- [ ] T012 Add `main.tf` with one `terraform-aws-modules/global-accelerator/aws ~> 3.0` module block and no direct resources.
-- [ ] T013 Add stable public outputs in `outputs.tf`.
-- [ ] T014 Run targeted native tests until the contract and validation suites are GREEN.
+- [x] T008 Add `versions.tf` with Terraform `>= 1.3.0` and AWS provider `~> 5.0`.
+- [x] T009 Add the typed top-level and listener input contract in `variables.tf`.
+- [x] T010 Add all input-only validation rules, including interval and port-override checks.
+- [x] T011 Add `locals.tf` to normalize grouped inputs into the upstream v3 shape.
+- [x] T012 Add `main.tf` with one `terraform-aws-modules/global-accelerator/aws ~> 3.0` module block and no direct resources.
+- [x] T013 Add stable public outputs in `outputs.tf`.
+- [x] T014 Run targeted native tests until the contract and validation suites are GREEN.
 
 ## Phase 4: Documentation And Automation
 
