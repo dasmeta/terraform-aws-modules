@@ -1,7 +1,7 @@
 # AWS Global Accelerator Wrapper Module Design
 
 **Date:** 2026-08-28
-**Status:** User-approved design
+**Status:** Design approved in conversation; independent spec review passed; awaiting written-spec confirmation
 **Target repository:** `terraform-aws-modules`
 **Target module:** `modules/global-accelerator`
 
@@ -98,7 +98,7 @@ module "this" {
 }
 ```
 
-Upstream version 3 requires `hashicorp/aws >= 5.84`. Combined with the wrapper constraint, dependency resolution is effectively `>= 5.84, < 6.0`. Terraform `>= 1.3.0` is required because the wrapper uses optional object attributes with defaults.
+Upstream version 3 requires `hashicorp/aws >= 5.84`. Combined with the wrapper constraint, dependency resolution is effectively `>= 5.84, < 6.0`. Terraform `>= 1.3.0` is required because the wrapper uses optional object attributes with defaults. The module's native mock-provider test suite requires Terraform `>= 1.7.0`; this is a test-tooling requirement and does not raise the consumer-facing module minimum.
 
 No separate `providers.tf` is needed because the module does not configure a provider and the related repository precedent keeps `required_providers` in `versions.tf`.
 
@@ -188,17 +188,24 @@ When `enabled` is `false`, the bucket and prefix may be omitted. When it is `tru
 
 Listener map keys and endpoint-group map keys remain stable logical identifiers. The wrapper will not infer AWS Regions from endpoint IDs; `endpoint_group_region` is explicit and required.
 
+Both listener and endpoint-group map keys must match `^[A-Za-z0-9][A-Za-z0-9_-]*$`. In particular, keys cannot be empty or contain `:`. This keeps the upstream v3 composite endpoint-group address (`"${listener_key}:${endpoint_group_key}"`) collision-free and makes keyed wrapper outputs deterministic.
+
 ## Validation and Error Handling
 
 Terraform variable validation will reject structurally invalid inputs before AWS API calls:
 
-- `name` must be non-empty, no longer than 64 characters, use only alphanumeric characters, periods, and hyphens, and not begin or end with a period or hyphen.
+- `name` must contain from 1 through 64 characters, use only alphanumeric characters and hyphens, and not begin or end with a hyphen. Although the AWS API model has historically described periods as acceptable, [AWS provider 5.84 validates accelerator names](https://github.com/hashicorp/terraform-provider-aws/blob/v5.84.0/internal/service/globalaccelerator/accelerator.go) with `^[0-9A-Za-z-]+$`; the wrapper follows the selected provider contract.
 - `listeners` must contain at least one listener.
+- Listener and endpoint-group map keys must match `^[A-Za-z0-9][A-Za-z0-9_-]*$` so they are non-empty and safe for upstream composite addressing.
 - Each listener must contain from one through ten port ranges and at least one endpoint group.
 - `protocol` must be `TCP` or `UDP`.
 - `client_affinity` must be `NONE` or `SOURCE_IP`.
 - Listener and override ports must be integers from 1 through 65535.
 - Each port range must satisfy `from_port <= to_port`.
+- Listener port ranges must not overlap within one listener or across different listeners. Port numbers are unique for the accelerator regardless of listener protocol, matching the AWS `InvalidPortRangeException` contract. Validation will compare interval boundaries directly rather than expand large ranges into individual port numbers.
+- Every `port_override.listener_port` must belong to one of its parent listener's configured port ranges.
+- A `port_override.endpoint_port` must not fall within any listener port range configured anywhere on the accelerator.
+- Within one endpoint group, override pairs, listener ports, and endpoint ports must be unique. Across the accelerator, one endpoint port must not map from more than one distinct listener port; repeating the same mapping for equivalent regional endpoint groups remains valid.
 - Each endpoint group must have a non-empty Region and from one through ten endpoints.
 - A listener cannot contain more than one endpoint group for the same Region.
 - Each endpoint group can contain at most ten port overrides.
@@ -207,7 +214,7 @@ Terraform variable validation will reject structurally invalid inputs before AWS
 - Health-check interval must be 10 or 30 seconds.
 - Health-check port, when set, must be from 1 through 65535.
 - Health-check threshold must be an integer from 1 through 10.
-- Health-check path, when set, must start with `/` and satisfy the AWS path-length limit.
+- Health-check path, when set, is allowed only for `HTTP` or `HTTPS`, must contain from 1 through 255 characters, and must match the AWS pattern `^/[-a-zA-Z0-9@:%_\\+.~#?&/=]*$`.
 - Endpoint IDs must be non-empty.
 - Endpoint weights must be integers from 0 through 255; the default is 128, matching [AWS endpoint-weight behavior](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html).
 - Enabling flow logs requires non-empty S3 bucket and prefix values.
@@ -230,13 +237,13 @@ The module will expose:
 | --- | --- | --- |
 | `accelerator_arn` | `string` | Accelerator ARN |
 | `dns_name` | `string` | IPv4 accelerator DNS name |
-| `dual_stack_dns_name` | `string` | Dual Stack DNS name when applicable |
+| `dual_stack_dns_name` | `string` or `null` | Dual Stack DNS name for `DUAL_STACK`; explicitly `null` for `IPV4` |
 | `hosted_zone_id` | `string` | Route53 alias hosted-zone ID |
-| `ip_sets` | upstream value | Assigned accelerator IP sets |
+| `ip_sets` | `list(object({ ip_addresses = list(string), ip_family = string }))` | Assigned IPv4 and, for Dual Stack, IPv6 address sets |
 | `listener_arns` | `map(string)` | Listener ARN keyed by listener key |
-| `endpoint_group_arns` | nested map of strings | Endpoint-group ARN keyed first by listener key and then endpoint-group key |
+| `endpoint_group_arns` | `map(map(string))` | Endpoint-group ARN keyed first by listener key and then endpoint-group key |
 
-The wrapper will derive the two ARN maps from upstream resource outputs rather than expose the entire upstream resource objects. This keeps the consumer contract stable while returning values needed for DNS, monitoring, and downstream references.
+The wrapper will derive the two ARN maps from upstream resource outputs rather than expose the entire upstream resource objects. This keeps the consumer contract stable while returning values needed for DNS, monitoring, and downstream references. `ip_sets` preserves the provider's list of objects without promising element order; each object contains an IP family and that family's assigned address list. The wrapper normalizes the upstream empty-string behavior for an IPv4-only `dual_stack_dns_name` to `null`.
 
 ## Documentation and Examples
 
@@ -271,7 +278,13 @@ Two executable Terraform fixtures will follow the repository's `0-setup.tf`, `1-
 - Flow logs enabled with an existing example bucket and prefix.
 - Output references that exercise the public output contract.
 
-The fixtures are validation examples and will not apply real AWS infrastructure. Verification will include:
+The fixtures remain copy-pasteable validation examples. In addition, native Terraform tests will be added directly under `tests/`:
+
+- `tests/contract.tftest.hcl` will use a mocked AWS provider and plan-time generated values. Successful runs will verify defaults, the consumer-to-upstream listener and endpoint-group normalization, keyed ARN outputs, the exact `ip_sets` shape, `dual_stack_dns_name = null` for IPv4, and the Dual Stack output path. The test can inspect the wrapper's child-module outputs (`module.this.listeners` and `module.this.endpoint_groups`) without adding test-only public outputs.
+- `tests/validation.tftest.hcl` will use plan runs with `expect_failures`. Every custom validation family will have at least one negative case: name and IP type, listener presence/key grammar/protocol/affinity/range bounds and overlap, endpoint-group key grammar/Region/cardinality, traffic dial, health-check settings/path, endpoint ID/weight, port-override membership/overlap/duplicates, and incomplete flow-log configuration.
+- `tests/basic.tftest.hcl` and `tests/flow-logs.tftest.hcl` will plan the two fixture directories with the mocked provider so the documented examples remain executable.
+
+[Mock-provider testing](https://developer.hashicorp.com/terraform/language/tests/mocking) requires Terraform `>= 1.7.0` and guarantees that no test contacts AWS or applies real infrastructure. The currently pinned reusable test action runs `terraform test` without first initializing a clean checkout, so the Global Accelerator matrix entry needs a dedicated conditional path in `terraform-test.yaml`: checkout, set up Terraform `1.7.5`, run `terraform init -backend=false`, and then run `terraform test`. The existing reusable-action step will be skipped only for this matrix entry and will remain unchanged for every existing module.
 
 ```text
 terraform fmt -check -recursive modules/global-accelerator
@@ -281,6 +294,7 @@ terraform -chdir=modules/global-accelerator/tests/basic init -backend=false
 terraform -chdir=modules/global-accelerator/tests/basic validate
 terraform -chdir=modules/global-accelerator/tests/flow-logs init -backend=false
 terraform -chdir=modules/global-accelerator/tests/flow-logs validate
+terraform -chdir=modules/global-accelerator test
 ```
 
 The module path will be added to the matrices in:
@@ -303,6 +317,10 @@ modules/global-accelerator/
   README.md
   tests/basic/
   tests/flow-logs/
+  tests/basic.tftest.hcl
+  tests/flow-logs.tftest.hcl
+  tests/contract.tftest.hcl
+  tests/validation.tftest.hcl
 .github/workflows/terraform-test.yaml
 .github/workflows/tflint.yaml
 .github/workflows/checkov.yaml
@@ -336,9 +354,12 @@ No deprecated capability is selected, no replacement is required, and no excepti
 | Risk | Mitigation |
 | --- | --- |
 | Upstream `listeners` is untyped | Keep the local public contract typed and normalize it before delegation |
+| Upstream endpoint-group addresses join map keys with `:` | Restrict listener and endpoint-group keys to a colon-free grammar and test invalid keys |
 | Upstream v3 requires AWS provider `>= 5.84` | Document the effective range created by `~> 5.0` plus the upstream constraint |
 | Upstream shape changes in a future major version | Pin to `~> 3.0` and expose stable wrapper outputs instead of raw objects |
 | Invalid or incompatible endpoint identifiers | Validate what is knowable locally and document AWS runtime validation |
+| Port overrides conflict across listeners or endpoint groups | Validate parent-listener membership, endpoint-port overlap, and mapping uniqueness across the typed listener input |
+| Listener ranges reuse an accelerator port | Reject interval overlap within and across listeners before the provider reaches AWS |
 | Flow logs enabled without working S3 permissions | Require bucket/prefix inputs and document caller-owned bucket policy |
 | Dual Stack used with unsupported endpoints | Document AWS endpoint compatibility requirements |
 | Client IP preservation has endpoint-specific side effects | Do not force a default; document security-group and lifecycle implications |
@@ -348,11 +369,11 @@ No deprecated capability is selected, no replacement is required, and no excepti
 
 - The wrapper uses `terraform-aws-modules/global-accelerator/aws ~> 3.0` and declares no direct Global Accelerator resources.
 - AWS provider is constrained to `~> 5.0`, resolving with the upstream minimum of 5.84.
-- The public interface is typed and rejects invalid protocols, ports, ranges, traffic dials, weights, health-check settings, and incomplete flow-log configuration.
+- The public interface is typed and rejects invalid names, logical map keys, protocols, duplicate or overlapping listener ports, invalid port overrides, traffic dials, weights, health-check settings, and incomplete flow-log configuration.
 - The module supports multiple listeners, endpoint groups, Regions, and existing supported endpoint types.
 - Flow logs are disabled by default and can target an existing S3 bucket when enabled.
-- Outputs provide accelerator identity/DNS/IP information and keyed listener/endpoint-group ARNs.
+- Outputs provide accelerator identity/DNS/IP information with documented stable shapes and keyed listener/endpoint-group ARNs.
 - README and both test fixtures match the live interface.
-- Formatting, initialization, and validation commands succeed.
+- Formatting, initialization, validation, and mocked native Terraform tests succeed without contacting AWS.
 - The module is present in all three repository CI matrices.
 - A corresponding manual Speckit `spec.md`, `plan.md`, and `tasks.md` package exists before module implementation begins.
