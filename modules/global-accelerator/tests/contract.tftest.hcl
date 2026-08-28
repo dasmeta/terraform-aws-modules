@@ -16,6 +16,7 @@ mock_provider "aws" {
 
   mock_resource "aws_globalaccelerator_listener" {
     defaults = {
+      id  = "arn:aws:globalaccelerator::123456789012:accelerator/mock/listener/mock"
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/mock/listener/mock"
     }
   }
@@ -95,7 +96,8 @@ run "normalizes_standard_accelerator" {
   command = plan
 
   override_resource {
-    target = module.this.aws_globalaccelerator_accelerator.this[0]
+    target          = module.this.aws_globalaccelerator_accelerator.this[0]
+    override_during = plan
     values = {
       arn                 = "arn:aws:globalaccelerator::123456789012:accelerator/example"
       dns_name            = "a1234567890example.awsglobalaccelerator.com"
@@ -109,35 +111,42 @@ run "normalizes_standard_accelerator" {
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_listener.this["web_api"]
+    target          = module.this.aws_globalaccelerator_listener.this["web_api"]
+    override_during = plan
     values = {
+      id  = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/web-api"
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/web-api"
     }
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_listener.this["dns-edge"]
+    target          = module.this.aws_globalaccelerator_listener.this["dns-edge"]
+    override_during = plan
     values = {
+      id  = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/dns-edge"
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/dns-edge"
     }
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_endpoint_group.this["web_api:eu_primary"]
+    target          = module.this.aws_globalaccelerator_endpoint_group.this["web_api:eu_primary"]
+    override_during = plan
     values = {
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/web-api/endpoint-group/eu-primary"
     }
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_endpoint_group.this["web_api:us-secondary"]
+    target          = module.this.aws_globalaccelerator_endpoint_group.this["web_api:us-secondary"]
+    override_during = plan
     values = {
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/web-api/endpoint-group/us-secondary"
     }
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_endpoint_group.this["dns-edge:edge_primary"]
+    target          = module.this.aws_globalaccelerator_endpoint_group.this["dns-edge:edge_primary"]
+    override_during = plan
     values = {
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/example/listener/dns-edge/endpoint-group/edge-primary"
     }
@@ -268,7 +277,7 @@ run "normalizes_standard_accelerator" {
   }
 
   assert {
-    condition     = length(output.ip_sets) == 1 && toset(keys(output.ip_sets[0])) == toset(["ip_addresses", "ip_family"]) && output.ip_sets[0].ip_family == "IPv4" && output.ip_sets[0].ip_addresses == ["192.0.2.10", "192.0.2.11"]
+    condition     = length(output.ip_sets) == 1 && toset(keys(output.ip_sets[0])) == toset(["ip_addresses", "ip_family"]) && output.ip_sets[0].ip_family == "IPv4" && output.ip_sets[0].ip_addresses == tolist(["192.0.2.10", "192.0.2.11"])
     error_message = "The public IP-set list must retain its exact object shape and IPv4 addresses."
   }
 
@@ -302,7 +311,8 @@ run "exposes_dual_stack_addresses" {
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_accelerator.this[0]
+    target          = module.this.aws_globalaccelerator_accelerator.this[0]
+    override_during = plan
     values = {
       arn                 = "arn:aws:globalaccelerator::123456789012:accelerator/dual-stack"
       dns_name            = "a1234567890example.awsglobalaccelerator.com"
@@ -332,12 +342,12 @@ run "exposes_dual_stack_addresses" {
   }
 
   assert {
-    condition     = one([for ip_set in output.ip_sets : ip_set if ip_set.ip_family == "IPv4"]).ip_addresses == ["192.0.2.10", "192.0.2.11"]
+    condition     = one([for ip_set in output.ip_sets : ip_set if ip_set.ip_family == "IPv4"]).ip_addresses == tolist(["192.0.2.10", "192.0.2.11"])
     error_message = "Dual Stack output must expose the overridden IPv4 addresses."
   }
 
   assert {
-    condition     = one([for ip_set in output.ip_sets : ip_set if ip_set.ip_family == "IPv6"]).ip_addresses == ["2001:db8::10", "2001:db8::11"]
+    condition     = one([for ip_set in output.ip_sets : ip_set if ip_set.ip_family == "IPv6"]).ip_addresses == tolist(["2001:db8::10", "2001:db8::11"])
     error_message = "Dual Stack output must expose the overridden IPv6 addresses."
   }
 }
@@ -356,7 +366,8 @@ run "wires_nondefault_accelerator_settings" {
   }
 
   override_resource {
-    target = module.this.aws_globalaccelerator_accelerator.this[0]
+    target          = module.this.aws_globalaccelerator_accelerator.this[0]
+    override_during = plan
     values = {
       arn                 = "arn:aws:globalaccelerator::123456789012:accelerator/contract-wiring"
       dns_name            = "contract-wiring.awsglobalaccelerator.com"

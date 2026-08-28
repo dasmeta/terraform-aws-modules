@@ -16,6 +16,7 @@ mock_provider "aws" {
 
   mock_resource "aws_globalaccelerator_listener" {
     defaults = {
+      id  = "arn:aws:globalaccelerator::123456789012:accelerator/flow-logs/listener/dns"
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/flow-logs/listener/dns"
     }
   }
@@ -40,7 +41,7 @@ run "flow_logs_fixture_plans" {
   }
 
   assert {
-    condition     = output.dual_stack_dns_name == null && length(output.ip_sets) == 1 && output.ip_sets[0].ip_addresses == ["192.0.2.30", "192.0.2.31"]
+    condition     = output.dual_stack_dns_name == null && length(output.ip_sets) == 1 && output.ip_sets[0].ip_addresses == tolist(["192.0.2.30", "192.0.2.31"])
     error_message = "The flow-log fixture must retain default IPv4 output behavior."
   }
 

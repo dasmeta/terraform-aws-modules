@@ -16,6 +16,7 @@ mock_provider "aws" {
 
   mock_resource "aws_globalaccelerator_listener" {
     defaults = {
+      id  = "arn:aws:globalaccelerator::123456789012:accelerator/basic/listener/https"
       arn = "arn:aws:globalaccelerator::123456789012:accelerator/basic/listener/https"
     }
   }
