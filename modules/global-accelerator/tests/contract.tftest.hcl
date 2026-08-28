@@ -341,3 +341,52 @@ run "exposes_dual_stack_addresses" {
     error_message = "Dual Stack output must expose the overridden IPv6 addresses."
   }
 }
+
+run "wires_nondefault_accelerator_settings" {
+  command = plan
+
+  variables {
+    name            = "contract-nondefault-accelerator"
+    enabled         = false
+    ip_address_type = "DUAL_STACK"
+    tags = {
+      ContractBoundary = "top-level-accelerator-wiring"
+      TestScope        = "global-accelerator"
+    }
+  }
+
+  override_resource {
+    target = module.this.aws_globalaccelerator_accelerator.this[0]
+    values = {
+      arn                 = "arn:aws:globalaccelerator::123456789012:accelerator/contract-wiring"
+      dns_name            = "contract-wiring.awsglobalaccelerator.com"
+      dual_stack_dns_name = "contract-wiring.dualstack.awsglobalaccelerator.com"
+      hosted_zone_id      = "Z2BJ6XQ5FK7U4H"
+      ip_sets = [
+        {
+          ip_addresses = ["192.0.2.20", "192.0.2.21"]
+          ip_family    = "IPv4"
+        },
+        {
+          ip_addresses = ["2001:db8::20", "2001:db8::21"]
+          ip_family    = "IPv6"
+        }
+      ]
+    }
+  }
+
+  assert {
+    condition     = output.accelerator_arn == "arn:aws:globalaccelerator::123456789012:accelerator/contract-wiring"
+    error_message = "The non-default contract run must expose its overridden accelerator ARN."
+  }
+
+  assert {
+    condition     = output.dual_stack_dns_name == "contract-wiring.dualstack.awsglobalaccelerator.com"
+    error_message = "The non-default contract run must expose its overridden Dual Stack DNS name."
+  }
+
+  assert {
+    condition     = toset([for ip_set in output.ip_sets : ip_set.ip_family]) == toset(["IPv4", "IPv6"])
+    error_message = "The non-default contract run must retain complete Dual Stack IP sets."
+  }
+}

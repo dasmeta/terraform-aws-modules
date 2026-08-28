@@ -36,6 +36,8 @@ variables {
   }
 }
 
+# Positive boundary acceptance
+
 run "accepts_minimum_length_name" {
   command = plan
 
@@ -51,6 +53,102 @@ run "accepts_maximum_length_name" {
     name = join("", [for _ in range(64) : "a"])
   }
 }
+
+run "accepts_lower_port_and_behavior_boundaries" {
+  command = plan
+
+  variables {
+    listeners = {
+      udp_lower = {
+        protocol        = "UDP"
+        client_affinity = "SOURCE_IP"
+        port_ranges     = [{ from_port = 1, to_port = 1 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region   = "eu-central-1"
+            traffic_dial_percentage = 0
+            health_check = {
+              protocol         = "TCP"
+              port             = 1
+              interval_seconds = 10
+              threshold_count  = 1
+            }
+            endpoints = [{
+              endpoint_id = "eipalloc-0123456789abcdef0"
+              weight      = 0
+            }]
+            port_overrides = [{
+              listener_port = 1
+              endpoint_port = 2
+            }]
+          }
+        }
+      }
+    }
+  }
+}
+
+run "accepts_upper_port_and_behavior_boundaries" {
+  command = plan
+
+  variables {
+    listeners = {
+      tcp_upper = {
+        port_ranges = [{ from_port = 65535, to_port = 65535 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region = "us-east-1"
+            health_check = {
+              protocol         = "TCP"
+              port             = 65535
+              interval_seconds = 30
+              threshold_count  = 10
+            }
+            endpoints = [{
+              endpoint_id = "i-0123456789abcdef0"
+              weight      = 255
+            }]
+            port_overrides = [{
+              listener_port = 65535
+              endpoint_port = 65534
+            }]
+          }
+        }
+      }
+    }
+  }
+}
+
+run "accepts_override_endpoint_port_boundaries" {
+  command = plan
+
+  variables {
+    listeners = {
+      lower_endpoint = {
+        port_ranges = [{ from_port = 2, to_port = 2 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region = "eu-west-1"
+            endpoints             = [{ endpoint_id = "i-0123456789abcdef0" }]
+            port_overrides        = [{ listener_port = 2, endpoint_port = 1 }]
+          }
+        }
+      }
+      upper_endpoint = {
+        port_ranges = [{ from_port = 65534, to_port = 65534 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region = "ap-southeast-1"
+            endpoints             = [{ endpoint_id = "eipalloc-0123456789abcdef0" }]
+            port_overrides        = [{ listener_port = 65534, endpoint_port = 65535 }]
+          }
+        }
+      }
+    }
+  }
+}
+
+# Top-level and logical-key rejection cases
 
 run "rejects_empty_name" {
   command = plan
@@ -201,6 +299,8 @@ run "rejects_colon_in_endpoint_group_key" {
 
   expect_failures = [var.listeners]
 }
+
+# Listener protocol, affinity, and port-range rejection cases
 
 run "rejects_invalid_listener_protocol" {
   command = plan
@@ -421,6 +521,8 @@ run "rejects_overlapping_ranges_across_listeners" {
   expect_failures = [var.listeners]
 }
 
+# Endpoint-group Region and cardinality rejection cases
+
 run "rejects_empty_endpoint_groups" {
   command = plan
 
@@ -499,6 +601,8 @@ run "rejects_duplicate_region_per_listener" {
 
   expect_failures = [var.listeners]
 }
+
+# Endpoint identity and weight rejection cases
 
 run "rejects_empty_endpoints" {
   command = plan
@@ -663,6 +767,8 @@ run "rejects_fractional_weight" {
 
   expect_failures = [var.listeners]
 }
+
+# Traffic-dial and health-check rejection cases
 
 run "rejects_traffic_dial_below_range" {
   command = plan
@@ -1013,6 +1119,8 @@ run "rejects_tcp_health_path" {
   expect_failures = [var.listeners]
 }
 
+# Port-override rejection cases
+
 run "rejects_too_many_port_overrides" {
   command = plan
 
@@ -1283,6 +1391,8 @@ run "rejects_cross_group_conflicting_mapping" {
 
   expect_failures = [var.listeners]
 }
+
+# Flow-log rejection cases
 
 run "rejects_flow_logs_without_bucket" {
   command = plan
