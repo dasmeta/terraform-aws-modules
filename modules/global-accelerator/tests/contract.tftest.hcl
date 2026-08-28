@@ -175,6 +175,18 @@ run "normalizes_standard_accelerator" {
 
   assert {
     condition = (
+      local.listeners["web_api"].endpoint_groups["eu_primary"].endpoint_group_region == "eu-central-1" &&
+      local.listeners["web_api"].endpoint_groups["us-secondary"].endpoint_group_region == "us-east-1" &&
+      local.listeners["dns-edge"].endpoint_groups["edge_primary"].endpoint_group_region == "eu-west-1" &&
+      module.this.endpoint_groups["web_api:eu_primary"].endpoint_group_region == "eu-central-1" &&
+      module.this.endpoint_groups["web_api:us-secondary"].endpoint_group_region == "us-east-1" &&
+      module.this.endpoint_groups["dns-edge:edge_primary"].endpoint_group_region == "eu-west-1"
+    )
+    error_message = "Every endpoint-group Region must retain its exact value through upstream normalization."
+  }
+
+  assert {
+    condition = (
       module.this.endpoint_groups["web_api:eu_primary"].listener_arn == module.this.listeners["web_api"].id &&
       module.this.endpoint_groups["web_api:us-secondary"].listener_arn == module.this.listeners["web_api"].id &&
       module.this.endpoint_groups["dns-edge:edge_primary"].listener_arn == module.this.listeners["dns-edge"].id
@@ -231,6 +243,18 @@ run "normalizes_standard_accelerator" {
       length(var.listeners["dns-edge"].endpoint_groups.edge_primary.port_overrides) == 0
     )
     error_message = "Nullable health fields and optional arrays must preserve their public defaults."
+  }
+
+  assert {
+    condition = (
+      !contains(keys(local.listeners["web_api"].endpoint_groups["us-secondary"]), "health_check_port") &&
+      !contains(keys(local.listeners["web_api"].endpoint_groups["us-secondary"]), "health_check_path") &&
+      !contains(keys(one(local.listeners["web_api"].endpoint_groups["us-secondary"].endpoint_configuration)), "client_ip_preservation_enabled") &&
+      !contains(keys(local.listeners["dns-edge"].endpoint_groups["edge_primary"]), "health_check_port") &&
+      !contains(keys(local.listeners["dns-edge"].endpoint_groups["edge_primary"]), "health_check_path") &&
+      !contains(keys(one(local.listeners["dns-edge"].endpoint_groups["edge_primary"].endpoint_configuration)), "client_ip_preservation_enabled")
+    )
+    error_message = "Nullable health and endpoint fields must be omitted from normalized upstream child-module values."
   }
 
   assert {

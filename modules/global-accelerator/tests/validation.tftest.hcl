@@ -396,6 +396,7 @@ run "rejects_overlapping_ranges_across_listeners" {
   variables {
     listeners = {
       web = {
+        protocol    = "TCP"
         port_ranges = [{ from_port = 443, to_port = 443 }]
         endpoint_groups = {
           primary = {
@@ -405,6 +406,7 @@ run "rejects_overlapping_ranges_across_listeners" {
         }
       }
       admin = {
+        protocol    = "UDP"
         port_ranges = [{ from_port = 440, to_port = 450 }]
         endpoint_groups = {
           primary = {
@@ -1130,7 +1132,16 @@ run "rejects_foreign_override_listener_port" {
           primary = {
             endpoint_group_region = "eu-central-1"
             endpoints             = [{ endpoint_id = "i-0123456789abcdef0" }]
-            port_overrides        = [{ listener_port = 80, endpoint_port = 8080 }]
+            port_overrides        = [{ listener_port = 80, endpoint_port = 8443 }]
+          }
+        }
+      }
+      http = {
+        port_ranges = [{ from_port = 80, to_port = 80 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region = "us-east-1"
+            endpoints             = [{ endpoint_id = "eipalloc-0123456789abcdef0" }]
           }
         }
       }
@@ -1151,7 +1162,16 @@ run "rejects_override_endpoint_port_in_listener_range" {
           primary = {
             endpoint_group_region = "eu-central-1"
             endpoints             = [{ endpoint_id = "i-0123456789abcdef0" }]
-            port_overrides        = [{ listener_port = 443, endpoint_port = 443 }]
+            port_overrides        = [{ listener_port = 443, endpoint_port = 80 }]
+          }
+        }
+      }
+      http = {
+        port_ranges = [{ from_port = 80, to_port = 80 }]
+        endpoint_groups = {
+          primary = {
+            endpoint_group_region = "us-east-1"
+            endpoints             = [{ endpoint_id = "eipalloc-0123456789abcdef0" }]
           }
         }
       }
