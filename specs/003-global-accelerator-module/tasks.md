@@ -11,10 +11,10 @@
 
 ## Phase 2: Tests First
 
-- [ ] T004 Create `tests/contract.tftest.hcl` for defaults, normalization, exact output shapes, IPv4 null behavior, and Dual Stack behavior.
-- [ ] T005 Create `tests/validation.tftest.hcl` with expected failures for every custom validation family.
-- [ ] T006 Create the basic and flow-log Terraform fixtures and native fixture runner files.
-- [ ] T007 Run `terraform init` and `terraform test`, recording the expected RED result caused by the missing wrapper implementation.
+- [x] T004 Create `tests/contract.tftest.hcl` for defaults, normalization, exact output shapes, IPv4 null behavior, and Dual Stack behavior.
+- [x] T005 Create `tests/validation.tftest.hcl` with expected failures for every custom validation family.
+- [x] T006 Create the basic and flow-log Terraform fixtures and native fixture runner files.
+- [x] T007 Run `terraform init` and `terraform test`, recording the expected RED result caused by the missing wrapper implementation.
 
 ## Phase 3: Minimal Wrapper Implementation
 
