@@ -1,6 +1,6 @@
 module "this" {
   source  = "terraform-aws-modules/global-accelerator/aws"
-  version = "~> 3.0"
+  version = "3.0.0"
 
   name            = var.name
   enabled         = var.enabled
