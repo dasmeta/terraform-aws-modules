@@ -73,32 +73,32 @@ Notification actions are caller-owned. Pass SNS topic ARNs or other CloudWatch a
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.99 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.56.0 |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.99 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_this"></a> [this](#module\_this) | terraform-aws-modules/alb/aws | ~> 9.17 |
 
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws_cloudwatch_metric_alarm.target_unhealthy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_alarms"></a> [alarms](#input\_alarms) | Target-health CloudWatch alarm configuration. Alarm actions are caller-owned. | <pre>object({<br/>    enabled                   = optional(bool, false)<br/>    alarm_actions             = optional(list(string), [])<br/>    ok_actions                = optional(list(string), [])<br/>    insufficient_data_actions = optional(list(string), [])<br/>    name_prefix               = optional(string, "")<br/>    threshold                 = optional(number, 0)<br/>    comparison_operator       = optional(string, "GreaterThanThreshold")<br/>    evaluation_periods        = optional(number, 1)<br/>    datapoints_to_alarm       = optional(number)<br/>    period                    = optional(number, 60)<br/>    statistic                 = optional(string, "Maximum")<br/>    treat_missing_data        = optional(string, "notBreaching")<br/>  })</pre> | <pre>{<br/>  "enabled": false<br/>}</pre> | no |
 | <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | IPv4 CIDR blocks allowed to reach listener ports on the module-managed security group. | `list(string)` | `[]` | no |
 | <a name="input_allowed_ipv6_cidr_blocks"></a> [allowed\_ipv6\_cidr\_blocks](#input\_allowed\_ipv6\_cidr\_blocks) | IPv6 CIDR blocks allowed to reach listener ports on the module-managed security group. | `list(string)` | `[]` | no |
@@ -123,7 +123,7 @@ Notification actions are caller-owned. Pass SNS topic ARNs or other CloudWatch a
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | ARN of the Network Load Balancer. |
 | <a name="output_lb_arn_suffix"></a> [lb\_arn\_suffix](#output\_lb\_arn\_suffix) | ARN suffix of the Network Load Balancer for CloudWatch dimensions. |
 | <a name="output_lb_dns_name"></a> [lb\_dns\_name](#output\_lb\_dns\_name) | DNS name of the Network Load Balancer. |
