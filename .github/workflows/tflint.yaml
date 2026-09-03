@@ -77,7 +77,7 @@ jobs:
           - modules/vpc
           - modules/waf
     steps:
-    - uses: dasmeta/reusable-actions-workflows/tflint@4.2.1
+    - uses: dasmeta/reusable-actions-workflows/tflint@4.4.0
       with:
         path: ${{ matrix.path }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
