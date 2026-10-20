@@ -24,7 +24,7 @@ Consumers configure the same narrow bucket-protection object under cloudtrail, w
 - Removing Terraform lock configuration removes the default retention rule; it does not disable Object Lock. Never present that removal as a safe rollback.
 - Versioning propagation and continued CloudTrail ingestion require live validation. No mock can prove existing-state non-replacement or real IAM enforcement.
 - Empty emergency allowlist produces an unconditional bypass deny; never emit an empty IAM condition array.
-- Require versioning and force_destroy=false when Governance years are nonzero. Reject invalid years and wildcard/non-role exception ARNs.
+- Require versioning and force_destroy=false when Governance retention is nonzero. Reject invalid or conflicting duration units and wildcard/non-role exception ARNs.
 - An SSO admin may assume the dedicated emergency role only under the operational approval process; IAM does not enforce approval itself. Bucket policy admins remain privileged and must follow change control.
 
 ## Requirements
@@ -45,4 +45,7 @@ Consumers configure the same narrow bucket-protection object under cloudtrail, w
 ## Assumptions
 - Existing child module already uses Terraform1.3 optional attributes in cmdb_integration/alerts, and its basic verification setup requires >=1.3. Use the same optional grouped-field convention without raising the effective runtime floor.
 - Account wrapper already requires Terraform ~>1.3 and can expose optional grouped attributes safely.
-- Use five calendar years for S3 Governance; the existing 1827-day CloudWatch work is unchanged.
+- Use 1827 explicit days for at least five calendar years of S3 Governance; the existing 1827-day CloudWatch work is unchanged.
+
+## Review correction: calendar-year minimum
+Use explicit 1827-day Governance retention in the protected example and Sela consumer to cover five calendar years including leap days. Add optional governance_retention_days (default zero), retaining the years input for compatibility; require exactly one positive unit when enabling retention, integer bounds, versioning and force_destroy=false. Verify the actual child resource uses days=1827 with years unset.

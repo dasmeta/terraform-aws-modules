@@ -12,10 +12,10 @@ Terraform native module; Sela consumes AWS ~>5.0. Existing CloudTrail module cod
 No downstream constitution or root AGENTS.md is present. Follow installed module standards and operator CloudBrowser/Jira identity rules. Preserve the existing direct-resource module (no new module or refactor); grouped child object uses optional fields and a complete default, matching existing cmdb_integration/alerts and the >=1.3 basic setup. Account already requires ~>1.3, so nested optional fields are supported. This is a requested narrow opt-in extension, not a broad upstream passthrough or default-weakening change.
 
 ## Design
-- Child bucket_protection object: force_destroy bool (default true), versioning_enabled bool (false), governance_retention_years number (0 = off), governance_bypass_role_arns list(string) ([]).
-- Governance years must be 0 or an integer 1..100; nonzero requires versioning and force_destroy=false. Approved bypass values must be concrete IAM role ARNs without wildcards.
+- Child bucket_protection object: force_destroy bool (default true), versioning_enabled bool (false), governance_retention_days number (0 = unset), governance_retention_years number (0 = unset), governance_bypass_role_arns list(string) ([]).
+- Governance days must be 0 or an integer 1..36500, years 0 or an integer 1..100; select at most one positive unit. Nonzero retention requires versioning and force_destroy=false. Approved bypass values must be concrete IAM role ARNs without wildcards.
 - Keep aws_s3_bucket.s3[0] and aws_s3_bucket_policy.s3[0] addresses. Set force_destroy from the object. Do not set aws_s3_bucket.object_lock_enabled (ForceNew in AWS5).
-- Owned buckets only: standalone aws_s3_bucket_versioning and aws_s3_bucket_object_lock_configuration, with explicit versioning-before-lock ordering. Lock mode fixed to GOVERNANCE and years from the object.
+- Owned buckets only: standalone aws_s3_bucket_versioning and aws_s3_bucket_object_lock_configuration, with explicit versioning-before-lock ordering. Lock mode fixed to GOVERNANCE and the selected days or years from the object.
 - Preserve two delivery statements; append explicit s3:BypassGovernanceRetention deny when Governance is enabled. With exceptions, use ArnNotEquals aws:PrincipalArn; without exceptions, omit Condition to deny all bypass. No invented policy-administration grants or destructive state migration.
 - CloudTrail creation depends on delivery policy/versioning/lock readiness. Existing resource arguments remain unchanged.
 - Account wrapper exposes optional grouped fields with identical defaults and passes the complete object to the child. During draft review use immutable Git commit pins; move to supported releases before deployment. No releases are created by this task.
@@ -32,3 +32,6 @@ Keep tests independently expressed from examples. Retain existing unrelated auto
 
 ## Rollout and recovery
 Review source/plan for unchanged bucket/trail addresses, zero bucket/trail replacement, healthy delivery/digests, exact SSO trust and role policy. Versioning can take time to propagate; AWS recommends waiting before object PUT/DELETE after first enabling it. Default lock covers new versions only; separately approve historical-object protection. Lock enablement is irreversible; removing configuration removes the default rule rather than unlocking old versions. Do not shorten retained history during rollback.
+
+## Review correction: calendar-year minimum
+Use explicit 1827-day Governance retention in the protected example and Sela consumer to cover five calendar years including leap days. Add optional governance_retention_days (default zero), retaining the years input for compatibility; require exactly one positive unit when enabling retention, integer bounds, versioning and force_destroy=false. Verify the actual child resource uses days=1827 with years unset.

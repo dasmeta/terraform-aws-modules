@@ -16,3 +16,8 @@
 
 ## Dependencies and strategy
 T001→T002→T003→T004→T005→T006→T007→T008. Research can run independently; file mutations are sequential. Defaults are the compatibility baseline; protected and negative cases independently verify the feature. Deployment is outside scope and requires an existing-state plan and exact approval.
+
+## Calendar-duration review correction
+- [x] R001 Add optional day retention and mutually exclusive unit validation; preserve existing year-based consumers.
+- [x] R002 Update examples, native mocked tests and account resource-state verification for 1827 days.
+- [ ] R003 Validate, publish dependency revisions, regenerate Sela Terraform and update evidence.

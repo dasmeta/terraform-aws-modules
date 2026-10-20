@@ -10,3 +10,6 @@
 The repository-wide commit hook invokes pre-commit --all-files and reformatted 128 unrelated tracked documents. Those post-hook edits were restored to the reviewed index. Scoped pre-commit checks are used instead; Terraform docs updates are limited to this module/example. The global commit wrapper is bypassed only after the same checks pass for the staged files.
 
 Published dependency PRs: https://github.com/dasmeta/terraform-aws-modules/pull/371 and https://github.com/dasmeta/terraform-aws-account/pull/67. Sela source and regenerated account Terraform are published in MR !183 at 21de61e381ff5c8cd71640ac46c43387cc7164af. The consumer pins the tested immutable code commits; this follow-up changes documentation only. All source-implementation tasks are complete; merge/release and production deployment gates remain outstanding.
+
+## Calendar-duration correction
+AWS5.100.0 validation passed. Native mocked tests passed 16/16, including explicit days=1827 with years unset, compatible years=5, and rejection of both units, fractional/negative/excessive days. No AWS API calls or infrastructure apply. Scoped hooks regenerated the affected input table. Consumer revision publication and generated Terraform are recorded in CloudBrowser275 and the linked Sela MR.

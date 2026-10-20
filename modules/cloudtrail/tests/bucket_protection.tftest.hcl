@@ -37,7 +37,7 @@ run "five_year_governance" {
     bucket_protection = {
       force_destroy               = false
       versioning_enabled          = true
-      governance_retention_years  = 5
+      governance_retention_days   = 1827
       governance_bypass_role_arns = ["arn:aws:iam::123456789012:role/example-audit-emergency"]
     }
   }
@@ -46,7 +46,7 @@ run "five_year_governance" {
     error_message = "Protected buckets must disable forced deletion and enable versioning."
   }
   assert {
-    condition     = aws_s3_bucket_object_lock_configuration.s3[0].object_lock_enabled == "Enabled" && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].mode == "GOVERNANCE" && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].years == 5
+    condition     = aws_s3_bucket_object_lock_configuration.s3[0].object_lock_enabled == "Enabled" && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].mode == "GOVERNANCE" && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].days == 1827 && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].years == null
     error_message = "The same bucket must receive five calendar years of Governance default retention."
   }
   assert {
@@ -75,6 +75,17 @@ run "no_emergency_exception" {
   assert {
     condition     = jsondecode(aws_s3_bucket_policy.s3[0].policy).Statement[2].Effect == "Deny" && !can(jsondecode(aws_s3_bucket_policy.s3[0].policy).Statement[2].Condition)
     error_message = "An empty exception list must deny bypass unconditionally, without an empty IAM condition."
+  }
+}
+
+run "legacy_year_unit" {
+  command = apply
+  variables {
+    bucket_protection = { force_destroy = false, versioning_enabled = true, governance_retention_years = 5 }
+  }
+  assert {
+    condition     = aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].years == 5 && aws_s3_bucket_object_lock_configuration.s3[0].rule[0].default_retention[0].days == null
+    error_message = "Existing year-based consumers must retain their selected unit."
   }
 }
 
@@ -111,14 +122,14 @@ run "external_bucket_ownership" {
 run "reject_lock_without_versioning" {
   command = plan
   variables {
-    bucket_protection = { force_destroy = false, governance_retention_years = 5 }
+    bucket_protection = { force_destroy = false, governance_retention_days = 1827 }
   }
   expect_failures = [var.bucket_protection]
 }
 run "reject_lock_with_force_destroy" {
   command = plan
   variables {
-    bucket_protection = { versioning_enabled = true, governance_retention_years = 5 }
+    bucket_protection = { versioning_enabled = true, governance_retention_days = 1827 }
   }
   expect_failures = [var.bucket_protection]
 }
@@ -147,6 +158,38 @@ run "reject_non_role_override" {
   command = plan
   variables {
     bucket_protection = { governance_bypass_role_arns = ["arn:aws:iam::123456789012:user/example"] }
+  }
+  expect_failures = [var.bucket_protection]
+}
+
+run "reject_both_units" {
+  command = plan
+  variables {
+    bucket_protection = { force_destroy = false, versioning_enabled = true, governance_retention_days = 1827, governance_retention_years = 5 }
+  }
+  expect_failures = [var.bucket_protection]
+}
+
+run "reject_fractional_days" {
+  command = plan
+  variables {
+    bucket_protection = { force_destroy = false, versioning_enabled = true, governance_retention_days = 1827.5 }
+  }
+  expect_failures = [var.bucket_protection]
+}
+
+run "reject_negative_days" {
+  command = plan
+  variables {
+    bucket_protection = { force_destroy = false, versioning_enabled = true, governance_retention_days = -1 }
+  }
+  expect_failures = [var.bucket_protection]
+}
+
+run "reject_excessive_days" {
+  command = plan
+  variables {
+    bucket_protection = { force_destroy = false, versioning_enabled = true, governance_retention_days = 36501 }
   }
   expect_failures = [var.bucket_protection]
 }

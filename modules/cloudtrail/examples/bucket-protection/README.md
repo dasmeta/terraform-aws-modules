@@ -30,3 +30,5 @@ No inputs.
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+Use `governance_retention_days = 1827` for a five-calendar-year minimum including leap days. The compatible `governance_retention_years` input remains available; set only one unit to a positive value.

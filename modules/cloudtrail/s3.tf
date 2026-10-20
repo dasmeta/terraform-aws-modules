@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "s3" {
 }
 
 locals {
-  s3_governance_enabled = var.bucket_protection.governance_retention_years > 0
+  s3_governance_enabled = var.bucket_protection.governance_retention_years > 0 || var.bucket_protection.governance_retention_days > 0
 }
 
 resource "aws_s3_bucket_versioning" "s3" {
@@ -30,7 +30,8 @@ resource "aws_s3_bucket_object_lock_configuration" "s3" {
   rule {
     default_retention {
       mode  = "GOVERNANCE"
-      years = var.bucket_protection.governance_retention_years
+      days  = var.bucket_protection.governance_retention_days > 0 ? var.bucket_protection.governance_retention_days : null
+      years = var.bucket_protection.governance_retention_years > 0 ? var.bucket_protection.governance_retention_years : null
     }
   }
 
