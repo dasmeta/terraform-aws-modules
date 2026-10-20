@@ -8,3 +8,5 @@
 - Source extension is prepared for a draft dependency PR; merge/release and all production execution remain outside this authorization. Consumer pins must move to supported releases before deployment.
 
 The repository-wide commit hook invokes pre-commit --all-files and reformatted 128 unrelated tracked documents. Those post-hook edits were restored to the reviewed index. Scoped pre-commit checks are used instead; Terraform docs updates are limited to this module/example. The global commit wrapper is bypassed only after the same checks pass for the staged files.
+
+Published dependency PRs: https://github.com/dasmeta/terraform-aws-modules/pull/371 and https://github.com/dasmeta/terraform-aws-account/pull/67. Sela source and regenerated account Terraform are published in MR !183 at 21de61e381ff5c8cd71640ac46c43387cc7164af. The consumer pins the tested immutable code commits; this follow-up changes documentation only. All source-implementation tasks are complete; merge/release and production deployment gates remain outstanding.

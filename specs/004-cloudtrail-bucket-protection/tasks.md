@@ -12,7 +12,7 @@
 
 ## Delivery
 - [x] T007 Request read-only review, fix significant findings, publish a draft dependency PR and record exact commit/test evidence in validation.md.
-- [ ] T008 Wire the shared revision through account/Sela and regenerate consumer Terraform without new Sela Markdown; no merge, release or cloud apply.
+- [x] T008 Wire the shared revision through account/Sela and regenerate consumer Terraform without new Sela Markdown; no merge, release or cloud apply.
 
 ## Dependencies and strategy
 T001→T002→T003→T004→T005→T006→T007→T008. Research can run independently; file mutations are sequential. Defaults are the compatibility baseline; protected and negative cases independently verify the feature. Deployment is outside scope and requires an existing-state plan and exact approval.
