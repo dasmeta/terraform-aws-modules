@@ -90,13 +90,13 @@ No requirements.
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_alerts"></a> [alerts](#module\_alerts) | dasmeta/monitoring/aws//modules/alerts | 1.20.0 |
 | <a name="module_cmdb"></a> [cmdb](#module\_cmdb) | ./modules/cmdb-integration | n/a |
 | <a name="module_log_metric_filter"></a> [log\_metric\_filter](#module\_log\_metric\_filter) | dasmeta/monitoring/aws//modules/cloudwatch-log-based-metrics | 1.20.0 |
@@ -104,26 +104,23 @@ No requirements.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws_cloudtrail.cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail) | resource |
 | [aws_cloudwatch_log_group.logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_iam_policy.cloudtrail_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.cloudtrail_roles](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.cloudtrail_roles_policies](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_s3_bucket.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_object_lock_configuration.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration) | resource |
 | [aws_s3_bucket_policy.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_server_side_encryption_configuration.kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
-| [aws_s3_bucket_versioning.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_alerts"></a> [alerts](#input\_alerts) | Provide CloudWatch Log Metric filters | <pre>object({<br/>    sns_topic_name = optional(string, "alerts-sns-topic")<br/>    events         = optional(list(string), []) # Some possible values are: iam-user-creation-or-deletion, iam-role-creation-or-deletion, iam-policy-changes, s3-creation-or-deletion, root-account-usage, elastic-ip-association-and-disassociation and etc.<br/>  })</pre> | <pre>{<br/>  "enabled": false<br/>}</pre> | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | `null` | no |
-| <a name="input_bucket_protection"></a> [bucket\_protection](#input\_bucket\_protection) | Opt-in protection for the module-owned bucket. Object Lock is irreversible and does not retroactively retain existing versions. | <pre>object({<br/>    force_destroy               = optional(bool, true)       # Preserve the legacy default; set false to prevent forced deletion of non-empty buckets.<br/>    versioning_enabled          = optional(bool, false)      # Enable versioning on the module-owned CloudTrail bucket.<br/>    governance_retention_days   = optional(number, 0)        # Explicit retention in whole days; use 1827 for a five-calendar-year minimum.<br/>    governance_retention_years  = optional(number, 0)        # Default Governance retention in whole years; zero leaves this unit unset.<br/>    governance_bypass_role_arns = optional(list(string), []) # Concrete IAM roles exempted from the Governance-bypass deny; empty denies everyone.<br/>  })</pre> | `{}` | no |
 | <a name="input_cloud_watch_logs_group_arn"></a> [cloud\_watch\_logs\_group\_arn](#input\_cloud\_watch\_logs\_group\_arn) | Specifies a log group name using an Amazon Resource Name (ARN), that represents the log group to which CloudTrail logs will be delivered | `string` | `""` | no |
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | Specifies a log group name that will be created to which CloudTrail logs will be delivered | `string` | `"aws-cloudtrail-logs"` | no |
 | <a name="input_cloud_watch_logs_group_retention"></a> [cloud\_watch\_logs\_group\_retention](#input\_cloud\_watch\_logs\_group\_retention) | Specifies the number of days you want to retain log events in the specified log group. | `number` | `90` | no |
@@ -147,29 +144,6 @@ No requirements.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_s3_bucket_name"></a> [s3\_bucket\_name](#output\_s3\_bucket\_name) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Existing-bucket protection
-
-Set `bucket_protection` to protect the module-owned audit bucket without changing its resource address:
-
-```hcl
-bucket_protection = {
-  force_destroy              = false
-  versioning_enabled         = true
-  governance_retention_days = 1827
-  governance_bypass_role_arns = ["arn:aws:iam::123456789012:role/example-audit-emergency"]
-}
-```
-
-Defaults preserve existing behavior: forced destruction remains enabled, versioning is unmanaged and Governance years are zero (Object Lock unmanaged). Governance requires versioning and `force_destroy=false`. Exception ARNs must identify concrete roles; an empty list denies every principal permission to bypass Governance. The exception is not an IAM Allow: the role separately needs narrow bypass/version permissions and an operational approval procedure. Policy administrators remain privileged and must follow change control.
-
-Only module-owned buckets are configured. `create_s3_bucket=false` never takes ownership of an external bucket; it does not provide a state-migration mechanism. Standalone configuration resources enable versioning before Object Lock. The bucket-level `object_lock_enabled` argument is deliberately unset to avoid provider5 replacement behavior. Review an existing-state zero-replacement plan before any apply; mocks cannot establish that property for live state.
-
-Object Lock enablement cannot be undone and versioning cannot subsequently be suspended. Removing the Terraform lock resource removes the default retention rule, not the bucket's Object Lock capability. Default retention applies to new versions only; protect historical versions through a separately reviewed manifest/process. Never automatically shorten retention as rollback. AWS recommends allowing versioning to propagate before object operations; verify CloudTrail delivery and digest validation during rollout. Storage use/cost increases with retained versions.
-
-For local verification, run `terraform init -backend=false`, `terraform validate`, then `terraform test -filter=tests/bucket_protection.tftest.hcl` from this module directory with Terraform >=1.7. Tests use mocked AWS providers and do not call AWS APIs. Use an AWS5 provider selection when validating this consumer path. See `examples/bucket-protection` for independently expressed usage.
-
-Use `governance_retention_days = 1827` for a five-calendar-year minimum including leap days. The compatible `governance_retention_years` input remains available; set only one unit to a positive value.
