@@ -13,3 +13,5 @@ Published dependency PRs: https://github.com/dasmeta/terraform-aws-modules/pull/
 
 ## Calendar-duration correction
 AWS5.100.0 validation passed. Native mocked tests passed 16/16, including explicit days=1827 with years unset, compatible years=5, and rejection of both units, fractional/negative/excessive days. No AWS API calls or infrastructure apply. Scoped hooks regenerated the affected input table. Consumer revision publication and generated Terraform are recorded in CloudBrowser275 and the linked Sela MR.
+
+Review correction published: child code8f95be9054514e0dcfaccda8c9c88c7f881dca2b; account code8b792ee35e9233ca1978b1e6417ce9bff114a6c8; Sela source/canonical Terraform9f59ca38de42fca7b540491649c54a89af548ef6 in MR !183. Only temporary local_file outputs were applied during generation; no AWS/TFE infrastructure apply. No new Markdown in the Sela diff. Existing release/live-plan/approval gates remain.
