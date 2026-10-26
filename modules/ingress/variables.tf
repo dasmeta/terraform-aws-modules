@@ -75,6 +75,12 @@ variable "log_retention_days" {
   description = "Log Retention days for s3"
 }
 
+variable "cloudwatch_log_retention_days" {
+  type        = number
+  default     = 365
+  description = "Retention days for the ALB CloudWatch log group"
+}
+
 variable "alarms" {
   type = object({
     enabled       = optional(bool, true)

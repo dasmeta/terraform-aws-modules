@@ -34,3 +34,9 @@ variable "log_retention_days" {
   default     = 7
   description = "Log Retention days for s3"
 }
+
+variable "cloudwatch_log_retention_days" {
+  type        = number
+  default     = 365
+  description = "Retention days for the ALB CloudWatch log group"
+}
