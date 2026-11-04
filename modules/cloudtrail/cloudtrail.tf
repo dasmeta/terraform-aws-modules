@@ -43,6 +43,9 @@ resource "aws_cloudtrail" "cloudtrail" {
   }
 
   depends_on = [
-    aws_s3_bucket.s3
+    aws_s3_bucket.s3,
+    aws_s3_bucket_policy.s3,
+    aws_s3_bucket_versioning.s3,
+    aws_s3_bucket_object_lock_configuration.s3
   ]
 }

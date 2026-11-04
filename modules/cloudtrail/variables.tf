@@ -95,6 +95,41 @@ variable "create_s3_bucket" {
   default = true
 }
 
+variable "bucket_protection" {
+  type = object({
+    force_destroy               = optional(bool, true)       # Preserve the legacy default; set false to prevent forced deletion of non-empty buckets.
+    versioning_enabled          = optional(bool, false)      # Enable versioning on the module-owned CloudTrail bucket.
+    governance_retention_days   = optional(number, 0)        # Explicit retention in whole days; use 1827 for a five-calendar-year minimum.
+    governance_retention_years  = optional(number, 0)        # Default Governance retention in whole years; zero leaves this unit unset.
+    governance_bypass_role_arns = optional(list(string), []) # Concrete IAM roles exempted from the Governance-bypass deny; empty denies everyone.
+  })
+  default     = {}
+  description = "Opt-in protection for the module-owned bucket. Object Lock is irreversible and does not retroactively retain existing versions."
+
+  validation {
+    condition = (
+      var.bucket_protection.governance_retention_years >= 0 &&
+      var.bucket_protection.governance_retention_years <= 100 &&
+      floor(var.bucket_protection.governance_retention_years) == var.bucket_protection.governance_retention_years &&
+      var.bucket_protection.governance_retention_days >= 0 &&
+      var.bucket_protection.governance_retention_days <= 36500 &&
+      floor(var.bucket_protection.governance_retention_days) == var.bucket_protection.governance_retention_days &&
+      (var.bucket_protection.governance_retention_years == 0 || var.bucket_protection.governance_retention_days == 0) &&
+      ((var.bucket_protection.governance_retention_years == 0 && var.bucket_protection.governance_retention_days == 0) ||
+      (var.bucket_protection.versioning_enabled && !var.bucket_protection.force_destroy))
+    )
+    error_message = "Use whole days (1 to 36500) or whole years (1 to 100), never both, with versioning_enabled=true and force_destroy=false. Both zero leaves Object Lock unmanaged."
+  }
+
+  validation {
+    condition = length([
+      for arn in var.bucket_protection.governance_bypass_role_arns : arn
+      if can(regex("^arn:(aws|aws-us-gov|aws-cn):iam::[0-9]{12}:role/[A-Za-z0-9_+=,.@/-]+$", arn))
+    ]) == length(var.bucket_protection.governance_bypass_role_arns)
+    error_message = "Governance bypass exceptions must be concrete IAM role ARNs without wildcards."
+  }
+}
+
 variable "bucket_name" {
   type    = string
   default = null
