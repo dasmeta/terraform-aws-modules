@@ -54,7 +54,7 @@ variable "ssl_policy" {
 variable "load_balancer_attributes" {
   type        = string
   default     = ""
-  description = "Specifies Load Balancer Attributes that should be applied to the ALB."
+  description = "Additional Load Balancer attributes to apply to the ALB. They are merged with module-managed access-log attributes when logging is enabled."
 }
 
 variable "enable_send_alb_logs_to_cloudwatch" {
